@@ -1,0 +1,31 @@
+1. Input
+   - text input
+   - CV input/image description
+   - robot state
+
+2. Memory/RAG
+   - retrieve relevant user memories/knowledge
+
+3. Build prompt
+   - personality
+   - user input
+   - CV summary
+   - retrieved memory
+   - robot state
+   - allowed actions
+   - required JSON output format
+
+4. LLM API call
+   - DeepSeek/OpenAI/etc.
+
+5. Parse + validate output
+   - JSON parser
+   - check required fields
+   - safety mechanism for actions
+   - validate memory update
+
+6. Output
+   - speak text
+   - execute safe action
+   - optionally save memory
+   - log interaction
