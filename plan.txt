@@ -1,0 +1,23 @@
+My code will:
+- send forward movement commands
+- send turning commands
+- stop the robot
+- run simple timed movement routes
+- later accept stop commands from the perception/CV code
+- all when showing around places
+- make hand gestures
+
+Main movement variables:
+vx = forward/backward speed
+vy = left/right sideways speed
+yaw_rate = turning speed
+
+Important:
+For hallway walking, vy will usually stay 0.00 because the robot mostly needs to walk forward and turn.
+
+Gesture plan:
+Start with built-in G1 gestures:
+- WaveHand()
+- ShakeHand()
+
+Do not start with custom arm joint control.
