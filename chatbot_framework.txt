@@ -1,31 +1,39 @@
 1. Input
-   - text input
-   - CV input/image description
-   - robot state
-
-2. Memory/RAG
-   - retrieve relevant user memories/knowledge
-
-3. Build prompt
-   - personality
-   - user input
+   - text/audio
    - CV summary
-   - retrieved memory
    - robot state
+
+2. Intent routing
+   - chat?
+   - memory update?
+   - action request?
+   - knowledge lookup?
+
+3. Memory/RAG
+   - retrieve user memory
+   - retrieve robot manual/safety rules
+   - retrieve environment info
+
+4. Build prompt
+   - personality
+   - retrieved context
    - allowed actions
-   - required JSON output format
+   - required JSON output
 
-4. LLM API call
-   - DeepSeek/OpenAI/etc.
+5. LLM API call
 
-5. Parse + validate output
+6. Parse output
    - JSON parser
-   - check required fields
-   - safety mechanism for actions
-   - validate memory update
+   - validate fields
 
-6. Output
-   - speak text
-   - execute safe action
-   - optionally save memory
-   - log interaction
+7. Safety layer
+   - action allowed?
+   - obstacle?
+   - battery?
+   - movement enabled?
+
+8. Execute
+   - speak
+   - action
+   - save memory
+   - log data
