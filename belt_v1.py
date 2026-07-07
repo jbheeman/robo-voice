@@ -1,6 +1,11 @@
 '''
+BELT Version 1:
 
-
+-Simple terminal-based chatbot for BELT
+-Users can talk to BELT normally or use commands
+-DeepSeek API for main LLM
+-Manually store memory with /commands
+-Keeps recent conversation so BELT can respond with context
 
 
 '''
