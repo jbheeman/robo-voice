@@ -1,0 +1,24 @@
+{
+  "users": {
+    "Bob": {
+      "details": {
+        "favorite_color": "red",
+        "favorite_sport": "soccer",
+        "eye_color": "black",
+        "favorite_player": "Messi"
+      },
+      "notes": []
+    },
+    "Aster": {
+      "details": {},
+      "notes": [
+        "Aster is a student studying at UCSC, age 19, likes cats",
+        "Aster is friends with Bob",
+        "I'm actually not friends with Bob, the previous saved memory is incorrect",
+        "I like turtles more than cats but I like cats too",
+        "I have a pet dog",
+        "I'm turning 20 tomorrow"
+      ]
+    }
+  }
+}
