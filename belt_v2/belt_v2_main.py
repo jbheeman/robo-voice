@@ -28,7 +28,7 @@ def main() -> None:
 
     conversation: List[Dict[str, str]] = []
 
-    print("BELT v1.5 chatbot prototype online 🤖")
+    print("BELT v2 chatbot prototype online 🤖")
     print(f"Using model: {MODEL}")
     print("Type /help for commands.\n")
 
