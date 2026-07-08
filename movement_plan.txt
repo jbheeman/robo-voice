@@ -2,7 +2,7 @@ My code will:
 - send forward movement commands
 - send turning commands
 - stop the robot
-- run simple timed movement routes
+- run simple timed movement routesg
 - later accept stop commands from the perception/CV code
 - all when showing around places
 - make hand gestures
