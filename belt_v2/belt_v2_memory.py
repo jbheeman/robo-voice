@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-MEMORY_FILE = Path("memory_v1_5.json")
+MEMORY_FILE = Path("memory_v2.json")
 
 
 def normalize_memory(memory: Dict[str, Any]) -> Dict[str, Any]:
