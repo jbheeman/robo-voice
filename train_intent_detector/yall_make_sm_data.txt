@@ -2,20 +2,29 @@ Categories:
 chat, memory_update, memory_retrieval, movement
 
 chat:
-"yoo whats up do you play brawl stars"
-"hi! do you like youtube, instagram or tiktok better?"
+"Yoo, what's up? Do you play Brawl Stars?"
+"Hi! Do you like Youtube, Instagram, or Tiktok better?"
+"Hello, world"
+"Can you talk?"
 
 
 memory_update:
-"hey, did you know i play brawl stars? remember that"
-"did you know instagram is my favorite social platform?"
+"Hey, did you know I play Brawl Stars? Remember that."
+"Did you know Instagram is my favorite social platform?"
+"Remember that I put my favorite laptop there."
+"Remember to come back to this room."
 
 
 memory_retrieval:
-"do you know my favorite video game?"
+"Do you know my favourite video game?"
+"What was that object you were talking about?"
+"What's my favorite social platform?"
+"What's my name?"
 
 
 movement:
-"bro move like a couple steps back"
-
+"Bro, move like, a couple steps back."
+"Walk down the hallway with me."
+"Walk away from me."
+"Move to the nearest emergency exit."
 
