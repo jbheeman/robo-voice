@@ -16,8 +16,8 @@ def process_camera_frame(rgb_frame, depth_frame):
       class_id = int(box.cls[0])
       label = model.names[class_id]
 
-          #list of the items we want the robot to identify
-      personal_items = ["cell phone", "keys", "wallet", "backpack", "cup"]
+      #list of the items we want the robot to identify
+      personal_items = ["cell phone", "backpack", "cup", "bottle", "handbag", "suitcase", "laptop"]
       detected_objects = []
       if label in personal_items:
                 
@@ -37,8 +37,5 @@ def process_camera_frame(rgb_frame, depth_frame):
           "center_y": center_y,
           "depth": object_depth
         })
-#returns the annotated frame with the list of detected objects and the spacial data of the objects
-return rgb_frame, detected_objects
-              
-
-
+  #returns the annotated frame with the list of detected objects and the spacial data of the objects
+  return rgb_frame, detected_objects
