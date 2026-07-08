@@ -437,6 +437,8 @@ def main() -> None:
 
         # Keep only recent context so it doesn't grow forever.
         conversation = conversation[-10:]
+        
+        print(conversation)
 
 
 if __name__ == "__main__":
