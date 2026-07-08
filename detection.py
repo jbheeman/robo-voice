@@ -4,6 +4,7 @@ import torch
 from ultralytics import YOLO
 model = YOLO("yolov8n.engine")
 
+#This method should prob be used in movement.py
 def process_camera_frame(rgb_frame, depth_frame):
   results = model(rgb_frame, conf=0.5)
   
