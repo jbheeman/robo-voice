@@ -1,51 +1,801 @@
 text,intent
-"hi",chat
-"hello",chat
-"hey belt",chat
-"how are you",chat
-"tell me a joke",chat
-"what is machine learning",chat
-"explain logistic regression",chat
-"how does PCA work",chat
-"what is the weather like",chat
-"who are you",chat
-"what can you do",chat
-"can you help me with code",chat
-
-"remember that I like soccer",memory_update
-"save that my name is Bella",memory_update
-"my favorite color is blue",memory_update
-"remember I prefer short answers",memory_update
-"note that I like robotics",memory_update
-"store this: I am working on BELT",memory_update
-"remember that I like dogs",memory_update
-"add to memory that I use DeepSeek",memory_update
-"please remember my favorite animal is porcupine",memory_update
-"from now on remember I like concise explanations",memory_update
-
-"what do you remember about me",memory_retrieval
-"show my memory",memory_retrieval
-"what is saved about me",memory_retrieval
-"do you know my name",memory_retrieval
-"what is my favorite color",memory_retrieval
-"what do I like",memory_retrieval
-"retrieve my notes",memory_retrieval
-"what do you know about UCSC",memory_retrieval
-"tell me the campus details you know",memory_retrieval
-"look up my saved preferences",memory_retrieval
-
-"move forward",movement
-"go forward",movement
-"turn left",movement
-"turn right",movement
-"move backward",movement
-"back up",movement
-"stop moving",movement
-"stop",movement
-"follow me",movement
-"come here",movement
-"rotate left",movement
-"rotate right",movement
-"go slower",movement
-"speed up",movement
-"pause movement",movement
+hi,chat
+hello,chat
+hey,chat
+hey belt,chat
+good morning,chat
+good afternoon,chat
+good evening,chat
+yo belt,chat
+how are you,chat
+how are you doing,chat
+what can you do,chat
+can you help me,chat
+thanks,chat
+thank you,chat
+that was helpful,chat
+nice to meet you,chat
+tell me about yourself,chat
+what is your name,chat
+are you belt,chat
+who are you,chat
+what do you like,chat
+what is your favorite color,chat
+what is your favorite animal,chat
+what is your favorite ice cream,chat
+tell me a joke,chat
+say something funny,chat
+can we chat,chat
+talk to me,chat
+what are your rules,chat
+explain yourself,chat
+how does this chatbot work,chat
+what kind of robot are you,chat
+are you online,chat
+are you awake,chat
+belt are you there,chat
+hello robot,chat
+hey robot,chat
+sup belt,chat
+good to see you,chat
+what's up,chat
+whats up,chat
+how is your day,chat
+do you like porcupines,chat
+do you like mint chocolate chip,chat
+what should I ask you,chat
+give me an example prompt,chat
+help me brainstorm,chat
+can you explain something,chat
+I need help,chat
+I have a question,chat
+let's talk,chat
+lets talk,chat
+hi belt,chat
+hi belt!,chat
+hi robot,chat
+hi robot!,chat
+hi buddy,chat
+hi buddy!,chat
+hi campus robot,chat
+hi campus robot!,chat
+hi little robot,chat
+hi little robot!,chat
+hello belt,chat
+hello belt!,chat
+hello robot!,chat
+hello buddy,chat
+hello buddy!,chat
+hello campus robot,chat
+hello campus robot!,chat
+hello little robot,chat
+hello little robot!,chat
+hey belt!,chat
+hey robot!,chat
+hey buddy,chat
+hey buddy!,chat
+hey campus robot,chat
+hey campus robot!,chat
+hey little robot,chat
+hey little robot!,chat
+yo belt!,chat
+yo robot,chat
+yo robot!,chat
+yo buddy,chat
+yo buddy!,chat
+yo campus robot,chat
+yo campus robot!,chat
+yo little robot,chat
+yo little robot!,chat
+hiya belt,chat
+hiya belt!,chat
+hiya robot,chat
+hiya robot!,chat
+hiya buddy,chat
+hiya buddy!,chat
+hiya campus robot,chat
+hiya campus robot!,chat
+hiya little robot,chat
+hiya little robot!,chat
+sup belt!,chat
+sup robot,chat
+sup robot!,chat
+sup buddy,chat
+sup buddy!,chat
+sup campus robot,chat
+sup campus robot!,chat
+sup little robot,chat
+sup little robot!,chat
+good morning belt,chat
+good morning belt!,chat
+good morning robot,chat
+good morning robot!,chat
+good morning buddy,chat
+good morning buddy!,chat
+good morning campus robot,chat
+good morning campus robot!,chat
+good morning little robot,chat
+good morning little robot!,chat
+good afternoon belt,chat
+good afternoon belt!,chat
+good afternoon robot,chat
+good afternoon robot!,chat
+good afternoon buddy,chat
+good afternoon buddy!,chat
+good afternoon campus robot,chat
+good afternoon campus robot!,chat
+good afternoon little robot,chat
+good afternoon little robot!,chat
+good evening belt,chat
+good evening belt!,chat
+good evening robot,chat
+good evening robot!,chat
+good evening buddy,chat
+good evening buddy!,chat
+good evening campus robot,chat
+good evening campus robot!,chat
+good evening little robot,chat
+good evening little robot!,chat
+greetings belt,chat
+greetings belt!,chat
+greetings robot,chat
+greetings robot!,chat
+greetings buddy,chat
+greetings buddy!,chat
+greetings campus robot,chat
+greetings campus robot!,chat
+greetings little robot,chat
+greetings little robot!,chat
+can you answer questions,chat
+can you answer questions?,chat
+can you explain code,chat
+can you explain code?,chat
+can you help with homework,chat
+can you help with homework?,chat
+can you help with coding,chat
+can you help with coding?,chat
+can you help with machine learning,chat
+can you help with machine learning?,chat
+can you help with robotics,chat
+can you help with robotics?,chat
+can you summarize things,chat
+can you summarize things?,chat
+can you keep track of context,chat
+can you keep track of context?,chat
+can you act like a campus assistant,chat
+can you act like a campus assistant?,chat
+can you be concise,chat
+can you be concise?,chat
+can you be silly,chat
+can you be silly?,chat
+can you give examples,chat
+can you give examples?,chat
+can you help me debug,chat
+can you help me debug?,chat
+can you explain this simply,chat
+can you explain this simply?,chat
+can you talk like belt,chat
+can you talk like belt?,chat
+can you respond shortly,chat
+can you respond shortly?,chat
+can you introduce yourself,chat
+can you introduce yourself?,chat
+can you tell me your role,chat
+can you tell me your role?,chat
+what are you built for,chat
+what are you built for?,chat
+what is your job,chat
+what is your job?,chat
+what should I use you for,chat
+what should I use you for?,chat
+what commands do you support,chat
+what commands do you support?,chat
+what can I say to you,chat
+what can I say to you?,chat
+how do I talk to you,chat
+how do I talk to you?,chat
+how should I use belt,chat
+how should I use belt?,chat
+how do you respond,chat
+how do you respond?,chat
+why are you called belt,chat
+show my memory,memory_retrieval
+what is saved about me,memory_retrieval
+what do you remember about me,memory_retrieval
+show what you know about me,memory_retrieval
+pull up my memory,memory_retrieval
+display my saved notes,memory_retrieval
+show my saved details,memory_retrieval
+what notes do you have about me,memory_retrieval
+what is in my profile,memory_retrieval
+show my profile,memory_retrieval
+read my memory,memory_retrieval
+list my memory,memory_retrieval
+print my memory,memory_retrieval
+do you remember me,memory_retrieval
+do you know anything about me,memory_retrieval
+what have I told you about myself,memory_retrieval
+what personal notes are saved,memory_retrieval
+what facts are saved for me,memory_retrieval
+show saved facts,memory_retrieval
+show saved preferences,memory_retrieval
+what are my preferences,memory_retrieval
+what did I ask you to remember,memory_retrieval
+what have you saved,memory_retrieval
+what memory do you have,memory_retrieval
+what is saved for my favorite color,memory_retrieval
+what do you remember about my favorite color,memory_retrieval
+do you know my favorite color,memory_retrieval
+did I tell you my favorite color,memory_retrieval
+can you show me my favorite color,memory_retrieval
+can you check my favorite color,memory_retrieval
+look up my favorite color in memory,memory_retrieval
+pull up my favorite color from memory,memory_retrieval
+show me what you saved about my favorite color,memory_retrieval
+what did you save about my favorite color,memory_retrieval
+tell me what you know about my favorite color,memory_retrieval
+is there anything stored about my favorite color,memory_retrieval
+what is saved for my favorite animal,memory_retrieval
+what do you remember about my favorite animal,memory_retrieval
+do you know my favorite animal,memory_retrieval
+did I tell you my favorite animal,memory_retrieval
+can you show me my favorite animal,memory_retrieval
+can you check my favorite animal,memory_retrieval
+look up my favorite animal in memory,memory_retrieval
+pull up my favorite animal from memory,memory_retrieval
+show me what you saved about my favorite animal,memory_retrieval
+what did you save about my favorite animal,memory_retrieval
+tell me what you know about my favorite animal,memory_retrieval
+is there anything stored about my favorite animal,memory_retrieval
+what is saved for my favorite food,memory_retrieval
+what do you remember about my favorite food,memory_retrieval
+do you know my favorite food,memory_retrieval
+did I tell you my favorite food,memory_retrieval
+can you show me my favorite food,memory_retrieval
+can you check my favorite food,memory_retrieval
+look up my favorite food in memory,memory_retrieval
+pull up my favorite food from memory,memory_retrieval
+show me what you saved about my favorite food,memory_retrieval
+what did you save about my favorite food,memory_retrieval
+tell me what you know about my favorite food,memory_retrieval
+is there anything stored about my favorite food,memory_retrieval
+what is saved for my favorite ice cream,memory_retrieval
+what do you remember about my favorite ice cream,memory_retrieval
+do you know my favorite ice cream,memory_retrieval
+did I tell you my favorite ice cream,memory_retrieval
+can you show me my favorite ice cream,memory_retrieval
+can you check my favorite ice cream,memory_retrieval
+look up my favorite ice cream in memory,memory_retrieval
+pull up my favorite ice cream from memory,memory_retrieval
+show me what you saved about my favorite ice cream,memory_retrieval
+what did you save about my favorite ice cream,memory_retrieval
+tell me what you know about my favorite ice cream,memory_retrieval
+is there anything stored about my favorite ice cream,memory_retrieval
+what is saved for my preferred explanation style,memory_retrieval
+what do you remember about my preferred explanation style,memory_retrieval
+do you know my preferred explanation style,memory_retrieval
+did I tell you my preferred explanation style,memory_retrieval
+can you show me my preferred explanation style,memory_retrieval
+can you check my preferred explanation style,memory_retrieval
+look up my preferred explanation style in memory,memory_retrieval
+pull up my preferred explanation style from memory,memory_retrieval
+show me what you saved about my preferred explanation style,memory_retrieval
+what did you save about my preferred explanation style,memory_retrieval
+tell me what you know about my preferred explanation style,memory_retrieval
+is there anything stored about my preferred explanation style,memory_retrieval
+what is saved for my name,memory_retrieval
+what do you remember about my name,memory_retrieval
+do you know my name,memory_retrieval
+did I tell you my name,memory_retrieval
+can you show me my name,memory_retrieval
+can you check my name,memory_retrieval
+look up my name in memory,memory_retrieval
+pull up my name from memory,memory_retrieval
+show me what you saved about my name,memory_retrieval
+what did you save about my name,memory_retrieval
+tell me what you know about my name,memory_retrieval
+is there anything stored about my name,memory_retrieval
+what is saved for my nickname,memory_retrieval
+what do you remember about my nickname,memory_retrieval
+do you know my nickname,memory_retrieval
+did I tell you my nickname,memory_retrieval
+can you show me my nickname,memory_retrieval
+can you check my nickname,memory_retrieval
+look up my nickname in memory,memory_retrieval
+pull up my nickname from memory,memory_retrieval
+show me what you saved about my nickname,memory_retrieval
+what did you save about my nickname,memory_retrieval
+tell me what you know about my nickname,memory_retrieval
+is there anything stored about my nickname,memory_retrieval
+what is saved for my coding level,memory_retrieval
+what do you remember about my coding level,memory_retrieval
+do you know my coding level,memory_retrieval
+did I tell you my coding level,memory_retrieval
+can you show me my coding level,memory_retrieval
+can you check my coding level,memory_retrieval
+look up my coding level in memory,memory_retrieval
+pull up my coding level from memory,memory_retrieval
+show me what you saved about my coding level,memory_retrieval
+what did you save about my coding level,memory_retrieval
+tell me what you know about my coding level,memory_retrieval
+is there anything stored about my coding level,memory_retrieval
+what is saved for my robot project,memory_retrieval
+what do you remember about my robot project,memory_retrieval
+do you know my robot project,memory_retrieval
+did I tell you my robot project,memory_retrieval
+can you show me my robot project,memory_retrieval
+can you check my robot project,memory_retrieval
+look up my robot project in memory,memory_retrieval
+pull up my robot project from memory,memory_retrieval
+show me what you saved about my robot project,memory_retrieval
+what did you save about my robot project,memory_retrieval
+tell me what you know about my robot project,memory_retrieval
+is there anything stored about my robot project,memory_retrieval
+what is saved for my school project,memory_retrieval
+what do you remember about my school project,memory_retrieval
+do you know my school project,memory_retrieval
+did I tell you my school project,memory_retrieval
+can you show me my school project,memory_retrieval
+can you check my school project,memory_retrieval
+look up my school project in memory,memory_retrieval
+pull up my school project from memory,memory_retrieval
+show me what you saved about my school project,memory_retrieval
+what did you save about my school project,memory_retrieval
+tell me what you know about my school project,memory_retrieval
+is there anything stored about my school project,memory_retrieval
+what is saved for my favorite topic,memory_retrieval
+what do you remember about my favorite topic,memory_retrieval
+do you know my favorite topic,memory_retrieval
+did I tell you my favorite topic,memory_retrieval
+can you show me my favorite topic,memory_retrieval
+can you check my favorite topic,memory_retrieval
+look up my favorite topic in memory,memory_retrieval
+pull up my favorite topic from memory,memory_retrieval
+show me what you saved about my favorite topic,memory_retrieval
+what did you save about my favorite topic,memory_retrieval
+tell me what you know about my favorite topic,memory_retrieval
+is there anything stored about my favorite topic,memory_retrieval
+what is saved for my favorite class,memory_retrieval
+what do you remember about my favorite class,memory_retrieval
+do you know my favorite class,memory_retrieval
+did I tell you my favorite class,memory_retrieval
+can you show me my favorite class,memory_retrieval
+can you check my favorite class,memory_retrieval
+look up my favorite class in memory,memory_retrieval
+pull up my favorite class from memory,memory_retrieval
+show me what you saved about my favorite class,memory_retrieval
+what did you save about my favorite class,memory_retrieval
+tell me what you know about my favorite class,memory_retrieval
+is there anything stored about my favorite class,memory_retrieval
+what is saved for my hobby,memory_retrieval
+what do you remember about my hobby,memory_retrieval
+do you know my hobby,memory_retrieval
+did I tell you my hobby,memory_retrieval
+can you show me my hobby,memory_retrieval
+can you check my hobby,memory_retrieval
+look up my hobby in memory,memory_retrieval
+pull up my hobby from memory,memory_retrieval
+show me what you saved about my hobby,memory_retrieval
+what did you save about my hobby,memory_retrieval
+tell me what you know about my hobby,memory_retrieval
+is there anything stored about my hobby,memory_retrieval
+what is saved for my soccer experience,memory_retrieval
+what do you remember about my soccer experience,memory_retrieval
+do you know my soccer experience,memory_retrieval
+did I tell you my soccer experience,memory_retrieval
+can you show me my soccer experience,memory_retrieval
+can you check my soccer experience,memory_retrieval
+look up my soccer experience in memory,memory_retrieval
+pull up my soccer experience from memory,memory_retrieval
+show me what you saved about my soccer experience,memory_retrieval
+what did you save about my soccer experience,memory_retrieval
+tell me what you know about my soccer experience,memory_retrieval
+is there anything stored about my soccer experience,memory_retrieval
+what is saved for my programming experience,memory_retrieval
+what do you remember about my programming experience,memory_retrieval
+do you know my programming experience,memory_retrieval
+did I tell you my programming experience,memory_retrieval
+can you show me my programming experience,memory_retrieval
+can you check my programming experience,memory_retrieval
+look up my programming experience in memory,memory_retrieval
+pull up my programming experience from memory,memory_retrieval
+save that my favorite animal is a porcupine,memory_update
+note that I prefer simple explanations,memory_update
+remember that I like robotics,memory_update
+save this to my memory,memory_update
+add this to my notes,memory_update
+remember my name is Maya,memory_update
+note that my nickname is Bee,memory_update
+save that I like blue,memory_update
+remember that I prefer short answers,memory_update
+note that I am working on BELT,memory_update
+save that I like coding,memory_update
+remember that I like soccer,memory_update
+note that I am learning machine learning,memory_update
+save that I like mint chocolate chip,memory_update
+remember this detail,memory_update
+store this fact,memory_update
+add this as a memory,memory_update
+put this in my profile,memory_update
+remember that my favorite color is blue,memory_update
+save that my favorite color is blue,memory_update
+note that my favorite color is blue,memory_update
+store that my favorite color is blue,memory_update
+add to memory that my favorite color is blue,memory_update
+please remember that my favorite color is blue,memory_update
+please save that my favorite color is blue,memory_update
+can you remember that my favorite color is blue,memory_update
+can you save that my favorite color is blue,memory_update
+put in my memory that my favorite color is blue,memory_update
+remember that my favorite color is green,memory_update
+save that my favorite color is green,memory_update
+note that my favorite color is green,memory_update
+store that my favorite color is green,memory_update
+add to memory that my favorite color is green,memory_update
+please remember that my favorite color is green,memory_update
+please save that my favorite color is green,memory_update
+can you remember that my favorite color is green,memory_update
+can you save that my favorite color is green,memory_update
+put in my memory that my favorite color is green,memory_update
+remember that my favorite color is purple,memory_update
+save that my favorite color is purple,memory_update
+note that my favorite color is purple,memory_update
+store that my favorite color is purple,memory_update
+add to memory that my favorite color is purple,memory_update
+please remember that my favorite color is purple,memory_update
+please save that my favorite color is purple,memory_update
+can you remember that my favorite color is purple,memory_update
+can you save that my favorite color is purple,memory_update
+put in my memory that my favorite color is purple,memory_update
+remember that my favorite color is orange,memory_update
+save that my favorite color is orange,memory_update
+note that my favorite color is orange,memory_update
+store that my favorite color is orange,memory_update
+add to memory that my favorite color is orange,memory_update
+please remember that my favorite color is orange,memory_update
+please save that my favorite color is orange,memory_update
+can you remember that my favorite color is orange,memory_update
+can you save that my favorite color is orange,memory_update
+put in my memory that my favorite color is orange,memory_update
+remember that my favorite color is black,memory_update
+save that my favorite color is black,memory_update
+note that my favorite color is black,memory_update
+store that my favorite color is black,memory_update
+add to memory that my favorite color is black,memory_update
+please remember that my favorite color is black,memory_update
+please save that my favorite color is black,memory_update
+can you remember that my favorite color is black,memory_update
+can you save that my favorite color is black,memory_update
+put in my memory that my favorite color is black,memory_update
+remember that my favorite color is white,memory_update
+save that my favorite color is white,memory_update
+note that my favorite color is white,memory_update
+store that my favorite color is white,memory_update
+add to memory that my favorite color is white,memory_update
+please remember that my favorite color is white,memory_update
+please save that my favorite color is white,memory_update
+can you remember that my favorite color is white,memory_update
+can you save that my favorite color is white,memory_update
+put in my memory that my favorite color is white,memory_update
+remember that my favorite color is teal,memory_update
+save that my favorite color is teal,memory_update
+note that my favorite color is teal,memory_update
+store that my favorite color is teal,memory_update
+add to memory that my favorite color is teal,memory_update
+please remember that my favorite color is teal,memory_update
+please save that my favorite color is teal,memory_update
+can you remember that my favorite color is teal,memory_update
+can you save that my favorite color is teal,memory_update
+put in my memory that my favorite color is teal,memory_update
+remember that my favorite color is red,memory_update
+save that my favorite color is red,memory_update
+note that my favorite color is red,memory_update
+store that my favorite color is red,memory_update
+add to memory that my favorite color is red,memory_update
+please remember that my favorite color is red,memory_update
+please save that my favorite color is red,memory_update
+can you remember that my favorite color is red,memory_update
+can you save that my favorite color is red,memory_update
+put in my memory that my favorite color is red,memory_update
+remember that my favorite animal is porcupine,memory_update
+save that my favorite animal is porcupine,memory_update
+note that my favorite animal is porcupine,memory_update
+store that my favorite animal is porcupine,memory_update
+add to memory that my favorite animal is porcupine,memory_update
+please remember that my favorite animal is porcupine,memory_update
+please save that my favorite animal is porcupine,memory_update
+can you remember that my favorite animal is porcupine,memory_update
+can you save that my favorite animal is porcupine,memory_update
+put in my memory that my favorite animal is porcupine,memory_update
+remember that my favorite animal is cat,memory_update
+save that my favorite animal is cat,memory_update
+note that my favorite animal is cat,memory_update
+store that my favorite animal is cat,memory_update
+add to memory that my favorite animal is cat,memory_update
+please remember that my favorite animal is cat,memory_update
+please save that my favorite animal is cat,memory_update
+can you remember that my favorite animal is cat,memory_update
+can you save that my favorite animal is cat,memory_update
+put in my memory that my favorite animal is cat,memory_update
+remember that my favorite animal is dog,memory_update
+save that my favorite animal is dog,memory_update
+note that my favorite animal is dog,memory_update
+store that my favorite animal is dog,memory_update
+add to memory that my favorite animal is dog,memory_update
+please remember that my favorite animal is dog,memory_update
+please save that my favorite animal is dog,memory_update
+can you remember that my favorite animal is dog,memory_update
+can you save that my favorite animal is dog,memory_update
+put in my memory that my favorite animal is dog,memory_update
+remember that my favorite animal is otter,memory_update
+save that my favorite animal is otter,memory_update
+note that my favorite animal is otter,memory_update
+store that my favorite animal is otter,memory_update
+add to memory that my favorite animal is otter,memory_update
+please remember that my favorite animal is otter,memory_update
+please save that my favorite animal is otter,memory_update
+can you remember that my favorite animal is otter,memory_update
+can you save that my favorite animal is otter,memory_update
+put in my memory that my favorite animal is otter,memory_update
+remember that my favorite animal is fox,memory_update
+save that my favorite animal is fox,memory_update
+note that my favorite animal is fox,memory_update
+store that my favorite animal is fox,memory_update
+add to memory that my favorite animal is fox,memory_update
+please remember that my favorite animal is fox,memory_update
+please save that my favorite animal is fox,memory_update
+can you remember that my favorite animal is fox,memory_update
+can you save that my favorite animal is fox,memory_update
+put in my memory that my favorite animal is fox,memory_update
+remember that my favorite animal is raven,memory_update
+save that my favorite animal is raven,memory_update
+note that my favorite animal is raven,memory_update
+store that my favorite animal is raven,memory_update
+add to memory that my favorite animal is raven,memory_update
+please remember that my favorite animal is raven,memory_update
+please save that my favorite animal is raven,memory_update
+can you remember that my favorite animal is raven,memory_update
+can you save that my favorite animal is raven,memory_update
+put in my memory that my favorite animal is raven,memory_update
+remember that my favorite animal is turtle,memory_update
+save that my favorite animal is turtle,memory_update
+note that my favorite animal is turtle,memory_update
+store that my favorite animal is turtle,memory_update
+add to memory that my favorite animal is turtle,memory_update
+please remember that my favorite animal is turtle,memory_update
+please save that my favorite animal is turtle,memory_update
+can you remember that my favorite animal is turtle,memory_update
+can you save that my favorite animal is turtle,memory_update
+put in my memory that my favorite animal is turtle,memory_update
+remember that my favorite animal is panda,memory_update
+save that my favorite animal is panda,memory_update
+note that my favorite animal is panda,memory_update
+store that my favorite animal is panda,memory_update
+add to memory that my favorite animal is panda,memory_update
+please remember that my favorite animal is panda,memory_update
+please save that my favorite animal is panda,memory_update
+can you remember that my favorite animal is panda,memory_update
+can you save that my favorite animal is panda,memory_update
+put in my memory that my favorite animal is panda,memory_update
+remember that my favorite ice cream is mint chocolate chip,memory_update
+save that my favorite ice cream is mint chocolate chip,memory_update
+note that my favorite ice cream is mint chocolate chip,memory_update
+store that my favorite ice cream is mint chocolate chip,memory_update
+add to memory that my favorite ice cream is mint chocolate chip,memory_update
+please remember that my favorite ice cream is mint chocolate chip,memory_update
+please save that my favorite ice cream is mint chocolate chip,memory_update
+can you remember that my favorite ice cream is mint chocolate chip,memory_update
+can you save that my favorite ice cream is mint chocolate chip,memory_update
+put in my memory that my favorite ice cream is mint chocolate chip,memory_update
+remember that my favorite ice cream is vanilla,memory_update
+save that my favorite ice cream is vanilla,memory_update
+note that my favorite ice cream is vanilla,memory_update
+store that my favorite ice cream is vanilla,memory_update
+add to memory that my favorite ice cream is vanilla,memory_update
+please remember that my favorite ice cream is vanilla,memory_update
+please save that my favorite ice cream is vanilla,memory_update
+can you remember that my favorite ice cream is vanilla,memory_update
+can you save that my favorite ice cream is vanilla,memory_update
+put in my memory that my favorite ice cream is vanilla,memory_update
+remember that my favorite ice cream is strawberry,memory_update
+save that my favorite ice cream is strawberry,memory_update
+move backward,movement
+go backward,movement
+move forward,movement
+go forward,movement
+turn left,movement
+turn right,movement
+stop moving,movement
+stop,movement
+halt,movement
+freeze,movement
+back up,movement
+roll forward,movement
+roll backward,movement
+rotate left,movement
+rotate right,movement
+move left,movement
+move right,movement
+step forward,movement
+step backward,movement
+drive forward,movement
+drive backward,movement
+come here,movement
+go there,movement
+move closer,movement
+move away,movement
+slow down,movement
+speed up,movement
+turn around,movement
+move forward slowly,movement
+move forward a little,movement
+move forward a bit,movement
+move forward two steps,movement
+move forward one step,movement
+move forward for a second,movement
+move forward carefully,movement
+move backward slowly,movement
+move backward a little,movement
+move backward a bit,movement
+move backward two steps,movement
+move backward one step,movement
+move backward for a second,movement
+move backward carefully,movement
+move left slowly,movement
+move left a little,movement
+move left a bit,movement
+move left two steps,movement
+move left one step,movement
+move left for a second,movement
+move left carefully,movement
+move right slowly,movement
+move right a little,movement
+move right a bit,movement
+move right two steps,movement
+move right one step,movement
+move right for a second,movement
+move right carefully,movement
+move ahead,movement
+move ahead slowly,movement
+move ahead a little,movement
+move ahead a bit,movement
+move ahead two steps,movement
+move ahead one step,movement
+move ahead for a second,movement
+move ahead carefully,movement
+move back,movement
+move back slowly,movement
+move back a little,movement
+move back a bit,movement
+move back two steps,movement
+move back one step,movement
+move back for a second,movement
+move back carefully,movement
+move closer slowly,movement
+move closer a little,movement
+move closer a bit,movement
+move closer two steps,movement
+move closer one step,movement
+move closer for a second,movement
+move closer carefully,movement
+move away slowly,movement
+move away a little,movement
+move away a bit,movement
+move away two steps,movement
+move away one step,movement
+move away for a second,movement
+move away carefully,movement
+go forward slowly,movement
+go forward a little,movement
+go forward a bit,movement
+go forward two steps,movement
+go forward one step,movement
+go forward for a second,movement
+go forward carefully,movement
+go backward slowly,movement
+go backward a little,movement
+go backward a bit,movement
+go backward two steps,movement
+go backward one step,movement
+go backward for a second,movement
+go backward carefully,movement
+go left,movement
+go left slowly,movement
+go left a little,movement
+go left a bit,movement
+go left two steps,movement
+go left one step,movement
+go left for a second,movement
+go left carefully,movement
+go right,movement
+go right slowly,movement
+go right a little,movement
+go right a bit,movement
+go right two steps,movement
+go right one step,movement
+go right for a second,movement
+go right carefully,movement
+go ahead,movement
+go ahead slowly,movement
+go ahead a little,movement
+go ahead a bit,movement
+go ahead two steps,movement
+go ahead one step,movement
+go ahead for a second,movement
+go ahead carefully,movement
+go back,movement
+go back slowly,movement
+go back a little,movement
+go back a bit,movement
+go back two steps,movement
+go back one step,movement
+go back for a second,movement
+go back carefully,movement
+go closer,movement
+go closer slowly,movement
+go closer a little,movement
+go closer a bit,movement
+go closer two steps,movement
+go closer one step,movement
+go closer for a second,movement
+go closer carefully,movement
+go away,movement
+go away slowly,movement
+go away a little,movement
+go away a bit,movement
+go away two steps,movement
+go away one step,movement
+go away for a second,movement
+go away carefully,movement
+drive forward slowly,movement
+drive forward a little,movement
+drive forward a bit,movement
+drive forward two steps,movement
+drive forward one step,movement
+drive forward for a second,movement
+drive forward carefully,movement
+drive backward slowly,movement
+drive backward a little,movement
+drive backward a bit,movement
+drive backward two steps,movement
+drive backward one step,movement
+drive backward for a second,movement
+drive backward carefully,movement
+drive left,movement
+drive left slowly,movement
+drive left a little,movement
+drive left a bit,movement
+drive left for a second,movement
+drive left carefully,movement
+drive right,movement
+drive right slowly,movement
+drive right a little,movement
+drive right a bit,movement
+drive right for a second,movement
+drive right carefully,movement
+drive ahead,movement
+drive ahead slowly,movement
+drive ahead a little,movement
+drive ahead a bit,movement
+drive ahead two steps,movement
+drive ahead one step,movement
+drive ahead for a second,movement
+drive ahead carefully,movement
+drive back,movement
+drive back slowly,movement
+drive back a little,movement
+drive back a bit,movement
+drive back two steps,movement
+drive back one step,movement
+drive back for a second,movement
+drive back carefully,movement
+drive closer,movement
+drive closer slowly,movement
+drive closer a little,movement
+drive closer a bit,movement
+drive closer two steps,movement
+drive closer one step,movement
+drive closer for a second,movement
+drive closer carefully,movement
+drive away,movement
+drive away slowly,movement
