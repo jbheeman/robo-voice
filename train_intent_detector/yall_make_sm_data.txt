@@ -6,13 +6,15 @@ chat:
 "Hi! Do you like Youtube, Instagram, or Tiktok better?"
 "Hello, world"
 "Can you talk?"
+"How's the weather?"
 
 
 memory_update:
 "Hey, did you know I play Brawl Stars? Remember that."
 "Did you know Instagram is my favorite social platform?"
-"Remember that I put my favorite laptop there."
+"Remember that I put my favourite laptop there."
 "Remember to come back to this room."
+"My favorite IDE is VSCode."
 
 
 memory_retrieval:
@@ -20,6 +22,7 @@ memory_retrieval:
 "What was that object you were talking about?"
 "What's my favorite social platform?"
 "What's my name?"
+"Do you know where the nearest exit is?"
 
 
 movement:
@@ -27,4 +30,5 @@ movement:
 "Walk down the hallway with me."
 "Walk away from me."
 "Move to the nearest emergency exit."
+"Yo bro, like, um, I don't know, can you, uh, like, turn right or something?"
 
