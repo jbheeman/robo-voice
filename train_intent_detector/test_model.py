@@ -1,6 +1,6 @@
 import joblib
 
-model = joblib.load("belt_intent_router.joblib")
+model = joblib.load("belt_intent_router_best_logreg.joblib")
 
 def predict_intent(text):
     predicted_intent = model.predict([text])[0]
@@ -13,7 +13,7 @@ def predict_intent(text):
     return predicted_intent, confidence_scores
 
 
-text = "yo bro remember i like video games "
+text = "i like food. remember that."
 
 intent, scores = predict_intent(text)
 
