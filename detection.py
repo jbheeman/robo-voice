@@ -28,6 +28,8 @@ def process_camera_frame(rgb_frame, depth_frame):
           cv2.rectangle(rgb_frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
           cv2.putText(rgb_frame, f"{label}: {object_depth:.2f}m", (x1, y1 - 10),
                       cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+
+return rgb_frame
               
 
 
