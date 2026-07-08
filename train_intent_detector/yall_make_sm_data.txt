@@ -1,0 +1,19 @@
+Categories:
+chat, memory_update, memory_retrieval, movement
+
+chat:
+"yoo whats up do you play brawl stars"
+
+
+memory_update:
+"hey, did you know i play brawl stars? remember that"
+
+
+memory_retrieval:
+"do you know my favorite video game?"
+
+
+movement:
+"bro move like a couple steps back"
+
+
