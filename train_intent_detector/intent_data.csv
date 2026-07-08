@@ -1,0 +1,51 @@
+text,intent
+"hi",chat
+"hello",chat
+"hey belt",chat
+"how are you",chat
+"tell me a joke",chat
+"what is machine learning",chat
+"explain logistic regression",chat
+"how does PCA work",chat
+"what is the weather like",chat
+"who are you",chat
+"what can you do",chat
+"can you help me with code",chat
+
+"remember that I like soccer",memory_update
+"save that my name is Bella",memory_update
+"my favorite color is blue",memory_update
+"remember I prefer short answers",memory_update
+"note that I like robotics",memory_update
+"store this: I am working on BELT",memory_update
+"remember that I like dogs",memory_update
+"add to memory that I use DeepSeek",memory_update
+"please remember my favorite animal is porcupine",memory_update
+"from now on remember I like concise explanations",memory_update
+
+"what do you remember about me",memory_retrieval
+"show my memory",memory_retrieval
+"what is saved about me",memory_retrieval
+"do you know my name",memory_retrieval
+"what is my favorite color",memory_retrieval
+"what do I like",memory_retrieval
+"retrieve my notes",memory_retrieval
+"what do you know about UCSC",memory_retrieval
+"tell me the campus details you know",memory_retrieval
+"look up my saved preferences",memory_retrieval
+
+"move forward",movement
+"go forward",movement
+"turn left",movement
+"turn right",movement
+"move backward",movement
+"back up",movement
+"stop moving",movement
+"stop",movement
+"follow me",movement
+"come here",movement
+"rotate left",movement
+"rotate right",movement
+"go slower",movement
+"speed up",movement
+"pause movement",movement
