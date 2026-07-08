@@ -465,7 +465,7 @@ Commands:
   /balance                      Check DeepSeek API balance
   /quit                         Exit
 
-BELT v1.5 memory behavior:
+BELT v2 memory behavior:
   - No /user command
   - No /remember key=value command
   - No /note command
