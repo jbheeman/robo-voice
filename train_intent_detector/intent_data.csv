@@ -1,802 +1,2001 @@
 text,intent
-hi,chat
-hello,chat
-OIY MATE..HOW YA DOING,chat
-hey,chat
-hey belt,chat
-good morning,chat
-good afternoon,chat
+Save this detail: I like machine learning.,memory_update
+Can you make a silly sentence about a dolphin?,chat
 good evening,chat
-yo belt,chat
-how are you,chat
-how are you doing,chat
+What does computer memory mean?,chat
+Call me Jamie from now on.,memory_update
+Scoot forward carefully.,movement
+"hey, where is the backpack?",memory_retrieval
+"okay, where is the soccer ball?",memory_retrieval
+Note that the charger is next to the printer.,memory_update
+Make a note that I use Atom for coding.,memory_update
+"okay, what did I tell you about my laptop?",memory_retrieval
+"yo, where did I leave my calculator?",memory_retrieval
+Shift right just a bit.,movement
+Keep in mind that I am learning data science.,memory_update
+"okay, can you give me a quick pep talk before I code?",chat
+Do you like TikTok or Twitch better?,chat
+please clear the doorway.,movement
+"yo, can you recall the note about the ID card?",memory_retrieval
+I usually want answers about Minecraft lore to be step-by-step.,memory_update
+"yo, where did I leave my water bottle?",memory_retrieval
+"Hey, turn toward the whiteboard.",movement
+"Go check the previous room, then return here.",movement
+"hey, can you help me write a sentence about USACO?",chat
+Can you explain robotics like I am new to it?,chat
+What should you call me?,memory_retrieval
+quick question: where did I leave my ID card?,memory_retrieval
+Do not forget that I like mangoes after coding sessions.,memory_update
+Remember when we talked about music? That was funny.,chat
+what does BELT stand for?,chat
+"hey, do you know whether I like debugging hints?",memory_retrieval
+Do not forget that I like noodles after coding sessions.,memory_update
+Remember when we talked about weather? That was funny.,chat
+Put in memory that I prefer JavaScript for projects.,memory_update
+Can you compare Valorant and Minecraft?,chat
+Remember when we talked about memes? That was funny.,chat
+"hey, did I tell you my favorite color?",memory_retrieval
+Save that I left the water bottle near the hallway.,memory_update
+My favorite color is green.,memory_update
+"if it is safe, turn ninety degrees left carefully.",movement
+Remember that my favorite club topic is machine learning.,memory_update
+"okay, do you remember where the nearest exit is?",memory_retrieval
+"The phone charger is under the chair, keep that in memory.",memory_update
+Make a note that I use IntelliJ for coding.,memory_update
+Where did I leave my notebook?,memory_retrieval
+Return to the lab.,movement
+"For future chats, use math after intuition.",memory_update
+"BELT, turn toward me.",movement
+What do you think about weather?,chat
+"actually, can you walk right like two feet?",movement
+Reverse one step.,movement
+Can you move like half a meter left?,movement
 what can you do,chat
-can you help me,chat
-thanks,chat
-thank you,chat
-that was helpful,chat
-nice to meet you,chat
-tell me about yourself,chat
-what is your name,chat
-are you belt,chat
-who are you,chat
-what do you like,chat
-what is your favorite color,chat
-what is your favorite animal,chat
-what is your favorite ice cream,chat
-tell me a joke,chat
-say something funny,chat
-can we chat,chat
-talk to me,chat
-what are your rules,chat
-explain yourself,chat
-how does this chatbot work,chat
-what kind of robot are you,chat
-are you online,chat
-are you awake,chat
-belt are you there,chat
-hello robot,chat
-hey robot,chat
-sup belt,chat
-good to see you,chat
-what's up,chat
-whats up,chat
-how is your day,chat
-do you like porcupines,chat
-do you like mint chocolate chip,chat
-what should I ask you,chat
-give me an example prompt,chat
-help me brainstorm,chat
-can you explain something,chat
-I need help,chat
-I have a question,chat
-let's talk,chat
-lets talk,chat
-hi belt,chat
-hi belt!,chat
-hi robot,chat
-hi robot!,chat
-hi buddy,chat
-hi buddy!,chat
-hi campus robot,chat
-hi campus robot!,chat
-hi little robot,chat
-hi little robot!,chat
-hello belt,chat
-hello belt!,chat
-hello robot!,chat
-hello buddy,chat
-hello buddy!,chat
-hello campus robot,chat
-hello campus robot!,chat
-hello little robot,chat
-hello little robot!,chat
-hey belt!,chat
-hey robot!,chat
-hey buddy,chat
-hey buddy!,chat
-hey campus robot,chat
-hey campus robot!,chat
-hey little robot,chat
-hey little robot!,chat
-yo belt!,chat
-yo robot,chat
-yo robot!,chat
+yo!!,chat
+"okay, what topic am I learning right now?",memory_retrieval
+What do you think about soccer?,chat
+"okay, go check the previous room, then return here.",movement
+"The backpack is at the front desk, keep that in memory.",memory_update
+Shift right one step.,movement
+Move away from me one step.,movement
+"okay, did I tell you my favorite animal?",memory_retrieval
+What is the difference between storage and a hard drive?,chat
+Go around the chair.,movement
+Tell me a tiny fun fact about memes.,chat
+Please remember that the headphones is on the left shelf.,memory_update
+Please remember that the headphones is by the window.,memory_update
+"for a second, can you roll forward gently?",movement
+You should know that I prefer concise bullet points.,memory_update
+"hey, where did I leave my water bottle?",memory_retrieval
+What does the word token mean?,chat
+quick question: what game did I say I play?,memory_retrieval
+"When you finish moving, return to the meeting room.",memory_update
+Do you like Duolingo or VSCode better?,chat
+"okay, can you roll to the previous room smoothly?",movement
+quick question: do you know whether I like math details?,memory_retrieval
+Scoot left two steps.,movement
+"I am bored, talk to me about memes.",chat
+Remember that my favorite animal is a red panda.,memory_update
 yo buddy,chat
-yo buddy!,chat
-yo campus robot,chat
-yo campus robot!,chat
-yo little robot,chat
-yo little robot!,chat
-hiya belt,chat
-hiya belt!,chat
-hiya robot,chat
-hiya robot!,chat
-hiya buddy,chat
-hiya buddy!,chat
-hiya campus robot,chat
-hiya campus robot!,chat
-hiya little robot,chat
-hiya little robot!,chat
-sup belt!,chat
-sup robot,chat
-sup robot!,chat
-sup buddy,chat
-sup buddy!,chat
-sup campus robot,chat
-sup campus robot!,chat
-sup little robot,chat
-sup little robot!,chat
-good morning belt,chat
-good morning belt!,chat
-good morning robot,chat
-good morning robot!,chat
-good morning buddy,chat
-good morning buddy!,chat
-good morning campus robot,chat
-good morning campus robot!,chat
-good morning little robot,chat
-good morning little robot!,chat
-good afternoon belt,chat
-good afternoon belt!,chat
-good afternoon robot,chat
-good afternoon robot!,chat
+"The calculator is in the lab, keep that in memory.",memory_update
+Move away from me carefully.,movement
+Remember I am working on a memory system.,memory_update
+quick question: can you help me write a sentence about creative writing?,chat
+Come closer in a straight line.,movement
+quick question: what did you save about my project?,memory_retrieval
+Shift left smoothly.,movement
+"hey, what topic am I learning right now?",memory_retrieval
+"hey, come closer a little bit.",movement
+Let's move on to the next slide.,chat
+Please go to the previous room two steps.,movement
+What is the difference between a database and a model?,chat
+Note that my favorite app is Pinterest.,memory_update
+"I prefer being called Jordan, please remember.",memory_update
+hey BELT,chat
+"real quick, turn ninety degrees left please.",movement
+I moved my code into a new file and now it broke.,chat
+Can you recall the note about the jacket?,memory_retrieval
+"I am bored, talk to me about dogs.",chat
+"hey, where is the laptop?",memory_retrieval
+"Which is cooler, VSCode or Google Docs?",chat
+Remember this room is the club room.,memory_update
+Remember when we talked about dogs? That was funny.,chat
+Line yourself up with the desk.,movement
+Can you move backward for a few seconds?,movement
+"hey, what kind of explanations do I prefer?",memory_retrieval
+Call me Taylor from now on.,memory_update
+"Which is cooler, TikTok or Google Docs?",chat
+Walk right.,movement
+"yo, what did you save about my explanation style?",memory_retrieval
+quick question: do you like YouTube or VSCode better?,chat
+Can you compare Celeste and Brawl Stars?,chat
+Who is your creator?,memory_retrieval
+Please go toward me a little bit.,movement
+Scoot back a couple steps.,movement
+Can you compare Mario Kart and Among Us?,chat
+What is your favorite robot movie?,chat
+"The camera is on the table, keep that in memory.",memory_update
+Rotate toward me without rushing.,movement
+Can you make a silly sentence about a hamster?,chat
+Please go into the hallway at normal speed.,movement
+Remember this room is the library.,memory_update
+"hey, please go into the hallway without rushing.",movement
+Can you compare Tetris and Fortnite?,chat
+Can you compare Honkai Star Rail and Valorant?,chat
+Can you recall the note about the soccer ball?,memory_retrieval
+Keep in mind that I am learning AI safety.,memory_update
+Add to my notes that I play Geometry Dash.,memory_update
+what is machine learning real quick?,chat
+Store this preference: I like visual analogies.,memory_update
+Move away from me a little bit.,movement
+What do you remember about me?,memory_retrieval
+"hey, what room are we supposed to return to?",memory_retrieval
+Have you ever heard of Celeste?,chat
+good evening!!,chat
+What is a good beginner project with Streamlit?,chat
+quick question: what did I ask you to remember?,memory_retrieval
+Can you move like a couple feet right?,movement
+Do not forget that I like burritos after coding sessions.,memory_update
+Follow me down the hallway.,movement
+Store this preference: I like plain English.,memory_update
+"hey, where is the ID card?",memory_retrieval
+"yo, what preferences have you saved for me?",memory_retrieval
+Let's move on to debugging.,chat
+Save that my favorite game is Roblox.,memory_update
+Where is the USB drive?,memory_retrieval
+Store this preference: I like math after intuition.,memory_update
+Update my favorite social platform to Duolingo.,memory_update
+Can you recall the note about the ID card?,memory_retrieval
+"okay, what did you save about my project?",memory_retrieval
+quick question: can you help me brainstorm a project about AI safety?,chat
+Note that my favorite app is Snapchat.,memory_update
+Scoot right just a bit.,movement
+Tell me a random robotics fact.,chat
+"okay, which room did I say this was?",memory_retrieval
+Please remember that the ID card is on the desk.,memory_update
+quick question: stop moving.,movement
+Navigate toward the nearest exit.,movement
+Did I tell you my favorite IDE?,memory_retrieval
+"okay, where is the laptop?",memory_retrieval
+Can you move to the previous room smoothly?,movement
+Please go to the previous room in a straight line.,movement
+My favorite IDE is Xcode.,memory_update
+Can you compare Geometry Dash and Roblox?,chat
+Move away from me three small steps.,movement
+quick question: keep in mind that I am learning USACO.,memory_update
+Can you help me write a sentence about USACO?,chat
+yo robot,chat
+Save this detail: I like algorithms.,memory_update
+What programming language did I say I prefer?,memory_retrieval
+Save that the emergency exit is behind us.,memory_update
+"hey BELT, can you walk away from me a little bit?",movement
+Do you like VSCode or Snapchat better?,chat
+BELT should remember that Taylor likes Honkai Star Rail.,memory_update
+My favorite color is navy.,memory_update
+Can you help me write a sentence about data science?,chat
+I moved my project folder earlier and now I cannot find it.,chat
+Save that my favorite game is Terraria.,memory_update
+Rotate a little right at normal speed.,movement
+Remember that my favorite club topic is Minecraft lore.,memory_update
+Drive into the hallway.,movement
+My favorite color is teal.,memory_update
+Have you ever heard of Fortnite?,chat
+Store this preference: I like debugging hints.,memory_update
+Where is the jacket?,memory_retrieval
+Can you help me write a sentence about Minecraft lore?,chat
+Tell me a tiny fun fact about books.,chat
+Go to the lab table.,movement
+"okay, make a note that I use Jupyter Notebook for coding.",memory_update
+Can you help me brainstorm a project about robotics?,chat
+quick question: what topic am I learning right now?,memory_retrieval
+Shift backward slowly.,movement
+"If a porcupine learned Python, what would it build?",chat
+you should know that I prefer short answers.,memory_update
+What do you think about Brawl Stars?,chat
+Save that I left the soccer ball near the charging station.,memory_update
+Have you ever heard of Geometry Dash?,chat
+"I prefer being called Riley, please remember.",memory_update
+"hey, what did I tell you about the previous room?",memory_retrieval
+Where is the soccer ball?,memory_retrieval
+"hey BELT, turn toward the hallway real quick.",movement
+Can you move like a tiny bit back?,movement
+"yo, where is the phone charger?",memory_retrieval
+Scoot away smoothly.,movement
+Reverse carefully.,movement
+Walk left.,movement
+Can you move closer without rushing?,movement
+Follow me down the corridor.,movement
+"Yo, can you turn right or something?",movement
+"yo, can you recall the note about the jacket?",memory_retrieval
+Can you explain linear algebra like I am new to it?,chat
+Do you know whether I like simple explanations?,memory_retrieval
+quick question: where is the jacket?,memory_retrieval
+"BELT, turn counterclockwise.",movement
+"hey, what object was I talking about earlier?",memory_retrieval
+"okay, what kind of explanations do I prefer?",memory_retrieval
+Can you compare Chess and Chess?,chat
+What's my favorite social platform?,memory_retrieval
+Reverse a couple steps.,movement
+Walk closer.,movement
+"yo, where did I leave my laptop?",memory_retrieval
+how has your day been real quick?,chat
+Move away from me slowly.,movement
+Can you move beside the desk two steps?,movement
+"hey, can you recall the note about the USB drive?",memory_retrieval
+quick question: what object was I talking about earlier?,memory_retrieval
+Save that my favorite game is Fortnite.,memory_update
+Can you help me write a sentence about linear algebra?,chat
+What is the difference between a file and a hard drive?,chat
+"okay, can you drive into the hallway two steps?",movement
+"I prefer being called Kai, please remember.",memory_update
+what is the difference between AI and ML please?,chat
+Remember my nickname is Ace.,memory_update
+Remember when we talked about books? That was funny.,chat
+Can you help me write a sentence about PCA?,chat
+"yo, what do you think about school?",chat
+"okay, can you recall the note about the soccer ball?",memory_retrieval
+"For future chats, use visual analogies.",memory_update
+"okay, can you recall the note about the water bottle?",memory_retrieval
+"Buddy, turn toward me.",movement
+"From now on, if I ask about math, give me concise bullet points.",memory_update
+"If a cat learned Python, what would it build?",chat
+"yo, add to my notes that I play Terraria.",memory_update
+"okay, what do you remember about me?",memory_retrieval
+"Move beside me, not in front of me.",movement
+how are you?,chat
+"My favorite food is dumplings, remember that.",memory_update
+"hey, call me Tian from now on.",memory_update
+"hey, what programming language did I say I prefer?",memory_retrieval
+Do you know my nickname?,memory_retrieval
+Remember to come back to the workshop.,memory_update
+"yo, what did you save about my favorite app?",memory_retrieval
+Please remember that the robot manual is near the charging station.,memory_update
+Can you help me brainstorm a project about calculus?,chat
+Remember that my favorite animal is a porcupine.,memory_update
+Drive beside the desk.,movement
+I usually want answers about algorithms to be step-by-step.,memory_update
+"If a dog learned Python, what would it build?",chat
+quick question: where is the robot manual?,memory_retrieval
+My favorite color is lavender.,memory_update
+Can you move left carefully?,movement
+Save that the emergency exit is past the stairwell.,memory_update
+quick question: return to the starting point.,movement
+"okay, can you drive toward the exit in a straight line?",movement
+"When you finish moving, return to the front office.",memory_update
+Note that my favorite app is Twitch.,memory_update
+quick question: can you recall the note about the notebook?,memory_retrieval
+"yo, what is my favorite animal?",memory_retrieval
+"The sketchbook is in the lab, keep that in memory.",memory_update
+I moved my chair earlier and now I cannot find it.,chat
+Where did I leave my water bottle?,memory_retrieval
+Drive to the door.,movement
+do you play games please?,chat
+Can you compare Chess and Pokemon?,chat
+Stop moving.,movement
+"yo, can you recall the note about the water bottle?",memory_retrieval
+Go to the front desk.,movement
+hello!,chat
+Do you like Google Docs or Snapchat better?,chat
+Let's move on to another topic.,chat
+Please remember that the laptop is near the charging station.,memory_update
+quick question: where did I leave my USB drive?,memory_retrieval
+Shift left without rushing.,movement
+Shift right a couple steps.,movement
+"yo, what's my favorite social platform?",memory_retrieval
+quick question: can you recall the note about the ID card?,memory_retrieval
+Walk with me to the front office.,movement
+quick question: where did I leave my planner?,memory_retrieval
+Save that my favorite game is Minecraft.,memory_update
+Reverse without rushing.,movement
+Move out of the walkway.,movement
+"okay, walk with me to the front office.",movement
+"yo, where did I leave my sketchbook?",memory_retrieval
+I usually want answers about robotics to be beginner friendly.,memory_update
+"If a dragonfly learned Python, what would it build?",chat
+Remember that my favorite club topic is calculus.,memory_update
+"The jacket is beside the whiteboard, keep that in memory.",memory_update
+Tell me a tiny fun fact about music.,chat
+"yo, where is the soccer ball?",memory_retrieval
+"hey, where is the camera?",memory_retrieval
+"yo, what does the word token mean?",chat
+My favorite IDE is Atom.,memory_update
+"hey BELT, can you walk backward smoothly?",movement
+Have you ever heard of Valorant?,chat
+Make a note that I use Cursor for coding.,memory_update
+"Which is cooler, Notion or Instagram?",chat
+What did you save about my explanation style?,memory_retrieval
+Move closer.,movement
+what is your favorite color please?,chat
+"When you finish moving, return to the hallway.",memory_update
+"yo, what did you save about my charger?",memory_retrieval
+Do not forget that I like sandwiches after coding sessions.,memory_update
+What is a good beginner project with scikit-learn?,chat
+Save this detail: I like data science.,memory_update
+Go to the previous room.,movement
+What did I say my current project was?,memory_retrieval
+Please go around without rushing.,movement
+keep in mind that I am learning Minecraft lore.,memory_update
+quick question: i moved my project folder earlier and now I cannot find it.,chat
+Do you like Canva or YouTube better?,chat
+I need to save my notebook before it crashes.,chat
+"okay, can you recall the note about the ID card?",memory_retrieval
+"Which is cooler, Discord or Instagram?",chat
+My favorite IDE is Jupyter Notebook.,memory_update
+Where did I leave my USB drive?,memory_retrieval
+What did you save about my charger?,memory_retrieval
+Make a note that I use Xcode for coding.,memory_update
+Please remember that the laptop is by the door.,memory_update
+Move around.,movement
+Shift left at normal speed.,movement
+Can you compare Minecraft and Stardew Valley?,chat
+Do you like Twitch or Snapchat better?,chat
+"From now on, if I ask about math, give me less jargon.",memory_update
+"yo, where is the calculator?",memory_retrieval
+Back up in a straight line.,movement
+Move to the nearest emergency exit .,movement
+Remember that my favorite club topic is game design.,memory_update
+Drive around.,movement
+"Which is cooler, Canva or Twitch?",chat
+Remember to come back to the previous room.,memory_update
+Can you move closer three small steps?,movement
+Log this: my current project is about robot safety.,memory_update
+Can you help me brainstorm a project about Minecraft lore?,chat
+Store this preference: I like direct feedback.,memory_update
+Shift left two steps.,movement
+Can you help me write a sentence about soccer?,chat
+Save that my favorite game is Brawl Stars.,memory_update
+Can you make a silly sentence about a owl?,chat
+Change my preferred editor to Replit.,memory_update
+"yo, where is the laptop?",memory_retrieval
+Does BELT have a favorite ice cream flavor?,chat
+What is my favorite animal?,memory_retrieval
+"okay, what object was I talking about earlier?",memory_retrieval
+Can you move toward the exit in a straight line?,movement
+Please remember that the phone charger is on the table.,memory_update
+Where is the nearest emergency exit?,memory_retrieval
+"I am bored, talk to me about music.",chat
+Can you check out the hallway and come back?,movement
+"okay, what saved details do you have for me?",memory_retrieval
+"like, can you roll away from me slowly?",movement
+"Yo, turn right.",movement
+What preferences have you saved for me?,memory_retrieval
+Can you move to the door one step?,movement
+Scoot away three small steps.,movement
+"I prefer being called Morgan, please remember.",memory_update
+Can you help me brainstorm a project about game design?,chat
+"yo, did I tell you my favorite IDE?",memory_retrieval
+"The camera is under the chair, keep that in memory.",memory_update
+What is the difference between a file and learning?,chat
+"I am bored, talk to me about robots.",chat
+quick question: how does a robot know where it is?,chat
 good afternoon buddy,chat
-good afternoon buddy!,chat
-good afternoon campus robot,chat
-good afternoon campus robot!,chat
-good afternoon little robot,chat
-good afternoon little robot!,chat
-good evening belt,chat
-good evening belt!,chat
+Remember that my favorite club topic is PCA.,memory_update
+Can you recall the note about the calculator?,memory_retrieval
+"okay, what programming language did I say I prefer?",memory_retrieval
+Can you make a silly sentence about a otter?,chat
+What did I tell you about Brawl Stars?,memory_retrieval
+I moved my dataset earlier and now I cannot find it.,chat
+What is a good beginner project with computer vision?,chat
+"okay, where did I leave my laptop?",memory_retrieval
+Come closer at normal speed.,movement
+Can you recall the note about the notebook?,memory_retrieval
+"hey, show my saved memory.",memory_retrieval
+Roll backward.,movement
+Shift left a couple steps.,movement
+What object was I talking about earlier?,memory_retrieval
+Advance like two feet.,movement
+Can you compare Among Us and Pokemon?,chat
+"hey, which app did I say I liked most?",memory_retrieval
+Scoot away carefully.,movement
+Update my favorite social platform to YouTube.,memory_update
+"yo, can you recall the note about the sketchbook?",memory_retrieval
+Add to my notes that I play Valorant.,memory_update
+"okay, can you recall the note about the notebook?",memory_retrieval
+What does the word regularization mean?,chat
+Do you like VSCode or Google Docs better?,chat
+Can you move like one tile left?,movement
+Do you know my favorite video game?,memory_retrieval
+quick question: can you list my saved notes?,memory_retrieval
+Can you compare Celeste and Geometry Dash?,chat
+Please go away from me two steps.,movement
+"The ID card is next to the couch, keep that in memory.",memory_update
+"hey, what is my favorite color?",memory_retrieval
+Face the whiteboard.,movement
+quick question: where is the camera?,memory_retrieval
+Can you make a silly sentence about a penguin?,chat
+Can you compare Tetris and Roblox?,chat
+Call me Tian from now on.,memory_update
+Save this detail: I like Minecraft lore.,memory_update
+"hey, what food did I tell you I like?",memory_retrieval
+"yo, can you list my saved notes?",memory_retrieval
+What do you think about homework?,chat
+My favorite IDE is VSCode.,memory_update
+"hey, who is your creator?",memory_retrieval
+Can you make a silly sentence about a wolf?,chat
+"like, rotate counterclockwise carefully.",movement
+Remember my nickname is T.,memory_update
+quick question: that movie was actually pretty good.,chat
+Which direction did I say the exit was?,memory_retrieval
+"The phone charger is in the lab, keep that in memory.",memory_update
+Move forward.,movement
+"Hey, I play Brawl Stars, remember that.",memory_update
+Can you make a silly sentence about a porcupine?,chat
+"yo, where did I leave my notebook?",memory_retrieval
+Can you recall the note about the laptop?,memory_retrieval
+"yo, what did I ask you to remember?",memory_retrieval
+Drive closer.,movement
+"hey, advance a little bit.",movement
+Save that my favorite game is Mario Kart.,memory_update
+Keep in mind that I am learning machine learning.,memory_update
+Line yourself up with the door.,movement
+Go away from me.,movement
+My favorite IDE is Sublime Text.,memory_update
+Change my preferred editor to Cursor.,memory_update
+can you explain computer vision like I am new to it?,chat
+"robot buddy, face a little right please.",movement
+"yo, do you know whether I like examples?",memory_retrieval
+"yo, where is the nearest emergency exit?",memory_retrieval
+Line yourself up with the whiteboard.,movement
+Save this detail: I like calculus.,memory_update
+"When you finish moving, return to the computer lab.",memory_update
+Roll left.,movement
+Shift forward three small steps.,movement
+Remember my nickname is Lux.,memory_update
+"My favorite food is burritos, remember that.",memory_update
+"okay, what's my name again?",memory_retrieval
+good evening BELT,chat
+Tell me a tiny fun fact about AI.,chat
+Move left.,movement
+Please go beside the desk gently.,movement
+Shift right like two feet.,movement
+Line yourself up with the wall.,movement
+I need you to reposition near the table.,movement
+"yo, face toward the whiteboard please.",movement
+"hey, what did you save about my project?",memory_retrieval
+What do you think about books?,chat
+Rotate counterclockwise like two feet.,movement
+hey bestie!,chat
+Save that I left the jacket in the lab.,memory_update
+Scoot away like two feet.,movement
+"hey, turn so your front is facing the exit.",movement
 good evening robot,chat
-good evening robot!,chat
-good evening buddy,chat
-good evening buddy!,chat
-good evening campus robot,chat
-good evening campus robot!,chat
-good evening little robot,chat
-good evening little robot!,chat
-greetings belt,chat
-greetings belt!,chat
-greetings robot,chat
-greetings robot!,chat
-greetings buddy,chat
-greetings buddy!,chat
-greetings campus robot,chat
-greetings campus robot!,chat
-greetings little robot,chat
-greetings little robot!,chat
-can you answer questions,chat
-can you answer questions?,chat
-can you explain code,chat
-can you explain code?,chat
-can you help with homework,chat
-can you help with homework?,chat
-can you help with coding,chat
-can you help with coding?,chat
-can you help with machine learning,chat
-can you help with machine learning?,chat
-can you help with robotics,chat
-can you help with robotics?,chat
-can you summarize things,chat
-can you summarize things?,chat
-can you keep track of context,chat
-can you keep track of context?,chat
-can you act like a campus assistant,chat
-can you act like a campus assistant?,chat
-can you be concise,chat
-can you be concise?,chat
-can you be silly,chat
-can you be silly?,chat
-can you give examples,chat
-can you give examples?,chat
-can you help me debug,chat
-can you help me debug?,chat
-can you explain this simply,chat
-can you explain this simply?,chat
-can you talk like belt,chat
-can you talk like belt?,chat
-can you respond shortly,chat
-can you respond shortly?,chat
-can you introduce yourself,chat
-can you introduce yourself?,chat
-can you tell me your role,chat
-can you tell me your role?,chat
-what are you built for,chat
-what are you built for?,chat
-what is your job,chat
-what is your job?,chat
-what should I use you for,chat
-what should I use you for?,chat
-what commands do you support,chat
-what commands do you support?,chat
-what can I say to you,chat
-what can I say to you?,chat
-how do I talk to you,chat
-how do I talk to you?,chat
-how should I use belt,chat
-how should I use belt?,chat
-how do you respond,chat
-how do you respond?,chat
-why are you called belt,chat
-show my memory,memory_retrieval
-what is saved about me,memory_retrieval
-what do you remember about me,memory_retrieval
-show what you know about me,memory_retrieval
-pull up my memory,memory_retrieval
-display my saved notes,memory_retrieval
-show my saved details,memory_retrieval
-what notes do you have about me,memory_retrieval
-what is in my profile,memory_retrieval
-show my profile,memory_retrieval
-read my memory,memory_retrieval
-list my memory,memory_retrieval
-print my memory,memory_retrieval
-do you remember me,memory_retrieval
-do you know anything about me,memory_retrieval
-what have I told you about myself,memory_retrieval
-what personal notes are saved,memory_retrieval
-what facts are saved for me,memory_retrieval
-show saved facts,memory_retrieval
-show saved preferences,memory_retrieval
-what are my preferences,memory_retrieval
-what did I ask you to remember,memory_retrieval
-what have you saved,memory_retrieval
-what memory do you have,memory_retrieval
-what is saved for my favorite color,memory_retrieval
-what do you remember about my favorite color,memory_retrieval
-do you know my favorite color,memory_retrieval
-did I tell you my favorite color,memory_retrieval
-can you show me my favorite color,memory_retrieval
-can you check my favorite color,memory_retrieval
-look up my favorite color in memory,memory_retrieval
-pull up my favorite color from memory,memory_retrieval
-show me what you saved about my favorite color,memory_retrieval
-what did you save about my favorite color,memory_retrieval
-tell me what you know about my favorite color,memory_retrieval
-is there anything stored about my favorite color,memory_retrieval
-what is saved for my favorite animal,memory_retrieval
-what do you remember about my favorite animal,memory_retrieval
-do you know my favorite animal,memory_retrieval
-did I tell you my favorite animal,memory_retrieval
-can you show me my favorite animal,memory_retrieval
-can you check my favorite animal,memory_retrieval
-look up my favorite animal in memory,memory_retrieval
-pull up my favorite animal from memory,memory_retrieval
-show me what you saved about my favorite animal,memory_retrieval
-what did you save about my favorite animal,memory_retrieval
-tell me what you know about my favorite animal,memory_retrieval
-is there anything stored about my favorite animal,memory_retrieval
-what is saved for my favorite food,memory_retrieval
-what do you remember about my favorite food,memory_retrieval
-do you know my favorite food,memory_retrieval
-did I tell you my favorite food,memory_retrieval
-can you show me my favorite food,memory_retrieval
-can you check my favorite food,memory_retrieval
-look up my favorite food in memory,memory_retrieval
-pull up my favorite food from memory,memory_retrieval
-show me what you saved about my favorite food,memory_retrieval
-what did you save about my favorite food,memory_retrieval
-tell me what you know about my favorite food,memory_retrieval
-is there anything stored about my favorite food,memory_retrieval
-what is saved for my favorite ice cream,memory_retrieval
-what do you remember about my favorite ice cream,memory_retrieval
-do you know my favorite ice cream,memory_retrieval
-did I tell you my favorite ice cream,memory_retrieval
-can you show me my favorite ice cream,memory_retrieval
-can you check my favorite ice cream,memory_retrieval
-look up my favorite ice cream in memory,memory_retrieval
-pull up my favorite ice cream from memory,memory_retrieval
-show me what you saved about my favorite ice cream,memory_retrieval
-what did you save about my favorite ice cream,memory_retrieval
-tell me what you know about my favorite ice cream,memory_retrieval
-is there anything stored about my favorite ice cream,memory_retrieval
-what is saved for my preferred explanation style,memory_retrieval
-what do you remember about my preferred explanation style,memory_retrieval
-do you know my preferred explanation style,memory_retrieval
-did I tell you my preferred explanation style,memory_retrieval
-can you show me my preferred explanation style,memory_retrieval
-can you check my preferred explanation style,memory_retrieval
-look up my preferred explanation style in memory,memory_retrieval
-pull up my preferred explanation style from memory,memory_retrieval
-show me what you saved about my preferred explanation style,memory_retrieval
-what did you save about my preferred explanation style,memory_retrieval
-tell me what you know about my preferred explanation style,memory_retrieval
-is there anything stored about my preferred explanation style,memory_retrieval
-what is saved for my name,memory_retrieval
-what do you remember about my name,memory_retrieval
-do you know my name,memory_retrieval
-did I tell you my name,memory_retrieval
-can you show me my name,memory_retrieval
-can you check my name,memory_retrieval
-look up my name in memory,memory_retrieval
-pull up my name from memory,memory_retrieval
-show me what you saved about my name,memory_retrieval
-what did you save about my name,memory_retrieval
-tell me what you know about my name,memory_retrieval
-is there anything stored about my name,memory_retrieval
-what is saved for my nickname,memory_retrieval
-what do you remember about my nickname,memory_retrieval
-do you know my nickname,memory_retrieval
-did I tell you my nickname,memory_retrieval
-can you show me my nickname,memory_retrieval
-can you check my nickname,memory_retrieval
-look up my nickname in memory,memory_retrieval
-pull up my nickname from memory,memory_retrieval
-show me what you saved about my nickname,memory_retrieval
-what did you save about my nickname,memory_retrieval
-tell me what you know about my nickname,memory_retrieval
-is there anything stored about my nickname,memory_retrieval
-what is saved for my coding level,memory_retrieval
-what do you remember about my coding level,memory_retrieval
-do you know my coding level,memory_retrieval
-did I tell you my coding level,memory_retrieval
-can you show me my coding level,memory_retrieval
-can you check my coding level,memory_retrieval
-look up my coding level in memory,memory_retrieval
-pull up my coding level from memory,memory_retrieval
-show me what you saved about my coding level,memory_retrieval
-what did you save about my coding level,memory_retrieval
-tell me what you know about my coding level,memory_retrieval
-is there anything stored about my coding level,memory_retrieval
-what is saved for my robot project,memory_retrieval
-what do you remember about my robot project,memory_retrieval
-do you know my robot project,memory_retrieval
-did I tell you my robot project,memory_retrieval
-can you show me my robot project,memory_retrieval
-can you check my robot project,memory_retrieval
-look up my robot project in memory,memory_retrieval
-pull up my robot project from memory,memory_retrieval
-show me what you saved about my robot project,memory_retrieval
-what did you save about my robot project,memory_retrieval
-tell me what you know about my robot project,memory_retrieval
-is there anything stored about my robot project,memory_retrieval
-what is saved for my school project,memory_retrieval
-what do you remember about my school project,memory_retrieval
-do you know my school project,memory_retrieval
-did I tell you my school project,memory_retrieval
-can you show me my school project,memory_retrieval
-can you check my school project,memory_retrieval
-look up my school project in memory,memory_retrieval
-pull up my school project from memory,memory_retrieval
-show me what you saved about my school project,memory_retrieval
-what did you save about my school project,memory_retrieval
-tell me what you know about my school project,memory_retrieval
-is there anything stored about my school project,memory_retrieval
-what is saved for my favorite topic,memory_retrieval
-what do you remember about my favorite topic,memory_retrieval
-do you know my favorite topic,memory_retrieval
-did I tell you my favorite topic,memory_retrieval
-can you show me my favorite topic,memory_retrieval
-can you check my favorite topic,memory_retrieval
-look up my favorite topic in memory,memory_retrieval
-pull up my favorite topic from memory,memory_retrieval
-show me what you saved about my favorite topic,memory_retrieval
-what did you save about my favorite topic,memory_retrieval
-tell me what you know about my favorite topic,memory_retrieval
-is there anything stored about my favorite topic,memory_retrieval
-what is saved for my favorite class,memory_retrieval
-what do you remember about my favorite class,memory_retrieval
-do you know my favorite class,memory_retrieval
-did I tell you my favorite class,memory_retrieval
-can you show me my favorite class,memory_retrieval
-can you check my favorite class,memory_retrieval
-look up my favorite class in memory,memory_retrieval
-pull up my favorite class from memory,memory_retrieval
-show me what you saved about my favorite class,memory_retrieval
-what did you save about my favorite class,memory_retrieval
-tell me what you know about my favorite class,memory_retrieval
-is there anything stored about my favorite class,memory_retrieval
-what is saved for my hobby,memory_retrieval
-what do you remember about my hobby,memory_retrieval
-do you know my hobby,memory_retrieval
-did I tell you my hobby,memory_retrieval
-can you show me my hobby,memory_retrieval
-can you check my hobby,memory_retrieval
-look up my hobby in memory,memory_retrieval
-pull up my hobby from memory,memory_retrieval
-show me what you saved about my hobby,memory_retrieval
-what did you save about my hobby,memory_retrieval
-tell me what you know about my hobby,memory_retrieval
-is there anything stored about my hobby,memory_retrieval
-what is saved for my soccer experience,memory_retrieval
-what do you remember about my soccer experience,memory_retrieval
-do you know my soccer experience,memory_retrieval
-did I tell you my soccer experience,memory_retrieval
-can you show me my soccer experience,memory_retrieval
-can you check my soccer experience,memory_retrieval
-look up my soccer experience in memory,memory_retrieval
-pull up my soccer experience from memory,memory_retrieval
-show me what you saved about my soccer experience,memory_retrieval
-what did you save about my soccer experience,memory_retrieval
-tell me what you know about my soccer experience,memory_retrieval
-is there anything stored about my soccer experience,memory_retrieval
-what is saved for my programming experience,memory_retrieval
-what do you remember about my programming experience,memory_retrieval
-do you know my programming experience,memory_retrieval
-did I tell you my programming experience,memory_retrieval
-can you show me my programming experience,memory_retrieval
-can you check my programming experience,memory_retrieval
-look up my programming experience in memory,memory_retrieval
-pull up my programming experience from memory,memory_retrieval
-save that my favorite animal is a porcupine,memory_update
-note that I prefer simple explanations,memory_update
-remember that I like robotics,memory_update
-save this to my memory,memory_update
-add this to my notes,memory_update
-remember my name is Maya,memory_update
-note that my nickname is Bee,memory_update
-save that I like blue,memory_update
-remember that I prefer short answers,memory_update
-note that I am working on BELT,memory_update
-save that I like coding,memory_update
-remember that I like soccer,memory_update
-note that I am learning machine learning,memory_update
-save that I like mint chocolate chip,memory_update
-remember this detail,memory_update
-store this fact,memory_update
-add this as a memory,memory_update
-put this in my profile,memory_update
-remember that my favorite color is blue,memory_update
-save that my favorite color is blue,memory_update
-note that my favorite color is blue,memory_update
-store that my favorite color is blue,memory_update
-add to memory that my favorite color is blue,memory_update
-please remember that my favorite color is blue,memory_update
-please save that my favorite color is blue,memory_update
-can you remember that my favorite color is blue,memory_update
-can you save that my favorite color is blue,memory_update
-put in my memory that my favorite color is blue,memory_update
-remember that my favorite color is green,memory_update
-save that my favorite color is green,memory_update
-note that my favorite color is green,memory_update
-store that my favorite color is green,memory_update
-add to memory that my favorite color is green,memory_update
-please remember that my favorite color is green,memory_update
-please save that my favorite color is green,memory_update
-can you remember that my favorite color is green,memory_update
-can you save that my favorite color is green,memory_update
-put in my memory that my favorite color is green,memory_update
-remember that my favorite color is purple,memory_update
-save that my favorite color is purple,memory_update
-note that my favorite color is purple,memory_update
-store that my favorite color is purple,memory_update
-add to memory that my favorite color is purple,memory_update
-please remember that my favorite color is purple,memory_update
-please save that my favorite color is purple,memory_update
-can you remember that my favorite color is purple,memory_update
-can you save that my favorite color is purple,memory_update
-put in my memory that my favorite color is purple,memory_update
-remember that my favorite color is orange,memory_update
-save that my favorite color is orange,memory_update
-note that my favorite color is orange,memory_update
-store that my favorite color is orange,memory_update
-add to memory that my favorite color is orange,memory_update
-please remember that my favorite color is orange,memory_update
-please save that my favorite color is orange,memory_update
-can you remember that my favorite color is orange,memory_update
-can you save that my favorite color is orange,memory_update
-put in my memory that my favorite color is orange,memory_update
-remember that my favorite color is black,memory_update
-save that my favorite color is black,memory_update
-note that my favorite color is black,memory_update
-store that my favorite color is black,memory_update
-add to memory that my favorite color is black,memory_update
-please remember that my favorite color is black,memory_update
-please save that my favorite color is black,memory_update
-can you remember that my favorite color is black,memory_update
-can you save that my favorite color is black,memory_update
-put in my memory that my favorite color is black,memory_update
-remember that my favorite color is white,memory_update
-save that my favorite color is white,memory_update
-note that my favorite color is white,memory_update
-store that my favorite color is white,memory_update
-add to memory that my favorite color is white,memory_update
-please remember that my favorite color is white,memory_update
-please save that my favorite color is white,memory_update
-can you remember that my favorite color is white,memory_update
-can you save that my favorite color is white,memory_update
-put in my memory that my favorite color is white,memory_update
-remember that my favorite color is teal,memory_update
-save that my favorite color is teal,memory_update
-note that my favorite color is teal,memory_update
-store that my favorite color is teal,memory_update
-add to memory that my favorite color is teal,memory_update
-please remember that my favorite color is teal,memory_update
-please save that my favorite color is teal,memory_update
-can you remember that my favorite color is teal,memory_update
-can you save that my favorite color is teal,memory_update
-put in my memory that my favorite color is teal,memory_update
-remember that my favorite color is red,memory_update
-save that my favorite color is red,memory_update
-note that my favorite color is red,memory_update
-store that my favorite color is red,memory_update
-add to memory that my favorite color is red,memory_update
-please remember that my favorite color is red,memory_update
-please save that my favorite color is red,memory_update
-can you remember that my favorite color is red,memory_update
-can you save that my favorite color is red,memory_update
-put in my memory that my favorite color is red,memory_update
-remember that my favorite animal is porcupine,memory_update
-save that my favorite animal is porcupine,memory_update
-note that my favorite animal is porcupine,memory_update
-store that my favorite animal is porcupine,memory_update
-add to memory that my favorite animal is porcupine,memory_update
-please remember that my favorite animal is porcupine,memory_update
-please save that my favorite animal is porcupine,memory_update
-can you remember that my favorite animal is porcupine,memory_update
-can you save that my favorite animal is porcupine,memory_update
-put in my memory that my favorite animal is porcupine,memory_update
-remember that my favorite animal is cat,memory_update
-save that my favorite animal is cat,memory_update
-note that my favorite animal is cat,memory_update
-store that my favorite animal is cat,memory_update
-add to memory that my favorite animal is cat,memory_update
-please remember that my favorite animal is cat,memory_update
-please save that my favorite animal is cat,memory_update
-can you remember that my favorite animal is cat,memory_update
-can you save that my favorite animal is cat,memory_update
-put in my memory that my favorite animal is cat,memory_update
-remember that my favorite animal is dog,memory_update
-save that my favorite animal is dog,memory_update
-note that my favorite animal is dog,memory_update
-store that my favorite animal is dog,memory_update
-add to memory that my favorite animal is dog,memory_update
-please remember that my favorite animal is dog,memory_update
-please save that my favorite animal is dog,memory_update
-can you remember that my favorite animal is dog,memory_update
-can you save that my favorite animal is dog,memory_update
-put in my memory that my favorite animal is dog,memory_update
-remember that my favorite animal is otter,memory_update
-save that my favorite animal is otter,memory_update
-note that my favorite animal is otter,memory_update
-store that my favorite animal is otter,memory_update
-add to memory that my favorite animal is otter,memory_update
-please remember that my favorite animal is otter,memory_update
-please save that my favorite animal is otter,memory_update
-can you remember that my favorite animal is otter,memory_update
-can you save that my favorite animal is otter,memory_update
-put in my memory that my favorite animal is otter,memory_update
-remember that my favorite animal is fox,memory_update
-save that my favorite animal is fox,memory_update
-note that my favorite animal is fox,memory_update
-store that my favorite animal is fox,memory_update
-add to memory that my favorite animal is fox,memory_update
-please remember that my favorite animal is fox,memory_update
-please save that my favorite animal is fox,memory_update
-can you remember that my favorite animal is fox,memory_update
-can you save that my favorite animal is fox,memory_update
-put in my memory that my favorite animal is fox,memory_update
-remember that my favorite animal is raven,memory_update
-save that my favorite animal is raven,memory_update
-note that my favorite animal is raven,memory_update
-store that my favorite animal is raven,memory_update
-add to memory that my favorite animal is raven,memory_update
-please remember that my favorite animal is raven,memory_update
-please save that my favorite animal is raven,memory_update
-can you remember that my favorite animal is raven,memory_update
-can you save that my favorite animal is raven,memory_update
-put in my memory that my favorite animal is raven,memory_update
-remember that my favorite animal is turtle,memory_update
-save that my favorite animal is turtle,memory_update
-note that my favorite animal is turtle,memory_update
-store that my favorite animal is turtle,memory_update
-add to memory that my favorite animal is turtle,memory_update
-please remember that my favorite animal is turtle,memory_update
-please save that my favorite animal is turtle,memory_update
-can you remember that my favorite animal is turtle,memory_update
-can you save that my favorite animal is turtle,memory_update
-put in my memory that my favorite animal is turtle,memory_update
-remember that my favorite animal is panda,memory_update
-save that my favorite animal is panda,memory_update
-note that my favorite animal is panda,memory_update
-store that my favorite animal is panda,memory_update
-add to memory that my favorite animal is panda,memory_update
-please remember that my favorite animal is panda,memory_update
-please save that my favorite animal is panda,memory_update
-can you remember that my favorite animal is panda,memory_update
-can you save that my favorite animal is panda,memory_update
-put in my memory that my favorite animal is panda,memory_update
-remember that my favorite ice cream is mint chocolate chip,memory_update
-save that my favorite ice cream is mint chocolate chip,memory_update
-note that my favorite ice cream is mint chocolate chip,memory_update
-store that my favorite ice cream is mint chocolate chip,memory_update
-add to memory that my favorite ice cream is mint chocolate chip,memory_update
-please remember that my favorite ice cream is mint chocolate chip,memory_update
-please save that my favorite ice cream is mint chocolate chip,memory_update
-can you remember that my favorite ice cream is mint chocolate chip,memory_update
-can you save that my favorite ice cream is mint chocolate chip,memory_update
-put in my memory that my favorite ice cream is mint chocolate chip,memory_update
-remember that my favorite ice cream is vanilla,memory_update
-save that my favorite ice cream is vanilla,memory_update
-note that my favorite ice cream is vanilla,memory_update
-store that my favorite ice cream is vanilla,memory_update
-add to memory that my favorite ice cream is vanilla,memory_update
-please remember that my favorite ice cream is vanilla,memory_update
-please save that my favorite ice cream is vanilla,memory_update
-can you remember that my favorite ice cream is vanilla,memory_update
-can you save that my favorite ice cream is vanilla,memory_update
-put in my memory that my favorite ice cream is vanilla,memory_update
-remember that my favorite ice cream is strawberry,memory_update
-save that my favorite ice cream is strawberry,memory_update
-move backward,movement
-go backward,movement
-move forward,movement
-go forward,movement
-turn left,movement
-turn right,movement
-stop moving,movement
-stop,movement
-halt,movement
-freeze,movement
-back up,movement
-roll forward,movement
-roll backward,movement
-rotate left,movement
-rotate right,movement
-move left,movement
-move right,movement
-step forward,movement
-step backward,movement
-drive forward,movement
-drive backward,movement
-come here,movement
-go there,movement
-move closer,movement
-move away,movement
-slow down,movement
-speed up,movement
-turn around,movement
-move forward slowly,movement
-move forward a little,movement
-move forward a bit,movement
-move forward two steps,movement
-move forward one step,movement
-move forward for a second,movement
-move forward carefully,movement
-move backward slowly,movement
-move backward a little,movement
-move backward a bit,movement
-move backward two steps,movement
-move backward one step,movement
-move backward for a second,movement
-move backward carefully,movement
-move left slowly,movement
-move left a little,movement
-move left a bit,movement
-move left two steps,movement
-move left one step,movement
-move left for a second,movement
-move left carefully,movement
-move right slowly,movement
-move right a little,movement
-move right a bit,movement
-move right two steps,movement
-move right one step,movement
-move right for a second,movement
-move right carefully,movement
-move ahead,movement
-move ahead slowly,movement
-move ahead a little,movement
-move ahead a bit,movement
-move ahead two steps,movement
-move ahead one step,movement
-move ahead for a second,movement
-move ahead carefully,movement
-move back,movement
-move back slowly,movement
-move back a little,movement
-move back a bit,movement
-move back two steps,movement
-move back one step,movement
-move back for a second,movement
-move back carefully,movement
-move closer slowly,movement
-move closer a little,movement
-move closer a bit,movement
-move closer two steps,movement
-move closer one step,movement
-move closer for a second,movement
-move closer carefully,movement
-move away slowly,movement
-move away a little,movement
-move away a bit,movement
-move away two steps,movement
-move away one step,movement
-move away for a second,movement
-move away carefully,movement
-go forward slowly,movement
-go forward a little,movement
-go forward a bit,movement
-go forward two steps,movement
-go forward one step,movement
-go forward for a second,movement
-go forward carefully,movement
-go backward slowly,movement
-go backward a little,movement
-go backward a bit,movement
-go backward two steps,movement
-go backward one step,movement
-go backward for a second,movement
-go backward carefully,movement
-go left,movement
-go left slowly,movement
-go left a little,movement
-go left a bit,movement
-go left two steps,movement
-go left one step,movement
-go left for a second,movement
-go left carefully,movement
-go right,movement
-go right slowly,movement
-go right a little,movement
-go right a bit,movement
-go right two steps,movement
-go right one step,movement
-go right for a second,movement
-go right carefully,movement
-go ahead,movement
-go ahead slowly,movement
-go ahead a little,movement
-go ahead a bit,movement
-go ahead two steps,movement
-go ahead one step,movement
-go ahead for a second,movement
-go ahead carefully,movement
-go back,movement
-go back slowly,movement
-go back a little,movement
-go back a bit,movement
-go back two steps,movement
-go back one step,movement
-go back for a second,movement
-go back carefully,movement
-go closer,movement
-go closer slowly,movement
-go closer a little,movement
-go closer a bit,movement
-go closer two steps,movement
-go closer one step,movement
-go closer for a second,movement
-go closer carefully,movement
-go away,movement
-go away slowly,movement
-go away a little,movement
-go away a bit,movement
-go away two steps,movement
-go away one step,movement
-go away for a second,movement
-go away carefully,movement
-drive forward slowly,movement
-drive forward a little,movement
-drive forward a bit,movement
-drive forward two steps,movement
-drive forward one step,movement
-drive forward for a second,movement
-drive forward carefully,movement
-drive backward slowly,movement
-drive backward a little,movement
-drive backward a bit,movement
-drive backward two steps,movement
-drive backward one step,movement
-drive backward for a second,movement
-drive backward carefully,movement
-drive left,movement
-drive left slowly,movement
-drive left a little,movement
-drive left a bit,movement
-drive left for a second,movement
-drive left carefully,movement
-drive right,movement
-drive right slowly,movement
-drive right a little,movement
-drive right a bit,movement
-drive right for a second,movement
-drive right carefully,movement
-drive ahead,movement
-drive ahead slowly,movement
-drive ahead a little,movement
-drive ahead a bit,movement
-drive ahead two steps,movement
-drive ahead one step,movement
-drive ahead for a second,movement
-drive ahead carefully,movement
-drive back,movement
-drive back slowly,movement
-drive back a little,movement
-drive back a bit,movement
-drive back two steps,movement
-drive back one step,movement
-drive back for a second,movement
-drive back carefully,movement
-drive closer,movement
-drive closer slowly,movement
-drive closer a little,movement
-drive closer a bit,movement
-drive closer two steps,movement
-drive closer one step,movement
-drive closer for a second,movement
-drive closer carefully,movement
-drive away,movement
-drive away slowly,movement
+"Which is cooler, Notion or VSCode?",chat
+Note that my favorite app is GitHub.,memory_update
+"My favorite food is pizza, remember that.",memory_update
+Do you like Pinterest or Snapchat better?,chat
+Log this: my current project is about computer vision.,memory_update
+"yo, which app did I say I liked most?",memory_retrieval
+BELT should remember that Luna likes Tetris.,memory_update
+"yo, log this: my current project is about voice interaction.",memory_update
+"okay, can you recall the note about the USB drive?",memory_retrieval
+Line yourself up with the hallway.,movement
+BELT should remember that Riley likes Roblox.,memory_update
+"hey, tell me what you know about my preferences.",memory_retrieval
+Rotate ninety degrees right carefully.,movement
+Can you help me brainstorm a project about Python?,chat
+Can you check out the doorway and come back?,movement
+"um, rotate a little left carefully.",movement
+BELT should remember that Avery likes Minecraft.,memory_update
+Tell me a tiny fun fact about weather.,chat
+Update my favorite social platform to GitHub.,memory_update
+quick question: where is the planner?,memory_retrieval
+What is the difference between memory and a model?,chat
+Please go farther three small steps.,movement
+What is your favorite app?,chat
+"okay, can you help me brainstorm a project about data science?",chat
+Rotate ninety degrees left for a few seconds.,movement
+Do not forget that I like pho after coding sessions.,memory_update
+hello!!,chat
+Do you like Duolingo or YouTube better?,chat
+Save that I left the headphones on the table.,memory_update
+Rotate ninety degrees left three small steps.,movement
+Change my preferred editor to IntelliJ.,memory_update
+"I prefer being called Sam, please remember.",memory_update
+"hey, where is the nearest emergency exit?",memory_retrieval
+"yo, store this preference: I like direct feedback.",memory_update
+"When you finish moving, return to the stairwell.",memory_update
+Where did I leave my sketchbook?,memory_retrieval
+quick question: what room are we supposed to return to?,memory_retrieval
+"like, rotate toward the hallway real quick.",movement
+Roll to the door.,movement
+Move to the previous room.,movement
+"yo, what programming language did I say I prefer?",memory_retrieval
+Face the previous room.,movement
+"okay, which app did I say I liked most?",memory_retrieval
+Can you help me write a sentence about machine learning?,chat
+Shift forward at normal speed.,movement
+do you know any fun facts real quick?,chat
+What did I tell you about VSCode?,memory_retrieval
+Save this detail: I like AI safety.,memory_update
+quick question: can you stay here and answer questions?,chat
+Roll away from me.,movement
+Note that my favorite app is Canva.,memory_update
+Can you recall the note about the planner?,memory_retrieval
+Do you like Pinterest or Discord better?,chat
+Can you move to the charging station without rushing?,movement
+"yo, face toward the whiteboard real quick.",movement
+"yo, where did I leave my robot manual?",memory_retrieval
+"okay, where did I leave my headphones?",memory_retrieval
+Have you ever heard of Mario Kart?,chat
+"Which is cooler, Reddit or TikTok?",chat
+quick question: do you know whether I like simple explanations?,memory_retrieval
+"hey, what did you save about my favorite app?",memory_retrieval
+What do you think about coding?,chat
+quick question: move to the nearest emergency exit slowly.,movement
+"hey, do you know whether I like simple explanations?",memory_retrieval
+Make a note that I use Sublime Text for coding.,memory_update
+Can you compare Valorant and Among Us?,chat
+"hey, where did I leave my calculator?",memory_retrieval
+"okay, what did you save about my charger?",memory_retrieval
+Log this: my current project is about voice interaction.,memory_update
+save this detail: I like Python.,memory_update
+Show my saved memory.,memory_retrieval
+Please go backward just a bit.,movement
+quick question: save this detail: I like Minecraft lore.,memory_update
+Remember this room is the charging area.,memory_update
+"My favorite food is ramen, remember that.",memory_update
+"My favorite food is noodles, remember that.",memory_update
+Go around the table.,movement
+"yo, can you recall the note about the USB drive?",memory_retrieval
+"I prefer being called Chris, please remember.",memory_update
+quick question: did I tell you my favorite platform?,memory_retrieval
+"yo, what IDE do I use?",memory_retrieval
+"hey, where did I leave my sketchbook?",memory_retrieval
+What is the difference between RAM and thinking?,chat
+"I prefer being called Alex, please remember.",memory_update
+Please remember that the laptop is next to the couch.,memory_update
+Do not forget that I like sushi after coding sessions.,memory_update
+Please remember that the USB drive is by the window.,memory_update
+quick question: call me Avery from now on.,memory_update
+Can you move toward the exit smoothly?,movement
+Remember my nickname is TJ.,memory_update
+"okay, did I tell you my favorite color?",memory_retrieval
+Go into the hallway.,movement
+What did you save about my favorite app?,memory_retrieval
+what's up buddy,chat
+Can you explain algorithms like I am new to it?,chat
+"hey, what's my name again?",memory_retrieval
+"hey, what did I ask you to remember?",memory_retrieval
+"yo, how does a robot know where it is?",chat
+Roll right.,movement
+Can you compare Fortnite and Mario Kart?,chat
+Can you make a silly sentence about a capybara?,chat
+Back up like two feet.,movement
+Keep in mind that I am learning PCA.,memory_update
+I am your creator.,memory_update
+Can you recall the note about the sketchbook?,memory_retrieval
+Where is the calculator?,memory_retrieval
+"when you can, can you roll right at normal speed?",movement
+Do you remember my favorite game?,memory_retrieval
+"hey, where is the USB drive?",memory_retrieval
+Can you explain creative writing like I am new to it?,chat
+"hey, where is the headphones?",memory_retrieval
+Save that I left the ID card at the front desk.,memory_update
+Make a note that I use Replit for coding.,memory_update
+quick question: can you recall the note about the phone charger?,memory_retrieval
+"okay, do you know whether I like short answers?",memory_retrieval
+BELT should remember that Jordan likes Celeste.,memory_update
+"Which is cooler, GitHub or Pinterest?",chat
+Update my favorite social platform to Pinterest.,memory_update
+"Hello world, robot edition.",chat
+I need to save my plot before it crashes.,chat
+"real quick, can you drive closer gently?",movement
+What is your favorite song genre?,chat
+What is a good beginner project with Arduino?,chat
+Go around the cart.,movement
+"If a wolf learned Python, what would it build?",chat
+Please remember that the calculator is in the previous room.,memory_update
+what is machine learning,chat
+"okay, where is the camera?",memory_retrieval
+advance smoothly.,movement
+"okay, can you move like half a meter forward?",movement
+Go toward the exit.,movement
+good evening!,chat
+BELT should remember that Maya likes Valorant.,memory_update
+"okay, can you recall the note about the camera?",memory_retrieval
+"hey, where did I leave my ID card?",memory_retrieval
+Remember when we talked about AI? That was funny.,chat
+"bestie, can you walk right one step?",movement
+Remember that my favorite animal is a wolf.,memory_update
+"hey, i need to save my model before it crashes.",chat
+"okay, what did you save about my favorite app?",memory_retrieval
+Go around the desk.,movement
+"yo, what is my favorite color?",memory_retrieval
+Please remember that the phone charger is beside the whiteboard.,memory_update
+What was the thing I asked you not to forget?,memory_retrieval
+Navigate toward the stairwell.,movement
+"yo, for future chats, use more intuition.",memory_update
+What do you think about space?,chat
+"okay, where did I leave my USB drive?",memory_retrieval
+hello buddy,chat
+Can you recall the note about the camera?,memory_retrieval
+Can you move toward me a little bit?,movement
+Advance a couple steps.,movement
+Remember this room is the main lobby.,memory_update
+quick question: my favorite color is red.,memory_update
+what can you do real quick?,chat
+"yo, i usually want answers about machine learning to be visual.",memory_update
+I usually want answers about algorithms to be example-driven.,memory_update
+Do you like Snapchat or Notion better?,chat
+Call me Casey from now on.,memory_update
+Remember that my favorite club topic is algorithms.,memory_update
+Do you like Instagram or YouTube better?,chat
+Remember that my favorite animal is a capybara.,memory_update
+Please remember that the USB drive is on the left shelf.,memory_update
+What do you think about cats?,chat
+Note for later: I want BELT to be slightly witty.,memory_update
+Drive toward the exit.,movement
+"hey, freeze for a second.",movement
+My favorite IDE is Arduino IDE.,memory_update
+"yo, what did you save about my laptop?",memory_retrieval
+"The sketchbook is under the chair, keep that in memory.",memory_update
+Rotate left a little bit.,movement
+Note that my favorite app is Duolingo.,memory_update
+Move to the nearest emergency exit.,movement
+Log this: my current project is about campus navigation.,memory_update
+"BELT, turn ninety degrees right.",movement
+I usually want answers about PCA to be visual.,memory_update
+"yo, go check the charging spot, then return here.",movement
+Have you ever heard of Chess?,chat
+"hey, what did you save about my backpack?",memory_retrieval
+"hey, can you recall the note about the backpack?",memory_retrieval
+Scoot right a couple steps.,movement
+Save that my favorite game is Tetris.,memory_update
+Rotate a little right like two feet.,movement
+"hey, can you help me brainstorm a project about machine learning?",chat
+"okay, can you help me write a sentence about AI safety?",chat
+Come closer smoothly.,movement
+Back up two steps.,movement
+"yo, shift backward gently.",movement
+quick question: can you recall the note about the sketchbook?,memory_retrieval
+"okay, can you recall the note about the backpack?",memory_retrieval
+"hey, can you pull up my memory?",memory_retrieval
+Keep in mind that I am learning robotics.,memory_update
+"okay, where is the headphones?",memory_retrieval
+Drive right.,movement
+Please remember that the water bottle is near the charging station.,memory_update
+"The notebook is beside the whiteboard, keep that in memory.",memory_update
+"When you finish moving, return to the charging area.",memory_update
+"Back up slowly, please.",movement
+Do you like TikTok or Canva better?,chat
+"Which is cooler, Snapchat or Snapchat?",chat
+scoot away gently.,movement
+Advance a little bit.,movement
+Move away from me at normal speed.,movement
+Remember I am working on a machine learning demo.,memory_update
+You should know that I prefer simple explanations.,memory_update
+I usually want answers about calculus to be short.,memory_update
+Scoot right gently.,movement
+Turn so your front is facing the hallway.,movement
+quick question: what did you save about my laptop?,memory_retrieval
+What is the difference between a file and a list?,chat
+Come closer three small steps.,movement
+can you compare Honkai Star Rail and Geometry Dash?,chat
+quick question: where did I leave my notebook?,memory_retrieval
+What do you think about food?,chat
+That movie was actually pretty good.,chat
+quick question: tell me what you know about my preferences.,memory_retrieval
+Park next to the door.,movement
+quick question: go beside the desk.,movement
+"yo, where did I leave my backpack?",memory_retrieval
+"hey, did I tell you my favorite animal?",memory_retrieval
+"yo, what did you save about my project?",memory_retrieval
+quick question: show my saved memory.,memory_retrieval
+Remember to come back to the stairwell.,memory_update
+"I am bored, talk to me about coding.",chat
+quick question: go to the charging station.,movement
+Rotate toward me just a bit.,movement
+Do you like Google Docs or Reddit better?,chat
+I usually want answers about Python to be visual.,memory_update
+Remember when we talked about school? That was funny.,chat
+"hey, do you remember where the nearest exit is?",memory_retrieval
+Can you help me brainstorm a project about data science?,chat
+"yo, let's move on to the next example.",chat
+"hey, stop moving.",movement
+Back up for a few seconds.,movement
+"I am bored, talk to me about games.",chat
+Can you recall the note about the water bottle?,memory_retrieval
+"yo, where is the headphones?",memory_retrieval
+"yo, what should you call me?",memory_retrieval
+"My favorite food is curry, remember that.",memory_update
+"okay, can you drive toward the exit three small steps?",movement
+Please remember that the planner is by the window.,memory_update
+Advance carefully.,movement
+BELT should remember that Avery likes Tetris.,memory_update
+Add to my notes that I play Mario Kart.,memory_update
+Do you like Canva or Discord better?,chat
+"okay, where did I leave my water bottle?",memory_retrieval
+Where did I leave my soccer ball?,memory_retrieval
+can you explain PCA,chat
+Walk with me to the hallway.,movement
+Please go toward the exit carefully.,movement
+Reverse three small steps.,movement
+Have you ever heard of Among Us?,chat
+Move to the door.,movement
+"hey, what preferences have you saved for me?",memory_retrieval
+hello robot,chat
+Can you check out the previous room and come back?,movement
+Walk with me to the computer lab.,movement
+"hey, what is my favorite animal?",memory_retrieval
+"Which is cooler, Spotify or Spotify?",chat
+"hey, i moved my file earlier and now I cannot find it.",chat
+Turn so your front is facing the desk.,movement
+"yo, what do you remember about me?",memory_retrieval
+Please remember that the backpack is at the front desk.,memory_update
+"My favorite food is pho, remember that.",memory_update
+"hey, did I tell you my favorite game?",memory_retrieval
+belt should remember that Luna likes Roblox.,memory_update
+Remember that my favorite animal is a turtle.,memory_update
+Note for later: I want BELT to be curious.,memory_update
+Which room were you supposed to return to?,memory_retrieval
+Did I tell you my favorite platform?,memory_retrieval
+how are you,chat
+"okay, do you know my nickname?",memory_retrieval
+Shift left a little bit.,movement
+"please, can you drive forward two steps?",movement
+Tell me a tiny fun fact about dogs.,chat
+"yo, who is your creator?",memory_retrieval
+"okay, where did I leave my planner?",memory_retrieval
+Remember when we talked about math? That was funny.,chat
+Move to the nearest emergency exit slowly.,movement
+Can you help me write a sentence about algorithms?,chat
+What is my favorite color?,memory_retrieval
+"yo, yo buddy",chat
+Do not forget that I like fried rice after coding sessions.,memory_update
+I usually want answers about soccer to be step-by-step.,memory_update
+Turn so your front is facing the exit.,movement
+Go right.,movement
+Drive backward.,movement
+"Which is cooler, Pinterest or GitHub?",chat
+Walk toward the exit.,movement
+Come closer two steps.,movement
+Scoot forward for a few seconds.,movement
+"okay, where did I leave my robot manual?",memory_retrieval
+"hey, can you recall the note about the planner?",memory_retrieval
+"Which is cooler, TikTok or Canva?",chat
+"I prefer being called Jamie, please remember.",memory_update
+"yo, what do you think about games?",chat
+"hey, i am your programmer.",memory_update
+good morning,chat
+Which app did I say I liked most?,memory_retrieval
+Remember this room is the front office.,memory_update
+Return to the starting point.,movement
+quick question: what did you save about my favorite app?,memory_retrieval
+What did you save about my backpack?,memory_retrieval
+"hey, turn a little left.",movement
+"okay, where is the nearest emergency exit?",memory_retrieval
+Come closer like two feet.,movement
+Back up three small steps.,movement
+"The phone charger is in the previous room, keep that in memory.",memory_update
+Scoot back like two feet.,movement
+Do you like Reddit or GitHub better?,chat
+BELT should remember that Sam likes Celeste.,memory_update
+Please go away from me without rushing.,movement
+"The soccer ball is inside my backpack, keep that in memory.",memory_update
+"Which is cooler, VSCode or Canva?",chat
+Can you make a silly sentence about a red panda?,chat
+"yo, let's move on to another topic.",chat
+Where is the backpack?,memory_retrieval
+"The ID card is by the window, keep that in memory.",memory_update
+Add to my notes that I play Brawl Stars.,memory_update
+"yo, where did I leave my ID card?",memory_retrieval
+Please remember that the phone charger is under the chair.,memory_update
+"BELT, turn around.",movement
+Do you like Spotify or Canva better?,chat
+Remember to come back to the club room.,memory_update
+What is your favorite game?,chat
+Remember that my favorite club topic is AI safety.,memory_update
+Remember that my favorite club topic is data science.,memory_update
+"I prefer being called Luna, please remember.",memory_update
+Make a note that I use Eclipse for coding.,memory_update
+"okay, remember when we talked about music? That was funny.",chat
+Take a small step toward the hallway.,movement
+Can you move to the previous room a couple steps?,movement
+Where is the ID card?,memory_retrieval
+Can you compare Honkai Star Rail and Fortnite?,chat
+"okay, where is the notebook?",memory_retrieval
+"yo, store this preference: I like visual analogies.",memory_update
+"If a red panda learned Python, what would it build?",chat
+What does the word classifier mean?,chat
+Please go backward a little bit.,movement
+My favorite color is silver.,memory_update
+Move away from me for a few seconds.,movement
+Do you know anything about Brawl Stars?,chat
+"okay, what is the difference between memory and a list?",chat
+Scoot closer carefully.,movement
+"yo, what food did I tell you I like?",memory_retrieval
+Add to my notes that I play Roblox.,memory_update
+BELT should remember that Chris likes Fortnite.,memory_update
+Remember this room is the workshop.,memory_update
+"hey, what did I tell you about the hallway?",memory_retrieval
+"hey, do you know my nickname?",memory_retrieval
+"okay, where is the phone charger?",memory_retrieval
+quick question: do you know whether I like debugging hints?,memory_retrieval
+"Buddy, turn counterclockwise.",movement
+Advance without rushing.,movement
+Remember my nickname is Bean.,memory_update
+Drive left.,movement
+Go to the hallway.,movement
+Keep in mind that I am learning linear algebra.,memory_update
+"yo, can you recall the note about the headphones?",memory_retrieval
+My favorite IDE is Replit.,memory_update
+"yo, what room are we supposed to return to?",memory_retrieval
+"My favorite food is sushi, remember that.",memory_update
+What's my name again?,memory_retrieval
+Can you explain game design like I am new to it?,chat
+Call me Riley from now on.,memory_update
+Can you recall the note about the USB drive?,memory_retrieval
+Save that my favorite game is Geometry Dash.,memory_update
+"When you finish moving, return to the previous room.",memory_update
+"For future chats, use direct feedback.",memory_update
+Remember I am working on a campus robot.,memory_update
+What is your favorite snack?,chat
+"For future chats, use examples first.",memory_update
+Remember when we talked about Minecraft? That was funny.,chat
+"yo, i am bored, talk to me about dogs.",chat
+Remember to come back to the library.,memory_update
+"okay, add to my notes that I play Geometry Dash.",memory_update
+Turn so your front is facing the door.,movement
+"okay, what did I tell you about VSCode?",memory_retrieval
+"yo, i usually want answers about creative writing to be visual.",memory_update
+hi bestie,chat
+"okay, what preferences have you saved for me?",memory_retrieval
+Where did I leave my backpack?,memory_retrieval
+Go left.,movement
+quick question: where did I leave my backpack?,memory_retrieval
+Remember I am working on an intent router.,memory_update
+quick question: remember when we talked about coding? That was funny.,chat
+Can you move like half a meter forward?,movement
+You should know that I prefer visual analogies.,memory_update
+Where is the laptop?,memory_retrieval
+What is the difference between storage and learning?,chat
+Save this detail: I like game design.,memory_update
+Navigate toward the main lobby.,movement
+"My favorite food is mangoes, remember that.",memory_update
+Walk forward.,movement
+quick question: move away from me a couple steps.,movement
+"uh, can you move to the charging station just a bit?",movement
+Come closer one step.,movement
+"I am bored, talk to me about AI.",chat
+Please remember that the planner is in the lab.,memory_update
+Drive toward me.,movement
+Can you give me a quick pep talk before I code?,chat
+"yo, for future chats, use plain English.",memory_update
+"bestie, can you drive right for a few seconds?",movement
+quick question: what did I tell you about Brawl Stars?,memory_retrieval
+Where did I leave my planner?,memory_retrieval
+quick question: do you know whether I like short answers?,memory_retrieval
+hello,chat
+"okay, show my saved memory.",memory_retrieval
+"hey, turn so your front is facing the hallway.",movement
+Do you like Canva or Google Docs better?,chat
+What is the difference between storage and thinking?,chat
+Can you help me brainstorm a project about PCA?,chat
+I usually want answers about robotics to be example-driven.,memory_update
+Please go backward like two feet.,movement
+"Which is cooler, Duolingo or Pinterest?",chat
+hello BELT,chat
+Do you like Twitch or Instagram better?,chat
+Back up one step.,movement
+Note for later: I want BELT to be concise.,memory_update
+"okay, do you know whether I like examples?",memory_retrieval
+Drive to the charging station.,movement
+quick question: my favorite color is navy.,memory_update
+Park next to the desk.,movement
+Park next to the table.,movement
+Back up just a bit.,movement
+"hey, how does a robot know where it is?",chat
+What did I tell you about the hallway?,memory_retrieval
+Scoot away a little bit.,movement
+Please go left carefully.,movement
+"hey, can you recall the note about the notebook?",memory_retrieval
+quick question: take a small step toward the door.,movement
+"yo, what did I tell you about Instagram?",memory_retrieval
+"okay, what did I ask you to remember?",memory_retrieval
+"yo, what's my name again?",memory_retrieval
+Can you move like two steps right?,movement
+"From now on, if I ask about math, give me visual analogies.",memory_update
+Please go right three small steps.,movement
+"like, can you walk farther slowly?",movement
+Update my favorite social platform to TikTok.,memory_update
+"If a axolotl learned Python, what would it build?",chat
+"yo, do you remember where the nearest exit is?",memory_retrieval
+Remember to come back to the hallway.,memory_update
+"okay, can you recall the note about the robot manual?",memory_retrieval
+quick question: can you explain machine learning like I am new to it?,chat
+"hey, can you give me a quick pep talk before I code?",chat
+"uh, can you roll left in a straight line?",movement
+Rotate a little right slowly.,movement
+Go to the door.,movement
+Reverse smoothly.,movement
+Move backward.,movement
+"hey, can you recall the note about the water bottle?",memory_retrieval
+"Belt, turn toward the hallway.",movement
+Can you move to the door three small steps?,movement
+Can you compare Brawl Stars and Chess?,chat
+"I am bored, talk to me about Brawl Stars.",chat
+"I prefer being called Tian, please remember.",memory_update
+I usually want answers about computer vision to be short.,memory_update
+"From now on, if I ask about math, give me beginner-friendly explanations.",memory_update
+Update my favorite social platform to Discord.,memory_update
+"yo, tell me what you know about my preferences.",memory_retrieval
+"Which is cooler, YouTube or YouTube?",chat
+Where did I leave my camera?,memory_retrieval
+"yo, change my preferred editor to Cursor.",memory_update
+"yo, rotate toward me please.",movement
+"yo, shift backward a couple steps.",movement
+"okay, where did I leave my notebook?",memory_retrieval
+quick question: did I tell you my favorite animal?,memory_retrieval
+quick question: what preferences have you saved for me?,memory_retrieval
+"bro, turn a little right please.",movement
+hey bestie,chat
+Save that I left the phone charger in the previous room.,memory_update
+Rotate toward me for a few seconds.,movement
+quick question: where is the phone charger?,memory_retrieval
+"yo, where did I leave my camera?",memory_retrieval
+"yo, do you know whether I like math details?",memory_retrieval
+What do you think about AI?,chat
+"okay, tell me what you know about my preferences.",memory_retrieval
+what does BELT stand for!,chat
+Come closer a little bit.,movement
+"hey, did I tell you my favorite IDE?",memory_retrieval
+"like, can you drive around carefully?",movement
+Reverse for a few seconds.,movement
+quick question: move away from me in a straight line.,movement
+Do you like Reddit or Spotify better?,chat
+"hey, where is the sketchbook?",memory_retrieval
+"I am bored, talk to me about space.",chat
+quick question: what note did I leave about coming back?,memory_retrieval
+"The backpack is by the window, keep that in memory.",memory_update
+"From now on, if I ask about math, give me math after intuition.",memory_update
+"yo, do you know whether I like short answers?",memory_retrieval
+"if it is safe, can you walk right just a bit?",movement
+quick question: who is your creator?,memory_retrieval
+do you know any fun facts?,chat
+Where did I leave my headphones?,memory_retrieval
+Please go toward the exit just a bit.,movement
+"If a penguin learned Python, what would it build?",chat
+BELT should remember that Taylor likes Celeste.,memory_update
+"Which is cooler, Discord or Snapchat?",chat
+"okay, where is the water bottle?",memory_retrieval
+quick question: what IDE do I use?,memory_retrieval
+"The ID card is next to the printer, keep that in memory.",memory_update
+You should know that I prefer debugging hints.,memory_update
+Update my favorite social platform to Instagram.,memory_update
+"hey, pause right there.",movement
+Did I tell you my favorite animal?,memory_retrieval
+hey bestie.,chat
+Can you compare Tetris and Pokemon?,chat
+I usually want answers about AI safety to be short.,memory_update
+"Which is cooler, YouTube or Snapchat?",chat
+Remember to come back to the meeting room.,memory_update
+I am your programmer.,memory_update
+"okay, can you recall the note about the calculator?",memory_retrieval
+Can you help me write a sentence about AI safety?,chat
+Scoot left slowly.,movement
+"Which is cooler, Reddit or YouTube?",chat
+good morning!,chat
+Can you explain PCA like I am new to it?,chat
+"yo, what game did I say I play?",memory_retrieval
+"okay, did I tell you my favorite IDE?",memory_retrieval
+Take a small step toward the desk.,movement
+Call me Bella during this project.,memory_update
+Can you compare Geometry Dash and Geometry Dash?,chat
+"hey, what did I tell you about Instagram?",memory_retrieval
+quick question: can you recall the note about the planner?,memory_retrieval
+Log this: my current project is about robot memory.,memory_update
+"yo, can you explain PCA?",chat
+"yo, can you recall the note about the robot manual?",memory_retrieval
+Make a note that I use Colab for coding.,memory_update
+Can you move to the door a little bit?,movement
+"okay, who is your creator?",memory_retrieval
+"Which is cooler, VSCode or Spotify?",chat
+Walk backward.,movement
+sup robot,chat
+Freeze for a second.,movement
+Save that I left the robot manual next to the printer.,memory_update
+Can you help me brainstorm a project about soccer?,chat
+"yo, which direction did I say the exit was?",memory_retrieval
+"Which is cooler, Duolingo or GitHub?",chat
+quick question: where is the ID card?,memory_retrieval
+Return to the previous room.,movement
+Remember this room is the meeting room.,memory_update
+"yo, what location did I tell you to remember?",memory_retrieval
+Do you like Instagram or Reddit better?,chat
+"okay, what game did I say I play?",memory_retrieval
+Tell me what you know about my preferences.,memory_retrieval
+"Which is cooler, Duolingo or Spotify?",chat
+"hey, do you know whether I like examples?",memory_retrieval
+"If a fox learned Python, what would it build?",chat
+Where is the water bottle?,memory_retrieval
+"for a second, turn around carefully.",movement
+Do you like Twitch or YouTube better?,chat
+Remember that my favorite animal is a axolotl.,memory_update
+Call me Chris from now on.,memory_update
+"hey, what's my favorite social platform?",memory_retrieval
+"hey, where is the calculator?",memory_retrieval
+Please go right one step.,movement
+What kind of explanations do I prefer?,memory_retrieval
+Do you like Discord or Pinterest better?,chat
+Please go around gently.,movement
+What is a good beginner project with NLP?,chat
+Shift right slowly.,movement
+"yo, note for later: I want BELT to be calm.",memory_update
+You should know that I prefer direct feedback.,memory_update
+What room are we supposed to return to?,memory_retrieval
+Please remember that the robot manual is on the table.,memory_update
+Can you move around like two feet?,movement
+How's your robot day going?,chat
+quick question: what saved details do you have for me?,memory_retrieval
+Please remember that the planner is in the previous room.,memory_update
+quick question: what did I tell you about VSCode?,memory_retrieval
+Remember I am working on BELT.,memory_update
+quick question: can you recall the note about the headphones?,memory_retrieval
+Did I tell you my favorite food?,memory_retrieval
+"For future chats, use beginner-friendly explanations.",memory_update
+"okay, what IDE do I use?",memory_retrieval
+"The USB drive is by the window, keep that in memory.",memory_update
+What do you think about music?,chat
+Call me Morgan from now on.,memory_update
+Come closer carefully.,movement
+quick question: i moved my code earlier and now I cannot find it.,chat
+can you talk,chat
+"If a capybara learned Python, what would it build?",chat
+"quick question: actually, face counterclockwise please.",movement
+What do you think about dogs?,chat
+"okay, can you recall the note about the planner?",memory_retrieval
+"hey, what did I tell you about my laptop?",memory_retrieval
+Remember to come back to the front office.,memory_update
+"yo, can you recall the note about the notebook?",memory_retrieval
+Can you help me write a sentence about calculus?,chat
+good morning bestie,chat
+Advance two steps.,movement
+can you recall the note about the phone charger?,memory_retrieval
+Can you move like a couple feet back?,movement
+"okay, can you recall the note about the headphones?",memory_retrieval
+Come closer gently.,movement
+What is the difference between RAM and a hard drive?,chat
+Can you compare Stardew Valley and Terraria?,chat
+What do you think about games?,chat
+What did I tell you about Instagram?,memory_retrieval
+"yo, can you pull up my memory?",memory_retrieval
+Save that I left the water bottle on the left shelf.,memory_update
+"hey, i prefer being called Alex, please remember.",memory_update
+Where did I leave my calculator?,memory_retrieval
+"when you can, rotate left carefully.",movement
+Do you like Twitch or Discord better?,chat
+Advance for a few seconds.,movement
+are you awake?,chat
+quick question: did I tell you my favorite food?,memory_retrieval
+Move to the charging station.,movement
+"yo, what is stored in my profile?",memory_retrieval
+Did I tell you my favorite game?,memory_retrieval
+"hey, can you recall the note about the calculator?",memory_retrieval
+"hey, can you help me brainstorm a project about Python?",chat
+Can you help me write a sentence about game design?,chat
+quick question: where did I leave my camera?,memory_retrieval
+Go to the charging station.,movement
+"hey, save that the emergency exit is behind us.",memory_update
+Rotate right three small steps.,movement
+what is the difference between AI and ML?,chat
+Can you help me brainstorm a project about linear algebra?,chat
+"From now on, if I ask about math, give me plain English.",memory_update
+Keep in mind that I am learning algorithms.,memory_update
+"okay, note that my favorite app is Notion.",memory_update
+"hey, how would you describe yourself as a campus robot?",chat
+quick question: what did I tell you about the previous room?,memory_retrieval
+Shift forward for a few seconds.,movement
+"yo, where is the backpack?",memory_retrieval
+I usually want answers about USACO to be example-driven.,memory_update
+"yo, what was the thing I asked you not to forget?",memory_retrieval
+quick question: which app did I say I liked most?,memory_retrieval
+What did you save about my laptop?,memory_retrieval
+"hey, what should you call me?",memory_retrieval
+I need you to reposition near the door.,movement
+Make a note that I use Visual Studio for coding.,memory_update
+"The headphones is next to the couch, keep that in memory.",memory_update
+Do you like Discord or Google Docs better?,chat
+quick question: can you compare Honkai Star Rail and Stardew Valley?,chat
+Can you make a silly sentence about a cat?,chat
+"yo, did I tell you my favorite platform?",memory_retrieval
+"Buddy, turn toward the hallway.",movement
+quick question: where did I leave my sketchbook?,memory_retrieval
+"bro, rotate toward me real quick.",movement
+Can you help me brainstorm a project about USACO?,chat
+"okay, i usually want answers about AI safety to be step-by-step.",memory_update
+Have you ever heard of Honkai Star Rail?,chat
+"okay, where is the calculator?",memory_retrieval
+Can you make room and move to the side?,movement
+What did I tell you about the previous room?,memory_retrieval
+I am your tester.,memory_update
+can you help me debug code real quick?,chat
+good afternoon BELT,chat
+Can you explain AI safety like I am new to it?,chat
+can you tell a joke real quick?,chat
+Save this detail: I like soccer.,memory_update
+Can you explain Minecraft lore like I am new to it?,chat
+"yo, what did I tell you about VSCode?",memory_retrieval
+Change my preferred editor to Sublime Text.,memory_update
+Save that the emergency exit is to the right.,memory_update
+can you tell a joke,chat
+"if it is safe, can you walk backward a little bit?",movement
+Call me Bella from now on.,memory_update
+What is the difference between a database and learning?,chat
+"okay, i usually want answers about creative writing to be step-by-step.",memory_update
+"yo, where did I leave my soccer ball?",memory_retrieval
+Tell me a tiny fun fact about YouTube.,chat
+"Bro, move a couple steps back.",movement
+"hey, note for later: I want BELT to be patient.",memory_update
+Move away from me without rushing.,movement
+"Which is cooler, Discord or Reddit?",chat
+"I prefer being called Taylor, please remember.",memory_update
+Move to the nearest emergency exit please.,movement
+My favorite IDE is IntelliJ.,memory_update
+Save that my favorite game is Among Us.,memory_update
+Remember I am working on a robot assistant.,memory_update
+Change my preferred editor to Eclipse.,memory_update
+"hey, can you recall the note about the robot manual?",memory_retrieval
+"okay, where did I leave my calculator?",memory_retrieval
+Rotate toward the hallway a little bit.,movement
+quick question: what did you save about my backpack?,memory_retrieval
+quick question: can you recall the note about the laptop?,memory_retrieval
+what's up robot,chat
+Can you recall the note about the robot manual?,memory_retrieval
+Tell me a tiny fun fact about homework.,chat
+what can you do?,chat
+"hey, where did I leave my robot manual?",memory_retrieval
+hey robot,chat
+Do not forget that I like bagels after coding sessions.,memory_update
+Can you explain USACO like I am new to it?,chat
+I moved my file earlier and now I cannot find it.,chat
+Reverse in a straight line.,movement
+"yo, face the desk.",movement
+quick question: does BELT have a favorite ice cream flavor?,chat
+"okay, what's my favorite social platform?",memory_retrieval
+Face me.,movement
+What topic am I learning right now?,memory_retrieval
+"hey, do not forget that I like burritos after coding sessions.",memory_update
+"Which is cooler, Canva or TikTok?",chat
+Please go farther smoothly.,movement
+"okay, where did I leave my jacket?",memory_retrieval
+"okay, okay, turn clockwise real quick.",movement
+"For future chats, use more intuition.",memory_update
+quick question: walk into the hallway.,movement
+"hey, what game did I say I play?",memory_retrieval
+quick question: what is the difference between memory and a list?,chat
+My favorite color is cyan.,memory_update
+Advance one step.,movement
+quick question: what was the thing I asked you not to forget?,memory_retrieval
+Save that my favorite game is Pokemon.,memory_update
+are you awake,chat
+Can you move like a couple feet left?,movement
+what is the difference between AI and ML real quick?,chat
+"hey, where did I leave my planner?",memory_retrieval
+My favorite color is yellow.,memory_update
+"hey, can you recall the note about the phone charger?",memory_retrieval
+What does the word intent mean?,chat
+Call me Alex from now on.,memory_update
+"okay, what room are we supposed to return to?",memory_retrieval
+Tell me a tiny fun fact about robots.,chat
+what is the difference between AI and ML,chat
+Can you check out the corner and come back?,movement
+do you like YouTube or TikTok better?,chat
+"yo, can you recall the note about the calculator?",memory_retrieval
+Please remember that the phone charger is at the front desk.,memory_update
+"yo, where is the sketchbook?",memory_retrieval
+quick question: what do you think about games?,chat
+What food did I tell you I like?,memory_retrieval
+Please remember that the sketchbook is near the hallway.,memory_update
+BELT should remember that Sam likes Chess.,memory_update
+"okay, move out of the walkway.",movement
+"okay, turn left real quick.",movement
+Can you recall the note about the headphones?,memory_retrieval
+"The calculator is by the door, keep that in memory.",memory_update
+quick question: where did I leave my robot manual?,memory_retrieval
+Do you like VSCode or Pinterest better?,chat
+"For future chats, use tiny summaries.",memory_update
+Can you compare Among Us and Brawl Stars?,chat
+Can you help me brainstorm a project about creative writing?,chat
+"hey, where is the jacket?",memory_retrieval
+"okay, what did you save about my laptop?",memory_retrieval
+Walk to the charging station.,movement
+"yo, go around the table.",movement
+I usually want answers about AI safety to be intuitive.,memory_update
+Walk around.,movement
+What did I ask you to remember?,memory_retrieval
+"okay, what is your favorite robot movie?",chat
+Update my favorite social platform to Snapchat.,memory_update
+"Which is cooler, YouTube or Google Docs?",chat
+Where is the sketchbook?,memory_retrieval
+Reverse a little bit.,movement
+Can you move backward three small steps?,movement
+Move away from me just a bit.,movement
+Note for later: I want belt to be extra clear.,memory_update
+Remember this room is the previous room.,memory_update
+What is the difference between a database and a list?,chat
+"yo, what did I tell you about the previous room?",memory_retrieval
+Where did I leave my phone charger?,memory_retrieval
+You should know that I prefer less jargon.,memory_update
+"okay, do you remember my favorite game?",memory_retrieval
+Save that I left the sketchbook in the lab.,memory_update
+"hey, save that I left the camera inside my backpack.",memory_update
+"okay, did I tell you my favorite food?",memory_retrieval
+"Buddy, turn ninety degrees right.",movement
+Remember I am working on a chatbot.,memory_update
+quick question: can you recall the note about the soccer ball?,memory_retrieval
+Move farther.,movement
+Can you move like two steps back?,movement
+"okay, i am bored, talk to me about food.",chat
+"okay, follow me down the aisle.",movement
+quick question: what food did I tell you I like?,memory_retrieval
+"hey, i need you to reposition near the table.",movement
+Do you know whether I like debugging hints?,memory_retrieval
+Where did I leave my robot manual?,memory_retrieval
+Who made you?,memory_retrieval
+Remember that my laptop is on the desk.,memory_update
+Rotate ninety degrees left one step.,movement
+"okay, which direction did I say the exit was?",memory_retrieval
+"hey, can you recall the note about the sketchbook?",memory_retrieval
+Advance three small steps.,movement
+Go backward.,movement
+Can you pull up my memory?,memory_retrieval
+I am your operator.,memory_update
+quick question: which room did I say this was?,memory_retrieval
+"um, rotate left .",movement
+"From now on, if I ask about math, give me step-by-step explanations.",memory_update
+"hey, can you list my saved notes?",memory_retrieval
+"please, face toward the hallway .",movement
+Do you like Twitch or VSCode better?,chat
+"hey, log this: my current project is about intent classification.",memory_update
+"yo, where is the camera?",memory_retrieval
+Save that the emergency exit is near the lobby.,memory_update
+"For future chats, use simple explanations.",memory_update
+Keep in mind that I am learning soccer.,memory_update
+"okay, what should you call me?",memory_retrieval
+"for a second, face left carefully.",movement
+Can you make a silly sentence about a dog?,chat
+You should know that I prefer more intuition.,memory_update
+What IDE do I use?,memory_retrieval
+Advance gently.,movement
+"okay, can you list my saved notes?",memory_retrieval
+Line yourself up with the charging station.,movement
+"hey, did I tell you my favorite food?",memory_retrieval
+Walk farther.,movement
+quick question: what is my favorite animal?,memory_retrieval
+"yo, where did I leave my USB drive?",memory_retrieval
+Follow me down the lab path.,movement
+Can you move away from me gently?,movement
+"okay, where did I leave my sketchbook?",memory_retrieval
+Take a small step toward the exit.,movement
+"yo, where did I leave my jacket?",memory_retrieval
+"okay, what did I tell you about the previous room?",memory_retrieval
+What do you think about school?,chat
+"hey, reverse just a bit.",movement
+quick question: what's my name again?,memory_retrieval
+"hey, update my favorite social platform to VSCode.",memory_update
+"The laptop is on the left shelf, keep that in memory.",memory_update
+Can you move like one tile back?,movement
+"yo, please clear the doorway.",movement
+Rotate around in a straight line.,movement
+"bro, can you move to the charging station one step?",movement
+"okay, what did I tell you about Instagram?",memory_retrieval
+BELT should remember that Jordan likes Terraria.,memory_update
+"hey, where is the notebook?",memory_retrieval
+"Yo, turn toward the hallway.",movement
+"hey, which room did I say this was?",memory_retrieval
+"Go check out the previous room, then come back.",movement
+Follow me down the aisle.,movement
+Rotate toward the whiteboard.,movement
+"If a dolphin learned Python, what would it build?",chat
+Can you compare Terraria and Valorant?,chat
+quick question: what did I tell you about Instagram?,memory_retrieval
+quick question: store this preference: I like math after intuition.,memory_update
+"okay, can you recall the note about the phone charger?",memory_retrieval
+quick question: where is the soccer ball?,memory_retrieval
+Can you compare Minecraft and Geometry Dash?,chat
+Do not forget that I like pasta after coding sessions.,memory_update
+quick question: call me Jordan from now on.,memory_update
+Remember this room is the classroom.,memory_update
+"okay, can you recall the note about the jacket?",memory_retrieval
+"okay, what location did I tell you to remember?",memory_retrieval
+"okay, save that the emergency exit is behind us.",memory_update
+Advance at normal speed.,movement
+Note for later: I want BELT to be friendly.,memory_update
+Rotate toward the hallway for a few seconds.,movement
+"hey, what did you save about my laptop?",memory_retrieval
+Do you like YouTube or YouTube better?,chat
+Reverse slowly.,movement
+Can you explain Python like I am new to it?,chat
+quick question: what should I name my robot assistant?,chat
+do you play games,chat
+I need you to reposition near the window.,movement
+"yo, if a cat learned Python, what would it build?",chat
+"My favorite food is sandwiches, remember that.",memory_update
+Tell me a tiny fun fact about food.,chat
+Save that I prefer short robot responses.,memory_update
+Remember when we talked about soccer? That was funny.,chat
+"Robot, turn a little right.",movement
+Remember when we talked about games? That was funny.,chat
+Back up slowly.,movement
+"Robot, turn toward the hallway.",movement
+Do you like VSCode or Spotify better?,chat
+quick question: can you pull up my memory?,memory_retrieval
+Put in memory that I prefer Java for projects.,memory_update
+What game did I say I play?,memory_retrieval
+"quick question: from now on, if I ask about math, give me visual analogies.",memory_update
+Can you move to the charging station a little bit?,movement
+Please go farther without rushing.,movement
+"okay, can you make a silly sentence about a wolf?",chat
+"My favorite food is bagels, remember that.",memory_update
+"Which is cooler, Snapchat or Reddit?",chat
+do you play games real quick?,chat
+Roll toward me.,movement
+Move into the hallway.,movement
+"From now on, explain things with examples first.",memory_update
+"hey, what IDE do I use?",memory_retrieval
+"okay, hey bestie",chat
+"yo, remember when we talked about memes? That was funny.",chat
+"Instagram is my favorite social platform, just so you know.",memory_update
+"yo, where is the USB drive?",memory_retrieval
+Remember to come back to the classroom.,memory_update
+Scoot left smoothly.,movement
+Note for later: I want BELT to be patient.,memory_update
+"yo, can you recall the note about the phone charger?",memory_retrieval
+"If a hamster learned Python, what would it build?",chat
+what's up!,chat
+"I am bored, talk to me about soccer.",chat
+Do you like Pinterest or GitHub better?,chat
+Remember this room is the computer lab.,memory_update
+Can you compare Geometry Dash and Among Us?,chat
+"Go check the hallway, then return here.",movement
+Do you like Snapchat or VSCode better?,chat
+I am your trainer.,memory_update
+Drive forward.,movement
+"I am bored, talk to me about Minecraft.",chat
+Change my preferred editor to Visual Studio.,memory_update
+Add to my notes that I play Honkai Star Rail.,memory_update
+Can you compare Mario Kart and Mario Kart?,chat
+Please remember to come back to this room.,memory_update
+"I am bored, talk to me about math.",chat
+Let's move on to the next example.,chat
+Reverse like two feet.,movement
+"yo, freeze for a second.",movement
+"The ID card is on the left shelf, keep that in memory.",memory_update
+Rotate toward the hallway without rushing.,movement
+quick question: go right.,movement
+Can you move like half a meter right?,movement
+"hey, store this preference: I like plain English.",memory_update
+Can you move farther slowly?,movement
+What is the difference between RAM and a model?,chat
+Can you compare Pokemon and Mario Kart?,chat
+Where is the phone charger?,memory_retrieval
+"I am bored, talk to me about YouTube.",chat
+Did I tell you my favorite color?,memory_retrieval
+"hey, what note did I leave about coming back?",memory_retrieval
+"hey, where did I leave my notebook?",memory_retrieval
+"okay, can you recall the note about the sketchbook?",memory_retrieval
+"actually, turn toward the whiteboard .",movement
+Please remember that the ID card is inside my backpack.,memory_update
+"for a second, can you roll closer smoothly?",movement
+Remember to come back to the main lobby.,memory_update
+"hey, if a turtle learned Python, what would it build?",chat
+Can you compare Valorant and Brawl Stars?,chat
+Have you ever heard of Brawl Stars?,chat
+quick question: where is the laptop?,memory_retrieval
+"yo, what did you save about my backpack?",memory_retrieval
+how do robots work,chat
+Can you move away from me like two feet?,movement
+"real quick, face toward the whiteboard please.",movement
+quick question: where is the nearest emergency exit?,memory_retrieval
+"Hi BELT, do you like YouTube or TikTok more?",chat
+Where did I leave my jacket?,memory_retrieval
+quick question: bELT should remember that Casey likes Mario Kart.,memory_update
+quick question: do you remember where the nearest exit is?,memory_retrieval
+Move beside the desk.,movement
+I moved my code earlier and now I cannot find it.,chat
+Roll beside the desk.,movement
+"The soccer ball is on the table, keep that in memory.",memory_update
+Move right.,movement
+quick question: what did you save about my explanation style?,memory_retrieval
+My favorite IDE is PyCharm.,memory_update
+Keep in mind that I am learning calculus.,memory_update
+"yo, what saved details do you have for me?",memory_retrieval
+Scoot closer at normal speed.,movement
+"I am bored, talk to me about weather.",chat
+quick question: tell me a tiny fun fact about space.,chat
+Tell me a tiny fun fact about coding.,chat
+Do you remember where the nearest exit is?,memory_retrieval
+I need you to reposition near the printer.,movement
+What is the difference between memory and a hard drive?,chat
+"The calculator is on the desk, keep that in memory.",memory_update
+"okay, did I tell you my favorite platform?",memory_retrieval
+"For future chats, use short answers.",memory_update
+Can you compare Among Us and Terraria?,chat
+Remember when we talked about robots? That was funny.,chat
+"Which is cooler, Duolingo or Google Docs?",chat
+"yo, did I tell you my favorite color?",memory_retrieval
+quick question: what did I tell you about the hallway?,memory_retrieval
+"Go check the charging spot, then return here.",movement
+"okay, please, turn toward the whiteboard please.",movement
+Remember that my favorite animal is a dolphin.,memory_update
+Do you like Twitch or Canva better?,chat
+"hey BELT, face ninety degrees right real quick.",movement
+quick question: what location did I tell you to remember?,memory_retrieval
+Can you chat with me for a minute?,chat
+I am your debugger.,memory_update
+Advance slowly.,movement
+BELT should remember that Sam likes Pokemon.,memory_update
+"hey, where is the planner?",memory_retrieval
+Remember when we talked about coding? That was funny.,chat
+can you tell a joke?,chat
+"yo, where is the planner?",memory_retrieval
+"okay, where did I leave my soccer ball?",memory_retrieval
+Make a note that I use VSCode for coding.,memory_update
+Tell me a tiny fun fact about games.,chat
+Move away from me like two feet.,movement
+Do not forget that I like pizza after coding sessions.,memory_update
+"The calculator is by the window, keep that in memory.",memory_update
+Save that my favorite game is Valorant.,memory_update
+Can you make a silly sentence about a dragonfly?,chat
+"yo, did I tell you my favorite food?",memory_retrieval
+"okay, what note did I leave about coming back?",memory_retrieval
+"okay, follow me down the hallway.",movement
+"okay, who made you?",memory_retrieval
+Please remember that the planner is next to the printer.,memory_update
+Save that I left the robot manual on the table.,memory_update
+quick question: where did I leave my phone charger?,memory_retrieval
+"When you finish moving, return to the classroom.",memory_update
+Can you recall the note about the backpack?,memory_retrieval
+Can you move left just a bit?,movement
+Return to the charging station.,movement
+quick question: what kind of explanations do I prefer?,memory_retrieval
+Which room did I say this was?,memory_retrieval
+"okay, where is the planner?",memory_retrieval
+Can you stay here and answer questions?,chat
+quick question: where did I leave my laptop?,memory_retrieval
+Back up a couple steps.,movement
+"okay, how would you describe yourself as a campus robot?",chat
+Update my favorite social platform to Google Docs.,memory_update
+"okay, drive to the charging station.",movement
+"yo, what kind of explanations do I prefer?",memory_retrieval
+quick question: where did I leave my calculator?,memory_retrieval
+Let's move on to the next question.,chat
+Move to the nearest emergency exit if it is safe.,movement
+"hey, what do you think about cats?",chat
+What is a good beginner project with Python?,chat
+Where is the robot manual?,memory_retrieval
+What is your favorite animal?,chat
+Move toward me.,movement
+"The laptop is on the table, keep that in memory.",memory_update
+quick question: do you know my nickname?,memory_retrieval
+"hey BELT, can you walk to the door a little bit?",movement
+Add to my notes that I play Chess.,memory_update
+Please remember that the USB drive is at the front desk.,memory_update
+Do you know whether I like math details?,memory_retrieval
+"I prefer being called Bella, please remember.",memory_update
+what does BELT stand for,chat
+Put in memory that I prefer C++ for projects.,memory_update
+My favorite IDE is Colab.,memory_update
+"hey, face me.",movement
+belt should remember that Kai likes Honkai Star Rail.,memory_update
+Can you help me write a sentence about computer vision?,chat
+Roll to the charging station.,movement
+Save that I left the sketchbook under the chair.,memory_update
+"okay, what food did I tell you I like?",memory_retrieval
+Rotate ninety degrees right one step.,movement
+Can you help me brainstorm a project about algorithms?,chat
+"yo, what note did I leave about coming back?",memory_retrieval
+quick question: where is the calculator?,memory_retrieval
+quick question: where did I leave my jacket?,memory_retrieval
+Do you like Snapchat or Twitch better?,chat
+"yo, where is the water bottle?",memory_retrieval
+Can you move closer smoothly?,movement
+"hey, where is the robot manual?",memory_retrieval
+"Which is cooler, Twitch or Twitch?",chat
+"yo, who made you?",memory_retrieval
+Save that I left the phone charger under the chair.,memory_update
+"I am bored, talk to me about cats.",chat
+Go around the backpack.,movement
+quick question: freeze for a second.,movement
+Come closer a couple steps.,movement
+Save that my favorite game is Celeste.,memory_update
+"hey, where is the phone charger?",memory_retrieval
+Put in memory that I prefer MATLAB for projects.,memory_update
+Do you know whether I like short answers?,memory_retrieval
+Please go right slowly.,movement
+"from now on, if I ask about math, give me debugging hints.",memory_update
+quick question: put in memory that I prefer Scratch for projects.,memory_update
+can you talk?,chat
+Have you ever heard of Tetris?,chat
+"hey, where is the soccer ball?",memory_retrieval
+"yo, go check the hallway, then return here.",movement
+Pause right there.,movement
+Save that I left the USB drive inside my backpack.,memory_update
+"hey, what did I say my current project was?",memory_retrieval
+Save that I left the ID card on the table.,memory_update
+Move away from me.,movement
+"The USB drive is beside the whiteboard, keep that in memory.",memory_update
+"BELT, turn toward the whiteboard.",movement
+quick question: where is the sketchbook?,memory_retrieval
+"okay, where did I leave my backpack?",memory_retrieval
+I need to save my project before it crashes.,chat
+"For future chats, use less jargon.",memory_update
+You should know that I prefer step-by-step explanations.,memory_update
+Face the desk.,movement
+"hey, where did I leave my soccer ball?",memory_retrieval
+Remember my nickname is Blue.,memory_update
+Back up gently.,movement
+Walk away from me.,movement
+Please remember that the sketchbook is in the previous room.,memory_update
+"hey, do you remember my favorite game?",memory_retrieval
+Please go to the charging station for a few seconds.,movement
+Walk with me to the library.,movement
+"Which is cooler, Pinterest or Duolingo?",chat
+"okay, what was the thing I asked you not to forget?",memory_retrieval
+Can you help me brainstorm a project about AI safety?,chat
+"yo, do you remember my favorite game?",memory_retrieval
+"for a second, face clockwise .",movement
+"actually, turn around carefully.",movement
+"okay, where did I leave my ID card?",memory_retrieval
+Can you help me write a sentence about creative writing?,chat
+quick question: do you know whether I like examples?,memory_retrieval
+What is stored in my profile?,memory_retrieval
+Do you like Snapchat or Canva better?,chat
+Save this detail: I like linear algebra.,memory_update
+quick question: what did you save about my charger?,memory_retrieval
+Have you ever heard of Stardew Valley?,chat
+Call me Sam from now on.,memory_update
+do you like music,chat
+"hey, okay, can you move to the charging station in a straight line?",movement
+quick question: what's my favorite social platform?,memory_retrieval
+Can you explain soccer like I am new to it?,chat
+"For future chats, use concise bullet points.",memory_update
+"yo, where did I leave my planner?",memory_retrieval
+"yo, can you recall the note about the backpack?",memory_retrieval
+"okay, change my preferred editor to IntelliJ.",memory_update
+Please remember that the phone charger is next to the couch.,memory_update
+I usually want answers about linear algebra to be short.,memory_update
+"okay, what is the difference between a database and learning?",chat
+Remember that my favorite club topic is Python.,memory_update
+Note that my favorite app is TikTok.,memory_update
+"Which is cooler, YouTube or GitHub?",chat
+quick question: what did I tell you about my laptop?,memory_retrieval
+"When you finish moving, return to the library.",memory_update
+What note did I leave about coming back?,memory_retrieval
+Update my favorite social platform to Reddit.,memory_update
+"yo, do you know my nickname?",memory_retrieval
+I usually want answers about USACO to be visual.,memory_update
+have you ever heard of Pokemon?,chat
+"Come closer, but do it carefully.",movement
+Can you compare Geometry Dash and Valorant?,chat
+"okay, store this preference: I like concise bullet points.",memory_update
+"yo, can you recall the note about the camera?",memory_retrieval
+Can you move backward in a straight line?,movement
+"okay, i moved my chair earlier and now I cannot find it.",chat
+I usually want answers about data science to be intuitive.,memory_update
+"Which is cooler, TikTok or Notion?",chat
+"hey, can you recall the note about the ID card?",memory_retrieval
+"Which is cooler, Spotify or Reddit?",chat
+Do you know whether I like examples?,memory_retrieval
+"okay, where is the sketchbook?",memory_retrieval
+Can you help me write a sentence about robotics?,chat
+Turn so your front is facing the whiteboard.,movement
+Can you compare Chess and Tetris?,chat
+I usually want answers about robotics to be short.,memory_update
+"yo, what did I tell you about the hallway?",memory_retrieval
+"okay, where is the jacket?",memory_retrieval
+Call me Kai from now on.,memory_update
+hello bestie,chat
+"yo, do you know whether I like simple explanations?",memory_retrieval
+"yo, can you recall the note about the soccer ball?",memory_retrieval
+"yo, can you recall the note about the laptop?",memory_retrieval
+Store this preference: I like concise bullet points.,memory_update
+Go toward me.,movement
+do you know any fun facts,chat
+Walk into the hallway.,movement
+"yo, what did I say my current project was?",memory_retrieval
+Scoot back at normal speed.,movement
+Store this preference: I like beginner-friendly explanations.,memory_update
+Please go farther carefully.,movement
+quick question: did I tell you my favorite game?,memory_retrieval
+Do you like Notion or Notion better?,chat
+Remember this room is the hallway.,memory_update
+"hey, add to my notes that I play Brawl Stars.",memory_update
+"Which is cooler, TikTok or Discord?",chat
+good morning!!,chat
+Put in memory that I prefer Python for projects.,memory_update
+I need to save my code before it crashes.,chat
+I need to save this Python model later.,chat
+hi BELT,chat
+I usually want answers about linear algebra to be step-by-step.,memory_update
+"okay, what did I tell you about the hallway?",memory_retrieval
+"hey, can you check out the charging area and come back?",movement
+"for a second, can you move backward carefully?",movement
+How would you describe yourself as a campus robot?,chat
+Stop moving for a second.,movement
+Walk to the previous room.,movement
+"okay, can you move around in a straight line?",movement
+"Which is cooler, Discord or Google Docs?",chat
+Where did I leave my ID card?,memory_retrieval
+What is the difference between storage and a list?,chat
+I need to save my file before it crashes.,chat
+Where is the planner?,memory_retrieval
+What is the difference between RAM and a list?,chat
+"uh, can you move to the previous room three small steps?",movement
+Remember this room is the maker space.,memory_update
+Log this: my current project is about intent classification.,memory_update
+Save that I left the robot manual in the previous room.,memory_update
+Save this detail: I like USACO.,memory_update
+"hey, do you know whether I like short answers?",memory_retrieval
+Keep in mind that I am learning USACO.,memory_update
+Face the exit.,movement
+"yo, do you know whether I like debugging hints?",memory_retrieval
+"yo, what topic am I learning right now?",memory_retrieval
+Log this: my current project is about RAG.,memory_update
+"like, turn around real quick.",movement
+I need you to reposition near the wall.,movement
+"hey, what is stored in my profile?",memory_retrieval
+Rotate toward the hallway carefully.,movement
+Scoot forward in a straight line.,movement
+I usually want answers about USACO to be beginner friendly.,memory_update
+Keep in mind that I am learning Python.,memory_update
+"for a second, rotate toward the whiteboard .",movement
+"hey, what did I tell you about VSCode?",memory_retrieval
+Park next to the wall.,movement
+"hey, what do you remember about me?",memory_retrieval
+Change my preferred editor to VSCode.,memory_update
+I usually want answers about creative writing to be intuitive.,memory_update
+Can you help me brainstorm a project about machine learning?,chat
+Advance in a straight line.,movement
+Remember that my favorite club topic is linear algebra.,memory_update
+Can you compare Roblox and Stardew Valley?,chat
+"okay, can you pull up my memory?",memory_retrieval
+What is the difference between storage and a model?,chat
+Save that I left the calculator next to the couch.,memory_update
+Can you move like two steps left?,movement
+How does a robot know where it is?,chat
+Note that my favorite app is Instagram.,memory_update
+Roll into the hallway.,movement
+What does the word pipeline mean?,chat
+Can you move right two steps?,movement
+"Which is cooler, Notion or Snapchat?",chat
+"okay, do you know whether I like simple explanations?",memory_retrieval
+quick question: can you recall the note about the jacket?,memory_retrieval
+Shift backward one step.,movement
+"bro, face toward the hallway real quick.",movement
+I usually want answers about machine learning to be beginner friendly.,memory_update
+You should know that I prefer friendly tone.,memory_update
+Tell me a tiny fun fact about cats.,chat
+Remember when we talked about homework? That was funny.,chat
+Move away from me in a straight line.,movement
+quick question: who made you?,memory_retrieval
+What is the difference between memory and learning?,chat
+"okay, did I tell you my favorite game?",memory_retrieval
+"okay, what is stored in my profile?",memory_retrieval
+What is the difference between memory and a list?,chat
+Can you move beside the desk for a few seconds?,movement
+Walk to the door.,movement
+Save that I left the phone charger at the front desk.,memory_update
+Remember this room is the stairwell.,memory_update
+"robot buddy, can you roll forward a couple steps?",movement
+"hey, what did you save about my charger?",memory_retrieval
+Shift forward two steps.,movement
+Scoot right one step.,movement
+Drive to the previous room.,movement
+"For future chats, use step-by-step explanations.",memory_update
+Remember when we talked about YouTube? That was funny.,chat
+quick question: did I tell you my favorite color?,memory_retrieval
+"hey, what saved details do you have for me?",memory_retrieval
+"yo, did I tell you my favorite animal?",memory_retrieval
+Can you explain why TF-IDF works?,chat
+"hey, walk with me to the maker space.",movement
+"The water bottle is in the lab, keep that in memory.",memory_update
+Tell me a tiny fun fact about Minecraft.,chat
+"hey, who made you?",memory_retrieval
+I usually want answers about machine learning to be step-by-step.,memory_update
+Please go farther one step.,movement
+Remember that my favorite animal is a penguin.,memory_update
+"Which is cooler, Reddit or Instagram?",chat
+Do you like Google Docs or VSCode better?,chat
+"yo, take a small step toward the hallway.",movement
+good afternoon!!,chat
+quick question: note that my favorite app is YouTube.,memory_update
+Remember when we talked about space? That was funny.,chat
+Drive away from me.,movement
+Scoot back one step.,movement
+quick question: advance without rushing.,movement
+Reverse just a bit.,movement
+quick question: where is the backpack?,memory_retrieval
+quick question: can you check out the charging area and come back?,movement
+do you like YouTube or TikTok better please?,chat
+"okay, what did you save about my backpack?",memory_retrieval
+Please go right a little bit.,movement
+Add to my notes that I play Tetris.,memory_update
+What saved details do you have for me?,memory_retrieval
+Where is the headphones?,memory_retrieval
+"okay, do you know whether I like math details?",memory_retrieval
+Remember that my favorite animal is a fox.,memory_update
+Tell me a tiny fun fact about space.,chat
+Go forward.,movement
+What is the difference between a database and thinking?,chat
+Add to my notes that I play Stardew Valley.,memory_update
+"hey, can you recall the note about the headphones?",memory_retrieval
+quick question: where is the USB drive?,memory_retrieval
+Can you move like one tile forward?,movement
+good morning belt,chat
+Come closer just a bit.,movement
+What does the word embedding mean?,chat
+Do you like Google Docs or YouTube better?,chat
+Take a small step toward the whiteboard.,movement
+Do not forget that I like ice cream after coding sessions.,memory_update
+Can you compare Among Us and Minecraft?,chat
+What did you save about my project?,memory_retrieval
+Roll farther.,movement
+"From now on, if I ask about math, give me more intuition.",memory_update
+Make a note that I use Neovim for coding.,memory_update
+Shift forward a couple steps.,movement
+Walk with me to the maker space.,movement
+quick question: can you recall the note about the backpack?,memory_retrieval
+Remember when we talked about movies? That was funny.,chat
+Do you like Spotify or Pinterest better?,chat
+Save that I left the jacket by the door.,memory_update
+Add to my notes that I play Terraria.,memory_update
+"okay, where did I leave my phone charger?",memory_retrieval
+"hey, i moved my dataset earlier and now I cannot find it.",chat
+"okay, where is the USB drive?",memory_retrieval
+can you tell a joke please?,chat
+"Go check the exit area, then return here.",movement
+"okay, what is my favorite animal?",memory_retrieval
+Take a small step toward the door.,movement
+Can you move away from me one step?,movement
+Save that the emergency exit is to the left.,memory_update
+Face the window.,movement
+Go around the cone.,movement
+Rotate right like two feet.,movement
+Back up without rushing.,movement
+Can you move like a tiny bit left?,movement
+Can you move beside the desk without rushing?,movement
+Can you compare Terraria and Geometry Dash?,chat
+Remember that my favorite club topic is computer vision.,memory_update
+Do you like Duolingo or Pinterest better?,chat
+"okay, what did I tell you about Brawl Stars?",memory_retrieval
+Add to my notes that I play Celeste.,memory_update
+Do you like TikTok or Spotify better?,chat
+My favorite color is red.,memory_update
+Do you like Twitch or Twitch better?,chat
+"Can you roast my code gently, not brutally?",chat
+can you talk real quick?,chat
+Please remember that the sketchbook is next to the printer.,memory_update
+Navigate toward the door.,movement
+Back up carefully.,movement
+"Which is cooler, Pinterest or YouTube?",chat
+quick question: what is stored in my profile?,memory_retrieval
+Make a note that I use Vim for coding.,memory_update
+"hey, what location did I tell you to remember?",memory_retrieval
+Remember this room is the science wing.,memory_update
+quick question: where did I leave my headphones?,memory_retrieval
+What should I name my robot assistant?,chat
+What location did I tell you to remember?,memory_retrieval
+Go to the whiteboard.,movement
+"okay, what is my favorite color?",memory_retrieval
+"Which is cooler, Duolingo or Notion?",chat
+"yo, add to my notes that I play Honkai Star Rail.",memory_update
+Go to the nearest exit.,movement
+Please go to the door for a few seconds.,movement
+Remember that my favorite animal is a dog.,memory_update
+"when you finish moving, return to the science wing.",memory_update
+Where did I put my laptop?,memory_retrieval
+Rotate toward the whiteboard for a few seconds.,movement
+"hey, can you recall the note about the soccer ball?",memory_retrieval
+Save that the emergency exit is down the hallway.,memory_update
+"okay, rotate around please.",movement
+"I prefer being called Maya, please remember.",memory_update
+Do you like YouTube or Discord better?,chat
+What object did I say was on the desk?,memory_retrieval
+quick question: do you remember my favorite game?,memory_retrieval
+"Hey, turn toward the hallway.",movement
+Can you make a silly sentence about a fox?,chat
+Note that my favorite app is VSCode.,memory_update
+Save that I left the ID card in the lab.,memory_update
+Store this preference: I like step-by-step explanations.,memory_update
+Go around the box.,movement
+Save that I left the soccer ball near the hallway.,memory_update
+BELT should remember that Riley likes Fortnite.,memory_update
+"okay, what did you save about my explanation style?",memory_retrieval
+Can you help me write a sentence about Python?,chat
+My favorite IDE is Visual Studio.,memory_update
+Can you compare Honkai Star Rail and Pokemon?,chat
+"Which is cooler, TikTok or Spotify?",chat
+"yo, does BELT have a favorite ice cream flavor?",chat
+Come closer slowly.,movement
+"hey, do you know whether I like math details?",memory_retrieval
+Remember that my favorite club topic is USACO.,memory_update
+Update my favorite social platform to Spotify.,memory_update
+good morning robot,chat
+quick question: let's move on to debugging.,chat
+Can you explain machine learning like I am new to it?,chat
+Do you know where the nearest exit is?,memory_retrieval
+Park next to the whiteboard.,movement
+Where is the notebook?,memory_retrieval
+"hey BELT, rotate left .",movement
+Save that my favorite game is Stardew Valley.,memory_update
+how do I start learning Python,chat
+Note for later: I want BELT to be calm.,memory_update
+You should know that I prefer plain English.,memory_update
+"yo, show my saved memory.",memory_retrieval
+"yo, where is the jacket?",memory_retrieval
+Can you compare Pokemon and Geometry Dash?,chat
+Save that I left the sketchbook on the left shelf.,memory_update
+can you help me debug code?,chat
+Park next to the charging station.,movement
+quick question: what programming language did I say I prefer?,memory_retrieval
+Do you like Canva or Twitch better?,chat
+Store this preference: I like examples first.,memory_update
+"If a owl learned Python, what would it build?",chat
+Save this detail: I like PCA.,memory_update
+"Hey, turn ninety degrees left.",movement
+"yo, where did I leave my headphones?",memory_retrieval
+"okay, bELT should remember that Chris likes Terraria.",memory_update
+"hey, from now on, if I ask about math, give me concise bullet points.",memory_update
+You should know that I prefer math after intuition.,memory_update
+Face the hallway.,movement
+Save that my favorite game is Chess.,memory_update
+What do you think about memes?,chat
+Remember my nickname is Skye.,memory_update
+Have you ever heard of Roblox?,chat
+Come closer without rushing.,movement
+Can you compare Mario Kart and Celeste?,chat
+Move away from me smoothly.,movement
+Remember that my favorite animal is a dragonfly.,memory_update
+Can you list my saved notes?,memory_retrieval
+My favorite color is mint.,memory_update
+I need to save my model before it crashes.,chat
+Roll forward.,movement
+"Which is cooler, Twitch or Spotify?",chat
+Put in memory that I prefer Scratch for projects.,memory_update
+Walk beside the desk.,movement
+quick question: what do you remember about me?,memory_retrieval
+Store this preference: I like short answers.,memory_update
+Back up smoothly.,movement
+Where did I leave my laptop?,memory_retrieval
+BELT should remember that Kai likes Minecraft.,memory_update
+Reverse two steps.,movement
+"yo, come closer at normal speed.",movement
+"actually, turn toward me carefully.",movement
+"Yo, turn a little right.",movement
+Return to the hallway entrance.,movement
+"From now on, if I ask about math, give me friendly tone.",memory_update
+Please go toward the exit smoothly.,movement
+Face the door.,movement
+Do you like Instagram or Duolingo better?,chat
+"If a otter learned Python, what would it build?",chat
+"Hey, turn around.",movement
+My favorite IDE is Eclipse.,memory_update
+quick question: can you recall the note about the USB drive?,memory_retrieval
+"hey, go check the exit area, then return here.",movement
+What did I tell you about my laptop?,memory_retrieval
+"yo, what object was I talking about earlier?",memory_retrieval
+Have you ever heard of Terraria?,chat
+"hey, what did I tell you about Brawl Stars?",memory_retrieval
+Can you move to the charging station gently?,movement
+"I am bored, talk to me about food.",chat
+quick question: where did I leave my water bottle?,memory_retrieval
+Make a note that I use PyCharm for coding.,memory_update
+"Which is cooler, Pinterest or Spotify?",chat
+Shift backward in a straight line.,movement
+Keep in mind that I am learning game design.,memory_update
+Can you help me brainstorm a project about computer vision?,chat
+Do you like YouTube or Reddit better?,chat
+Can you explain data science like I am new to it?,chat
+quick question: what is my favorite color?,memory_retrieval
+"hey, where did I leave my jacket?",memory_retrieval
+Note that my favorite app is Google Docs.,memory_update
+"please, can you roll right for a few seconds?",movement
+"hey, which direction did I say the exit was?",memory_retrieval
+quick question: note that my favorite app is Notion.,memory_update
+What is your favorite coding language?,chat
+Do you like Spotify or TikTok better?,chat
+Can you compare Tetris and Tetris?,chat
+"hey, where did I leave my USB drive?",memory_retrieval
+What do you think about YouTube?,chat
+"please, face a little right real quick.",movement
+What does the word solver mean?,chat
+Can you make a silly sentence about a axolotl?,chat
+quick question: what should you call me?,memory_retrieval
+quick question: put in memory that I prefer C++ for projects.,memory_update
+"For future chats, use friendly tone.",memory_update
+"Which is cooler, Discord or Twitch?",chat
+BELT should remember that Riley likes Tetris.,memory_update
+"hey, did I tell you my favorite platform?",memory_retrieval
+Rotate ninety degrees right a couple steps.,movement
+Do you like Canva or Canva better?,chat
+Can you make a silly sentence about a turtle?,chat
+Can you compare Celeste and Terraria?,chat
+quick question: note for later: I want BELT to be slightly witty.,memory_update
+"okay, please remember that the backpack is on the table.",memory_update
+BELT should remember that Riley likes Terraria.,memory_update
+Remember to come back to the computer lab.,memory_update
+"okay, what did I say my current project was?",memory_retrieval
+"I am bored, talk to me about movies.",chat
+can you help me debug code!,chat
+Go beside the desk.,movement
+"Yo, turn toward me.",movement
+quick question: did I tell you my favorite IDE?,memory_retrieval
+Remember when we talked about Brawl Stars? That was funny.,chat
+Rotate a little right carefully.,movement
+Shift left just a bit.,movement
+Add to my notes that I play Minecraft.,memory_update
+quick question: can you recall the note about the camera?,memory_retrieval
+"hey, what did you save about my explanation style?",memory_retrieval
+Rotate toward the whiteboard slowly.,movement
+Can you move like a tiny bit forward?,movement
+"Which is cooler, VSCode or Snapchat?",chat
+Add to my notes that I play Fortnite.,memory_update
+"okay, where is the backpack?",memory_retrieval
+Please remember that the planner is beside the whiteboard.,memory_update
+Note that my favorite app is Spotify.,memory_update
+"Yoo, what are you up to today?",chat
+Drive farther.,movement
+good evening bestie,chat
+Can you move like half a meter back?,movement
+Save that I left the calculator on the desk.,memory_update
+"I am bored, talk to me about books.",chat
+"yo, have you ever heard of Tetris?",chat
+what is your favorite color?,chat
+"hey, can you recall the note about the jacket?",memory_retrieval
+Remember when we talked about cats? That was funny.,chat
+quick question: which direction did I say the exit was?,memory_retrieval
+"yo, what did I tell you about my laptop?",memory_retrieval
+Where is the camera?,memory_retrieval
+Move away from me a couple steps.,movement
+"okay, what does the word classifier mean?",chat
+Reverse gently.,movement
+Tell me a tiny fun fact about soccer.,chat
+You should know that I prefer examples first.,memory_update
+"okay, do you know whether I like debugging hints?",memory_retrieval
+"uh, turn clockwise please.",movement
+how do I start learning Python please?,chat
+Call me Maya from now on.,memory_update
+"okay, where is the robot manual?",memory_retrieval
+Tell me a tiny fun fact about school.,chat
+What do you think about movies?,chat
+"yo, which room did I say this was?",memory_retrieval
+Back up at normal speed.,movement
+What is the difference between a database and a hard drive?,chat
+"yo, remember to come back to the charging area.",memory_update
+Do not forget that I like dumplings after coding sessions.,memory_update
+what's up!!,chat
+"I am bored, talk to me about homework.",chat
+Remember that my favorite animal is a hamster.,memory_update
+BELT should remember that Jordan likes Brawl Stars.,memory_update
+Go closer.,movement
+"yo, where is the notebook?",memory_retrieval
+"okay, i prefer being called Casey, please remember.",memory_update
+"hey, what was the thing I asked you not to forget?",memory_retrieval
+"okay, where did I leave my camera?",memory_retrieval
+"yo, note for later: I want BELT to be curious.",memory_update
+"yo, what did I tell you about Brawl Stars?",memory_retrieval
+Walk down the hallway with me.,movement
+Rotate toward the whiteboard gently.,movement
+Do you like Duolingo or Reddit better?,chat
+"hey, for future chats, use direct feedback.",memory_update
+Have you ever heard of Minecraft?,chat
+Note that my favorite app is Discord.,memory_update
+"Which is cooler, Duolingo or Canva?",chat
+Remember to come back to the maker space.,memory_update
+Rotate left one step.,movement
+"The calculator is near the charging station, keep that in memory.",memory_update
+"yo, did I tell you my favorite game?",memory_retrieval
+Navigate toward the robotics lab.,movement
+You should know that I prefer beginner-friendly explanations.,memory_update
+Remember my nickname is Rin.,memory_update
+Can you compare Brawl Stars and Brawl Stars?,chat
+Roll toward the exit.,movement
+Put in memory that I prefer TypeScript for projects.,memory_update
+quick question: what did I say my current project was?,memory_retrieval
+Can you check out the charging area and come back?,movement
+Navigate toward the front desk.,movement
+"The phone charger is on the left shelf, keep that in memory.",memory_update
+quick question: where is the headphones?,memory_retrieval
+"If a turtle learned Python, what would it build?",chat
+I usually want answers about soccer to be visual.,memory_update
