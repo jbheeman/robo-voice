@@ -38,7 +38,7 @@ ROBOT_PROFILE = {
     ],
 }
 
-
+#reads "DEEPSEEK_API_KEY" loaded from .env
 def get_deepseek_api_key() -> str:
     api_key = os.getenv("DEEPSEEK_API_KEY")
 
@@ -50,14 +50,14 @@ def get_deepseek_api_key() -> str:
 
     return api_key
 
-
+#creates openai client to talk to deepseek
 def make_deepseek_client() -> OpenAI:
     return OpenAI(
         api_key=get_deepseek_api_key(),
         base_url=DEEPSEEK_BASE_URL,
     )
 
-
+#uses api key to check balance in deepseek
 def check_deepseek_balance() -> Dict[str, Any]:
     api_key = get_deepseek_api_key()
 
@@ -92,7 +92,7 @@ def check_deepseek_balance() -> Dict[str, Any]:
             f"Could not connect to DeepSeek balance endpoint: {e}"
         ) from e
 
-
+#runs check_deepseek_balance() and prints readable report
 def print_balance_status() -> bool:
     try:
         balance = check_deepseek_balance()
@@ -124,7 +124,8 @@ def print_balance_status() -> bool:
         print(f"\nBELT: Could not check DeepSeek balance: {e}\n")
         return False
 
-
+#sends chat request to model and return respond if succeed
+#else, send a specific helpful error message
 def safe_chat_completion(
     client: OpenAI,
     messages: List[Dict[str, str]],

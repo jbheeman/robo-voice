@@ -37,7 +37,8 @@ NO_WORDS = {
     "do not remember",
 }
 
-
+#clean up + capitalize name, mostly a chatbot feature
+#in audio inputs this shouldnt be used that much
 def clean_user_name(raw_name: str) -> Optional[str]:
     name = raw_name.strip()
     name = name.strip(".,!?;:()[]{}\"'")
@@ -79,14 +80,14 @@ def clean_user_name(raw_name: str) -> Optional[str]:
 
     return name
 
-
+#checks if 2 names the same, ignore capitaization
 def same_user_name(a: Optional[str], b: Optional[str]) -> bool:
     if not a or not b:
         return False
 
     return a.strip().lower() == b.strip().lower()
 
-
+#looks through memory, checks if name already exists
 def get_existing_user_name(memory: Dict[str, Any], name: str) -> Optional[str]:
     for existing_name in memory.get("users", {}):
         if same_user_name(existing_name, name):
@@ -94,7 +95,8 @@ def get_existing_user_name(memory: Dict[str, Any], name: str) -> Optional[str]:
 
     return None
 
-
+#TODO: might remove, this is kinda sloppy
+#detects name from natrual introductions
 def detect_name_from_message(user_message: str) -> Optional[str]:
     patterns = [
         r"\b(?:hi|hello|hey)?[\s,]*(?:i['’]?m|i am|my name is|call me|this is)\s+([A-Za-z][A-Za-z'_-]*)",
@@ -108,7 +110,7 @@ def detect_name_from_message(user_message: str) -> Optional[str]:
 
     return None
 
-
+#turns raw name into current active user
 def activate_user(memory: Dict[str, Any], raw_name: str) -> Optional[str]:
     cleaned_name = clean_user_name(raw_name)
 
@@ -122,7 +124,7 @@ def activate_user(memory: Dict[str, Any], raw_name: str) -> Optional[str]:
 
     return active_name
 
-
+#builds system prompt for chatbot, includes belt robot profile and user saved notes
 def build_instructions(
     current_user: Optional[str],
     user_memory: Dict[str, Any],
@@ -153,7 +155,7 @@ Behavior:
 - Do not tell the user that you are running a memory detector. The program handles that separately.
 """
 
-
+#asks full prompt to llm
 def ask_llm(
     client: OpenAI,
     user_message: str,
@@ -172,7 +174,7 @@ def ask_llm(
 
     return safe_chat_completion(client, messages)
 
-
+#tries to parse json from model output
 def extract_json_object(text: str) -> Optional[Dict[str, Any]]:
     text = text.strip()
 
@@ -198,7 +200,7 @@ def extract_json_object(text: str) -> Optional[Dict[str, Any]]:
 
     return None
 
-
+#filters memory that should not be saved, manual creation
 def looks_like_bad_memory(memory_note: str) -> bool:
     note = memory_note.strip().lower()
 
@@ -240,7 +242,7 @@ def looks_like_bad_memory(memory_note: str) -> bool:
 
     return False
 
-
+#use llm as memory detector, then validates result with other functions
 def detect_memory_candidate(
     client: OpenAI,
     user_message: str,
@@ -414,7 +416,7 @@ BELT's reply:
         "consent_question": consent_question,
     }
 
-
+#turns user's yes/no response into True/False, manual detection
 def parse_consent(user_input: str) -> Optional[bool]:
     text = user_input.strip().lower()
 
@@ -434,7 +436,7 @@ def parse_consent(user_input: str) -> Optional[bool]:
 
     return None
 
-
+#saves memory after user gives consent
 def save_pending_memory(
     memory: Dict[str, Any],
     pending_memory: Dict[str, Optional[str]],
@@ -451,7 +453,7 @@ def save_pending_memory(
 
     return user_name
 
-
+#print helpful commands
 def print_help() -> None:
     print(
         """
@@ -487,7 +489,7 @@ Example:
 """
     )
 
-
+#handle slash commands
 def handle_command(
     user_input: str,
     memory: Dict[str, Any],
