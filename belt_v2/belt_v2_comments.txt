@@ -1,0 +1,19 @@
+Current bugs:
+
+1. Name detection
+    -Still having trouble detecting names
+    -Very manual "hard coded" name detection, need to fix that
+
+2. Remember speech
+    -sometimes remembering is asked twice
+    -still have memory detected to help debug
+
+Next Steps:
+
+1. Fix name detection
+    -use llm instead of hard coded rules
+
+2. fix repeated remember speech
+    -only ask once to remember speech
+
+3. RAG? If we upload large documents n stuff
