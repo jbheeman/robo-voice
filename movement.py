@@ -259,3 +259,37 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+import time
+
+class RobotMovementController:
+    def __init__(self):
+        # Placeholder for the SDK initialization of our robot
+        self.robot = UnitreeRobotInterface() #TBA
+        print("Robot movement controller initialized.")
+
+    def execute_grasp(self, object):
+        # 1. Compute Inverse Kinematics for arm joints
+        # 2. Extend arm
+        # 3. Close gripper
+        # 4. Return arm to home position
+        time.sleep(2)
+
+    def track_and_approach(self, target_object, frame_width=640):
+        # Commands the robot to approach the identified item
+        depth = target_object["depth"]
+        cx = target_object["center_x"]
+        label = target_object["label"]
+        
+        center_pool = frame_width / 2
+        offset_x = cx - center_pool
+        
+        print(f"[Movement] Target: {label} | Depth: {depth:.2f}m | Pixel Offset: {offset_x}")
+        if depth > 0.4:
+            # Object is far away -> Walk forward
+            yaw_speed = 0.1 if offset_x > 50 else (-0.1 if offset_x < -50 else 0.0)
+            forward_speed = 0.2  # unit is meters per second
+
+        else:
+            self.execute_grasp(target_object)
