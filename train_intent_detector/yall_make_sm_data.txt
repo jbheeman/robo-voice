@@ -7,6 +7,7 @@ chat:
 "Hello, world"
 "Can you talk?"
 "How's the weather?"
+"How has your day been?"
 
 
 memory_update:
@@ -14,6 +15,7 @@ memory_update:
 "Did you know Instagram is my favorite social platform?"
 "Remember that I put my favourite laptop there."
 "Remember to come back to this room."
+"I am your creator."
 "My favorite IDE is VSCode."
 
 
@@ -23,6 +25,7 @@ memory_retrieval:
 "What's my favorite social platform?"
 "What's my name?"
 "Do you know where the nearest exit is?"
+"Who made you?"
 
 
 movement:
@@ -31,4 +34,5 @@ movement:
 "Walk away from me."
 "Move to the nearest emergency exit."
 "Yo bro, like, um, I don't know, can you, uh, like, turn right or something?"
+"Go check out the previous room. Remember to come back.
 
