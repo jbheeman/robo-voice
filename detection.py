@@ -17,6 +17,7 @@ def process_camera_frame(rgb_frame, depth_frame):
 
           #list of the items we want the robot to identify
       personal_items = ["cell phone", "keys", "wallet", "backpack", "cup"]
+      detected_objects = []
       if label in personal_items:
                 
         center_x = int((x1 + x2) / 2)
@@ -28,8 +29,15 @@ def process_camera_frame(rgb_frame, depth_frame):
         cv2.rectangle(rgb_frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
         cv2.putText(rgb_frame, f"{label}: {object_depth:.2f}m", (x1, y1 - 10),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
-
-return rgb_frame
+        #Appends all crucial spacial data of the detected objects
+        detected_objects.append({
+          "label": label,
+          "center_x": center_x,
+          "center_y": center_y,
+          "depth": object_depth
+        })
+#returns the annotated frame with the list of detected objects and the spacial data of the objects
+return rgb_frame, detected_objects
               
 
 
