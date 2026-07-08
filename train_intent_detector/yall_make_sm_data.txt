@@ -3,10 +3,12 @@ chat, memory_update, memory_retrieval, movement
 
 chat:
 "yoo whats up do you play brawl stars"
+"hi! do you like youtube, instagram or tiktok better?"
 
 
 memory_update:
 "hey, did you know i play brawl stars? remember that"
+"did you know instagram is my favorite social platform?"
 
 
 memory_retrieval:
