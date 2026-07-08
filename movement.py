@@ -498,3 +498,87 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+class RobotMovementController:
+    def __init__(self):
+        # Placeholder for Unitree G1 SDK initialization
+        self.robot = UnitreeRobotInterface()
+
+    def _convert_pixels_to_robot_frame(self, cx, cy, depth):
+        hfov_factor = 0.0015  
+        vfov_factor = 0.0015  
+        
+        robot_x = depth
+        robot_y = -(cx - 320) * hfov_factor * depth
+        robot_z = -(cy - 240) * vfov_factor * depth + 0.1 # Offset from torso height
+        
+        return [robot_x, robot_y, robot_z]
+
+    def _emergency_safe_stop(self):
+        #safety feature
+        self.robot.arm_controller.hold_current_position()
+
+    def execute_grasp(self, target_object):
+        # Extract the features of the target_object relative to the camera
+        depth = target_object["depth"]
+        cx = target_object["center_x"]
+        cy = target_object["center_y"]
+        label = target_object["label"]
+
+        self.is_moving = True
+
+        try:
+            # Ensuring the robot is in place prior to execution
+            self.robot.loco_client.SetVelocity(0.0, 0.0, 0.0) 
+            time.sleep(0.5)
+
+            # Standard G1 camera translation matrix math placeholder
+            target_xyz = self._convert_pixels_to_robot_frame(cx, cy, depth)
+
+            joint_angles = self.ik_solver.compute_right_arm(target_xyz)
+            if joint_angles is None: raise ValueError("Target coordinates out of reachable workspace.")
+
+            # Move joints smoothly over a 2.5 second duration
+            self.robot.arm_controller.move_to_joint_positions(joint_angles, duration=2.5)
+            time.sleep(2.5) 
+
+            # Grabbing the object over 1 1.5sec duration
+            self.robot.hand_controller.grab(hand='right', duration=1.5)
+            time.sleep(1.5)
+
+            # Step 6: Retract Arm to Safe Carry Posture
+            home_joints = [0.0, 0.2, 0.0, 0.5, 0.0] # Position after grabbing the object
+            self.robot.arm_controller.move_to_joint_positions(home_joints, duration=2.0)
+            time.sleep(2.0)
+
+        except Exception as e:
+            #safety feature
+            self._emergency_safe_stop()
+
+        finally:
+            self.is_moving = False
+            print("success")
+
+    def track_and_approach(self, target_object, frame_width=640):
+        depth = target_object["depth"]
+        cx = target_object["center_x"]
+        label = target_object["label"]
+        
+        center_pool = frame_width / 2
+        offset_x = cx - center_pool
+
+        if depth > 0.4:
+            # Object is far away -> Walk forward, adjust angle if offset is large
+            yaw_speed = 0.1 if offset_x > 50 else (-0.1 if offset_x < -50 else 0.0)
+            forward_speed = 0.2  # Unit is in meters per second
+            
+            self.robot.set_velocity(forward_speed, 0, yaw_speed)
+            
+        else:
+            # Object is close enough -> Stop legs and trigger retrieval sequence
+            self.robot.set_velocity(0, 0, 0)
+            self.execute_grasp(target_object)
+        
+
+
