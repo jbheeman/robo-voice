@@ -8,8 +8,6 @@ from typing import Any, Dict, List, Literal, Optional
 import joblib
 from openai import OpenAI
 
-import cv2
-import sys
 
 from belt_v2_api import MODEL, make_deepseek_client, print_balance_status
 from belt_v2_helpers import (
@@ -25,16 +23,6 @@ from belt_v2_helpers import (
 )
 from belt_v2_memory import load_memory, save_memory
 
-from detection import process_camera_frame
-from belt_v2_unitreeSDK_init import get_robot_client
-from movement import RobotMovementController
-
-
-
-
-
-
-robot_motion = get_robot_client(interface="wlan0")
 
 START_DEBUG = True
 
