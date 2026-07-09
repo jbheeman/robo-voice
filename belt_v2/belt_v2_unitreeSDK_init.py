@@ -23,5 +23,5 @@ def get_robot_client(interface="wlan0"): # Connected to the robot over internet
     return _motion_client
         
   except Exception as e:
-    print(f"[Hardware Error] Critical SDK initialization failure: {e}")
+    print("failed to connect")
     sys.exit(1)
