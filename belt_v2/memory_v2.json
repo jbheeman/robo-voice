@@ -2,6 +2,16 @@
   "users": {
     "Bob": {
       "notes": []
+    },
+    "Alan": {
+      "notes": [
+        "likes turtles."
+      ]
+    },
+    "Bessie": {
+      "notes": [
+        "loves grass."
+      ]
     }
   }
 }

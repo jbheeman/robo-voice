@@ -4,10 +4,11 @@
    - robot state
 
 2. Intent routing
-   - chat?
-   - memory update?
-   - action request?
-   - knowledge lookup?
+   - chat
+   - memory update
+   - navigation
+   - knowledge lookup
+   - (simple) movement
 
 3. Memory/RAG
    - retrieve user memory

@@ -13,7 +13,7 @@ def predict_intent(text):
     return predicted_intent, confidence_scores
 
 
-text = "i like food. remember that."
+text = "bro"
 
 intent, scores = predict_intent(text)
 
