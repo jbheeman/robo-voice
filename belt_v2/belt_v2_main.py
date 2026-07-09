@@ -22,6 +22,10 @@ from belt_v2_helpers import (
 )
 from belt_v2_memory import load_memory, save_memory
 
+from belt_v2_unitreeSDK_init.py import get_robot_client
+
+robot_motion = get_robot_client(interface="wlan0")
+
 START_DEBUG = True
 
 Intent = Literal[
