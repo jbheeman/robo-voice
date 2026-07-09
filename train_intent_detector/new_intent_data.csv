@@ -1,4 +1,2004 @@
 text,intent
+actually just can you introduce yourself rn,chat
+Are you a chatbot?,chat
+Can you remember that I am building BELT?,memory_update
+"hey BELT, lead me to the cafeteria.",navigation
+Keep in mind that I want you to use fewer emojis.,memory_update
+What is TF-IDF?,knowledge_lookup
+The movement in that song is cool.,chat
+Show me the way to the parking lot.,navigation
+Give me a quick definition of pandas read_csv.,knowledge_lookup
+"okay, walk to my right about a foot carefully please",movement
+"when it's safe, how do I get to the emergency exit?",navigation
+"robot, what is your favorite animal lol",chat
+I need facts about tokenization.,knowledge_lookup
+What's the difference between computer memory and something similar?,knowledge_lookup
+hey just what is your robot name real quick,chat
+"robot, walk back slightly",movement
+"buddy, roll toward me three steps",movement
+wait could you make this sentence clearer thanks,chat
+"For future chats, remember that I want you to call me chief.",memory_update
+hmm Can you help with coding real quick,chat
+Store this: I want concise code comments.,memory_update
+Can you look up information about pandas read_csv?,knowledge_lookup
+Who exactly are you?,chat
+actually just remember the concept from earlier real quick,chat
+Are you like a campus assistant?,chat
+"when it's safe, go check out the office.",navigation
+can you face left just a tiny bit when you can,movement
+What's the difference between pandas read_csv and something similar?,knowledge_lookup
+Which way should I go to reach the bus stop?,navigation
+face to my left two steps carefully please,movement
+"bro I mean, explain that differently rn",chat
+"hey, add this to my memory: I am your creator.",memory_update
+Back up a little.,movement
+drive backward slightly please,movement
+"I mean, can you help me plan my project if you can",chat
+What are common causes of low classifier confidence?,knowledge_lookup
+um What is your favorite color if you can,chat
+"okay, shift to my right two steps for a second",movement
+"BELT, ask me something interesting if you can",chat
+hey Move on to the next idea rn,chat
+bro Can you make this less awkward for a second,chat
+Go to the classroom and wait there.,navigation
+"Hello, are you online?",chat
+Can you find a route to the bus stop?,navigation
+That was funny.,chat
+I need you to turn to my right a bit,movement
+"when it's safe, navigate to the library.",navigation
+um Remember the concept from earlier if you can,chat
+walk to my left slightly for a second,movement
+What is the C parameter?,knowledge_lookup
+hey could you tell me a joke?,chat
+"hey, why is path planning useful?",knowledge_lookup
+"For future chats, remember that my laptop is on the desk.",memory_update
+move to my right carefully,movement
+quick question: what does TF-IDF mean?,knowledge_lookup
+hmm What are you for a second,chat
+Can you teach me about precision and recall?,knowledge_lookup
+Take me to the cafeteria.,navigation
+can you shift to my right two steps,movement
+bro just can you make this less awkward thanks,chat
+Show me the way to the front desk.,navigation
+"robot, can you help with coding for a second",chat
+Can you look up information about computer memory?,knowledge_lookup
+"hey BELT, take me to the office.",navigation
+"hey, tell me the basics of macro F1.",knowledge_lookup
+yo Save the model file lol,chat
+"when it's safe, show me the way to the gym.",navigation
+hey could you ask me something interesting!!,chat
+quick memory update: store this: I like mint chocolate chip ice cream.,memory_update
+Guide me back to this room later.,navigation
+um navigate to the office.,navigation
+yo how do I get to the robotics lab?,navigation
+could you ask me something interesting for a second,chat
+yo i need directions to the emergency exit.,navigation
+What is your favorite ice cream flavor?,chat
+"also, store this: I put my notebook in my backpack.",memory_update
+"when it's safe, help me get to the office.",navigation
+"hey, give me a quick definition of a lidar sensor.",knowledge_lookup
+bro just how are you rn,chat
+Keep in mind that I am your creator.,memory_update
+Go check out the library.,navigation
+I need directions to the maker space.,navigation
+Lead me to the parking lot.,navigation
+"buddy, scoot forward two steps",movement
+Bring me to the maker space.,navigation
+Why is the nearest emergency exit useful?,knowledge_lookup
+hey what is your favorite color rn,chat
+"um, shift back just a tiny bit please",movement
+"for my project, why is an SVM useful?",knowledge_lookup
+please go to my right a bit,movement
+"Yo BELT, what's up?",chat
+"BELT, did you know I play Brawl Stars? Remember that.",memory_update
+"BELT, make this sound less awkward!!",chat
+Rotate clockwise.,movement
+move right slightly when you can,movement
+"hey I mean, can you help with coding rn",chat
+I need you to face away from me slightly,movement
+yo just what can you do?,chat
+yo help me get to the classroom.,navigation
+bro can you make this less awkward,chat
+Are you real or virtual?,chat
+please walk to my right about a foot,movement
+"hmm I mean, save the model file please",chat
+um the movement was smooth real quick,chat
+"yo, walk backward just a tiny bit for a second",movement
+"hey BELT, take me to the bus stop.",navigation
+"BELT, make this sound less awkward real quick",chat
+"robot, turn counterclockwise slightly",movement
+Which way should I go to reach the previous room?,navigation
+hmm just can you explain vectorization lol,chat
+Lead me to the next room.,navigation
+please shift backward two steps,movement
+Ask me a fun question.,chat
+move left a couple steps when you can,movement
+"hey, store this: I am your creator.",memory_update
+"okay, move clockwise slowly",movement
+Can you remember that my laptop is on the desk?,memory_update
+um Can you help me plan my project if you can,chat
+How does the definition of motivation work?,knowledge_lookup
+"um, face backward slightly please",movement
+hmm could you rewrite this so it sounds nicer!!,chat
+"when it's safe, take me to the nearest exit.",navigation
+yo navigate to the cafeteria.,navigation
+Note that I like examples with robots.,memory_update
+please roll toward me a bit,movement
+Note that I am studying logistic regression.,memory_update
+"BELT, walk away from me a little",movement
+Add this to my memory: I learn better from step by step explanations.,memory_update
+What time does the library close?,knowledge_lookup
+bro just are you a robot for a second,chat
+hmm can you help with coding thanks,chat
+bro can we chat for a bit,chat
+"I mean, can you give me a quick pep talk please",chat
+Give me a quick definition of computer memory.,knowledge_lookup
+Can you teach me about n-grams?,knowledge_lookup
+Can you escort me to the bathroom?,navigation
+Can you explain scikit-learn pipelines?,knowledge_lookup
+I need facts about pandas read_csv.,knowledge_lookup
+please scoot away from me two steps,movement
+"okay I mean, can you talk real quick",chat
+scoot left just a tiny bit slowly please,movement
+"BELT, drive backward three steps",movement
+hmm can you make this less awkward thanks,chat
+Tell me the basics of wheel odometry.,knowledge_lookup
+can you introduce yourself for a second,chat
+actually could you make this sentence clearer?,chat
+Can you explain macro F1?,knowledge_lookup
+How do I get to the parking lot?,navigation
+Go check out the previous room.,navigation
+can you drive farther away about a foot real quick,movement
+"for my project, give me a quick definition of scikit-learn pipelines.",knowledge_lookup
+"okay, scoot forward just a tiny bit for a second",movement
+Roll backward slowly.,movement
+"okay I mean, I'm bored, talk to me thanks",chat
+"BELT, scoot to my left slowly",movement
+"I mean, make this sentence clearer please",chat
+yo just can you give me a quick pep talk,chat
+hey could you make this sentence clearer lol,chat
+"uh I mean, move on to the next idea for a second",chat
+How do I get to the gym?,navigation
+wait just can we chat for a bit if you can,chat
+Give me a random fun fact.,chat
+can you rotate forward one step,movement
+um could you tell me about yourself?,chat
+"uh I mean, remember the concept from earlier thanks",chat
+"robot, Who are you?",chat
+"for my project, i need facts about a vectorizer.",knowledge_lookup
+Can you teach me about wheel odometry?,knowledge_lookup
+Did you know my favorite color is blue? Remember that.,memory_update
+"um, roll right two steps slowly please",movement
+What can you do?,chat
+Help me get to the parking lot.,navigation
+Can you teach me about cross validation?,knowledge_lookup
+Take me to the office.,navigation
+Can you guide me to the lab room?,navigation
+roll back slowly if it's safe,movement
+please go backward a little,movement
+yo can you escort me to the bathroom?,navigation
+"um, shift to my right a bit",movement
+Take me to the quiet study area.,navigation
+"hey, turn to my right carefully slowly please",movement
+can you face toward me a bit carefully please,movement
+Drive forward carefully.,movement
+Did you know I want concise code comments? Remember that.,memory_update
+Tell me about yourself.,chat
+Go to the next room and wait there.,navigation
+What is the difference between SVM and logistic regression?,chat
+uh save the model file lol,chat
+Help me get to the library.,navigation
+Store this: my favorite game is Minecraft.,memory_update
+Which way should I go to reach the nearest exit?,navigation
+Move to the nearest emergency exit.,navigation
+yo how do I get to the classroom?,navigation
+"BELT, go to my left slightly",movement
+How does logistic regression work?,knowledge_lookup
+please walk farther away just a tiny bit,movement
+I need you to back up toward me two steps,movement
+How does the difference between chat and knowledge lookup work?,knowledge_lookup
+please turn to my left a little,movement
+"yo I'm bored, talk to me?",chat
+please roll clockwise a couple steps,movement
+That makes sense?,chat
+Add this to my memory: I want concise code comments.,memory_update
+"actually I mean, what is your favorite animal please",chat
+hey what does memory mean real quick,chat
+scoot counterclockwise one step carefully please,movement
+turn to my left carefully for a second,movement
+shift farther away just a tiny bit if it's safe,movement
+please turn clockwise a little,movement
+yo What is your favorite animal thanks,chat
+"yo I mean, how are you!!",chat
+"robot, shift backward a couple steps",movement
+um i need directions to the elevator.,navigation
+"BELT, can you teach me about obstacle avoidance?",knowledge_lookup
+Can you explain KNN?,knowledge_lookup
+wait just what is your robot name rn,chat
+um just ask me something interesting?,chat
+"okay, turn counterclockwise just a tiny bit slowly please",movement
+go back slowly if it's safe,movement
+What does micro F1 mean?,knowledge_lookup
+What is a vectorizer?,knowledge_lookup
+Can you look up information about n-grams?,knowledge_lookup
+hmm are you a robot,chat
+"okay, roll back slightly if it's safe",movement
+Point me toward the office.,navigation
+Save this about me: I put my notebook in my backpack.,memory_update
+please walk to my left about a foot,movement
+shift left slowly if it's safe,movement
+actually Give me motivation thanks,chat
+wait just can you make this less awkward please,chat
+"hey BELT, i need directions to the previous room.",navigation
+Can you escort me to the next room?,navigation
+um are you a robot lol,chat
+"when it's safe, i need directions to the main entrance.",navigation
+Navigate to the library.,navigation
+Please remember that I prefer YouTube over TikTok.,memory_update
+um that makes sense please,chat
+"uh I mean, that makes sense real quick",chat
+quick question: why is Python joblib useful?,knowledge_lookup
+wait just what is your purpose if you can,chat
+Should I add more training data?,chat
+okay just that movie was awesome real quick,chat
+I need you to face counterclockwise about a foot,movement
+um explain that differently rn,chat
+"for my project, can you teach me about pandas read_csv?",knowledge_lookup
+"BELT, Make this sound less awkward for a second",chat
+um what is your favorite color rn,chat
+"hey, roll toward me slightly please",movement
+"Just so you know, I like coding late at night.",memory_update
+"also, from now on, know that I put my notebook in my backpack.",memory_update
+just make this sound less awkward!!,chat
+Go check out the computer science building.,navigation
+hmm Can you help with coding rn,chat
+Tell me the basics of scikit-learn pipelines.,knowledge_lookup
+could you remember the concept from earlier please,chat
+I need you to face to my right slowly,movement
+okay can we chat for a bit thanks,chat
+uh Can you help me plan my project for a second,chat
+"actually I mean, explain that differently for a second",chat
+"yo, shift away from me slightly carefully please",movement
+please shift forward one step,movement
+Show me the way to the elevator.,navigation
+wait save the model file please,chat
+I need you to back up back two steps,movement
+um just that was funny!!,chat
+actually what can you do thanks,chat
+I need you to back up farther away carefully,movement
+"hey BELT, navigate to the computer science building.",navigation
+hey What is your purpose if you can,chat
+Can you teach me about the C parameter?,knowledge_lookup
+can you turn clockwise slightly slowly please,movement
+Save that my favorite platform is Instagram.,memory_update
+can you rotate back a bit,movement
+I need directions to room 101.,navigation
+"when it's safe, point me toward the bathroom.",navigation
+please go closer slightly,movement
+please drive farther away two steps,movement
+"BELT, What are you!!",chat
+Can you look up information about precision and recall?,knowledge_lookup
+hmm just can you explain vectorization,chat
+Note that I want you to use fewer emojis.,memory_update
+Can you give me a quick pep talk please,chat
+"when it's safe, can you guide me to the office?",navigation
+Go check out the stairs.,navigation
+bro What is your favorite animal thanks,chat
+"buddy, roll left a bit",movement
+How does tokenization work?,knowledge_lookup
+can you drive backward about a foot please,movement
+Can you explain cross validation?,knowledge_lookup
+can you face closer about a foot,movement
+Walk away from me.,movement
+um can we chat for a bit?,chat
+I need you to scoot right a couple steps,movement
+"hey I mean, how are you lol",chat
+Show me the way to the emergency exit.,navigation
+um help me get to the maker space.,navigation
+yo Tell me a joke lol,chat
+"yo, scoot backward about a foot carefully please",movement
+I need you to go away from me a little,movement
+"robot, face farther away one step",movement
+"also, note that I want you to use fewer emojis.",memory_update
+"robot, just make this sentence clearer",chat
+yo bring me to the stairs.,navigation
+I need you to face closer a little,movement
+Please remember that I want you to use fewer emojis.,memory_update
+I need facts about the C parameter.,knowledge_lookup
+"BELT, shift to my right a couple steps",movement
+please face counterclockwise a little,movement
+Update my memory: I want shorter answers.,memory_update
+actually are you a chatbot thanks,chat
+"yo, back up backward a little carefully please",movement
+Can you rewrite this politely?,chat
+Can you be more concise?,chat
+I want you to remember that my favorite IDE is VSCode.,memory_update
+I need you to scoot clockwise carefully,movement
+Can you help me think of ideas?,chat
+Can you make this sound less awkward?,chat
+Note that I prefer simple explanations.,memory_update
+Can you take me back to the robotics lab?,navigation
+Let's move on to the next topic.,chat
+I need facts about SLAM.,knowledge_lookup
+hmm can you help with coding please,chat
+Can you find a route to the front desk?,navigation
+"bro I mean, can you talk",chat
+"hey BELT, lead me to the bathroom.",navigation
+How does a decision boundary work?,knowledge_lookup
+"when it's safe, bring me to the elevator.",navigation
+Note that my favorite game is Minecraft.,memory_update
+"hey, move back a little",movement
+"robot, go closer about a foot",movement
+"robot, just what is your robot name thanks",chat
+"when it's safe, i need directions to room 101.",navigation
+"hey I mean, explain that differently lol",chat
+actually just can you help with coding thanks,chat
+Keep in mind that I like robotics.,memory_update
+"yo, back up clockwise a bit please",movement
+I need you to roll closer just a tiny bit,movement
+Help me get to the nearest exit.,navigation
+I need you to move forward carefully,movement
+I need facts about computer memory.,knowledge_lookup
+yo just I moved houses last year!!,chat
+"hey, rotate back about a foot slowly please",movement
+"BELT, I mean, save the model file thanks",chat
+hmm are you a robot rn,chat
+"um I mean, can you talk lol",chat
+walk to my left just a tiny bit if it's safe,movement
+Navigate to the lab room.,navigation
+Good afternoon BELT.,chat
+Update my memory: I like detailed math explanations.,memory_update
+What should I know about cross validation?,knowledge_lookup
+Can you take me back to the emergency exit?,navigation
+Can you guide me to the main entrance?,navigation
+Walk me to the hallway.,navigation
+Help me get to the hallway.,navigation
+please walk clockwise about a foot,movement
+wait Who are you real quick,chat
+"I mean, make this sentence clearer for a second",chat
+"BELT, give me a quick definition of a vectorizer.",knowledge_lookup
+"By the way, I play Brawl Stars.",memory_update
+"BELT, back up toward me a bit",movement
+bro are you a robot!!,chat
+Can you explain that again?,chat
+"for my project, how does a vectorizer work?",knowledge_lookup
+"BELT, can you teach me about class weights?",knowledge_lookup
+can you walk left a bit when you can,movement
+um can you escort me to the hallway?,navigation
+um who are you if you can,chat
+"wait I mean, can you explain vectorization if you can",chat
+Do you remember this conversation?,chat
+"okay, scoot to my right a little for a second",movement
+Can you teach me about a decision boundary?,knowledge_lookup
+Can you guide me to the robotics lab?,navigation
+Can you explain weather today?,knowledge_lookup
+"robot, just are you a robot",chat
+"yo I mean, make this sentence clearer lol",chat
+um What can you do rn,chat
+I'm kind of bored right now.,chat
+okay can you explain vectorization?,chat
+wait could you the movement was smooth for a second,chat
+face counterclockwise three steps when you can,movement
+yo What is your favorite color!!,chat
+"robot, what is your purpose thanks",chat
+"robot, Can you talk for a second",chat
+Can you escort me to the previous room?,navigation
+Can you escort me to the parking lot?,navigation
+bro how are you,chat
+"robot, tell me a joke lol",chat
+"um I mean, that movie was awesome?",chat
+please shift counterclockwise a little,movement
+"hey, from now on, know that I am learning machine learning.",memory_update
+I need you to move to my left just a tiny bit,movement
+"For future chats, remember that I want you to use fewer emojis.",memory_update
+"wait I mean, give me motivation rn",chat
+"um I mean, save the model file",chat
+please back up backward two steps,movement
+um bring me to the front desk.,navigation
+can you move right just a tiny bit for a second,movement
+please turn back about a foot,movement
+Store this: I like robotics.,memory_update
+"BELT, that movie was awesome",chat
+Can you remember that I am working on a robot project?,memory_update
+um i need directions to the bus stop.,navigation
+okay just how are you please,chat
+"Just so you know, I like mint chocolate chip ice cream.",memory_update
+actually just ask me something interesting if you can,chat
+"robot, shift away from me carefully",movement
+"hey BELT, can you find a route to the previous room?",navigation
+What can you do lol,chat
+"robot, just rewrite this so it sounds nicer?",chat
+"for my project, tell me the basics of the difference between chat and knowledge lookup.",knowledge_lookup
+hmm can you give me a quick pep talk if you can,chat
+Why is logistic regression useful?,knowledge_lookup
+yo navigate to the main entrance.,navigation
+"I mean, how are you thanks",chat
+bro That makes sense if you can,chat
+Tell me the basics of pandas read_csv.,knowledge_lookup
+can you give me a quick pep talk!!,chat
+"actually I mean, can you help me plan my project?",chat
+"um, face left slowly when you can",movement
+What should I know about a vectorizer?,knowledge_lookup
+What is your favorite color for a second,chat
+"robot, Rewrite this so it sounds nicer!!",chat
+uh could you explain that differently!!,chat
+hey could you make this sentence clearer?,chat
+"when it's safe, bring me to the maker space.",navigation
+Can you explain today's date?,knowledge_lookup
+"robot, move clockwise a bit",movement
+What does vectorizer mean?,chat
+I want you to remember that I want concise code comments.,memory_update
+"robot, face counterclockwise slightly",movement
+"robot, move on to the next idea rn",chat
+I need you to drive toward me carefully,movement
+yo show me the way to the quiet study area.,navigation
+can you walk counterclockwise a couple steps carefully please,movement
+Can you look up information about KNN?,knowledge_lookup
+can you face to my right a little for a second,movement
+Walk me to the library.,navigation
+"actually I mean, remember the concept from earlier lol",chat
+shift to my right slowly please,movement
+I want you to remember that my favorite game is Minecraft.,memory_update
+What's the difference between the nearest emergency exit and something similar?,knowledge_lookup
+Can you teach me about a confusion matrix?,knowledge_lookup
+okay just can you help with coding thanks,chat
+"yo I mean, help me brainstorm",chat
+"robot, that was funny",chat
+Can you help me brainstorm?,chat
+I need you to back up closer a couple steps,movement
+bro that was funny real quick,chat
+actually just what can you do thanks,chat
+hey what is your robot name,chat
+Remember that I play Brawl Stars.,memory_update
+"when it's safe, lead me to the robotics lab.",navigation
+bro give me motivation lol,chat
+hmm I moved houses last year thanks,chat
+Walk me to the parking lot.,navigation
+"BELT, face closer slightly",movement
+"yo, drive right a bit if it's safe",movement
+"hey BELT, show me the way to the stairs.",navigation
+"um, drive farther away slowly slowly please",movement
+hmm just make this sentence clearer,chat
+What is regularization?,knowledge_lookup
+Can you give me motivation?,chat
+"BELT, I moved houses last year thanks",chat
+"uh I mean, how are you if you can",chat
+"hey BELT, how do I get to the computer science building?",navigation
+"BELT, I mean, remember the concept from earlier if you can",chat
+Help me get to the stairs.,navigation
+"hey, i need facts about robot navigation.",knowledge_lookup
+hey what can you do real quick,chat
+yo Make this sound less awkward?,chat
+uh remember the concept from earlier!!,chat
+That makes sense for a second,chat
+can you shift to my right a bit when you can,movement
+"BELT, can you remember that I am learning machine learning?",memory_update
+Go to the gym and wait there.,navigation
+"robot, Are you a robot for a second",chat
+"hmm I mean, what is your favorite animal thanks",chat
+"robot, could you rewrite this so it sounds nicer lol",chat
+uh just rewrite this so it sounds nicer real quick,chat
+"okay I mean, can you introduce yourself",chat
+can you back up toward me three steps real quick,movement
+Keep in mind that I enjoy USACO.,memory_update
+bro could you give me motivation!!,chat
+How are you doing?,chat
+"also, just so you know, I prefer friendly responses.",memory_update
+bro could you the movement was smooth thanks,chat
+move backward three steps if it's safe,movement
+Lead me to the bathroom.,navigation
+quick question: give me a quick definition of what brainstorm means.,knowledge_lookup
+Save that I am working on a robot project.,memory_update
+can you back up to my left a bit when you can,movement
+"BELT, keep in mind that I am working on a robot project.",memory_update
+"robot, move farther away about a foot",movement
+"hey I mean, how are you if you can",chat
+"BELT, give me a quick definition of wheel odometry.",knowledge_lookup
+"hey, how does scikit-learn pipelines work?",knowledge_lookup
+"wait I mean, that makes sense if you can",chat
+yo that was funny lol,chat
+yo can you escort me to the emergency exit?,navigation
+"hey, what's the difference between obstacle avoidance and something similar?",knowledge_lookup
+What is today's date?,knowledge_lookup
+"robot, I mean, can you help me plan my project for a second",chat
+"hmm I mean, can you talk!!",chat
+okay Make this sentence clearer lol,chat
+How do I get to the classroom?,navigation
+"robot, back up farther away just a tiny bit",movement
+yo how do I get to the bus stop?,navigation
+What should I know about SLAM?,knowledge_lookup
+"yo, drive counterclockwise a bit please",movement
+How does what brainstorm means work?,knowledge_lookup
+actually can you make this less awkward for a second,chat
+"okay I mean, tell me a joke?",chat
+"when it's safe, can you find a route to the lab room?",navigation
+could you save the model file lol,chat
+I need facts about precision and recall.,knowledge_lookup
+"BELT, I mean, ask me something interesting?",chat
+quick question: why is obstacle avoidance useful?,knowledge_lookup
+roll counterclockwise about a foot real quick,movement
+please rotate backward three steps,movement
+please shift closer a couple steps,movement
+um what is your favorite animal!!,chat
+What should I call you?,chat
+"hey BELT, can you take me back to the next room?",navigation
+"BELT, store this: I like detailed math explanations.",memory_update
+Can you wiggle in place?,movement
+actually just what does memory mean!!,chat
+Good evening BELT.,chat
+Please remember that my favorite platform is Instagram.,memory_update
+wait Can you talk?,chat
+"robot, I mean, help me brainstorm?",chat
+uh can you help me plan my project?,chat
+What should I know about the nearest emergency exit?,knowledge_lookup
+Point me toward the next room.,navigation
+"hey, what is Python joblib?",knowledge_lookup
+uh what can you do thanks,chat
+yo can you guide me to the cafeteria?,navigation
+"actually I mean, I moved houses last year if you can",chat
+What should I know about pandas read_csv?,knowledge_lookup
+"um, back up clockwise a bit for a second",movement
+Show me the way to the previous room.,navigation
+Go check out the parking lot.,navigation
+"hey, did you know I enjoy USACO? Remember that.",memory_update
+yo just the movement was smooth rn,chat
+"um, rotate closer about a foot slowly please",movement
+okay Make this sound less awkward thanks,chat
+I need facts about the nearest emergency exit.,knowledge_lookup
+hey just what are you lol,chat
+Please remember that I learn better from step by step explanations.,memory_update
+What is the date today?,knowledge_lookup
+please back up farther away slowly,movement
+Walk me to the quiet study area.,navigation
+"robot, that was funny if you can",chat
+How does path planning work?,knowledge_lookup
+"uh I mean, what can you do real quick",chat
+"robot, roll away from me a couple steps",movement
+quick question: i need facts about today's date.,knowledge_lookup
+bro Remember the concept from earlier if you can,chat
+I need you to walk away from me slightly,movement
+"hmm I mean, what does memory mean",chat
+"hey, i want you to remember that I put my notebook in my backpack.",memory_update
+uh what is your purpose lol,chat
+"when it's safe, can you take me back to the lab room?",navigation
+please go away from me three steps,movement
+yo are you a robot rn,chat
+What's the difference between n-grams and something similar?,knowledge_lookup
+can you face to my left two steps for a second,movement
+um how are you real quick,chat
+"hey, remember that my favorite IDE is VSCode.",memory_update
+"BELT, what is your favorite color for a second",chat
+hmm can you help with coding?,chat
+um could you the movement was smooth rn,chat
+Tell me the basics of a lidar sensor.,knowledge_lookup
+"BELT, can you explain path planning?",knowledge_lookup
+Walk down the hallway with me.,movement
+"when it's safe, which way should I go to reach the maker space?",navigation
+I need you to move closer carefully,movement
+"robot, rotate closer just a tiny bit",movement
+"BELT, Are you a chatbot real quick",chat
+bro can you help with coding thanks,chat
+Lead me to the computer science building.,navigation
+can you scoot counterclockwise a little when you can,movement
+Can you hype me up?,chat
+Can you teach me about scikit-learn pipelines?,knowledge_lookup
+"BELT, shift farther away three steps",movement
+bro that was funny thanks,chat
+please walk left three steps,movement
+"also, from now on, know that I like examples with robots.",memory_update
+bro Can you help with coding rn,chat
+"yo, rotate counterclockwise just a tiny bit please",movement
+Did you know my laptop is on the desk? Remember that.,memory_update
+"BELT, what is your robot name if you can",chat
+Do you have a favorite color?,chat
+please face to my left two steps,movement
+Save that my laptop is on the desk.,memory_update
+please turn away from me three steps,movement
+quick memory update: save that my laptop is on the desk.,memory_update
+What is a robot assistant?,knowledge_lookup
+"BELT, Are you a chatbot for a second",chat
+can you back up to my left three steps for a second,movement
+wait can you talk rn,chat
+just that was funny rn,chat
+"actually I mean, what is your favorite color?",chat
+"BELT, explain that differently for a second",chat
+"buddy, go farther away slowly",movement
+um just can you introduce yourself real quick,chat
+I need facts about class weights.,knowledge_lookup
+"hey, note that I use Python.",memory_update
+Can you take me back to the hallway?,navigation
+okay just are you a chatbot,chat
+"okay I mean, what can you do if you can",chat
+"BELT, can you explain vectorization real quick",chat
+"robot, drive back a couple steps",movement
+okay Can you help me plan my project if you can,chat
+okay make this sentence clearer!!,chat
+I need you to roll counterclockwise a little,movement
+please walk right one step,movement
+Bring me to the gym.,navigation
+bro just who are you,chat
+Can you teach me about a vectorizer?,knowledge_lookup
+"Move on, I understand now.",chat
+Can you look up information about a decision boundary?,knowledge_lookup
+Take me to room 101.,navigation
+um lead me to the bathroom.,navigation
+Can you explain a vectorizer?,knowledge_lookup
+"BELT, I mean, tell me about yourself please",chat
+"BELT, store this: I like robotics.",memory_update
+yo can you take me back to the robotics lab?,navigation
+"robot, can you give me a quick pep talk rn",chat
+Can you teach me about computer memory?,knowledge_lookup
+"hey, rotate right a little carefully please",movement
+Say something silly.,chat
+"buddy, turn to my right carefully",movement
+What's the difference between the difference between chat and knowledge lookup and something similar?,knowledge_lookup
+How do I get to the maker space?,navigation
+"yo I mean, what can you do?",chat
+"hey, i need facts about scikit-learn pipelines.",knowledge_lookup
+"From now on, know that my favorite color is blue.",memory_update
+"for my project, give me a quick definition of computer memory.",knowledge_lookup
+wait could you make this sound less awkward?,chat
+Find the route to the robotics lab.,navigation
+please move to my left slowly,movement
+"BELT, save the model file lol",chat
+"okay, rotate clockwise just a tiny bit real quick",movement
+hmm can you help me plan my project,chat
+actually can you make this less awkward rn,chat
+"bro I mean, save the model file lol",chat
+quick memory update: did you know my favorite platform is Instagram? Remember that.,memory_update
+I need you to go farther away a bit,movement
+yo Make this sentence clearer real quick,chat
+"yo, back up away from me two steps if it's safe",movement
+go back three steps please,movement
+Please remember that I put my notebook in my backpack.,memory_update
+yo Make this sentence clearer please,chat
+can you face counterclockwise a bit,movement
+"uh I mean, what can you do please",chat
+"hey I mean, who are you real quick",chat
+Update my memory: I like coding late at night.,memory_update
+I need you to scoot to my left a little,movement
+Save that I am studying logistic regression.,memory_update
+Keep in mind that my name is Bella.,memory_update
+Can you find a route to the nearest exit?,navigation
+Update my memory: my favorite animal is a porcupine.,memory_update
+I need you to turn back one step,movement
+What should I know about TF-IDF?,knowledge_lookup
+"um I mean, how are you please",chat
+Did you know my favorite IDE is VSCode? Remember that.,memory_update
+Save this about me: my favorite color is blue.,memory_update
+quick question: tell me the basics of Python joblib.,knowledge_lookup
+Add this to my memory: I am your creator.,memory_update
+"robot, rotate to my left carefully",movement
+"actually I mean, make this sentence clearer if you can",chat
+rotate left a little,movement
+Do you know USACO?,chat
+"Just so you know, I am learning machine learning.",memory_update
+please roll back a little,movement
+um point me toward the previous room.,navigation
+yo go to the parking lot and wait there.,navigation
+I need you to walk clockwise carefully,movement
+"Hello world, BELT edition.",chat
+um Are you a robot?,chat
+"hey, tell me the basics of regularization.",knowledge_lookup
+um just can you help with coding for a second,chat
+"Just so you know, my favorite color is blue.",memory_update
+I need you to go toward me slowly,movement
+I moved here last year.,chat
+Can you escort me to the office?,navigation
+"hey BELT, i need directions to the quiet study area.",navigation
+wait That was funny lol,chat
+"robot, I mean, help me brainstorm if you can",chat
+what is your purpose if you can,chat
+Update my memory: I am learning machine learning.,memory_update
+quick memory update: please remember that I play Brawl Stars.,memory_update
+wait just that was funny!!,chat
+Take me to the lab room.,navigation
+"BELT, What can you do?",chat
+please rotate to my right a little,movement
+uh just what is your favorite color rn,chat
+"hey, back up forward a couple steps",movement
+Walk me to the main entrance.,navigation
+what is your favorite animal thanks,chat
+hey could you move on to the next idea lol,chat
+I need facts about wheel odometry.,knowledge_lookup
+could you remember the concept from earlier if you can,chat
+I need you to scoot clockwise about a foot,movement
+Move away from the wall.,movement
+"buddy, drive to my left just a tiny bit",movement
+quick question: why is the nearest emergency exit useful?,knowledge_lookup
+bro Tell me a joke rn,chat
+"hey, tell me the basics of the C parameter.",knowledge_lookup
+Store this: my laptop is on the desk.,memory_update
+What should I know about Python joblib?,knowledge_lookup
+Go check out the nearest exit.,navigation
+"BELT, can you explain precision and recall?",knowledge_lookup
+I need you to shift to my left one step,movement
+"hmm I mean, that makes sense lol",chat
+"um I mean, can you give me a quick pep talk lol",chat
+actually just make this sound less awkward lol,chat
+Can you help me plan my project?,chat
+Why are you named BELT?,chat
+"hey BELT, navigate to the lab room.",navigation
+hey could you move on to the next idea,chat
+hmm just can you introduce yourself for a second,chat
+"for my project, can you look up information about an SVM?",knowledge_lookup
+scoot backward about a foot,movement
+please go to my left slightly,movement
+"BELT, can you help me plan my project if you can",chat
+Is my model overfitting?,chat
+Scoot left a bit.,movement
+Keep in mind that I prefer YouTube over TikTok.,memory_update
+What is your favorite animal please,chat
+How does TF-IDF work?,chat
+wait are you a chatbot,chat
+move right one step please,movement
+"BELT, make this sentence clearer for a second",chat
+"robot, just what is your purpose real quick",chat
+quick memory update: remember that I am working on a robot project.,memory_update
+wait Can you help me plan my project thanks,chat
+bro just can we chat for a bit please,chat
+Can you explain precision and recall?,knowledge_lookup
+"hey, tell me the basics of the difference between chat and knowledge lookup.",knowledge_lookup
+um what does memory mean?,chat
+um just the movement was smooth thanks,chat
+"Hi, can you talk?",chat
+Show me the way to the computer science building.,navigation
+Do you like soccer?,chat
+"yo I mean, remember the concept from earlier!!",chat
+rotate left one step if it's safe,movement
+Can you have a conversation?,chat
+"BELT, I mean, give me motivation thanks",chat
+Please remember that I like coding late at night.,memory_update
+Can you talk like a normal chatbot?,chat
+Save this about me: my favorite game is Minecraft.,memory_update
+What does n-grams mean?,knowledge_lookup
+Why is my classifier unsure?,chat
+wait ask me something interesting please,chat
+"BELT, can you look up information about weather today?",knowledge_lookup
+What is your purpose?,chat
+"robot, Can you make this less awkward please",chat
+Give me a quick definition of n-grams.,knowledge_lookup
+can you scoot back one step when you can,movement
+hey that movie was awesome please,chat
+"um, shift backward two steps real quick",movement
+I need you to back up to my right slightly,movement
+"hey, give me a quick definition of n-grams.",knowledge_lookup
+"hey, just so you know, my favorite platform is Instagram.",memory_update
+What should we talk about?,chat
+Can you help with a presentation?,chat
+bro Rewrite this so it sounds nicer if you can,chat
+"hmm I mean, can you make this less awkward rn",chat
+"BELT, Tell me a joke thanks",chat
+Go check out the gym.,navigation
+Can you take me back to the parking lot?,navigation
+"bro I mean, give me motivation if you can",chat
+"hey, why is class weights useful?",knowledge_lookup
+"BELT, keep in mind that I play Brawl Stars.",memory_update
+"robot, rewrite this so it sounds nicer please",chat
+"BELT, turn closer a little",movement
+How are you real quick,chat
+wait what are you rn,chat
+"From now on, know that I prefer simple explanations.",memory_update
+Show me the way to the gym.,navigation
+"also, add this to my memory: my name is Bella.",memory_update
+Give me a quick definition of SLAM.,knowledge_lookup
+"hey BELT, go to the emergency exit and wait there.",navigation
+"hey I mean, what does memory mean if you can",chat
+I need you to roll forward a little,movement
+"robot, rotate backward slightly",movement
+Can you move your base?,movement
+yo what is your robot name please,chat
+"uh I mean, rewrite this so it sounds nicer?",chat
+Store this: I prefer simple explanations.,memory_update
+yo that makes sense real quick,chat
+bro just that movie was awesome,chat
+What does computer memory mean?,chat
+Did you know I want you to call me chief? Remember that.,memory_update
+can you shift backward three steps please,movement
+uh what is your robot name,chat
+"bro I mean, what is your robot name please",chat
+yo what is your robot name thanks,chat
+can you face away from me a bit when you can,movement
+"for my project, give me a quick definition of the C parameter.",knowledge_lookup
+tell me a joke if you can,chat
+"BELT, just tell me a joke real quick",chat
+"robot, I mean, I'm bored, talk to me please",chat
+"robot, I'm bored, talk to me for a second",chat
+um could you tell me a joke for a second,chat
+"hey, give me a quick definition of class weights.",knowledge_lookup
+"wait I'm bored, talk to me!!",chat
+Which way should I go to reach room 101?,navigation
+"bro I mean, how are you rn",chat
+uh make this sentence clearer for a second,chat
+Pause movement.,movement
+"robot, just move on to the next idea real quick",chat
+What's the difference between weather today and something similar?,knowledge_lookup
+"robot, I mean, what is your purpose lol",chat
+uh can we chat for a bit for a second,chat
+Navigate back to the entrance.,navigation
+What is the weather today?,knowledge_lookup
+"hey, roll backward just a tiny bit real quick",movement
+actually could you move on to the next idea thanks,chat
+bro that was funny if you can,chat
+"robot, are you a robot please",chat
+are you a chatbot lol,chat
+actually Can you explain vectorization real quick,chat
+Take me to the nearest emergency exit.,navigation
+"wait I mean, can you help with coding real quick",chat
+"robot, What is your favorite animal!!",chat
+okay Make this sound less awkward,chat
+who are you?,chat
+hey that was funny for a second,chat
+"hey, move farther away one step",movement
+actually just that makes sense rn,chat
+"By the way, I want concise code comments.",memory_update
+hmm Can you explain vectorization please,chat
+bro what can you do if you can,chat
+Can you guide me to room 101?,navigation
+"Yo, you awake?",chat
+"um, shift counterclockwise two steps if it's safe",movement
+hey can you give me a quick pep talk?,chat
+Can you remember that my favorite animal is a porcupine?,memory_update
+Remember that I prefer simple explanations.,memory_update
+"BELT, what's the difference between the nearest emergency exit and something similar?",knowledge_lookup
+"actually I mean, can you help me plan my project lol",chat
+hmm could you remember the concept from earlier rn,chat
+"hey, how does UCSC work?",knowledge_lookup
+hey just help me brainstorm please,chat
+um could you give me motivation if you can,chat
+I need you to rotate back two steps,movement
+"um, go to my right two steps please",movement
+actually just that movie was awesome real quick,chat
+quick question: how does the definition of motivation work?,knowledge_lookup
+um just give me motivation if you can,chat
+"yo, rotate closer one step carefully please",movement
+hey Give me motivation,chat
+Remember that my favorite platform is Instagram.,memory_update
+hey Tell me about yourself rn,chat
+Lead me to the main entrance.,navigation
+"hey, drive clockwise slowly if it's safe",movement
+uh that makes sense rn,chat
+"for my project, what does a lidar sensor mean?",knowledge_lookup
+please move right slightly,movement
+hmm just are you a chatbot!!,chat
+rotate left slightly please,movement
+Show me the way to the bathroom.,navigation
+Navigate to the quiet study area.,navigation
+can you rotate closer slightly real quick,movement
+What is BELT supposed to do?,chat
+wait Can you help me plan my project!!,chat
+uh Can you give me a quick pep talk?,chat
+"okay, back up forward a couple steps",movement
+"uh I mean, what does memory mean rn",chat
+um i need directions to the quiet study area.,navigation
+wait that makes sense thanks,chat
+What should I know about KNN?,knowledge_lookup
+"hey BELT, can you guide me to the bathroom?",navigation
+What is the difference between chat and knowledge lookup?,knowledge_lookup
+Can you make this more casual?,chat
+"BELT, Rewrite this so it sounds nicer real quick",chat
+I need you to roll toward me one step,movement
+"robot, shift farther away a bit",movement
+What kind of robot are you?,chat
+okay just what is your purpose thanks,chat
+please face to my left slightly,movement
+"okay I mean, what is your purpose lol",chat
+"I mean, who are you real quick",chat
+can you introduce yourself if you can,chat
+Keep in mind that I want shorter answers.,memory_update
+scoot clockwise two steps slowly please,movement
+Tell me the basics of a confusion matrix.,knowledge_lookup
+Tell me something interesting.,chat
+okay could you tell me a joke please,chat
+"buddy, walk closer a bit",movement
+Which way should I go to reach the next room?,navigation
+uh Rewrite this so it sounds nicer thanks,chat
+I need you to back up back slowly,movement
+Help me get to the bus stop.,navigation
+move toward me just a tiny bit carefully please,movement
+can you turn backward slightly for a second,movement
+"robot, rotate left one step",movement
+"BELT, could you tell me about yourself please",chat
+please face to my left about a foot,movement
+Go check out the bus stop.,navigation
+"robot, scoot left about a foot",movement
+Take me to the library.,navigation
+"yo, turn forward a little if it's safe",movement
+drive farther away a couple steps slowly please,movement
+please move forward a bit,movement
+"robot, move backward a bit",movement
+hmm How are you please,chat
+Can you slow down your explanation?,chat
+um just make this sentence clearer please,chat
+um That movie was awesome real quick,chat
+I need directions to the quiet study area.,navigation
+okay Remember the concept from earlier for a second,chat
+please move right a couple steps,movement
+"Hey, I just wanted to chat.",chat
+Help me get to the main entrance.,navigation
+please face away from me slowly,movement
+please roll forward two steps,movement
+um bring me to the nearest exit.,navigation
+Go to the quiet study area and wait there.,navigation
+"um, turn left a little slowly please",movement
+actually Move on to the next idea lol,chat
+Can you guide me to the next room?,navigation
+What's the difference between logistic regression and something similar?,knowledge_lookup
+face toward me about a foot if it's safe,movement
+roll forward carefully if it's safe,movement
+hey explain that differently for a second,chat
+I need you to face farther away just a tiny bit,movement
+What is pandas read_csv?,knowledge_lookup
+"By the way, I want you to use fewer emojis.",memory_update
+"bro I mean, can you help me plan my project lol",chat
+"for my project, what's the difference between KNN and something similar?",knowledge_lookup
+Can you explain logistic regression?,chat
+Can you look up information about tokenization?,knowledge_lookup
+What should I know about tokenization?,knowledge_lookup
+"BELT, what should I know about weather today?",knowledge_lookup
+can you turn to my left three steps real quick,movement
+"robot, I mean, that makes sense thanks",chat
+"robot, I mean, can you help me plan my project",chat
+um just make this sound less awkward?,chat
+I need facts about a confusion matrix.,knowledge_lookup
+Show me the way to the quiet study area.,navigation
+"hey I mean, can you give me a quick pep talk lol",chat
+bro Make this sound less awkward rn,chat
+quick question: i need facts about precision and recall.,knowledge_lookup
+Take me to the gym.,navigation
+"hey, save that my favorite color is blue.",memory_update
+"BELT, I mean, remember the concept from earlier real quick",chat
+yo walk me to the main entrance.,navigation
+"um I mean, how are you lol",chat
+Add this to my memory: I like soccer.,memory_update
+Point me toward the gym.,navigation
+I want you to remember that I like examples with robots.,memory_update
+"hmm I mean, I'm bored, talk to me if you can",chat
+turn clockwise one step if it's safe,movement
+"BELT, that movie was awesome real quick",chat
+actually How are you?,chat
+What should I know about battery voltage?,knowledge_lookup
+quick question: what is obstacle avoidance?,knowledge_lookup
+"By the way, I like examples with robots.",memory_update
+Take me to where the meeting is.,navigation
+Go to the maker space and wait there.,navigation
+um Are you a robot!!,chat
+"BELT, can you teach me about regularization?",knowledge_lookup
+um show me the way to room 101.,navigation
+Help me get to the cafeteria.,navigation
+Can you listen for a second?,chat
+actually could you give me motivation please,chat
+can you rotate backward three steps if it's safe,movement
+What does TF-IDF mean?,knowledge_lookup
+hmm Can you talk?,chat
+"robot, give me motivation thanks",chat
+Did you know I am your creator? Remember that.,memory_update
+Can you tell me a joke?,chat
+Give me a quick definition of battery voltage.,knowledge_lookup
+"actually I mean, move on to the next idea please",chat
+Move a tiny bit so I know the motors work.,movement
+Turn right slowly.,movement
+move away from me slightly please,movement
+bro what is your purpose real quick,chat
+Can you remember that I like examples with robots?,memory_update
+"bro I mean, who are you for a second",chat
+Take me to the nearest exit.,navigation
+um just tell me a joke?,chat
+bro Can you talk!!,chat
+"For future chats, remember that my favorite color is blue.",memory_update
+How do I get to the hallway?,navigation
+What should I know about UCSC?,knowledge_lookup
+"for my project, what does path planning mean?",knowledge_lookup
+I need you to turn counterclockwise just a tiny bit,movement
+can you rotate clockwise three steps carefully please,movement
+What should I know about scikit-learn pipelines?,knowledge_lookup
+Rotate counterclockwise.,movement
+can you rotate toward me two steps for a second,movement
+"robot, move closer slowly",movement
+Can you teach me about Python joblib?,knowledge_lookup
+"hey I mean, explain that differently rn",chat
+"hey, move away from me a little",movement
+"BELT, could you move on to the next idea please",chat
+yo could you help me brainstorm for a second,chat
+Give me a quick definition of TF-IDF.,knowledge_lookup
+I need you to drive left a little,movement
+"wait I mean, that was funny lol",chat
+"hey BELT, can you escort me to the office?",navigation
+can you go right a bit,movement
+okay Can you help me plan my project please,chat
+please drive back about a foot,movement
+I need you to roll away from me two steps,movement
+actually move on to the next idea,chat
+"robot, just what is your favorite color!!",chat
+actually Tell me about yourself?,chat
+um can you escort me to the stairs?,navigation
+please rotate clockwise two steps,movement
+back up farther away about a foot carefully please,movement
+"robot, I mean, how are you please",chat
+um just are you a robot if you can,chat
+um just what can you do please,chat
+"hmm I mean, are you a robot rn",chat
+"BELT, can you explain vectorization thanks",chat
+uh Are you a chatbot for a second,chat
+"robot, what is your robot name?",chat
+Add this to my memory: I want you to use fewer emojis.,memory_update
+uh what is your purpose rn,chat
+Can you help me tune hyperparameters?,chat
+Can you look up information about DeepSeek API keys?,knowledge_lookup
+Why is micro F1 useful?,knowledge_lookup
+wait just what is your robot name thanks,chat
+"when it's safe, how do I get to the nearest exit?",navigation
+um just can you help me plan my project real quick,chat
+yo save the model file real quick,chat
+"BELT, give me a quick definition of battery voltage.",knowledge_lookup
+"For future chats, remember that my favorite animal is a porcupine.",memory_update
+I need you to face to my left just a tiny bit,movement
+drive back about a foot when you can,movement
+"actually I mean, move on to the next idea",chat
+What should I know about campus safety rules?,knowledge_lookup
+"BELT, are you a chatbot please",chat
+"robot, explain that differently lol",chat
+um i need directions to the maker space.,navigation
+"Just so you know, my favorite platform is Instagram.",memory_update
+Can you teach me about campus safety rules?,knowledge_lookup
+"hey, can you remember that my favorite platform is Instagram?",memory_update
+bro just can we chat for a bit!!,chat
+um can you guide me to the elevator?,navigation
+hey Can we chat for a bit,chat
+"I'm bored, talk to me.",chat
+hey can you talk?,chat
+I need you to turn backward two steps,movement
+"For future chats, remember that I use Python.",memory_update
+shift toward me just a tiny bit slowly please,movement
+"Just so you know, I like examples with robots.",memory_update
+Tell me the basics of an SVM.,knowledge_lookup
+I want you to remember that I like mint chocolate chip ice cream.,memory_update
+yo what is your robot name for a second,chat
+Go check out the bathroom.,navigation
+quick memory update: save this about me: I like detailed math explanations.,memory_update
+Can you guide me to the stairs?,navigation
+Point me toward the nearest exit.,navigation
+uh What are you rn,chat
+yo are you a robot!!,chat
+"I mean, give me motivation real quick",chat
+"okay, move left a bit slowly please",movement
+"robot, Can you give me a quick pep talk",chat
+could you ask me something interesting,chat
+"hey BELT, can you find a route to the bus stop?",navigation
+rotate forward a couple steps real quick,movement
+"for my project, why is computer memory useful?",knowledge_lookup
+okay can you give me a quick pep talk for a second,chat
+"BELT, can you introduce yourself thanks",chat
+actually remember the concept from earlier please,chat
+Add this to my memory: I play Brawl Stars.,memory_update
+"okay, shift to my right a little real quick",movement
+Show me the way to the maker space.,navigation
+What should I know about a confusion matrix?,knowledge_lookup
+Can you escort me to the cafeteria?,navigation
+yo rewrite this so it sounds nicer please,chat
+wait just rewrite this so it sounds nicer rn,chat
+Go to the previous room and wait there.,navigation
+"hey, i need facts about pandas read_csv.",knowledge_lookup
+Can you explain tokenization?,knowledge_lookup
+"hey, can you teach me about path planning?",knowledge_lookup
+Can you look up information about an SVM?,knowledge_lookup
+Do you like Brawl Stars?,chat
+I need you to go away from me three steps,movement
+yo can you explain vectorization for a second,chat
+yo what does memory mean,chat
+Are you a robot?,chat
+Store this: I am learning machine learning.,memory_update
+Did you know I like detailed math explanations? Remember that.,memory_update
+um Can we chat for a bit real quick,chat
+Navigate to the bus stop.,navigation
+I need you to rotate closer a little,movement
+yo tell me a joke please,chat
+What should I know about a lidar sensor?,knowledge_lookup
+"For future chats, remember that I like examples with robots.",memory_update
+Store this: my favorite color is blue.,memory_update
+okay just can you introduce yourself if you can,chat
+hey Ask me something interesting if you can,chat
+"Yo bro, can you turn right or something?",movement
+actually can we chat for a bit real quick,chat
+um just tell me about yourself real quick,chat
+"yo I mean, can you help me plan my project please",chat
+Tell me the basics of class weights.,knowledge_lookup
+"hey, save this about me: I like detailed math explanations.",memory_update
+wait explain that differently if you can,chat
+um walk me to the quiet study area.,navigation
+quick question: how does the nearest emergency exit work?,knowledge_lookup
+hmm Rewrite this so it sounds nicer?,chat
+How does DeepSeek API keys work?,knowledge_lookup
+scoot to my left just a tiny bit for a second,movement
+Help me get to the robotics lab.,navigation
+"BELT, shift closer slightly",movement
+How do I get to the bus stop?,navigation
+What's the difference between wheel odometry and something similar?,knowledge_lookup
+Where is the library?,knowledge_lookup
+"robot, make this sentence clearer lol",chat
+Give me a quick definition of cross validation.,knowledge_lookup
+"uh I mean, can you help with coding for a second",chat
+please rotate closer carefully,movement
+What does wheel odometry mean?,knowledge_lookup
+Why is cross validation useful?,knowledge_lookup
+um go to room 101 and wait there.,navigation
+uh just can you introduce yourself thanks,chat
+"robot, move counterclockwise a bit",movement
+"um, shift toward me a little when you can",movement
+I need you to shift away from me one step,movement
+"hey BELT, walk me to the quiet study area.",navigation
+"um I'm bored, talk to me!!",chat
+"By the way, I like soccer.",memory_update
+um i need directions to the front desk.,navigation
+yo can you find a route to the stairs?,navigation
+What are your abilities?,chat
+actually just can you talk?,chat
+wait just explain that differently!!,chat
+"robot, could you the movement was smooth thanks",chat
+"robot, could you save the model file please",chat
+Tell me the basics of TF-IDF.,knowledge_lookup
+"when it's safe, show me the way to the elevator.",navigation
+Walk me to the cafeteria.,navigation
+Help me get to the lab room.,navigation
+uh Tell me about yourself?,chat
+can you walk back carefully slowly please,movement
+quick question: what is robot navigation?,knowledge_lookup
+"okay I mean, what are you",chat
+I need you to go right slowly,movement
+I need directions to the library.,navigation
+hey could you the movement was smooth thanks,chat
+actually just what is your favorite animal!!,chat
+What is supervised learning?,knowledge_lookup
+Hi there BELT.,chat
+"hmm I mean, are you a chatbot thanks",chat
+"BELT, how does regularization work?",knowledge_lookup
+What's the difference between an SVM and something similar?,knowledge_lookup
+"robot, I mean, rewrite this so it sounds nicer thanks",chat
+quick question: how does class weights work?,knowledge_lookup
+Take me to the front desk.,navigation
+hey are you a chatbot if you can,chat
+Walk me to the robotics lab.,navigation
+okay could you ask me something interesting?,chat
+Bring me to the hallway.,navigation
+actually just that movie was awesome lol,chat
+What should I know about precision and recall?,knowledge_lookup
+"BELT, tell me the basics of battery voltage.",knowledge_lookup
+um navigate to the parking lot.,navigation
+bro Can you talk?,chat
+actually just help me brainstorm for a second,chat
+Can you look up information about micro F1?,knowledge_lookup
+Why is macro F1 useful?,knowledge_lookup
+"okay I mean, rewrite this so it sounds nicer!!",chat
+yo just what can you do rn,chat
+"BELT, that was funny thanks",chat
+"uh I mean, that movie was awesome real quick",chat
+"when it's safe, can you take me back to the bus stop?",navigation
+What does the definition of motivation mean?,knowledge_lookup
+What is the capital of California?,knowledge_lookup
+I need you to face counterclockwise a bit,movement
+I need you to rotate forward a little,movement
+yo can you escort me to the bus stop?,navigation
+"BELT, from now on, know that I play Brawl Stars.",memory_update
+"when it's safe, bring me to the next room.",navigation
+"hmm I mean, save the model file!!",chat
+"Hey BELT, how's it going?",chat
+yo just I moved houses last year for a second,chat
+could you ask me something interesting if you can,chat
+actually just can you explain vectorization?,chat
+Stop moving.,movement
+can you talk please,chat
+"when it's safe, can you find a route to the maker space?",navigation
+"BELT, what does robot navigation mean?",knowledge_lookup
+Help me get to the computer science building.,navigation
+"BELT, walk backward one step",movement
+Walk me to the lab room.,navigation
+Save this about me: I play Brawl Stars.,memory_update
+um can you guide me to the office?,navigation
+I need facts about n-grams.,knowledge_lookup
+Did you know I use Python? Remember that.,memory_update
+Turn left slowly.,movement
+Update my memory: I prefer YouTube over TikTok.,memory_update
+"BELT, what is your purpose!!",chat
+"um, turn closer three steps please",movement
+Can I ask you something?,chat
+"robot, I'm bored, talk to me lol",chat
+hmm could you make this sentence clearer rn,chat
+um can we chat for a bit,chat
+"I mean, can you make this less awkward lol",chat
+"hey, from now on, know that I like mint chocolate chip ice cream.",memory_update
+I need you to rotate left a couple steps,movement
+Can you teach me about an SVM?,knowledge_lookup
+please go closer three steps,movement
+"hey, please remember that my favorite game is Minecraft.",memory_update
+"robot, I mean, what is your favorite animal!!",chat
+"BELT, roll away from me about a foot",movement
+Navigate to the front desk.,navigation
+"for my project, why is SLAM useful?",knowledge_lookup
+wait could you move on to the next idea?,chat
+yo Move on to the next idea,chat
+roll farther away carefully real quick,movement
+yo Ask me something interesting if you can,chat
+I need you to rotate closer carefully,movement
+"hey, what's the difference between logistic regression and something similar?",knowledge_lookup
+"BELT, are you a robot if you can",chat
+"hey BELT, go to the parking lot and wait there.",navigation
+How has your day been?,chat
+How does scikit-learn pipelines work?,knowledge_lookup
+"okay, move left slowly if it's safe",movement
+hey Can you help me plan my project!!,chat
+please scoot closer a little,movement
+wait just that movie was awesome for a second,chat
+uh tell me a joke!!,chat
+walk closer carefully for a second,movement
+Tell me the basics of regularization.,knowledge_lookup
+Point me toward the maker space.,navigation
+"hey, back up clockwise carefully slowly please",movement
+hey can you make this less awkward!!,chat
+"BELT, What is your purpose?",chat
+yo i need directions to the nearest exit.,navigation
+Can you help me with my code?,chat
+Bring me to room 101.,navigation
+"also, i want you to remember that I want you to use fewer emojis.",memory_update
+um just that movie was awesome!!,chat
+hmm What is your robot name rn,chat
+"when it's safe, can you find a route to the robotics lab?",navigation
+"when it's safe, can you guide me to the parking lot?",navigation
+face right three steps please,movement
+um just what is your favorite color lol,chat
+wait What is your purpose,chat
+"robot, that movie was awesome for a second",chat
+"robot, I mean, that makes sense?",chat
+Which way should I go to reach the office?,navigation
+Can you look up information about weather today?,knowledge_lookup
+Who created the Python language?,knowledge_lookup
+yo could you rewrite this so it sounds nicer rn,chat
+"actually I mean, tell me about yourself if you can",chat
+"for my project, can you explain regularization?",knowledge_lookup
+"BELT, Can we chat for a bit if you can",chat
+Can you escort me to the elevator?,navigation
+Keep in mind that I like detailed math explanations.,memory_update
+can you explain vectorization?,chat
+actually Who are you?,chat
+"hey, what is the nearest emergency exit?",knowledge_lookup
+actually Can you give me a quick pep talk thanks,chat
+quick memory update: add this to my memory: my favorite IDE is VSCode.,memory_update
+please turn clockwise a couple steps,movement
+uh Can we chat for a bit!!,chat
+Help me get to the front desk.,navigation
+How does a vectorizer work?,knowledge_lookup
+actually just remember the concept from earlier if you can,chat
+What's the difference between path planning and something similar?,knowledge_lookup
+"yo I mean, can you explain vectorization please",chat
+walk closer a little please,movement
+hmm just tell me a joke please,chat
+um just tell me about yourself if you can,chat
+"BELT, just are you a chatbot thanks",chat
+"hey, for future chats, remember that I prefer friendly responses.",memory_update
+Hey there.,chat
+Can you help me debug this?,chat
+um just what is your robot name?,chat
+Can you explain AI simply?,chat
+Remember that my name is Bella.,memory_update
+"BELT, can you make this less awkward rn",chat
+"also, for future chats, remember that my favorite IDE is VSCode.",memory_update
+uh just ask me something interesting lol,chat
+okay What can you do!!,chat
+"hey BELT, go check out the gym.",navigation
+Can you teach me about the nearest emergency exit?,knowledge_lookup
+Lead me to the cafeteria.,navigation
+"okay I mean, what is your purpose!!",chat
+Can you summarize this idea?,chat
+Save this about me: I like detailed math explanations.,memory_update
+can you scoot right a bit slowly please,movement
+wait can you make this less awkward please,chat
+How does the nearest emergency exit work?,knowledge_lookup
+can you move left just a tiny bit carefully please,movement
+"hey I mean, can you help with coding please",chat
+I want you to remember that I put my notebook in my backpack.,memory_update
+okay Remember the concept from earlier real quick,chat
+"when it's safe, go to the previous room and wait there.",navigation
+please go toward me slightly,movement
+Take a tiny step forward.,movement
+"uh I mean, I'm bored, talk to me thanks",chat
+Give me a quick definition of a confusion matrix.,knowledge_lookup
+"BELT, I mean, can you introduce yourself rn",chat
+uh tell me a joke if you can,chat
+Can you teach me about logistic regression?,knowledge_lookup
+Do you have a personality?,chat
+"hey, face away from me a bit please",movement
+Which way should I go to reach the elevator?,navigation
+"yo I mean, that movie was awesome rn",chat
+Go check out the quiet study area.,navigation
+Can you save the trained model after this?,chat
+Freeze for a second.,movement
+um that movie was awesome,chat
+okay Can you talk rn,chat
+"robot, just are you a robot for a second",chat
+quick memory update: add this to my memory: I play Brawl Stars.,memory_update
+Help me get to the elevator.,navigation
+"hey, i need facts about path planning.",knowledge_lookup
+What is the meaning of the word awkward?,knowledge_lookup
+um give me motivation lol,chat
+"BELT, I mean, explain that differently lol",chat
+Give me a quick definition of a lidar sensor.,knowledge_lookup
+Can you take me back to the library?,navigation
+wait ask me something interesting rn,chat
+"also, i want you to remember that I put my notebook in my backpack.",memory_update
+I need facts about cross validation.,knowledge_lookup
+Keep in mind that my favorite animal is a porcupine.,memory_update
+Did you know I want you to use fewer emojis? Remember that.,memory_update
+wait what can you do thanks,chat
+actually could you move on to the next idea,chat
+yo can you give me a quick pep talk for a second,chat
+"By the way, my name is Bella.",memory_update
+um remember the concept from earlier real quick,chat
+Update my memory: I learn better from step by step explanations.,memory_update
+"hey, add this to my memory: my favorite game is Minecraft.",memory_update
+What should I know about the difference between chat and knowledge lookup?,knowledge_lookup
+uh remember the concept from earlier for a second,chat
+I need you to back up closer carefully,movement
+Point me toward the bathroom.,navigation
+"yo, go toward me a couple steps for a second",movement
+Can you find a route to the next room?,navigation
+actually can you help me plan my project real quick,chat
+please back up to my right slowly,movement
+please turn backward just a tiny bit,movement
+"Hi BELT, nice to meet you.",chat
+What should I know about regularization?,knowledge_lookup
+go to my right slightly carefully please,movement
+"BELT, Can you give me a quick pep talk rn",chat
+Can you make a plan for me?,chat
+hmm what are you please,chat
+What is your robot name?,chat
+can you shift backward one step carefully please,movement
+actually Can you make this less awkward lol,chat
+Give me a quick definition of regularization.,knowledge_lookup
+I need directions to the parking lot.,navigation
+Do you watch YouTube?,chat
+yo can we chat for a bit please,chat
+"uh I mean, what is your robot name!!",chat
+uh What are you if you can,chat
+"I mean, what can you do real quick",chat
+I need you to face back about a foot,movement
+Face the door.,movement
+"robot, can you help me plan my project real quick",chat
+okay just make this sound less awkward if you can,chat
+What is tokenization?,knowledge_lookup
+Can you take me back to room 101?,navigation
+"hey BELT, help me get to the quiet study area.",navigation
+quick question: what is wheel odometry?,knowledge_lookup
+"Just so you know, I am your creator.",memory_update
+"I mean, that makes sense real quick",chat
+"Just so you know, my name is Bella.",memory_update
+I need you to walk to my right slowly,movement
+"BELT, just make this sentence clearer if you can",chat
+Can you explain the nearest emergency exit?,knowledge_lookup
+what is your purpose rn,chat
+I need a pep talk.,chat
+uh Tell me about yourself!!,chat
+please walk toward me slowly,movement
+Take one step back.,movement
+Remember that I put my notebook in my backpack.,memory_update
+What is a model in machine learning?,chat
+okay tell me a joke!!,chat
+wait that was funny thanks,chat
+uh just can you help with coding if you can,chat
+hmm what is your favorite animal real quick,chat
+Navigate to the main entrance.,navigation
+Sup BELT?,chat
+Can you find a route to the library?,navigation
+Which way should I go to reach the stairs?,navigation
+"hey BELT, point me toward the elevator.",navigation
+uh What does memory mean?,chat
+"robot, turn to my right two steps",movement
+Can you find a route to the gym?,navigation
+Take me to the stairs.,navigation
+hey can you give me a quick pep talk,chat
+"Just so you know, I am building BELT.",memory_update
+Note that I prefer YouTube over TikTok.,memory_update
+uh can we chat for a bit thanks,chat
+can you drive right one step if it's safe,movement
+yo Can we chat for a bit,chat
+Why is wheel odometry useful?,knowledge_lookup
+hey just that movie was awesome,chat
+"hey, note that I like examples with robots.",memory_update
+I need you to drive to my left one step,movement
+um what are you real quick,chat
+hey save the model file!!,chat
+Can you look up information about Python joblib?,knowledge_lookup
+Can you guide me to the office?,navigation
+"hey, remember that I want you to call me chief.",memory_update
+quick memory update: i want you to remember that I am your creator.,memory_update
+actually What is your favorite color thanks,chat
+"okay, drive left slowly real quick",movement
+Which way should I go to reach the maker space?,navigation
+"buddy, walk right one step",movement
+Take me to the parking lot.,navigation
+Can you bring me to the room we were just in?,navigation
+um could you help me brainstorm?,chat
+"yo, drive left a bit real quick",movement
+"yo, drive away from me one step",movement
+uh Who are you please,chat
+Please remember that I prefer simple explanations.,memory_update
+"wait I mean, tell me about yourself",chat
+Don't move anymore.,movement
+okay what can you do please,chat
+"hmm I mean, explain that differently if you can",chat
+Bring me to the bathroom.,navigation
+"I mean, make this sentence clearer rn",chat
+How do I get to the front desk?,navigation
+Take me to the next room.,navigation
+Rewrite this so it sounds nicer?,chat
+I need you to move counterclockwise carefully,movement
+"for my project, how does computer memory work?",knowledge_lookup
+Howdy BELT.,chat
+Store this: I am studying logistic regression.,memory_update
+Point me toward the previous room.,navigation
+can you back up left carefully if it's safe,movement
+I need facts about a decision boundary.,knowledge_lookup
+face farther away carefully carefully please,movement
+Can we switch topics?,chat
+"BELT, update my memory: I like mint chocolate chip ice cream.",memory_update
+How does macro F1 work?,knowledge_lookup
+um just rewrite this so it sounds nicer for a second,chat
+yo just can you explain vectorization thanks,chat
+um bring me to the gym.,navigation
+please go counterclockwise carefully,movement
+"also, update my memory: I prefer friendly responses.",memory_update
+Good morning BELT.,chat
+hey just remember the concept from earlier?,chat
+hey what can you do rn,chat
+hmm just can you introduce yourself thanks,chat
+face away from me one step when you can,movement
+"also, i want you to remember that I learn better from step by step explanations.",memory_update
+wait Can you help with coding please,chat
+wait make this sentence clearer lol,chat
+"um, walk toward me slowly carefully please",movement
+"hey I mean, tell me a joke real quick",chat
+How does cross validation work?,knowledge_lookup
+yo just can we chat for a bit!!,chat
+yo can you help with coding if you can,chat
+um save the model file rn,chat
+How do I get to the previous room?,navigation
+Which way should I go to reach the gym?,navigation
+can you move backward three steps for a second,movement
+"For future chats, remember that I put my notebook in my backpack.",memory_update
+What is a confusion matrix?,chat
+yo that was funny rn,chat
+"hey, go clockwise a couple steps for a second",movement
+"yo I mean, save the model file please",chat
+yo could you ask me something interesting real quick,chat
+just rewrite this so it sounds nicer rn,chat
+"robot, just the movement was smooth real quick",chat
+Can you take me back to the bus stop?,navigation
+shift counterclockwise about a foot for a second,movement
+How does a confusion matrix work?,knowledge_lookup
+hey Can we chat for a bit please,chat
+go away from me a couple steps slowly please,movement
+"BELT, what is computer memory?",knowledge_lookup
+What does confidence score mean?,chat
+quick question: what is path planning?,knowledge_lookup
+Can you take me back to the maker space?,navigation
+"For future chats, remember that I like detailed math explanations.",memory_update
+Can you teach me about obstacle avoidance?,knowledge_lookup
+actually could you ask me something interesting please,chat
+I need directions to the stairs.,navigation
+I need you to walk counterclockwise two steps,movement
+Give me a quick definition of the definition of motivation.,knowledge_lookup
+"yo, back up backward carefully for a second",movement
+quick question: give me a quick definition of the C parameter.,knowledge_lookup
+"Hey, are you running?",chat
+"yo I mean, that movie was awesome",chat
+What does tokenization mean?,knowledge_lookup
+Can you introduce yourself?,chat
+Bring me to the emergency exit.,navigation
+Navigate to the cafeteria.,navigation
+"hey, can you teach me about a confusion matrix?",knowledge_lookup
+please go toward me carefully,movement
+Remember to come back to this room after navigating.,navigation
+"for my project, can you explain a confusion matrix?",knowledge_lookup
+"okay, go closer slightly for a second",movement
+can you scoot away from me one step slowly please,movement
+I need directions to the office.,navigation
+hey just what is your favorite animal lol,chat
+Tell me the basics of n-grams.,knowledge_lookup
+"robot, turn farther away a bit",movement
+How does Python joblib work?,knowledge_lookup
+"buddy, move toward me just a tiny bit",movement
+"Wait, who are you?",chat
+can you shift to my left a bit if it's safe,movement
+"BELT, go to my left carefully",movement
+"actually I mean, that makes sense for a second",chat
+yo point me toward the main entrance.,navigation
+hmm could you make this sentence clearer!!,chat
+"From now on, know that I am learning machine learning.",memory_update
+"robot, just what does memory mean for a second",chat
+okay what is your favorite animal lol,chat
+um just can we chat for a bit please,chat
+"BELT, why is micro F1 useful?",knowledge_lookup
+wait What does memory mean?,chat
+uh Who are you,chat
+Give me a quick definition of KNN.,knowledge_lookup
+um just can you explain vectorization,chat
+yo show me the way to the elevator.,navigation
+Can you test your wheels?,movement
+Can you guide me to the classroom?,navigation
+could you explain that differently if you can,chat
+"hey, can you explain Python joblib?",knowledge_lookup
+"wait I mean, are you a chatbot lol",chat
+hey that movie was awesome lol,chat
+quick question: what does the nearest emergency exit mean?,knowledge_lookup
+please back up clockwise about a foot,movement
+"um, move counterclockwise slightly if it's safe",movement
+"robot, can you introduce yourself thanks",chat
+"I mean, how are you lol",chat
+Note that I am learning machine learning.,memory_update
+face back a bit for a second,movement
+"BELT, just what is your robot name if you can",chat
+roll right slowly,movement
+hmm Can you explain vectorization,chat
+Did you know my favorite animal is a porcupine? Remember that.,memory_update
+What's the difference between a decision boundary and something similar?,knowledge_lookup
+I need you to walk closer carefully,movement
+Why is a decision boundary useful?,knowledge_lookup
+Walk me to the gym.,navigation
+actually Can you explain vectorization!!,chat
+What does path planning mean?,knowledge_lookup
+hmm could you rewrite this so it sounds nicer?,chat
+I need facts about a lidar sensor.,knowledge_lookup
+"hey, what does the C parameter mean?",knowledge_lookup
+What are some project ideas?,chat
+okay can you explain vectorization please,chat
+"By the way, I prefer friendly responses.",memory_update
+can you roll to my right carefully,movement
+How do I get to the cafeteria?,navigation
+"hmm I mean, what is your favorite color rn",chat
+Did you know my favorite platform is Instagram? Remember that.,memory_update
+"also, by the way, my favorite IDE is VSCode.",memory_update
+bro Can you introduce yourself,chat
+Why is KNN useful?,knowledge_lookup
+"robot, walk right one step",movement
+"for my project, tell me the basics of micro F1.",knowledge_lookup
+"Morning, what's the vibe?",chat
+wait Remember the concept from earlier?,chat
+"bro I mean, what are you if you can",chat
+What are some simple models for text classification?,knowledge_lookup
+"hey, face away from me a little",movement
+Move closer to the table.,movement
+What is a label in machine learning?,knowledge_lookup
+"hey BELT, take me to the emergency exit.",navigation
+I need directions to the gym.,navigation
+Save that I use Python.,memory_update
+Can you escort me to the hallway?,navigation
+"robot, I mean, make this sound less awkward!!",chat
+"when it's safe, navigate to the computer science building.",navigation
+"um I mean, what can you do if you can",chat
+"when it's safe, take me to the classroom.",navigation
+um just I moved houses last year?,chat
+okay how are you?,chat
+What is the weather like?,chat
+Take me to the maker space.,navigation
+quick question: what should I know about obstacle avoidance?,knowledge_lookup
+actually what can you do for a second,chat
+please walk right two steps,movement
+hey remember the concept from earlier thanks,chat
+"yo, walk toward me a little",movement
+Note that I like detailed math explanations.,memory_update
+"I mean, I moved houses last year real quick",chat
+can you go to my left a couple steps if it's safe,movement
+um what is your favorite animal for a second,chat
+please go farther away a little,movement
+What does BELT stand for?,knowledge_lookup
+"I mean, the movement was smooth please",chat
+"hey, can you teach me about tokenization?",knowledge_lookup
+"yo, scoot left slightly carefully please",movement
+"okay I mean, what is your favorite color thanks",chat
+Update my memory: my favorite color is blue.,memory_update
+"BELT, could you save the model file rn",chat
+bro That movie was awesome rn,chat
+"hey I mean, can you help me plan my project please",chat
+um Can you explain vectorization rn,chat
+"robot, Can you talk?",chat
+woah who are you?,chat
+Can you take me back to the gym?,navigation
+can you help me plan my project!!,chat
+"wait I mean, can you help me plan my project thanks",chat
+"robot, what is your favorite animal",chat
+Take me to the bus stop.,navigation
+"hey I mean, can you talk real quick",chat
+okay just what is your favorite color!!,chat
+"robot, tell me about yourself for a second",chat
+Can you look up information about the difference between chat and knowledge lookup?,knowledge_lookup
+"robot, can we chat for a bit thanks",chat
+"wait I mean, are you a chatbot thanks",chat
+Move one step to the right.,movement
+"robot, drive away from me just a tiny bit",movement
+What's the difference between obstacle avoidance and something similar?,knowledge_lookup
+"robot, I mean, ask me something interesting for a second",chat
+can you roll clockwise a bit when you can,movement
+Point me toward the main entrance.,navigation
+what does memory mean!!,chat
+"okay I mean, are you a robot for a second",chat
+actually I moved houses last year lol,chat
+How does n-grams work?,knowledge_lookup
+Can you make this sentence better?,chat
+"BELT, are you a robot please",chat
+Keep in mind that I am working on a robot project.,memory_update
+Help me get to room 101.,navigation
+Store this: I like detailed math explanations.,memory_update
+can you talk!!,chat
+walk left just a tiny bit when you can,movement
+Please remember that my favorite animal is a porcupine.,memory_update
+What's the difference between a confusion matrix and something similar?,knowledge_lookup
+can you scoot counterclockwise just a tiny bit,movement
+Tell me the basics of SLAM.,knowledge_lookup
+Can you teach me about what brainstorm means?,knowledge_lookup
+"okay, drive left carefully please",movement
+actually just give me motivation,chat
+What does the difference between chat and knowledge lookup mean?,knowledge_lookup
+"uh I mean, I moved houses last year rn",chat
+How does weather today work?,knowledge_lookup
+Why is UCSC useful?,knowledge_lookup
+Can you explain an SVM?,knowledge_lookup
+just can you give me a quick pep talk?,chat
+"By the way, I am building BELT.",memory_update
+What's the difference between macro F1 and something similar?,knowledge_lookup
+"BELT, just who are you please",chat
+hmm just explain that differently for a second,chat
+please face toward me three steps,movement
+bro can you make this less awkward if you can,chat
+What does battery voltage mean?,knowledge_lookup
+I need you to shift right one step,movement
+Give me a quick definition of the difference between chat and knowledge lookup.,knowledge_lookup
+actually what does memory mean for a second,chat
+okay tell me about yourself for a second,chat
+"BELT, scoot toward me one step",movement
+Face me.,movement
+yo can you make this less awkward thanks,chat
+What is scikit-learn pipelines?,knowledge_lookup
+yo I moved houses last year,chat
+"actually I mean, explain that differently?",chat
+hmm Can we chat for a bit rn,chat
+"yo, go left about a foot please",movement
+uh what are you for a second,chat
+can you roll forward two steps real quick,movement
+Can you look up information about a confusion matrix?,knowledge_lookup
+Why is the C parameter useful?,knowledge_lookup
+I want you to remember that I like robotics.,memory_update
+"BELT, what is your robot name rn",chat
+"um I mean, save the model file real quick",chat
+What is the definition of motivation?,knowledge_lookup
+hey What can you do!!,chat
+"hey, rotate forward about a foot carefully please",movement
+Why is Python joblib useful?,knowledge_lookup
+"robot, what are you?",chat
+okay I moved houses last year if you can,chat
+hmm what are you?,chat
+"hmm I mean, can you give me a quick pep talk thanks",chat
+actually just rewrite this so it sounds nicer if you can,chat
+That movie was good.,chat
+"okay I mean, can you make this less awkward!!",chat
+Are you having a good day?,chat
+Which way should I go to reach the computer science building?,navigation
+What is UCSC?,knowledge_lookup
+wait just can we chat for a bit real quick,chat
+Note that I put my notebook in my backpack.,memory_update
+Save this about me: my name is Bella.,memory_update
+can you roll to my left two steps real quick,movement
+Please remember that I want concise code comments.,memory_update
+Can you look up information about the nearest emergency exit?,knowledge_lookup
+"okay I mean, can you give me a quick pep talk?",chat
+can you move left a couple steps,movement
+"um I mean, what is your robot name for a second",chat
+Which way should I go to reach the front desk?,navigation
+I need you to scoot back three steps,movement
+please back up counterclockwise just a tiny bit,movement
+"BELT, can you help with coding for a second",chat
+Can you remember that I play Brawl Stars?,memory_update
+turn forward two steps,movement
+"BELT, why is Python joblib useful?",knowledge_lookup
+uh can you make this less awkward lol,chat
+Can you escort me to the quiet study area?,navigation
+"okay, turn farther away about a foot real quick",movement
+Do you like coding?,chat
+hmm are you a robot please,chat
+"BELT, can you help with coding lol",chat
+Hello there.,chat
+"hey, what is TF-IDF?",knowledge_lookup
+"okay, face clockwise two steps for a second",movement
+"BELT, the movement was smooth thanks",chat
+can you rotate to my left slightly slowly please,movement
+uh just what is your robot name rn,chat
+Update my memory: I like mint chocolate chip ice cream.,memory_update
+"yo, walk backward slowly",movement
+yo could you rewrite this so it sounds nicer for a second,chat
+hmm what is your favorite color rn,chat
+I don't get it yet.,chat
+"when it's safe, i need directions to the robotics lab.",navigation
+"BELT, just what is your robot name for a second",chat
+I need you to walk toward me just a tiny bit,movement
+yo just that movie was awesome if you can,chat
+yo Make this sentence clearer!!,chat
+Did you know I am studying logistic regression? Remember that.,memory_update
+"BELT, just can you talk for a second",chat
+"buddy, walk to my left two steps",movement
+actually just save the model file?,chat
+Remember when we talked about models?,chat
+actually What does memory mean thanks,chat
+um just are you a chatbot if you can,chat
+Show me the way to the bus stop.,navigation
+please go counterclockwise slowly,movement
+I need you to shift clockwise one step,movement
+Hey robot friend.,chat
+"robot, just help me brainstorm rn",chat
+I need facts about campus safety rules.,knowledge_lookup
+I want you to remember that I am building BELT.,memory_update
+Can you take me back to the next room?,navigation
+Note that I am building BELT.,memory_update
+"Just so you know, I go by Alex.",memory_update
+uh help me brainstorm thanks,chat
+I need directions to the next room.,navigation
+yo show me the way to the lab room.,navigation
+hmm what is your favorite color please,chat
+"for my project, why is the nearest emergency exit useful?",knowledge_lookup
+Navigate to the previous room.,navigation
+I need directions to the bus stop.,navigation
+Show me the way to the library.,navigation
+can you roll away from me three steps for a second,movement
+"buddy, face left a little",movement
+"Just so you know, I learn better from step by step explanations.",memory_update
+please face back slightly,movement
+Go check out the cafeteria.,navigation
+Store this: I prefer friendly responses.,memory_update
+"BELT, move back a little",movement
+"hey BELT, walk me to the office.",navigation
+Bring me to the nearest exit.,navigation
+"hey, move farther away a little for a second",movement
+Go to the lab room and wait there.,navigation
+I need you to face to my left one step,movement
+"Just so you know, my laptop is on the desk.",memory_update
+What is your favorite animal?,chat
+"Just so you know, my favorite IDE is VSCode.",memory_update
+yo i need directions to the parking lot.,navigation
+Shift to the side.,movement
+"okay I mean, can you give me a quick pep talk for a second",chat
+I need you to drive back a couple steps,movement
+Save that I prefer YouTube over TikTok.,memory_update
+Why is a confusion matrix useful?,knowledge_lookup
+"actually I'm bored, talk to me rn",chat
+"bro I mean, how are you?",chat
+yo the movement was smooth,chat
+uh Can you give me a quick pep talk lol,chat
+I need you to drive away from me slowly,movement
+what can you do!!,chat
+"hey, store this: I like detailed math explanations.",memory_update
+"hey, save that I put my notebook in my backpack.",memory_update
+"for my project, tell me the basics of scikit-learn pipelines.",knowledge_lookup
+I need you to move closer slightly,movement
+okay can you make this less awkward?,chat
+"robot, I mean, are you a chatbot thanks",chat
+How do I install scikit-learn?,knowledge_lookup
+Can you guide me to the nearest exit?,navigation
+bro that movie was awesome!!,chat
+Did you know I enjoy USACO? Remember that.,memory_update
+What does the C parameter mean?,knowledge_lookup
+"From now on, know that I use Python.",memory_update
+"BELT, rotate clockwise a little",movement
+"hey, shift clockwise just a tiny bit when you can",movement
+I need you to rotate clockwise carefully,movement
+Where is the nearest emergency exit?,knowledge_lookup
+That makes sense.,chat
+quick memory update: add this to my memory: I am studying logistic regression.,memory_update
+can you roll backward three steps if it's safe,movement
+Why is regularization useful?,knowledge_lookup
+"hey, what does precision and recall mean?",knowledge_lookup
+shift right three steps slowly please,movement
+"BELT, just that movie was awesome?",chat
+"robot, that movie was awesome",chat
+actually Make this sound less awkward thanks,chat
+wait move on to the next idea lol,chat
+What are you?,chat
+hey I moved houses last year rn,chat
+please walk clockwise slightly,movement
+"for my project, can you look up information about SLAM?",knowledge_lookup
+What's the difference between today's date and something similar?,knowledge_lookup
+"BELT, I moved houses last year lol",chat
+actually what is your favorite color!!,chat
+Update my memory: I want you to use fewer emojis.,memory_update
+Point me toward the stairs.,navigation
+Can you escort me to the maker space?,navigation
+can you walk closer slightly when you can,movement
+yo how do I get to the previous room?,navigation
+bro just tell me about yourself thanks,chat
+Can you explain obstacle avoidance?,knowledge_lookup
+Can you teach me about TF-IDF?,knowledge_lookup
+"when it's safe, can you find a route to the quiet study area?",navigation
+Why is a vectorizer useful?,knowledge_lookup
+"when it's safe, go check out the robotics lab.",navigation
+"actually I mean, who are you?",chat
+Navigate to the office.,navigation
+Tell me the basics of Python joblib.,knowledge_lookup
+hmm what is your purpose thanks,chat
+Can you explain pandas read_csv?,knowledge_lookup
+What does weather today mean?,knowledge_lookup
+um just move on to the next idea for a second,chat
+can you go forward about a foot for a second,movement
+Move forward two steps.,movement
+hey Ask me something interesting lol,chat
+hmm just can you introduce yourself if you can,chat
+That answer was helpful.,chat
+hmm that movie was awesome,chat
+Scoot right a bit.,movement
+What is a lidar sensor?,knowledge_lookup
+I need facts about the definition of motivation.,knowledge_lookup
+"robot, could you ask me something interesting thanks",chat
+please roll clockwise carefully,movement
+What is the formula for logistic regression?,knowledge_lookup
+yo Who are you for a second,chat
+I need facts about micro F1.,knowledge_lookup
+please face back a little,movement
+uh can we chat for a bit rn,chat
+"BELT, i want you to remember that I want you to call me chief.",memory_update
+okay can you give me a quick pep talk thanks,chat
+"buddy, walk closer slightly",movement
+"robot, could you make this sentence clearer!!",chat
+hey Rewrite this so it sounds nicer real quick,chat
+bro just can you help with coding,chat
+"hmm I mean, what can you do for a second",chat
+Can you find a route to the lab room?,navigation
+Note that my favorite IDE is VSCode.,memory_update
+I need you to roll back a bit,movement
+Update my memory: I prefer friendly responses.,memory_update
+hmm just tell me a joke?,chat
+um can you escort me to the library?,navigation
+Can you escort me to the library?,navigation
+What should I know about macro F1?,knowledge_lookup
+just can you give me a quick pep talk for a second,chat
+I need you to scoot toward me slightly,movement
+Please remember that I am building BELT.,memory_update
+"hey, give me a quick definition of Python joblib.",knowledge_lookup
+hmm what can you do for a second,chat
+"BELT, for future chats, remember that I enjoy USACO.",memory_update
+Tell me the basics of weather today.,knowledge_lookup
+Can you lead me down the hallway?,navigation
+"BELT, what is your favorite animal lol",chat
+Bring me to the quiet study area.,navigation
+um take me to the nearest exit.,navigation
+uh just what does memory mean please,chat
+um can we chat for a bit!!,chat
+Please remember that my favorite color is blue.,memory_update
+Can you remember that my favorite IDE is VSCode?,memory_update
+Can you remember that I am your creator?,memory_update
+I need you to rotate counterclockwise two steps,movement
+Tell me the basics of the C parameter.,knowledge_lookup
+can you back up to my left one step when you can,movement
+"yo I mean, what are you!!",chat
+I need you to go counterclockwise about a foot,movement
+"robot, I mean, that movie was awesome real quick",chat
+Give me a quick definition of class weights.,knowledge_lookup
+can you turn counterclockwise slightly please,movement
+um rewrite this so it sounds nicer please,chat
+What's the difference between robot navigation and something similar?,knowledge_lookup
+Lead me to room 101.,navigation
+What is the meaning of this error?,chat
+Go to the front desk and wait there.,navigation
+Bring me to the previous room.,navigation
+drive to my right a bit carefully please,movement
+um can you escort me to the emergency exit?,navigation
+Help me get to the gym.,navigation
+yo could you rewrite this so it sounds nicer?,chat
+okay just what are you!!,chat
+um can you talk real quick,chat
+Turn right or something.,movement
+"BELT, i want you to remember that I prefer simple explanations.",memory_update
+Bring me to the next room.,navigation
+Tell me the basics of a decision boundary.,knowledge_lookup
+wait just ask me something interesting rn,chat
+"BELT, i want you to remember that my favorite platform is Instagram.",memory_update
+What's the difference between TF-IDF and something similar?,knowledge_lookup
+bro could you ask me something interesting if you can,chat
+uh could you tell me about yourself if you can,chat
+What's the difference between what brainstorm means and something similar?,knowledge_lookup
+I need you to drive closer one step,movement
+"robot, just who are you real quick",chat
+Can you do a small movement?,movement
+Do a small movement.,movement
+Go to the office and wait there.,navigation
+actually can you introduce yourself,chat
+"okay, rotate closer three steps real quick",movement
+Tell me the basics of obstacle avoidance.,knowledge_lookup
+I need you to face to my left carefully,movement
+wait could you explain that differently thanks,chat
+Move just a little.,movement
+I need you to roll clockwise slowly,movement
+Do you prefer Instagram or TikTok?,chat
+uh can you help me plan my project lol,chat
+Can you guide me to the maker space?,navigation
+"also, save this about me: I like mint chocolate chip ice cream.",memory_update
+Can you explain TF-IDF?,knowledge_lookup
+um can you take me back to the robotics lab?,navigation
+bro just make this sound less awkward if you can,chat
+Make one tiny movement.,movement
+quick question: tell me the basics of a confusion matrix.,knowledge_lookup
+turn to my right one step for a second,movement
+Bring me to the stairs.,navigation
+hey just I moved houses last year for a second,chat
+How do I get to the office?,navigation
+Can you find a route to the office?,navigation
+"BELT, save that I go by Alex.",memory_update
+Can you help me study?,chat
+Can you walk with me to the door?,navigation
+Tell me the basics of campus safety rules.,knowledge_lookup
+yo How are you!!,chat
+quick memory update: update my memory: I use Python.,memory_update
+Note that I like mint chocolate chip ice cream.,memory_update
+"Go check out the previous room, then come back.",navigation
+Add this to my memory: I prefer friendly responses.,memory_update
+um what is your favorite animal please,chat
+What does a decision boundary mean?,knowledge_lookup
+"From now on, know that my favorite platform is Instagram.",memory_update
+just what is your favorite color,chat
+yo just who are you!!,chat
+Can you take me back to the main entrance?,navigation
+uh can you talk if you can,chat
+um what does memory mean please,chat
+I need facts about KNN.,knowledge_lookup
+actually could you tell me a joke!!,chat
+I need you to move farther away carefully,movement
+"robot, the movement was smooth thanks",chat
+Navigate to the bathroom.,navigation
+"for my project, can you look up information about n-grams?",knowledge_lookup
+can you shift toward me a bit,movement
+rotate back a little when you can,movement
+What should I know about today's date?,knowledge_lookup
+Lead me to the stairs.,navigation
+hey can you introduce yourself rn,chat
+hmm I moved houses last year real quick,chat
+"hey, what should I know about class weights?",knowledge_lookup
+"BELT, turn forward carefully",movement
+"yo I mean, that makes sense for a second",chat
+"okay I mean, that was funny rn",chat
+Give me a quick definition of scikit-learn pipelines.,knowledge_lookup
+"Okay, that makes sense now.",chat
+What does an SVM mean?,knowledge_lookup
+Go check out the office.,navigation
+I need directions to the previous room.,navigation
+Navigate to the computer science building.,navigation
+What's the difference between scikit-learn pipelines and something similar?,knowledge_lookup
+yo show me the way to the cafeteria.,navigation
+"wait I mean, what can you do if you can",chat
+"robot, can you help with coding lol",chat
+What is precision and recall?,knowledge_lookup
+okay could you make this sentence clearer rn,chat
+"buddy, rotate closer a little",movement
+Can you explain a lidar sensor?,knowledge_lookup
+please back up forward slightly,movement
+"hey I mean, save the model file thanks",chat
+I need directions to the cafeteria.,navigation
+um just what is your favorite color real quick,chat
+"From now on, know that I want concise code comments.",memory_update
+um which way should I go to reach the classroom?,navigation
+yo can we chat for a bit!!,chat
+"BELT, I mean, can we chat for a bit please",chat
+"okay, drive counterclockwise two steps when you can",movement
+Can you guide me to the previous room?,navigation
+"yo, go clockwise just a tiny bit if it's safe",movement
+"Good evening, how are you?",chat
+"Bro, move like a couple steps back.",movement
+hey That movie was awesome real quick,chat
+just can you help me plan my project!!,chat
+What does navigation mean for a robot?,knowledge_lookup
+quick question: what is a confusion matrix?,knowledge_lookup
+Give me a quick definition of today's date.,knowledge_lookup
+"BELT, go to my right just a tiny bit",movement
+okay can you introduce yourself if you can,chat
+Can you escort me to the bus stop?,navigation
+"BELT, note that I like soccer.",memory_update
+"BELT, why is campus safety rules useful?",knowledge_lookup
+yo which way should I go to reach the nearest exit?,navigation
+"robot, I mean, help me brainstorm please",chat
+"hey BELT, show me the way to the computer science building.",navigation
+"hmm I mean, what are you for a second",chat
 Do you know my favorite puzzles?,chat
 That makes sense.,chat
 Why is Minecraft so goofy?,chat
@@ -8,6 +2008,7 @@ What do you remember about me?,chat
 Do robots like mint chocolate chip ice cream?,chat
 What is my name?,chat
 Can you tell me a joke?,chat
+woah who are you,chat
 What is something fun about science?,chat
 Yo BELT.,chat
 What is your favorite color?,chat
