@@ -41,3 +41,29 @@ def process_camera_frame(rgb_frame, depth_frame):
         })
   #returns the annotated frame with the list of detected objects and the spacial data of the objects
   return rgb_frame, detected_objects
+
+cap = cv2.VideoCapture(0)
+
+if not cap.isOpened():
+  print("Error: Could not open the camera.")
+  exit()
+
+print("Press 'q' to quit the live detection.")
+
+while True:
+    # 2. Capture frame-by-frame from the camera
+  ret, bgr_frame = cap.read()
+    
+    # If the frame wasn't grabbed successfully, break the loop
+  if not ret:
+    print("Error: Failed to grab frame.")
+    break
+    
+    # Convert from BGR to RGB format
+  rgb_frame = cv2.cvtColor(bgr_frame, cv2.COLOR_BGR2RGB)
+  height, width, _ = rgb_frame.shape
+
+    # Create a depth map
+  depth_frame = np.full((height, width), 1000, dtype=np.uint16)
+    
+  detection_results = process_camera_frame(rgb_frame, depth_frame)
