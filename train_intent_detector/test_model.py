@@ -43,6 +43,6 @@ def find_low_conf():
     print("\nLow confidence predictions:")
     print(low_conf_df.sort_values("confidence").to_string(index=False))
 
-predict_intent()
 
-
+while True:
+    predict_intent()
