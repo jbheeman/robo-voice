@@ -10,7 +10,20 @@
     },
     "Bessie": {
       "notes": [
-        "loves grass."
+        "loves grass.",
+        "is a cow.",
+        "is a cow with black spots."
+      ]
+    },
+    "Lionel": {
+      "notes": []
+    },
+    "Ethan": {
+      "notes": []
+    },
+    "Ben": {
+      "notes": [
+        "likes cows."
       ]
     }
   }

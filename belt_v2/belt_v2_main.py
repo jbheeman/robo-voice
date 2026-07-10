@@ -8,7 +8,9 @@ from typing import Any, Dict, List, Literal, Optional
 import joblib
 from openai import OpenAI
 
-
+from belt_v2_movement import handle_movement
+from belt_v2_navigation import handle_navigation
+from belt_v2_knowledge import handle_knowledge_lookup
 from belt_v2_api import MODEL, make_deepseek_client, print_balance_status
 from belt_v2_helpers import (
     SHOW_MEMORY_DETECTION,
@@ -29,24 +31,26 @@ START_DEBUG = True
 Intent = Literal[
     "command",
     "chat",
-    "memory_retrieval",
     "memory_update",
     "movement",
+    "navigation",
+    "knowledge_lookup",
 ]
 
 INTENT_MODEL_PATH = (
     Path(__file__).resolve().parent.parent
     / "train_intent_detector"
-    / "belt_intent_router_best_logreg.joblib"
+    / "intent_detector_logreg.joblib"
 )
 
 INTENT_CONFIDENCE_THRESHOLD = 0.80
 
 VALID_MODEL_INTENTS = {
     "chat",
-    "memory_retrieval",
     "memory_update",
     "movement",
+    "navigation",
+    "knowledge_lookup",
 }
 
 MAX_HISTORY_MESSAGES = 10
@@ -312,16 +316,6 @@ def reply_with_llm(
     )
 
 
-def handle_movement() -> None:
-    """
-    Placeholder for future robot movement.
-
-    Later, this is where you would call motor/action code after safety checks.
-    """
-
-    print("BELT: Movement intent detected, but movement is not implemented yet.")
-
-
 def maybe_start_memory_save_flow(
     client: OpenAI,
     memory: Dict[str, Any],
@@ -382,7 +376,7 @@ def maybe_start_memory_save_flow(
     return answer
 
 
-def handle_chat_like_intent(
+def handle_chat_and_memory(
     client: OpenAI,
     memory: Dict[str, Any],
     state: BeltState,
@@ -456,8 +450,17 @@ def handle_routed_input(
     if intent == "movement":
         handle_movement()
         return
+    
+    if intent == "knowledge_lookup":
+        handle_knowledge_lookup()
+        return
+    
+    if intent == "navigation":
+        handle_navigation()
+        return
 
-    handle_chat_like_intent(
+    #only for memory_update and chat
+    handle_chat_and_memory(
         client=client,
         memory=memory,
         state=state,
@@ -507,7 +510,7 @@ def main() -> None:
         # 3. Detect active user before replying, so BELT can use the name naturally.
         update_active_user_from_message(memory, state, user_input)
 
-        # 4. Route the message into chat / memory_retrieval / memory_update / movement.
+        # 4. Route the message into chat / knowledge_lookup / memory_update / movement / navigation
         handle_routed_input(
             client=client,
             intent_model=intent_model,
