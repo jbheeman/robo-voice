@@ -1,0 +1,22 @@
+{
+  "campus_name": "UCSC Silicon Valley Campus",
+  "address": "3175 Bowers Avenue, Santa Clara, CA 95054",
+  "approved_locations": [],
+  "editing_help": {
+    "purpose": "Add only routes and landmarks that your team has physically checked.",
+    "example_location": {
+      "name": "Example room name",
+      "aliases": ["example alias"],
+      "floor": "Example floor",
+      "landmarks": ["Example sign or landmark"],
+      "routes": [
+        {
+          "from": "Example starting point",
+          "steps": ["Step 1", "Step 2"],
+          "accessible": true,
+          "verified": true
+        }
+      ]
+    }
+  }
+}
