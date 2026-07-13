@@ -1,0 +1,9 @@
+Running the app locally:
+  python app.py
+
+Packaging into a native app:
+  pip install flet-cli
+  - flet pack app.py (For Desktop) 
+  - flet build apk (For Android)
+  - flet build ipa (For IOS)
+
