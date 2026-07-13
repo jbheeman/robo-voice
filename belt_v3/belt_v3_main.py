@@ -1,11 +1,26 @@
+import joblib
 
+REQUEST_ROUTER_MODEL = joblib.load(
+    "request_router_model.joblib"
+)
+
+DEBUG = False
 
 def get_input():
-    text_input = input()
-    return text_input
+    return input("> ").strip()
 
 def request_router(text_input: str):
-    pass
+    prediction = REQUEST_ROUTER_MODEL.predict([text_input])[0]
+    probabilities = REQUEST_ROUTER_MODEL.predict_proba([text_input])[0]
+    output = {"navigation":prediction[0], "simple_action":prediction[1]}
+    
+    if (DEBUG):
+        print("CURRENT FUNCTION: request_router")
+        print(f"Prediction: navigation={prediction[0]}, simple_action={prediction[1]}")
+        print(f"Confidence: navigation={probabilities[0]:.2%}, simple_action={probabilities[1]:.2%}")
+
+    return output
+    
 
 def request_extractor(text_input: str, request: dict):
     pass
