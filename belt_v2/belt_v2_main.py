@@ -8,9 +8,9 @@ from typing import Any, Dict, List, Literal, Optional
 import joblib
 from openai import OpenAI
 
-from belt_v2_movement import handle_movement
+from belt_v2_simple_action import handle_simple_action
 from belt_v2_navigation import handle_navigation
-from belt_v2_knowledge import handle_knowledge_lookup
+from belt_v2_campus_info import handle_campus_info_lookup
 from belt_v2_api import MODEL, make_deepseek_client, print_balance_status
 from belt_v2_helpers import (
     SHOW_MEMORY_DETECTION,
@@ -32,9 +32,9 @@ Intent = Literal[
     "command",
     "chat",
     "memory_update",
-    "movement",
+    "simple_action",
     "navigation",
-    "knowledge_lookup",
+    "campus_info",
 ]
 
 INTENT_MODEL_PATH = (
@@ -48,9 +48,9 @@ INTENT_CONFIDENCE_THRESHOLD = 0.80
 VALID_MODEL_INTENTS = {
     "chat",
     "memory_update",
-    "movement",
+    "simple_action",
     "navigation",
-    "knowledge_lookup",
+    "campus_info",
 }
 
 MAX_HISTORY_MESSAGES = 10
@@ -119,7 +119,7 @@ def route_intent(intent_model, user_input: str) -> tuple[Intent, float]:
       chat             -> normal conversation
       memory_retrieval -> answer using saved memory
       memory_update    -> answer, then check whether something should be saved
-      movement         -> future robot action; currently just a stub
+      simple_action         -> future robot action; currently just a stub
     """
 
     if is_command(user_input):
@@ -447,12 +447,12 @@ def handle_routed_input(
         handle_command(user_input, memory, state.current_user)
         return
 
-    if intent == "movement":
-        handle_movement()
+    if intent == "simple_action":
+        handle_simple_action()
         return
     
-    if intent == "knowledge_lookup":
-        handle_knowledge_lookup()
+    if intent == "campus_info":
+        handle_campus_info()
         return
     
     if intent == "navigation":
@@ -510,7 +510,7 @@ def main() -> None:
         # 3. Detect active user before replying, so BELT can use the name naturally.
         update_active_user_from_message(memory, state, user_input)
 
-        # 4. Route the message into chat / knowledge_lookup / memory_update / movement / navigation
+        # 4. Route the message into chat / campus_info / memory_update / simple_action / navigation
         handle_routed_input(
             client=client,
             intent_model=intent_model,
