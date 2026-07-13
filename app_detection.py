@@ -26,7 +26,7 @@ def main(page: ft.Page):
         status_text
     )
 
-    # Open the default webcam/phone camera stream
+    # Opens the default camera
     cap = cv2.VideoCapture(0)
 
     if not cap.isOpened():
@@ -44,7 +44,7 @@ def main(page: ft.Page):
                 break
 
             # Run YOLO inference on the current frame
-            # stream=True ensures efficient memory usage for live video
+            # stream: efficient memory usage
             results = model(frame, stream=True)
 
             for result in results:
@@ -62,9 +62,9 @@ def main(page: ft.Page):
             page.update()
 
     except Exception as e:
-        print(f"Application closed or encountered an error: {e}")
+        print(f"Encountered an error: {e}")
     finally:
-        # Safely release the camera when the app closes
+        # Safely release the camera when the app is closed
         cap.release()
 
 # Run the app
