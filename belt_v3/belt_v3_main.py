@@ -1,29 +1,44 @@
 import joblib
+from belt_v3_api import call_llm
+from belt_v3_helper import safely_parse_json_to_python_dict, extract_nav_action
 
-REQUEST_ROUTER_MODEL = joblib.load(
-    "request_router_model.joblib"
+CHAT_CHECKER_MODEL = joblib.load(
+    "chat_checker_model.joblib"
 )
 
-DEBUG = False
+#hyperparams? idk
+DEBUG = True
+CHAT_THRESHOLD = 0.8
 
 def get_input():
     return input("> ").strip()
 
-def request_router(text_input: str):
-    prediction = REQUEST_ROUTER_MODEL.predict([text_input])[0]
-    probabilities = REQUEST_ROUTER_MODEL.predict_proba([text_input])[0]
-    output = {"navigation":prediction[0], "simple_action":prediction[1]}
+def chat_checker(text_input: str):
+    prob = CHAT_CHECKER_MODEL.predict_proba([text_input])[0][1]
     
     if (DEBUG):
-        print("CURRENT FUNCTION: request_router")
-        print(f"Prediction: navigation={prediction[0]}, simple_action={prediction[1]}")
-        print(f"Confidence: navigation={probabilities[0]:.2%}, simple_action={probabilities[1]:.2%}")
+        print("chat_checker probability: ", prob)
 
-    return output
+    return prob
     
 
-def request_extractor(text_input: str, request: dict):
-    pass
+def request_extractor(text_input: str, chat_prob: float):
+    nav_action_dict = {
+    "simple_action": {
+        "requested": False,
+        "actions": []
+    },
+    "navigation": {
+        "requested": False,
+        "locations": []
+    }}
+    
+    if chat_prob < CHAT_THRESHOLD:
+        nav_action_dict = extract_nav_action(text_input)
+        
+    output = response_composer(nav_action_dict, text_input) #python dict 
+    return output
+
 
 def execute_modules(extractor_output: dict):
     pass
@@ -38,11 +53,11 @@ def main():
         
         #checks if navigation or simple_action or none
         #request is a python dictionary, ex: {"navigation": 0, "simple_action":1}
-        request = request_router(text_input)
+        chat_prob = chat_checker(text_input)
         
         #handles info based on request
         #returns speech text, navigation dict, simple_action dict
-        extractor_output = request_extractor(text_input, request)
+        extractor_output = request_extractor(text_input, chat_prob)
         
         #execute modules based on request
         execute_modules(extractor_output)
