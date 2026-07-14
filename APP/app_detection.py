@@ -5,7 +5,7 @@ import flet as ft
 import base64
 from ultralytics import YOLO
 
-pip install flet opencv-python ultralytics
+#pip install flet opencv-python ultralytics
 
 # Automatically downloads on first run
 model = YOLO("yolov8n.pt")
