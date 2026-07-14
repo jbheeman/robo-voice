@@ -51,8 +51,11 @@ def request_extractor(text_input: str, chat_prob: float):
 
 def execute_modules(extractor_output: dict):
     speech_handle(extractor_output["speech"])
-    simple_action_handle(extractor_output["simple_action"])
-    navigation_handle(extractor_output["navigation"])
+    if extractor_output["simple_action"]["requested"]:
+        simple_action_handle(extractor_output["simple_action"]["actions"])
+        
+    if extractor_output["navigation"]["requested"]:
+        navigation_handle(extractor_output["navigation"]["locations"])
 
 
 def main():

@@ -1,2 +1,2 @@
-def simple_action_handle(simple_action_dict : dict):
+def simple_action_handle(simple_action_dict : list):
     print(f"Simple action handle {simple_action_dict}")
