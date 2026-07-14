@@ -5,7 +5,6 @@ from typing import Any
 from belt_v3_api import call_llm
 from belt_v3_rag import rag_search
 
-
 def safely_parse_json_to_python_dict(input_data: Any) -> dict | None:
     """
     Converts an LLM response into a Python dictionary.
@@ -165,8 +164,6 @@ def extract_nav_action(text_input):
 
 def compose_response(nav_action_dict, user_text):
     rag_context = rag_search(user_text)
-    
-    print("Rag context: ", rag_context)
 
     if rag_context is None:
         rag_context = "No relevant document information found."
@@ -193,10 +190,7 @@ Rules:
 - If the user asks for building-specific information and no relevant
   document information was found, say that you do not know.
 - Only mention navigation or actions found in the provided result.
-- If an action was requested, say that BELT can perform it.
-- Do not claim that an action has already happened.
-- If navigation was requested, ask the user to confirm the destination.
-- Handle every part of the user's message.
+- If navigation was requested, do not confirm the location.
 - Keep the response concise.
 - Return only the response text.
 """.strip()
@@ -219,4 +213,4 @@ Rules:
             }
         ),
         "speech": speech.strip() if isinstance(speech, str) else ""
-    }
+    }, rag_context

@@ -1,5 +1,7 @@
 import joblib
-from belt_v3_api import call_llm
+from belt_v3_simple_action_handle import simple_action_handle
+from belt_v3_speech_handle import speech_handle
+from belt_v3_navigation_handle import navigation_handle
 from belt_v3_helper import extract_nav_action, compose_response
 
 CHAT_CHECKER_MODEL = joblib.load(
@@ -7,7 +9,7 @@ CHAT_CHECKER_MODEL = joblib.load(
 )
 
 #hyperparams? idk
-DEBUG = True
+DEBUG = False
 CHAT_THRESHOLD = 0.99
 
 def get_input():
@@ -36,12 +38,21 @@ def request_extractor(text_input: str, chat_prob: float):
     if chat_prob < CHAT_THRESHOLD:
         nav_action_dict = extract_nav_action(text_input)
         
-    output = compose_response(nav_action_dict, text_input) #python dict 
+    output, rag_context = compose_response(nav_action_dict, text_input) #python dict 
+    
+    if DEBUG:
+        print("Rag context:")
+        print(rag_context)
+        print("Request Extractor output:")
+        print(output)
+    
     return output
 
 
 def execute_modules(extractor_output: dict):
-    pass
+    speech_handle(extractor_output["speech"])
+    simple_action_handle(extractor_output["simple_action"])
+    navigation_handle(extractor_output["navigation"])
 
 
 def main():
@@ -60,8 +71,7 @@ def main():
         extractor_output = request_extractor(text_input, chat_prob)
         
         #execute modules based on request
-        # execute_modules(extractor_output)
-        print(extractor_output)
+        execute_modules(extractor_output)
 
 
 if __name__ == "__main__":
