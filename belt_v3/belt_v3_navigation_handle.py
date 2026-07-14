@@ -1,2 +1,2 @@
-def navigation_handle(navigation_dict : list):
-    print(f"Navigation handle: {navigation_dict}")
+def navigation_handle(navigation_list : list):
+    print(f"Navigation handle: {navigation_list}")
