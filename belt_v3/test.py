@@ -99,7 +99,7 @@ Check if the sentence is user trying to find a place. Make requested = True if t
 Format: {{"requested":false, locations:[]}}
 Sentence: "{sentence}"
 '''
-prompt = build_detection_prompt(sentence)
+prompt = build_location_action_detection_prompt(sentence)
 response = call_llm(prompt)
 result = safely_parse_json_to_python_dict(response)
 

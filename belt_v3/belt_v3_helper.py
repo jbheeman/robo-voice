@@ -3,6 +3,7 @@ import re
 from typing import Any
 
 from belt_v3_api import call_llm
+from belt_v3_rag import rag_search
 
 
 def safely_parse_json_to_python_dict(input_data: Any) -> dict | None:
@@ -155,4 +156,54 @@ Sentence: {json.dumps(sentence)}
 
 def extract_nav_action(text_input):
     prompt = build_location_action_detection_prompt(text_input)
-    
+    llm_response = call_llm(prompt)
+    python_dict_output = safely_parse_json_to_python_dict(llm_response)
+    return python_dict_output
+
+
+def compose_response(
+    user_text,
+    navigation_output,
+    simple_action_output,
+):
+    rag_context = rag_search(user_text)
+
+    if rag_context is None:
+        rag_context = "No relevant document information found."
+
+    prompt = f"""
+You are the response composer for a receptionist robot.
+
+User input:
+{user_text}
+
+Navigation result:
+{navigation_output}
+
+Simple action result:
+{simple_action_output}
+
+Relevant document information:
+{rag_context}
+
+Write a short natural response to the user.
+
+Rules:
+- Respond normally to casual conversation and general questions.
+- Use the document information only when it is relevant.
+- Do not invent building-specific information.
+- If the user asks for building-specific information and no relevant
+  document information was found, say that you do not know.
+- Only mention navigation or actions that appear in the provided outputs.
+- Only confirm navigation or actions marked as valid.
+- If an action is valid, say that you can perform it.
+- Do not claim that an action has already happened.
+- If navigation is requested and valid, ask the user to confirm the
+  destination before starting navigation.
+- If a requested navigation destination or action is invalid, politely
+  explain that it cannot be completed.
+- Handle every part of the user's message.
+- Keep the response concise.
+"""
+
+    return call_llm(prompt)

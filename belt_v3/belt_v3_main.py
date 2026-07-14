@@ -1,6 +1,6 @@
 import joblib
 from belt_v3_api import call_llm
-from belt_v3_helper import safely_parse_json_to_python_dict, extract_nav_action
+from belt_v3_helper import extract_nav_action, compose_response
 
 CHAT_CHECKER_MODEL = joblib.load(
     "chat_checker_model.joblib"
@@ -36,7 +36,7 @@ def request_extractor(text_input: str, chat_prob: float):
     if chat_prob < CHAT_THRESHOLD:
         nav_action_dict = extract_nav_action(text_input)
         
-    output = response_composer(nav_action_dict, text_input) #python dict 
+    output = compose_response(nav_action_dict, text_input) #python dict 
     return output
 
 
