@@ -8,7 +8,7 @@ CHAT_CHECKER_MODEL = joblib.load(
 
 #hyperparams? idk
 DEBUG = True
-CHAT_THRESHOLD = 0.8
+CHAT_THRESHOLD = 0.99
 
 def get_input():
     return input("> ").strip()
@@ -60,7 +60,8 @@ def main():
         extractor_output = request_extractor(text_input, chat_prob)
         
         #execute modules based on request
-        execute_modules(extractor_output)
+        # execute_modules(extractor_output)
+        print(extractor_output)
 
 
 if __name__ == "__main__":

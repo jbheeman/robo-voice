@@ -104,6 +104,8 @@ Rules:
 - Do not treat questions about BELT's abilities as requests.
 - Extract every requested action and location.
 - Use short normalized action names such as "wave", "spin", "nod", or "point left".
+- Use short normalized location names such as "bathroom", "lab", "break room"
+- Keep important adjectives of locations like "student lounge" instead of "lounge" and "gender neutral bathroom" instead of "bathroom"
 - Preserve location names as written by the user.
 - Do not invent actions or locations.
 - Do not include explanations or Markdown.
@@ -161,49 +163,60 @@ def extract_nav_action(text_input):
     return python_dict_output
 
 
-def compose_response(
-    user_text,
-    navigation_output,
-    simple_action_output,
-):
+def compose_response(nav_action_dict, user_text):
     rag_context = rag_search(user_text)
+    
+    print("Rag context: ", rag_context)
 
     if rag_context is None:
         rag_context = "No relevant document information found."
 
     prompt = f"""
-You are the response composer for a receptionist robot.
+You are the response composer for a receptionist robot named BELT.
 
 User input:
 {user_text}
 
-Navigation result:
-{navigation_output}
-
-Simple action result:
-{simple_action_output}
+Navigation and simple-action result:
+{json.dumps(nav_action_dict, indent=2)}
 
 Relevant document information:
 {rag_context}
 
-Write a short natural response to the user.
+Write only the short natural-language response BELT should say.
 
 Rules:
 - Respond normally to casual conversation and general questions.
-- Use the document information only when it is relevant.
+- Be friendly and welcoming, incorporate document information but do not recite it.
+- Use document information only when it is relevant.
 - Do not invent building-specific information.
 - If the user asks for building-specific information and no relevant
   document information was found, say that you do not know.
-- Only mention navigation or actions that appear in the provided outputs.
-- Only confirm navigation or actions marked as valid.
-- If an action is valid, say that you can perform it.
+- Only mention navigation or actions found in the provided result.
+- If an action was requested, say that BELT can perform it.
 - Do not claim that an action has already happened.
-- If navigation is requested and valid, ask the user to confirm the
-  destination before starting navigation.
-- If a requested navigation destination or action is invalid, politely
-  explain that it cannot be completed.
+- If navigation was requested, ask the user to confirm the destination.
 - Handle every part of the user's message.
 - Keep the response concise.
-"""
+- Return only the response text.
+""".strip()
 
-    return call_llm(prompt)
+    speech = call_llm(prompt)
+
+    return {
+        "simple_action": nav_action_dict.get(
+            "simple_action",
+            {
+                "requested": False,
+                "actions": []
+            }
+        ),
+        "navigation": nav_action_dict.get(
+            "navigation",
+            {
+                "requested": False,
+                "locations": []
+            }
+        ),
+        "speech": speech.strip() if isinstance(speech, str) else ""
+    }
