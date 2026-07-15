@@ -25,7 +25,6 @@ person_last_seen_time = 0.0
 reset_delay = 3.0  # Time (in seconds) the frame must be empty before resetting the greeting
 
 def speak_phrase(text):
-    """Speaks the text in a background thread to prevent UI/video lag."""
     def _speak():
         engine.say(text)
         engine.runAndWait()
@@ -71,31 +70,31 @@ def main(page: ft.Page):
             results = model(frame, stream=True)
 
             # Check if a human is detected in the current frame
-        human_detected = False
+            human_detected = False
 
-        for result in results:
-            # Draw bounding boxes
-            annotated_frame = result.plot()
+            for result in results:
+                # Draw bounding boxes
+                annotated_frame = result.plot()
             
-            if result.boxes is not None:
-                classes = result.boxes.cls.tolist()
-                if 0 in classes:  # 0 is 'person'
-                    human_detected = True
+                if result.boxes is not None:
+                    classes = result.boxes.cls.tolist()
+                    if 0 in classes:  # 0 is 'person'
+                        human_detected = True
 
-        current_time = time.time()
+            current_time = time.time()
 
-        if human_detected:
-            # Update the last seen timestamp
-            person_last_seen_time = current_time
+            if human_detected:
+                # Update the last seen timestamp
+                person_last_seen_time = current_time
             
             # If we haven't greeted this person yet, do it now
-            if not already_greeted:
-                speak_phrase("Welcome to the UCSC silicon valley extension")
-                already_greeted = True
-        else:
+                if not already_greeted:
+                    speak_phrase("Welcome to the UCSC silicon valley extension")
+                    already_greeted = True
+            else:
             # If no human is in the frame, check if enough time has passed to reset
-            if already_greeted and (current_time - person_last_seen_time > reset_delay):
-                already_greeted = False  # Ready to greet the next person who walks up
+                if already_greeted and (current_time - person_last_seen_time > reset_delay):
+                    already_greeted = False  # Ready to greet the next person who walks up
 
     except Exception as e:
         print(f"Encountered an error: {e}")
