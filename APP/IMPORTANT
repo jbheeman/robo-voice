@@ -1,6 +1,6 @@
 Run the following commands in  terminal before execution of the app
-//Install ultralytics
-  pip3 install flet opencv-python ultralytics
+//Install ultralytics (pip3 for python3 terminal)
+  pip install flet opencv-python ultralytics
 
-//Install the TTS library
+//Install the TTS library (pip3 for python3 terminal)
   pip install pyttsx3
