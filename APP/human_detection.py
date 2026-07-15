@@ -38,7 +38,14 @@ def main(page: ft.Page):
     page.theme_mode = ft.ThemeMode.DARK
 
     # UI Element to display the camera frames
-    image_display = ft.Image(fit=ft.ImageFit.CONTAIN, width=640, height=480)
+    # Provide an empty string to src_base64 to prevent Flet from crashing at initialization
+    image_display = ft.Image(
+        src_base64="", 
+        fit=ft.ImageFit.CONTAIN, 
+        width=640, 
+        height=480,
+        gapless_playback=True  # Keeps the video stream playing smoothly without flickering
+    )
     
     # Status text
     status_text = ft.Text("Camera Starting...", size=16, weight=ft.FontWeight.BOLD)
