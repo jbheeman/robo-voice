@@ -4,6 +4,8 @@ from typing import Any
 
 from belt_v3_api import call_llm
 from belt_v3_rag import rag_search
+from belt_v3_valid_movements import VALID_MOVEMENTS
+from belt_v3_valid_navigation import VALID_LOCATIONS
 
 def safely_parse_json_to_python_dict(input_data: Any) -> dict | None:
     """
@@ -180,20 +182,24 @@ Navigation and simple-action result:
 Relevant document information:
 {rag_context}
 
+Valid Locations:
+{VALID_LOCATIONS}
+
+Valid Movements:
+{VALID_MOVEMENTS}
+
 Write only the short natural-language response BELT should say.
 
-Rules:
-- Respond normally to casual conversation and general questions.
-- Be friendly and welcoming, incorporate document information but do not recite it.
-- Use document information only when it is relevant.
-- Do not invent building-specific information.
-- If the user asks for building-specific information and no relevant
-  document information was found, say that you do not know.
-- Only mention navigation or actions found in the provided result.
-- If navigation was requested, do not confirm the location.
-- Keep the response concise.
-- Return only the response text.
-- Do not pretend to do any actions like *waves* or *nods* in the text.
+Behavior:
+- Answer casual conversation and general questions normally.
+- Use the provided UCSC information when relevant. Do not invent UCSC-specific facts.
+- For every detected location or movement, check whether it is supported.
+- If a request is valid, acknowledge it naturally without claiming it has already been completed.
+- If a location is invalid, explain that it is not a destination BELT can navigate to and mention that BELT only supports specific UCSC locations.
+- If a movement is invalid, explain that BELT cannot perform that movement.
+- Do not ignore invalid requests.
+- Only discuss navigation or movements detected in the provided result.
+- Return only BELT's concise spoken response. Do not include stage directions.
 """.strip()
 
     speech = call_llm(prompt)

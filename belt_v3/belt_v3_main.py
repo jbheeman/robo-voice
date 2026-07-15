@@ -9,7 +9,7 @@ CHAT_CHECKER_MODEL = joblib.load(
 )
 
 #hyperparams? idk
-DEBUG = True
+DEBUG = False
 CHAT_THRESHOLD = 0.99
 
 def get_input():
