@@ -80,7 +80,7 @@ def main(page: ft.Page):
                 # Draw bounding boxes
                 annotated_frame = result.plot()
             
-                if result.boxes is not None:
+                if result.boxes is not None and len(result.boxes) > 0:
                     classes = result.boxes.cls.tolist()
                     if 0 in classes:  # 0 is 'person'
                         human_detected = True
