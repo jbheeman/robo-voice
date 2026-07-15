@@ -74,6 +74,7 @@ def main(page: ft.Page):
 
             # Check if a human is detected in the current frame
             human_detected = False
+            annotated_frame = frame
 
             for result in results:
                 # Draw bounding boxes
@@ -96,8 +97,15 @@ def main(page: ft.Page):
                     already_greeted = True
             else:
             # If no human is in the frame, check if enough time has passed to reset
-                if already_greeted and (current_time - person_last_seen_time > reset_delay):
-                    already_greeted = False  # Ready to greet the next person who walks up
+                if already_greeted:
+                    time_since_last_seen = current_time - person_last_seen_time
+                    
+                    # Has the frame been empty of humans for longer than our delay?
+                    if time_since_last_seen > reset_delay:
+                        print("still in frame")
+                        already_greeted = False
+                    else:
+                        print("No human in frame")
             
             _, buffer = cv2.imencode('.jpg', annotated_frame)
             
