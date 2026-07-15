@@ -85,15 +85,6 @@ def main(page: ft.Page):
                         human_detected = True
 
             current_time = time.time()
-            
-            _, buffer = cv2.imencode('.jpg', annotated_frame)
-            
-            # Convert the buffer to base64 bytes to display in the Flet UI
-            base64_image = base64.b64encode(buffer).decode('utf-8')
-            image_display.src_base64 = base64_image
-            
-            # Refresh the UI frame
-            page.update()
 
             if human_detected:
                 # Update the last seen timestamp
@@ -107,6 +98,15 @@ def main(page: ft.Page):
             # If no human is in the frame, check if enough time has passed to reset
                 if already_greeted and (current_time - person_last_seen_time > reset_delay):
                     already_greeted = False  # Ready to greet the next person who walks up
+            
+            _, buffer = cv2.imencode('.jpg', annotated_frame)
+            
+            # Convert the buffer to base64 bytes to display in the Flet UI
+            base64_image = base64.b64encode(buffer).decode('utf-8')
+            image_display.src_base64 = base64_image
+            
+            # Refresh the UI frame
+            page.update()
 
     except Exception as e:
         print(f"Encountered an error: {e}")
