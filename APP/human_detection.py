@@ -15,14 +15,6 @@ model = YOLO("yolov8n.pt")
 engine = pyttsx3.init()
 engine.setProperty('rate', 150)  # Moderate speaking pace
 
-# Welcome timing
-last_spoken_time = 0.0
-cooldown_period = 10.0  # Seconds to wait before welcoming again
-
-# State tracking variables
-already_greeted = False
-person_last_seen_time = 0.0
-reset_delay = 3.0  # Time (in seconds) the frame must be empty before resetting the greeting
 
 def speak_phrase(text):
     def _speak():
@@ -66,6 +58,10 @@ def main(page: ft.Page):
 
     status_text.value = "Streaming Active • Detecting Objects"
     page.update()
+
+    already_greeted = False
+    person_last_seen_time = 0.0
+    reset_delay = 3.0
 
     try:
         while True:
