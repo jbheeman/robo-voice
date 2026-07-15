@@ -85,6 +85,15 @@ def main(page: ft.Page):
                         human_detected = True
 
             current_time = time.time()
+            
+            _, buffer = cv2.imencode('.jpg', annotated_frame)
+            
+            # Convert the buffer to base64 bytes to display in the Flet UI
+            base64_image = base64.b64encode(buffer).decode('utf-8')
+            image_display.src_base64 = base64_image
+            
+            # Refresh the UI frame
+            page.update()
 
             if human_detected:
                 # Update the last seen timestamp
