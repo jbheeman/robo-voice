@@ -58,7 +58,7 @@ def build_index():
     document_vectors = vectorizer.fit_transform(document_texts)
 
 
-def rag_search(query, top_k=3, threshold=0.05):
+def NOT_FINALIZED_rag_search(query, top_k=3, threshold=0.05):
     if vectorizer is None or document_vectors is None:
         return None
 
@@ -98,4 +98,7 @@ def rag_search(query, top_k=3, threshold=0.05):
     return "\n\n".join(context_parts)
 
 
-build_index()
+# build_index()
+
+def rag_search(text):
+    return None

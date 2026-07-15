@@ -193,6 +193,7 @@ Rules:
 - If navigation was requested, do not confirm the location.
 - Keep the response concise.
 - Return only the response text.
+- Do not pretend to do any actions like *waves* or *nods* in the text.
 """.strip()
 
     speech = call_llm(prompt)

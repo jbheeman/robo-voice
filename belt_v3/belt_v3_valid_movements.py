@@ -4,7 +4,7 @@ VALID_MOVEMENTS = {
     "hug": 3,
     "high wave": 4,
     "clap": 5,
-    "face wave": 6,
+    "wave": 6, #face wave
     "left kiss": 7,
     "heart": 8,
     "right heart": 9,
@@ -13,5 +13,10 @@ VALID_MOVEMENTS = {
     "right hand up": 12,
     "reject": 13,
     "right kiss": 14,
-    "two-hand kiss": 15
+    "two-hand kiss": 15,
+}
+
+CUSTOM_VALID_MOVEMENTS = {
+    "dance": []
+    
 }
