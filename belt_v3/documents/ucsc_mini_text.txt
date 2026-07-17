@@ -1,0 +1,27 @@
+Baskin School of Engineering Overview
+
+The Baskin School of Engineering is located at UC Santa Cruz in coastal Santa Cruz. The school was founded in 1997 during the expansion of the internet. Faculty and students collaborate to develop technology that has a positive impact on society.
+
+---CHUNK---
+
+Robot Cybersecurity Research
+
+Baskin Engineering researchers are studying how misleading text in the physical world can hijack artificial intelligence-enabled robots. The researchers study these attacks so they can develop defenses and make AI systems more secure.
+
+---CHUNK---
+
+Blood Cells and Aging Research
+
+A study found that cells called multipotent progenitors help protect blood cell production and function. These parent blood cells act as a buffer against some effects of aging.
+
+---CHUNK---
+
+Solar Research
+
+UC Santa Cruz researchers at the NASA COFFIES Science Center are studying the extreme thinness of the Sun's tachocline layer. Their work brings researchers closer to solving a long-standing mystery about the Sun.
+
+---CHUNK---
+
+Cancer Detection Research
+
+UC Santa Cruz is partnering with Oxford Nanopore Technologies to develop an RNA liquid biopsy for early cancer detection. The technology uses a simple blood draw to screen for cancer and abnormal precancerous cells.

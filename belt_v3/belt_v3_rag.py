@@ -1,104 +1,98 @@
-import re
+import json
 from pathlib import Path
 
+import numpy as np
+from sentence_transformers import SentenceTransformer
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
 
-DOCUMENT_FOLDER = Path("documents")
+BASE_DIR = Path(__file__).resolve().parent
 
-chunks = []
-vectorizer = None
-document_vectors = None
+model = SentenceTransformer("all-MiniLM-L6-v2")
 
+document_embeddings = np.load(
+    BASE_DIR / "ucsc_test_embeddings.npy"
+)
 
-def load_documents():
-    loaded_chunks = []
-
-    for file_path in DOCUMENT_FOLDER.glob("*.txt"):
-        text = file_path.read_text(encoding="utf-8")
-
-        paragraphs = re.split(r"\n\s*\n", text)
-
-        for paragraph in paragraphs:
-            paragraph = paragraph.strip()
-
-            if paragraph:
-                loaded_chunks.append({
-                    "text": paragraph,
-                    "source": file_path.name
-                })
-
-    return loaded_chunks
+with open(
+    BASE_DIR / "ucsc_test_chunks.json",
+    "r",
+    encoding="utf-8"
+) as file:
+    document_chunks = json.load(file)
 
 
-def build_index():
-    global chunks
-    global vectorizer
-    global document_vectors
+# Create TF-IDF representations of the same document chunks.
+tfidf_vectorizer = TfidfVectorizer(
+    lowercase=True,
+    stop_words="english",
+    ngram_range=(1, 2),
+    sublinear_tf=True
+)
 
-    chunks = load_documents()
+document_tfidf = tfidf_vectorizer.fit_transform(document_chunks)
 
-    if not chunks:
-        vectorizer = None
-        document_vectors = None
-        return
 
-    document_texts = [
-        chunk["text"]
-        for chunk in chunks
-    ]
+def rag_search(
+    query: str,
+    top_k: int = 3,
+    min_score: float = 0.2,
+    embedding_weight: float = 0.7,
+    tfidf_weight: float = 0.3
+) -> list[dict]:
 
-    vectorizer = TfidfVectorizer(
-        lowercase=True,
-        ngram_range=(1, 2),
-        stop_words="english"
+    if not query.strip():
+        return []
+
+    if not np.isclose(embedding_weight + tfidf_weight, 1.0):
+        raise ValueError(
+            "embedding_weight and tfidf_weight must add up to 1."
+        )
+
+    # Semantic embedding search
+    query_embedding = model.encode(
+        query,
+        normalize_embeddings=True
     )
 
-    document_vectors = vectorizer.fit_transform(document_texts)
+    embedding_scores = document_embeddings @ query_embedding
 
+    # TF-IDF keyword search
+    query_tfidf = tfidf_vectorizer.transform([query])
 
-def NOT_FINALIZED_rag_search(query, top_k=3, threshold=0.05):
-    if vectorizer is None or document_vectors is None:
-        return None
+    tfidf_scores = cosine_similarity(
+        query_tfidf,
+        document_tfidf
+    ).flatten()
 
-    query_vector = vectorizer.transform([query])
+    # Combine semantic and keyword scores
+    hybrid_scores = (
+        embedding_weight * embedding_scores
+        + tfidf_weight * tfidf_scores
+    )
 
-    scores = cosine_similarity(
-        query_vector,
-        document_vectors
-    )[0]
-
-    ranked_indices = scores.argsort()[::-1]
+    # Rank every chunk from highest score to lowest score
+    ranked_indices = np.argsort(hybrid_scores)[::-1]
 
     results = []
 
-    for index in ranked_indices[:top_k]:
-        score = float(scores[index])
+    for index in ranked_indices:
+        score = float(hybrid_scores[index])
 
-        if score >= threshold:
-            results.append({
-                "text": chunks[index]["text"],
-                "source": chunks[index]["source"],
-                "score": score
-            })
+        # Stop once scores fall below the threshold
+        if score < min_score:
+            break
 
-    if not results:
-        return None
+        results.append({
+            "chunk": document_chunks[index],
+            "score": score,
+            "embedding_score": float(embedding_scores[index]),
+            "tfidf_score": float(tfidf_scores[index])
+        })
 
-    context_parts = []
+        # Return no more than top_k results
+        if len(results) >= top_k:
+            break
 
-    for result in results:
-        context_parts.append(
-            f"Source: {result['source']}\n"
-            f"Information: {result['text']}\n"
-            f"Similarity score: {result['score']:.3f}"
-        )
-
-    return "\n\n".join(context_parts)
-
-
-# build_index()
-
-def rag_search(text):
-    return None
+    return results
