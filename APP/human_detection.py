@@ -1,20 +1,15 @@
-#check IMPORTANT
-
-import pyttsx3
-import time
-import threading 
 import cv2
 import flet as ft
 import base64
 from ultralytics import YOLO
+import pyttsx3
+import time
+import threading
 
-# Automatically downloads on first run
 model = YOLO("yolov8n.pt")
 
-# Initialize TTS Engine
 engine = pyttsx3.init()
 engine.setProperty('rate', 150)  # Moderate speaking pace
-
 
 def speak_phrase(text):
     def _speak():
@@ -24,31 +19,30 @@ def speak_phrase(text):
     threading.Thread(target=_speak, daemon=True).start()
 
 def main(page: ft.Page):
-    page.title = "Real-Time YOLO Object Detector"
+    page.title = "UCSC Campus Tour Guide"
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
     page.vertical_alignment = ft.MainAxisAlignment.CENTER
     page.theme_mode = ft.ThemeMode.DARK
 
     # UI Element to display the camera frames
-    # Provide an empty string to src_base64 to prevent Flet from crashing at initialization
     image_display = ft.Image(
         src_base64="", 
         fit=ft.ImageFit.CONTAIN, 
         width=640, 
-        height=480,
-        gapless_playback=True  # Keeps the video stream playing smoothly without flickering
+        height=480, 
+        gapless_playback=True
     )
-    
+
     # Status text
     status_text = ft.Text("Camera Starting...", size=16, weight=ft.FontWeight.BOLD)
 
     page.add(
-        ft.Text("YOLO Object Detection Camera", size=24, weight=ft.FontWeight.BOLD),
+        ft.Text("UCSC Campus Tour Guide", size=24, weight=ft.FontWeight.BOLD),
         image_display,
         status_text
     )
 
-    # Opens the default camera
+    # Opens the default camera 
     cap = cv2.VideoCapture(0)
 
     if not cap.isOpened():
@@ -61,7 +55,7 @@ def main(page: ft.Page):
 
     already_greeted = False
     person_last_seen_time = 0.0
-    reset_delay = 3.0
+    reset_delay = 3.0  # Time (seconds) the frame must be completely clear of people
 
     try:
         while True:
@@ -69,58 +63,60 @@ def main(page: ft.Page):
             if not success:
                 break
 
-            # Run YOLO on current frame
+            # Run YOLO inference on the current frame
             results = model(frame, stream=True)
 
-            # Check if a human is detected in the current frame
             human_detected = False
-            annotated_frame = frame
+            annotated_frame = frame 
 
             for result in results:
-                # Draw bounding boxes
+                # Draw the bounding boxes and labels directly onto the frame
                 annotated_frame = result.plot()
-            
+                
+                # Check if a human is detected (Class ID 0 is 'person' in YOLO)
                 if result.boxes is not None and len(result.boxes) > 0:
                     classes = result.boxes.cls.tolist()
-                    if 0 in classes:  # 0 is 'person'
+                    if 0 in classes:
                         human_detected = True
 
             current_time = time.time()
 
+            # Greet Once
             if human_detected:
-                # Update the last seen timestamp
+                # Keep renewing the timestamp as long as a person is visible
                 person_last_seen_time = current_time
-            
-            # If we haven't greeted this person yet, do it now
+                
                 if not already_greeted:
+                    print("[STATE] Person detected! Speaking greeting...")
                     speak_phrase("Welcome to the UCSC silicon valley extension")
                     already_greeted = True
             else:
-            # If no human is in the frame, check if enough time has passed to reset
+                # No human detected in this frame
                 if already_greeted:
                     time_since_last_seen = current_time - person_last_seen_time
                     
-                    # Has the frame been empty of humans for longer than our delay?
                     if time_since_last_seen > reset_delay:
-                        print("still in frame")
+                        print(f"[STATE] Frame clear for {time_since_last_seen:.1f}s. Resetting trigger.")
                         already_greeted = False
                     else:
-                        print("No human in frame")
-            
+                        print(f"[STATE] No human detected. Resetting in {reset_delay - time_since_last_seen:.1f}s...")
+
+            # Encode the frame into JPEG format
             _, buffer = cv2.imencode('.jpg', annotated_frame)
-            
-            # Convert the buffer to base64 bytes to display in the Flet UI
+
+            # Display
             base64_image = base64.b64encode(buffer).decode('utf-8')
             image_display.src_base64 = base64_image
-            
+
             # Refresh the UI frame
             page.update()
 
     except Exception as e:
         print(f"Encountered an error: {e}")
     finally:
-        # Safely release the camera when the app is closed
+        # Safely release the camera when the application closes
+        print("[INFO] Releasing camera resource...")
         cap.release()
 
-# Run the app
+# Run the Flet app
 ft.app(target=main)
