@@ -118,7 +118,7 @@ def main(page: ft.Page):
 
             # Refresh the UI frame
             page.update()
-            time.sleep(0.1)
+            time.sleep(0.05)
 
     except Exception as e:
         print(f"Encountered an error: {e}")
