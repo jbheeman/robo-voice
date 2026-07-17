@@ -8,15 +8,13 @@ import threading
 
 model = YOLO("yolov8n.pt")
 
-engine.setProperty('rate', 150)  # Moderate speaking pace
-
 def speak_phrase(text):
     """Speaks the text by initializing a fresh TTS engine instance inside a background thread."""
     def _speak():
         try:
             # Re-initializing locally guarantees the audio doesn't fail
             local_engine = pyttsx3.init()
-            local_engine.setProperty('rate', 150)
+            local_engine.setProperty('rate', 150) #Moderate Speaking Pace
             local_engine.say(text)
             local_engine.runAndWait()
             
