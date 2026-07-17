@@ -1,7 +1,7 @@
 import joblib
-from belt_v3_simple_action_handle import simple_action_handle
-from belt_v3_speech_handle import speech_handle
-from belt_v3_navigation_handle import navigation_handle
+from movement.belt_v3_simple_action_handle import simple_action_handle
+from speech.belt_v3_speech_handle import speech_handle
+from navigation.belt_v3_navigation_handle import navigation_handle
 from belt_v3_helper import extract_nav_action, compose_response
 
 CHAT_CHECKER_MODEL = joblib.load(

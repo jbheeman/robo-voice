@@ -3,9 +3,9 @@ import re
 from typing import Any
 
 from belt_v3_api import call_llm
-from belt_v3_rag import rag_search
-from belt_v3_valid_movements import VALID_MOVEMENTS
-from belt_v3_valid_navigation import VALID_LOCATIONS
+from rag.belt_v3_rag import rag_search
+from movement.belt_v3_valid_movements import VALID_MOVEMENTS
+from navigation.belt_v3_valid_navigation import VALID_LOCATIONS
 
 def safely_parse_json_to_python_dict(input_data: Any) -> dict | None:
     """
