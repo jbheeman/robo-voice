@@ -1,0 +1,23 @@
+text,actual,predicted,action_probability
+"Hmm, I’m not sure. Please try again.",1,0,0.9321709802972086
+"Well, I’m a freshman here at UCSC but I can also be a cow.",1,0,0.6853170441456513
+Billy bob the ghost is here! Say hi to him.,1,0,0.6501082785782011
+I wanna cry because I didn’t sleep and I have a test tomorrow and I’m absolutely cooked,1,0,0.6478283221258458
+Does the Visakhapatnam-Koraput Intercity Express go to Bobbili Junction?,1,0,0.6299754972058782
+Cows go moo.,1,0,0.6210505885440348
+"I told my group project teammates to help me make training data, they are finding very interesting samples",1,0,0.6128287042997427
+"Hello there, I’m your robot assistant, please refer to me as SAASFIJKNOI",1,0,0.6066615695268771
+"If you could bring me a candle, cake, or spoon, what would you bring me?",1,0,0.6053203536185969
+I want to sleep until 1pm without anyone or anything waking me up,1,0,0.6052976668918401
+Hey! I’m here and ready to learn!,1,0,0.6011841109562965
+Wanna watch a new show with me,1,0,0.5231516516263643
+"We ‘moove’ to the movies together! Get it? Haha, I’m a cow that’s why.",1,0,0.5204727798712615
+"I don’t like seeing my friends sad, and that includes you too!",1,0,0.5049071501514842
+We want to find the best split during decision trees.,1,0,0.4585990412183798
+Who took the cookies from the cookie jar,1,0,0.4313168862972979
+There is another robot out there in the wild and navigate to the robotics room,0,1,0.3361508848547766
+"My github is dead, I wanna talk to professor yue, can you show me where his room is",0,1,0.30402917590690615
+Why do we breathe? I think I have the answer in the lab! Take me there!,0,1,0.256483481775044
+Can you stand up or do you just sit down the whole time?,0,1,0.2408672369072703
+"Do a little dance, and while you’re at it, tell me what the dance is, and how it is culturally significant.",0,1,0.16288570484930032
+"Hi belt! Do you know how to squat? Also, high five!",0,1,0.12333471760842418
