@@ -64,7 +64,7 @@ def main(page: ft.Page):
                 break
 
             # Run YOLO inference on the current frame
-            results = model(frame, stream=True)
+            results = model(frame, stream=True, conf=0.5)
 
             human_detected = False
             annotated_frame = frame 
@@ -110,6 +110,7 @@ def main(page: ft.Page):
 
             # Refresh the UI frame
             page.update()
+            time.sleep(0.01)
 
     except Exception as e:
         print(f"Encountered an error: {e}")
