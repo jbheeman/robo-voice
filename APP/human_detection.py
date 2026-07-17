@@ -8,13 +8,21 @@ import threading
 
 model = YOLO("yolov8n.pt")
 
-engine = pyttsx3.init()
 engine.setProperty('rate', 150)  # Moderate speaking pace
 
 def speak_phrase(text):
+    """Speaks the text by initializing a fresh TTS engine instance inside a background thread."""
     def _speak():
-        engine.say(text)
-        engine.runAndWait()
+        try:
+            # Re-initializing locally guarantees the audio doesn't fail
+            local_engine = pyttsx3.init()
+            local_engine.setProperty('rate', 150)
+            local_engine.say(text)
+            local_engine.runAndWait()
+            
+            del local_engine
+        except Exception as tts_err:
+            print(f"[TTS ERROR] Failed to output audio: {tts_err}")
     
     threading.Thread(target=_speak, daemon=True).start()
 
@@ -110,7 +118,7 @@ def main(page: ft.Page):
 
             # Refresh the UI frame
             page.update()
-            time.sleep(0.01)
+            time.sleep(0.1)
 
     except Exception as e:
         print(f"Encountered an error: {e}")
