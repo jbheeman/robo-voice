@@ -88,7 +88,7 @@ def main():
                         yolo_center_danger = True
 
             # Decision logic
-            vx, vy, yaw = 0.2, 0.0, 0.0 
+            vx, vy, yaw = 0.1, 0.0, 0.0 
             
             # Critical priority: Dont fall down a staircase
             if cliff_pixels > CLIFF_PIXEL_THRESHOLD:
@@ -103,12 +103,12 @@ def main():
             # 2nd Priority: Left side is blocked
             elif (left_close_pixels > TRIGGER_PIXELS_THRESHOLD) or yolo_left_danger:
                 print("Object detected, redirecting")
-                vx, vy, yaw = 0.15, 0.0, -0.3
+                vx, vy, yaw = 0.08, 0.0, -0.3
             
             # 3rd Priority: Right side is blocked
             elif (right_close_pixels > TRIGGER_PIXELS_THRESHOLD) or yolo_right_danger:
                 print("[➡️ RIGHT BLOCKED] Steering Left...")
-                vx, vy, yaw = 0.15, 0.0, 0.3
+                vx, vy, yaw = 0.08, 0.0, 0.3
 
             # Send the final evaluated movement command to the G1
             sport_client.Move(vx, vy, yaw)
