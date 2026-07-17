@@ -20,6 +20,10 @@ sport_client.Init()
 SAFE_DISTANCE_MM = 1000       # 1.0 meter wall detection cushion
 TRIGGER_PIXELS_THRESHOLD = 500  # Minimum pixels to trigger a "wall" warning
 
+# To avoid staircases / depth drops
+EXPECTED_FLOOR_DISTANCE_MAX = 1600 
+CLIFF_PIXEL_THRESHOLD = 300
+
 def main():
     cap_color = cv2.VideoCapture(0)  # RGB
     cap_depth = cv2.VideoCapture(1)  # Depth 
@@ -53,6 +57,11 @@ def main():
             center_close_pixels = np.sum((center_zone > 0) & (center_zone < SAFE_DISTANCE_MM))
             right_close_pixels = np.sum((right_zone > 0) & (right_zone < SAFE_DISTANCE_MM))
 
+            bottom_zone = depth_data[int(height * 0.75):height, :]
+            
+            # Count pixels that are too far away (floor dropped)
+            cliff_pixels = np.sum((bottom_zone > EXPECTED_FLOOR_DISTANCE_MAX) | (bottom_zone == 0))
+
             # Object avoidance
             results = model(color_frame, verbose=False)
             boxes = results[0].boxes
@@ -80,9 +89,14 @@ def main():
 
             # Decision logic
             vx, vy, yaw = 0.2, 0.0, 0.0 
+            
+            # Critical priority: Dont fall down a staircase
+            if cliff_pixels > CLIFF_PIXEL_THRESHOLD:
+                print("Drop detected, redirecting")
+                vx, vy, yaw = -0.15, 0.0, 0.5  # Back up slightly and spin to find flat ground
 
             # Priority: Wall/Object ahead
-            if (center_close_pixels > TRIGGER_PIXELS_THRESHOLD) or yolo_center_danger:
+            elif (center_close_pixels > TRIGGER_PIXELS_THRESHOLD) or yolo_center_danger:
                 print("Object detected, redirecting")
                 vx, vy, yaw = 0.0, 0.0, 0.4  # Stop and spin left to find a clear path
             
