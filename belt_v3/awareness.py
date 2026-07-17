@@ -102,7 +102,7 @@ def main():
             
             # 2nd Priority: Left side is blocked
             elif (left_close_pixels > TRIGGER_PIXELS_THRESHOLD) or yolo_left_danger:
-                print("Object detected, redirecting")
+                print("[⬅️ LEFT BLOCKED] Steering Right...")
                 vx, vy, yaw = 0.08, 0.0, -0.3
             
             # 3rd Priority: Right side is blocked
