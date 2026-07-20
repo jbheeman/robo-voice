@@ -1,4 +1,4 @@
-from belt_v3_valid_movements import VALID_MOVEMENTS
+from .belt_v3_valid_movements import VALID_MOVEMENTS
 
 def simple_action_handle(simple_action_list : list):
     for act in simple_action_list:

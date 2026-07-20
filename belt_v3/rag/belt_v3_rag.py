@@ -12,15 +12,30 @@ BASE_DIR = Path(__file__).resolve().parent
 model = SentenceTransformer("all-MiniLM-L6-v2")
 
 document_embeddings = np.load(
-    BASE_DIR / "ucsc_test_embeddings.npy"
+    BASE_DIR / "ucsc_embeddings.npy"
 )
 
 with open(
-    BASE_DIR / "ucsc_test_chunks.json",
+    BASE_DIR / "ucsc_chunks.json",
     "r",
     encoding="utf-8"
 ) as file:
     document_chunks = json.load(file)
+
+
+# Extract the text from each chunk dictionary.
+document_texts = [
+    chunk["text"]
+    for chunk in document_chunks
+]
+
+
+# Make sure the chunks and embeddings still line up.
+if len(document_texts) != len(document_embeddings):
+    raise ValueError(
+        "The number of JSON chunks does not match "
+        "the number of saved embeddings."
+    )
 
 
 # Create TF-IDF representations of the same document chunks.
@@ -31,7 +46,7 @@ tfidf_vectorizer = TfidfVectorizer(
     sublinear_tf=True
 )
 
-document_tfidf = tfidf_vectorizer.fit_transform(document_chunks)
+document_tfidf = tfidf_vectorizer.fit_transform(document_texts)
 
 
 def rag_search(
@@ -85,7 +100,11 @@ def rag_search(
             break
 
         results.append({
-            "chunk": document_chunks[index],
+            "chunk": document_chunks[index]["text"],
+            "chunk_id": document_chunks[index]["chunk_id"],
+            "word_count": document_chunks[index]["word_count"],
+            "start_word": document_chunks[index]["start_word"],
+            "end_word": document_chunks[index]["end_word"],
             "score": score,
             "embedding_score": float(embedding_scores[index]),
             "tfidf_score": float(tfidf_scores[index])

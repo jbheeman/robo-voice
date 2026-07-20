@@ -5,7 +5,7 @@ from navigation.belt_v3_navigation_handle import navigation_handle
 from belt_v3_helper import extract_nav_action, compose_response
 
 CHAT_CHECKER_MODEL = joblib.load(
-    "chat_checker_model.joblib"
+    "chat_checker/chat_checker_model.joblib"
 )
 
 #hyperparams? idk

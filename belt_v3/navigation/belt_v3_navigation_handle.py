@@ -1,4 +1,4 @@
-from belt_v3_valid_navigation import VALID_LOCATIONS
+from .belt_v3_valid_navigation import VALID_LOCATIONS
 
 def navigation_handle(navigation_list : list):
     for nav in navigation_list:
