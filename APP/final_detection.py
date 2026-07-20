@@ -5,8 +5,89 @@ from ultralytics import YOLO
 import pyttsx3
 import time
 import threading
+import face_recognition
+import cv2
+import numpy as np
+import pathlib
+import joblib
+import os
 
-from staff_recognition import getPeople
+# Known Gen AI faculty names
+# https://genai.ucsc.edu/people/
+names = {
+  0: "Luca De Alfaro",
+  1: "Pranav Anand",
+  2: "Manel Camps",
+  3: "Ashesh Kumar Chattopadhyay",
+  4: "Jason Eshraghian",
+  5: "Daniel J. Fremont",
+  6: "Jeffrey M Flanigan",
+  7: "Leilani H Gilpin",
+  8: "David Haussler",
+  9: "Minghui Hu",
+  10: "Tae Myung Huh",
+  11: "Ian Lane",
+  12: "Bing Liu",
+  13: "Alexander Ioannidis",
+  14: "Nilah Ioannidis",
+  15: "Heiner H Litz",
+  16: "Razvan V Marinescu",
+  17: "Jennifer A Parker",
+  18: "Jose Renau",
+  19: "Magy Seif El-Nasr",
+  20: "Sagnik Nath",
+  21: "Michael Tassio",
+  22: "Chenguang Wang",
+  23: "Xiao Wang",
+  24: "Cihang Xie",
+  25: "Hao Yue",
+  26: "Yi Zhang",
+  27: "Yuyin Zhou",
+}
+
+ENCODINGS_PATH = "encodings.joblib"
+
+
+def initEncodings():
+    #Buids face encodings and saves them
+    encodings = []
+    for i in range(28):
+        path = pathlib.Path("faculty_images") / f"{i}.jpg"
+        image = face_recognition.load_image_file(path)
+        encodings.append(face_recognition.face_encodings(image)[0])
+    joblib.dump(encodings, ENCODINGS_PATH)
+
+
+# Only rebuild encodings if they don't already exist
+if not os.path.exists(ENCODINGS_PATH):
+    initEncodings()
+
+encodings = joblib.load(ENCODINGS_PATH)
+
+
+def getPeople(frame):
+    small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
+    rgb_frame = cv2.cvtColor(small_frame, cv2.COLOR_BGR2RGB)
+
+    frame_locations = face_recognition.face_locations(rgb_frame)
+    frame_encodings = face_recognition.face_encodings(rgb_frame, frame_locations)
+
+    frame_names = []
+    recognized_locations = []
+
+    for i in range(len(frame_encodings)):
+        frame_encoding = frame_encodings[i]
+        distances = face_recognition.face_distance(encodings, frame_encoding)
+        index = np.argmin(distances)
+
+        if distances[index] < 0.55:
+            frame_names.append(names[index])
+            location = frame_locations[i]
+            location = [coord * 4 for coord in location]
+            recognized_locations.append(location)
+
+    return frame_names, recognized_locations
+
 
 model = YOLO("yolov8n.pt")
 
