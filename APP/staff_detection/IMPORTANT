@@ -1,0 +1,3 @@
+pip install deepface tensorflow opencv-python numpy joblib ultralytics pyttsx3 flet
+
+run human_det.py
