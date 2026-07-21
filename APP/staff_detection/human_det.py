@@ -1,10 +1,8 @@
 import cv2
-import flet as ft
-import base64
-from ultralytics import YOLO
-import pyttsx3
 import time
 import threading
+from ultralytics import YOLO
+import pyttsx3
 
 from staff_recognition import getPeople
 
@@ -13,8 +11,8 @@ model = YOLO("yolov8n.pt")
 GENERIC_GREETING = "Welcome to the UCSC silicon valley extension"
 STAFF_GREETING_TEMPLATE = "Hello, {name}!"
 
-STAFF_COOLDOWN = 3.0       # seconds a staff member must be absent before re-greeting
-GENERIC_RESET_DELAY = 3.0  
+STAFF_COOLDOWN = 3.0
+GENERIC_RESET_DELAY = 3.0
 
 
 def speak_phrase(text):
@@ -31,45 +29,20 @@ def speak_phrase(text):
     threading.Thread(target=_speak, daemon=True).start()
 
 
-def main(page: ft.Page):
-    page.title = "BELT"
-    page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
-    page.vertical_alignment = ft.MainAxisAlignment.CENTER
-    page.theme_mode = ft.ThemeMode.DARK
-
-    image_display = ft.Image(
-        src_base64="",
-        fit=ft.ImageFit.CONTAIN,
-        width=640,
-        height=480,
-        gapless_playback=True
-    )
-
-    status_text = ft.Text("Camera Starting...", size=16, weight=ft.FontWeight.BOLD)
-
-    page.add(
-        ft.Text("BELT", size=24, weight=ft.FontWeight.BOLD),
-        image_display,
-        status_text
-    )
-
+def main():
     cap = cv2.VideoCapture(0)
 
     if not cap.isOpened():
-        status_text.value = "Error: Could not open camera."
-        page.update()
+        print("Error: Could not open camera.")
         return
 
-    status_text.value = "Streaming Active • Detecting Objects"
-    page.update()
+    print("[INFO] Streaming active. Press 'q' in the video window to quit.")
 
-    # unrecognized state
     already_greeted = False
     person_last_seen_time = 0.0
 
-    # recognized state
     last_seen = {}
-    currently_greeted = set()  
+    currently_greeted = set()
 
     try:
         while True:
@@ -92,17 +65,16 @@ def main(page: ft.Page):
             current_time = time.time()
             frame_names = []
 
-            # Only run face recognition when a human is actually present
             if human_detected:
                 frame_names, recognized_locations = getPeople(frame)
 
-                # Draw name labels for recognized staff on top of bounding boxes
                 for name, loc in zip(frame_names, recognized_locations):
                     top, right, bottom, left = loc
                     cv2.rectangle(annotated_frame, (left, top), (right, bottom), (0, 200, 0), 2)
                     cv2.putText(annotated_frame, name, (left, max(top - 10, 0)),
                                 cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 200, 0), 2)
 
+            # Staff greeting
             for name in frame_names:
                 last_seen[name] = current_time
                 if name not in currently_greeted:
@@ -110,12 +82,11 @@ def main(page: ft.Page):
                     speak_phrase(STAFF_GREETING_TEMPLATE.format(name=name))
                     currently_greeted.add(name)
 
-            # Expire staff who've been gone longer than the cooldown
             for name in list(currently_greeted):
                 if current_time - last_seen.get(name, 0) > STAFF_COOLDOWN:
                     currently_greeted.discard(name)
 
-            # Only for unrecognized 
+            # Generic greeting for unrecognized visitors
             unrecognized_human_present = human_detected and len(frame_names) == 0
 
             if unrecognized_human_present:
@@ -130,18 +101,18 @@ def main(page: ft.Page):
                     if time_since_last_seen > GENERIC_RESET_DELAY:
                         already_greeted = False
 
-            # Display
-            _, buffer = cv2.imencode('.jpg', annotated_frame)
-            base64_image = base64.b64encode(buffer).decode('utf-8')
-            image_display.src_base64 = base64_image
-            page.update()
-            time.sleep(0.05)
+            cv2.imshow("BELT", annotated_frame)
+
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                break
 
     except Exception as e:
         print(f"Encountered an error: {e}")
     finally:
         print("[INFO] Releasing camera resource...")
         cap.release()
+        cv2.destroyAllWindows()
 
 
-ft.app(target=main)
+if __name__ == "__main__":
+    main()
