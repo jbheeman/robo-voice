@@ -90,7 +90,7 @@ def getPeople(frame):
         faces = DeepFace.represent(
             img_path=frame,
             model_name=MODEL_NAME,
-            detector_backend=DETECTOR_BACKEND,
+            detector_backend='retinaface',
             enforce_detection=False,
         )
     except Exception as e:
