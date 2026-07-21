@@ -6,8 +6,6 @@ import os
 
 from deepface import DeepFace
 
-# Known Gen AI faculty names
-# https://genai.ucsc.edu/people/
 names = {
   0: "Luca De Alfaro",
   1: "Pranav Anand",
@@ -40,9 +38,9 @@ names = {
 }
 
 ENCODINGS_PATH = "encodings.joblib"
-
 MODEL_NAME = "Facenet"
-DETECTOR_BACKEND = "opencv"
+
+DETECTOR_BACKEND = "retinaface"
 
 MATCH_THRESHOLD = 0.40
 
@@ -54,28 +52,29 @@ def _cosine_distance(a, b):
 
 
 def initEncodings():
-    """Builds face embeddings from faculty_images/{i}.jpg and saves them."""
+    print("[INFO] Building faculty encodings...")
     encodings = []
-    for i in range(28):
+    for i in range(len(names)):
         path = str(pathlib.Path("faculty_images") / f"{i}.jpg")
         try:
             result = DeepFace.represent(
                 img_path=path,
                 model_name=MODEL_NAME,
                 detector_backend=DETECTOR_BACKEND,
-                enforce_detection=True,
+                enforce_detection=False,  
             )
-            # DeepFace.represent returns a list (one entry per face found);
-            # faculty photos should have exactly one face.
-            encodings.append(result[0]["embedding"])
+            if result and len(result) > 0:
+                encodings.append(result[0]["embedding"])
+            else:
+                encodings.append(None)
         except Exception as e:
             print(f"[WARN] Could not encode faculty_images/{i}.jpg ({names.get(i)}): {e}")
             encodings.append(None)
 
     joblib.dump(encodings, ENCODINGS_PATH)
+    print("[INFO] Encodings saved to disk.")
 
 
-# Only rebuild encodings if they don't already exist on disk.
 if not os.path.exists(ENCODINGS_PATH):
     initEncodings()
 
@@ -90,7 +89,7 @@ def getPeople(frame):
         faces = DeepFace.represent(
             img_path=frame,
             model_name=MODEL_NAME,
-            detector_backend='retinaface',
+            detector_backend=DETECTOR_BACKEND,
             enforce_detection=False,
         )
     except Exception as e:
@@ -98,7 +97,8 @@ def getPeople(frame):
         return frame_names, recognized_locations
 
     for face in faces:
-        if face.get("face_confidence", 1.0) == 0:
+        # Ignore weak detections
+        if face.get("face_confidence", 1.0) < 0.6:
             continue
 
         embedding = face["embedding"]
