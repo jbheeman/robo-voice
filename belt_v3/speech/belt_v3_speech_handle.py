@@ -138,3 +138,10 @@ def speech_handle(text: str) -> None:
 
 
 atexit.register(_close_ros_resources)
+
+
+
+
+
+def testing_speech_handle(text):
+    print(text)

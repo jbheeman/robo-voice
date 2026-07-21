@@ -1,6 +1,6 @@
 import joblib
 from movement.belt_v3_simple_action_handle import simple_action_handle
-from speech.belt_v3_speech_handle import speech_handle
+from speech.belt_v3_speech_handle import speech_handle, testing_speech_handle
 from navigation.belt_v3_navigation_handle import navigation_handle
 from belt_v3_helper import extract_nav_action, compose_response
 
@@ -9,7 +9,7 @@ CHAT_CHECKER_MODEL = joblib.load(
 )
 
 #hyperparams? idk
-DEBUG = False
+DEBUG = True
 CHAT_THRESHOLD = 0.99
 
 def get_input():
@@ -50,7 +50,11 @@ def request_extractor(text_input: str, chat_prob: float):
 
 
 def execute_modules(extractor_output: dict):
-    speech_handle(extractor_output["speech"])
+    if DEBUG == True:
+        testing_speech_handle(extractor_output["speech"])
+    else:
+        speech_handle(extractor_output["speech"])
+        
     if extractor_output["simple_action"]["requested"]:
         simple_action_handle(extractor_output["simple_action"]["actions"])
         
