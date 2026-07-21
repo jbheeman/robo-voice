@@ -1,50 +1,119 @@
-"""Text-to-speech output for the Unitree G1 robot."""
+"""Publish BELT responses to the robot's ROS 2 text-to-speech topic."""
 
 from __future__ import annotations
 
-import os
+import atexit
+import threading
+import time
 from typing import Any
 
 
-DEFAULT_NETWORK_INTERFACE = "wlan0"
-ENGLISH_SPEAKER_ID = 1
-AUDIO_CLIENT_TIMEOUT_SECONDS = 10.0
+SPEECH_TOPIC = "/audio_response"
+PUBLISHER_QUEUE_DEPTH = 10
+SUBSCRIBER_DISCOVERY_TIMEOUT_SECONDS = 5.0
+SUBSCRIBER_DISCOVERY_POLL_SECONDS = 0.05
+POST_PUBLISH_DELAY_SECONDS = 1.0
 
-_audio_client: Any | None = None
+_resource_lock = threading.RLock()
+_ros_context: Any | None = None
+_ros_node: Any | None = None
+_speech_publisher: Any | None = None
+_string_message_type: Any | None = None
 
 
-def _get_audio_client() -> Any:
-    """Create the Unitree audio client once, then reuse it."""
-    global _audio_client
-
-    if _audio_client is not None:
-        return _audio_client
-
+def _create_ros_resources() -> tuple[Any, Any, Any, Any]:
+    """Create a private ROS context, node, and speech publisher."""
     try:
-        from unitree_sdk2py.core.channel import ChannelFactoryInitialize
-        from unitree_sdk2py.g1.audio.g1_audio_client import AudioClient
+        import rclpy
+        from rclpy.context import Context
+        from std_msgs.msg import String
     except ImportError as error:
         raise RuntimeError(
-            "Unitree SDK 2 for Python is required for robot speech. "
-            "Install unitree_sdk2_python on the computer running BELT."
+            "ROS 2 Python packages are required for robot speech. Source the "
+            "robot's ROS environment before starting BELT (for example: "
+            "source /opt/ros/jazzy/setup.bash)."
         ) from error
 
-    network_interface = os.getenv(
-        "UNITREE_NETWORK_INTERFACE",
-        DEFAULT_NETWORK_INTERFACE,
-    )
-    ChannelFactoryInitialize(0, network_interface)
+    context = Context()
 
-    client = AudioClient()
-    client.SetTimeout(AUDIO_CLIENT_TIMEOUT_SECONDS)
-    client.Init()
+    try:
+        rclpy.init(args=None, context=context)
+        node = rclpy.create_node(
+            "belt_v3_speech_handle",
+            context=context,
+        )
+        publisher = node.create_publisher(
+            String,
+            SPEECH_TOPIC,
+            PUBLISHER_QUEUE_DEPTH,
+        )
+    except Exception:
+        if context.ok():
+            context.shutdown()
+        raise
 
-    _audio_client = client
-    return _audio_client
+    return context, node, publisher, String
+
+
+def _get_ros_resources() -> tuple[Any, Any]:
+    """Create the publisher on first use and reuse it for later responses."""
+    global _ros_context
+    global _ros_node
+    global _speech_publisher
+    global _string_message_type
+
+    if _speech_publisher is None:
+        (
+            _ros_context,
+            _ros_node,
+            _speech_publisher,
+            _string_message_type,
+        ) = _create_ros_resources()
+
+    return _speech_publisher, _string_message_type
+
+
+def _wait_for_audio_subscriber(publisher: Any) -> None:
+    """Wait until the robot's TTS node has discovered this publisher."""
+    deadline = time.monotonic() + SUBSCRIBER_DISCOVERY_TIMEOUT_SECONDS
+
+    while publisher.get_subscription_count() == 0:
+        if time.monotonic() >= deadline:
+            raise RuntimeError(
+                f"No robot audio subscriber was found on {SPEECH_TOPIC} after "
+                f"{SUBSCRIBER_DISCOVERY_TIMEOUT_SECONDS:.1f} seconds. Check "
+                "that the robot audio/TTS node is running and that BELT uses "
+                "the same ROS_DOMAIN_ID and network as the robot."
+            )
+
+        time.sleep(SUBSCRIBER_DISCOVERY_POLL_SECONDS)
+
+
+def _close_ros_resources() -> None:
+    """Release only the private ROS resources owned by this module."""
+    global _ros_context
+    global _ros_node
+    global _speech_publisher
+    global _string_message_type
+
+    with _resource_lock:
+        node = _ros_node
+        context = _ros_context
+
+        _ros_context = None
+        _ros_node = None
+        _speech_publisher = None
+        _string_message_type = None
+
+        if node is not None:
+            node.destroy_node()
+
+        if context is not None and context.ok():
+            context.shutdown()
 
 
 def speech_handle(text: str) -> None:
-    """Speak ``text`` through the Unitree G1's physical speaker."""
+    """Send ``text`` to the robot's existing ROS 2 TTS pipeline."""
     if not isinstance(text, str):
         raise TypeError("speech_handle text must be a string")
 
@@ -52,8 +121,20 @@ def speech_handle(text: str) -> None:
     if not text:
         return
 
-    print(f"Speech Handle: {text}")
+    with _resource_lock:
+        publisher, string_message_type = _get_ros_resources()
+        _wait_for_audio_subscriber(publisher)
 
-    result = _get_audio_client().TtsMaker(text, ENGLISH_SPEAKER_ID)
-    if result != 0:
-        raise RuntimeError(f"Unitree text-to-speech failed with code {result}")
+        message = string_message_type()
+        message.data = text
+        publisher.publish(message)
+
+        # test_speak.py waits before destroying its node so DDS can flush. The
+        # publisher here is persistent, but retaining the delay also prevents
+        # the next robot command from immediately racing the speech request.
+        time.sleep(POST_PUBLISH_DELAY_SECONDS)
+
+    print(f"Speech sent to robot: {text}")
+
+
+atexit.register(_close_ros_resources)

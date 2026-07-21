@@ -11,3 +11,6 @@ python -m pip install \
     sentence-transformers \
     python-dotenv
 
+connect to tp link
+ssh -o ConnectTimeout=10 tina@192.168.0.56
+ai_academy_14235156
