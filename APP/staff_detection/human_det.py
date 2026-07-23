@@ -7,6 +7,8 @@ import pyttsx3
 from staff_recognition import getPeople
 
 model = YOLO("yolov8n.pt")
+# Only for NVIDIA GPUs with CUDA installed
+model.to("cuda")
 
 GENERIC_GREETING = "Welcome to the UCSC silicon valley extension"
 STAFF_GREETING_TEMPLATE = "Hello, {name}!"
@@ -50,7 +52,8 @@ def main():
             if not success:
                 break
 
-            results = model(frame, stream=True, conf=0.5)
+            small_frame = cv2.resize(frame, (640, 480))
+            results = model(small_frame, stream=True, conf=0.5)
 
             human_detected = False
             annotated_frame = frame
