@@ -10,6 +10,7 @@ python -m pip install \
     scikit-learn \
     sentence-transformers \
     python-dotenv
+python -m pip install -U sentence-transformers datasets accelerate
 
 connect to tp link
 ssh -o ConnectTimeout=10 tina@192.168.0.56
