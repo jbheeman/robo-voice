@@ -10,10 +10,20 @@ BASE_DIR = Path(__file__).resolve().parent
 CHUNKS_FILE = BASE_DIR / "ucsc_complete_chunks.json"
 EMBEDDINGS_FILE = BASE_DIR / "ucsc_complete_embeddings.npy"
 
-MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"
+# MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"
+# model = SentenceTransformer(MODEL_NAME)
 
+MODEL_PATH = (
+    BASE_DIR
+    / "ucsc_rag_embedder_training"
+    / "ucsc_minilm_finetuned"
+)
 
-model = SentenceTransformer(MODEL_NAME)
+model = SentenceTransformer(
+    str(MODEL_PATH),
+    local_files_only=True
+)
+
 
 with CHUNKS_FILE.open("r", encoding="utf-8") as file:
     document_chunks = json.load(file)

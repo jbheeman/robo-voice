@@ -1,0 +1,58 @@
+{
+  "base_model": "sentence-transformers/all-MiniLM-L6-v2",
+  "device": "Tesla T4",
+  "final_model_directory": "/content/ucsc_rag_embedder_training/ucsc_minilm_finetuned",
+  "random_seed": 42,
+  "split_ratios": {
+    "train": 0.8,
+    "validation": 0.1,
+    "test": 0.1
+  },
+  "counts": {
+    "corpus_chunks": 1203,
+    "all_questions": 600,
+    "train_questions": 480,
+    "validation_questions": 60,
+    "test_questions": 60
+  },
+  "training": {
+    "epochs": 3,
+    "batch_size": 16,
+    "learning_rate": 2e-05,
+    "loss": "MultipleNegativesRankingLoss"
+  },
+  "trained_validation_metrics": {
+    "validation_cosine_accuracy@1": 0.5666666666666667,
+    "validation_cosine_accuracy@3": 0.8833333333333333,
+    "validation_cosine_accuracy@5": 0.9333333333333333,
+    "validation_cosine_accuracy@10": 0.9333333333333333,
+    "validation_cosine_precision@1": 0.5666666666666667,
+    "validation_cosine_precision@3": 0.29444444444444434,
+    "validation_cosine_precision@5": 0.1866666666666666,
+    "validation_cosine_precision@10": 0.0933333333333333,
+    "validation_cosine_recall@1": 0.5666666666666667,
+    "validation_cosine_recall@3": 0.8833333333333333,
+    "validation_cosine_recall@5": 0.9333333333333333,
+    "validation_cosine_recall@10": 0.9333333333333333,
+    "validation_cosine_ndcg@10": 0.7814484288560585,
+    "validation_cosine_mrr@10": 0.7291666666666666,
+    "validation_cosine_map@10": 0.7291666666666666
+  },
+  "test_metrics": {
+    "test_cosine_accuracy@1": 0.5333333333333333,
+    "test_cosine_accuracy@3": 0.8,
+    "test_cosine_accuracy@5": 0.85,
+    "test_cosine_accuracy@10": 0.9333333333333333,
+    "test_cosine_precision@1": 0.5333333333333333,
+    "test_cosine_precision@3": 0.26666666666666666,
+    "test_cosine_precision@5": 0.16999999999999993,
+    "test_cosine_precision@10": 0.0933333333333333,
+    "test_cosine_recall@1": 0.5333333333333333,
+    "test_cosine_recall@3": 0.8,
+    "test_cosine_recall@5": 0.85,
+    "test_cosine_recall@10": 0.9333333333333333,
+    "test_cosine_ndcg@10": 0.7480151637149116,
+    "test_cosine_mrr@10": 0.6876322751322751,
+    "test_cosine_map@10": 0.6876322751322751
+  }
+}
