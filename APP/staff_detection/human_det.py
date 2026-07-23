@@ -7,7 +7,10 @@ import torch
 from staff_recognition import getPeople
 
 model = YOLO("yolov8n.pt")
+model.export(format="onnx")  # or format="engine" for NVIDIA TensorRT
 
+# Load the optimized model
+optimized_model = YOLO("yolov8n.onnx")
 # Automatically select the best available device
 if torch.backends.mps.is_available():
     device = "mps"
