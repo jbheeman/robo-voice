@@ -6,20 +6,32 @@ import pyttsx3
 import torch
 from staff_recognition import getPeople
 
+
+class ThreadedCamera:
+    def __init__(self, src=0):
+        self.cap = cv2.VideoCapture(src)
+        self.ret, self.frame = self.cap.read()
+        self.stopped = False
+
+    def start(self):
+        # Starts a background thread dedicated solely to reading frames
+        threading.Thread(target=self.update, daemon=True).start()
+        return self
+
+    def update(self):
+        while not self.stopped:
+            self.ret, self.frame = self.cap.read()
+
+    def read(self):
+        # Always returns the most recent frame grabbed by the thread
+        return self.frame
+
+    def stop(self):
+        self.stopped = True
+        self.cap.release()
+        
 model = YOLO("yolov8n.pt")
-model.export(format="onnx")  # or format="engine" for NVIDIA TensorRT
 
-# Load the optimized model
-optimized_model = YOLO("yolov8n.onnx")
-# Automatically select the best available device
-if torch.backends.mps.is_available():
-    device = "mps"
-elif torch.cuda.is_available():
-    device = "cuda"
-else:
-    device = "cpu"
-
-model.to(device)
 GENERIC_GREETING = "Welcome to the UCSC silicon valley extension"
 STAFF_GREETING_TEMPLATE = "Hello, {name}!"
 
@@ -42,9 +54,10 @@ def speak_phrase(text):
 
 
 def main():
-    cap = cv2.VideoCapture(0)
+    cam = ThreadedCamera(src=0).start()
+    time.sleep(1.0)
 
-    if not cap.isOpened():
+    if not cam.isOpened():
         print("Error: Could not open camera.")
         return
 
@@ -58,12 +71,11 @@ def main():
 
     try:
         while True:
-            success, frame = cap.read()
-            if not success:
+            frame = cam.read()
+            if frame is None:
                 break
 
-            small_frame = cv2.resize(frame, (640, 480))
-            results = model(small_frame, stream=True, conf=0.5)
+            results = model(frame, stream=True, conf=0.5)
 
             human_detected = False
             annotated_frame = frame
@@ -123,7 +135,7 @@ def main():
         print(f"Encountered an error: {e}")
     finally:
         print("[INFO] Releasing camera resource...")
-        cap.release()
+        cam.release()
         cv2.destroyAllWindows()
 
 
