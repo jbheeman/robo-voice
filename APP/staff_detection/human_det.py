@@ -7,18 +7,8 @@ import torch
 from staff_recognition import getPeople
 
 model = YOLO("yolov8n.pt")
-# Only for NVIDIA GPUs with CUDA installed
-
 
 # Automatically select the best available device
-if torch.cuda.is_available():
-    device = "cuda"
-elif torch.backends.mps.is_available():
-    device = "mps"
-else:
-    device = "cpu"
-
-model.to(device)
 
 GENERIC_GREETING = "Welcome to the UCSC silicon valley extension"
 STAFF_GREETING_TEMPLATE = "Hello, {name}!"
