@@ -33,6 +33,14 @@ ACRONYMS = {
     "ndcg": "NDCG",
 }
 PERCENT_METRICS = ("accuracy", "precision", "recall", "hit_rate", "success")
+IMPORTANT_TEST_METRICS = (
+    "recall@1",
+    "recall@3",
+    "recall@5",
+    "recall@10",
+    "ndcg@10",
+    "mrr@10",
+)
 
 
 class DisplayError(Exception):
@@ -158,13 +166,20 @@ def metric_label(metric_key: str, section_key: str) -> str:
             name = name[len(prefix) :]
             break
 
+    if name.startswith("cosine_"):
+        name = name.removeprefix("cosine_")
+
     name = re.sub(r"_at_(\d+)$", r"@\1", name)
     label = title_from_key(name)
     return re.sub(r"\s+At\s+(\d+)$", r" @ \1", label)
 
 
-def section_label(section_path: str) -> str:
-    return title_from_key(section_path.split(".")[-1])
+def important_metric_order(metric_key: str) -> int | None:
+    normalized = metric_key.lower().replace("_at_", "@")
+    for index, suffix in enumerate(IMPORTANT_TEST_METRICS):
+        if normalized.endswith(suffix):
+            return index
+    return None
 
 
 def format_metric(metric_key: str, value: int | float, precision: int) -> str:
@@ -177,37 +192,6 @@ def format_metric(metric_key: str, value: int | float, precision: int) -> str:
     return f"{value:.{precision}f}"
 
 
-def format_metadata(data: dict[str, Any]) -> list[tuple[str, str]]:
-    metadata: list[tuple[str, str]] = []
-
-    known_fields = (
-        ("base_model", "Base model"),
-        ("device", "Device"),
-        ("total_questions", "Questions evaluated"),
-    )
-    for key, label in known_fields:
-        value = data.get(key)
-        if isinstance(value, str) and value.strip():
-            metadata.append((label, value))
-        elif is_number(value):
-            metadata.append((label, f"{value:,}"))
-
-    counts = data.get("counts")
-    if isinstance(counts, dict):
-        for key in (
-            "corpus_chunks",
-            "all_questions",
-            "train_questions",
-            "validation_questions",
-            "test_questions",
-        ):
-            value = counts.get(key)
-            if is_number(value):
-                metadata.append((title_from_key(key), f"{value:,}"))
-
-    return metadata
-
-
 def print_rows(rows: list[tuple[str, str]], indent: str = "  ") -> None:
     if not rows:
         return
@@ -217,37 +201,67 @@ def print_rows(rows: list[tuple[str, str]], indent: str = "  ") -> None:
         print(f"{indent}{label:<{label_width}}  {value}")
 
 
+def evaluation_title(path: Path, data: dict[str, Any]) -> str:
+    if path.name == "eval_current_embed_results.json":
+        return "Original Model - Test Evaluation"
+    if "trained_validation_metrics" in data or path.name == "training_summary.json":
+        return "Fine-Tuned Model - Test Evaluation"
+    return f"{title_from_key(path.stem)} - Test Evaluation"
+
+
 def print_evaluation(path: Path, data: dict[str, Any], precision: int) -> None:
-    sections = find_metric_sections(data)
-    if not sections:
+    all_sections = find_metric_sections(data)
+    test_sections = [
+        section
+        for section in all_sections
+        if section[0].split(".")[-1].lower() == "test_metrics"
+    ]
+
+    # Retain support for older original-model files that used a generic
+    # top-level "metrics" block.
+    if not test_sections:
+        test_sections = [
+            section
+            for section in all_sections
+            if section[0].split(".")[-1].lower() == "metrics"
+        ]
+
+    if not test_sections:
         raise DisplayError(
-            f"no numeric 'metrics' or '*_metrics' blocks found in {path}"
+            f"no numeric test metrics block found in {path}"
         )
 
-    title = title_from_key(path.stem)
+    selected_metrics: dict[str, int | float] = {}
+    for _, metrics in test_sections:
+        selected_metrics.update(
+            {
+                metric_key: value
+                for metric_key, value in metrics.items()
+                if important_metric_order(metric_key) is not None
+            }
+        )
+
+    if not selected_metrics:
+        raise DisplayError(f"no important retrieval metrics found in {path}")
+
+    ordered_metrics = sorted(
+        selected_metrics.items(),
+        key=lambda item: important_metric_order(item[0]),
+    )
+    section_path = test_sections[0][0]
+    rows = [
+        (
+            metric_label(metric_key, section_path),
+            format_metric(metric_key, value, precision),
+        )
+        for metric_key, value in ordered_metrics
+    ]
+
     divider = "=" * 72
     print(divider)
-    print(title)
-    print(f"Source: {path}")
-
-    metadata = format_metadata(data)
-    if metadata:
-        print()
-        print("Evaluation context")
-        print_rows(metadata)
-
-    for section_path, metrics in sections:
-        rows = [
-            (
-                metric_label(metric_key, section_path),
-                format_metric(metric_key, value, precision),
-            )
-            for metric_key, value in metrics.items()
-        ]
-        print()
-        print(section_label(section_path))
-        print_rows(rows)
-
+    print(evaluation_title(path, data))
+    print()
+    print_rows(rows)
     print(divider)
 
 

@@ -1,9 +1,15 @@
 import json
 import random
+import shutil
+import time
 from pathlib import Path
 from typing import Any
 
+print("[Stage 1/8] Importing training libraries...", flush=True)
+
+import torch
 from datasets import Dataset
+from google.colab import files
 from sentence_transformers import (
     SentenceTransformer,
     SentenceTransformerTrainer,
@@ -13,16 +19,36 @@ from sentence_transformers import (
 from sentence_transformers.evaluation import InformationRetrievalEvaluator
 from sentence_transformers.training_args import BatchSamplers
 
+print("[Stage 1/8] Done importing libraries.", flush=True)
 
-BASE_DIR = Path(__file__).resolve().parent
 
-QUESTIONS_FILE = BASE_DIR / "ucsc_question_chunk_pairs.json"
-CHUNKS_FILE = BASE_DIR / "ucsc_complete_chunks_with_ids.json"
+# ============================================================
+# PATHS
+# ============================================================
 
-SPLITS_DIR = BASE_DIR / "dataset_splits"
-CHECKPOINT_DIR = BASE_DIR / "models" / "ucsc_minilm_checkpoints"
-FINAL_MODEL_DIR = BASE_DIR / "models" / "ucsc_minilm_finetuned"
-EVALUATION_DIR = BASE_DIR / "embedding_training_evaluations"
+# Files uploaded through Colab's Files sidebar appear in /content.
+INPUT_DIR = Path("/content")
+
+QUESTIONS_FILE = INPUT_DIR / "ucsc_question_chunk_pairs.json"
+CHUNKS_FILE = INPUT_DIR / "ucsc_complete_chunks_with_ids.json"
+
+# Final outputs are stored here temporarily until the ZIP is downloaded.
+OUTPUT_DIR = Path("/content/ucsc_rag_embedder_training")
+
+INPUT_BACKUP_DIR = OUTPUT_DIR / "input_backups"
+SPLITS_DIR = OUTPUT_DIR / "dataset_splits"
+FINAL_MODEL_DIR = OUTPUT_DIR / "ucsc_minilm_finetuned"
+EVALUATION_DIR = OUTPUT_DIR / "embedding_training_evaluations"
+
+# Checkpoints stay outside OUTPUT_DIR so they are not included in the ZIP.
+CHECKPOINT_DIR = Path("/content/ucsc_minilm_checkpoints")
+
+ZIP_BASE_PATH = Path("/content/ucsc_rag_embedder_training")
+
+
+# ============================================================
+# TRAINING SETTINGS
+# ============================================================
 
 BASE_MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"
 
@@ -38,11 +64,35 @@ EVAL_BATCH_SIZE = 32
 LEARNING_RATE = 2e-5
 
 
+# ============================================================
+# HELPER FUNCTIONS
+# ============================================================
+
+def format_elapsed(seconds: float) -> str:
+    minutes, seconds = divmod(int(seconds), 60)
+    hours, minutes = divmod(minutes, 60)
+
+    if hours:
+        return f"{hours}h {minutes}m {seconds}s"
+
+    if minutes:
+        return f"{minutes}m {seconds}s"
+
+    return f"{seconds}s"
+
+
+def stage_message(stage: str, message: str) -> None:
+    print(f"\n[{stage}] {message}", flush=True)
+
+
 def load_json(path: Path) -> Any:
     if not path.exists():
-        raise FileNotFoundError(f"File not found: {path}")
+        raise FileNotFoundError(
+            f"File not found: {path}\n"
+            "Upload the required JSON file through Colab's Files sidebar."
+        )
 
-    with path.open("r", encoding="utf-8") as file:
+    with path.open("r", encoding="utf-8-sig") as file:
         return json.load(file)
 
 
@@ -74,8 +124,10 @@ def extract_chunk_list(data: Any) -> list[dict[str, Any]]:
     """
     if isinstance(data, list):
         chunks = data
+
     elif isinstance(data, dict) and isinstance(data.get("chunks"), list):
         chunks = data["chunks"]
+
     else:
         raise ValueError(
             "The chunks JSON must be a list, or a dictionary containing "
@@ -101,12 +153,6 @@ def extract_chunk_id(chunk: dict[str, Any]) -> str:
 
 
 def extract_document_text(chunk: dict[str, Any]) -> str:
-    """
-    This uses the chunk's `text` field as the document text.
-
-    Keep this formatting consistent when you later regenerate embeddings
-    with the fine-tuned model.
-    """
     text = chunk.get("text")
 
     if not isinstance(text, str) or not text.strip():
@@ -117,7 +163,9 @@ def extract_document_text(chunk: dict[str, Any]) -> str:
     return text.strip()
 
 
-def build_chunk_map(chunks: list[dict[str, Any]]) -> dict[str, str]:
+def build_chunk_map(
+    chunks: list[dict[str, Any]],
+) -> dict[str, str]:
     chunk_map: dict[str, str] = {}
 
     for chunk in chunks:
@@ -199,9 +247,8 @@ def split_by_chunk_id(
     list[dict[str, str]],
 ]:
     """
-    Split unique chunk IDs first, then place every question for a given
-    chunk into the same split. This prevents near-duplicate questions for
-    one chunk from leaking between train, validation, and test.
+    Split unique chunk IDs first so all questions for one chunk remain
+    inside the same train, validation, or test split.
     """
     unique_chunk_ids = sorted({
         pair["chunk_id"]
@@ -210,8 +257,7 @@ def split_by_chunk_id(
 
     if len(unique_chunk_ids) < 3:
         raise ValueError(
-            "At least 3 distinct chunk IDs are required for "
-            "train/validation/test splitting."
+            "At least 3 distinct chunk IDs are required."
         )
 
     rng = random.Random(RANDOM_SEED)
@@ -223,37 +269,55 @@ def split_by_chunk_id(
         1,
         round(total_chunks * VALIDATION_RATIO),
     )
+
     test_count = max(
         1,
         round(total_chunks * TEST_RATIO),
     )
-    train_count = total_chunks - validation_count - test_count
+
+    train_count = (
+        total_chunks
+        - validation_count
+        - test_count
+    )
 
     if train_count < 1:
         raise ValueError(
-            "Not enough distinct chunk IDs for the requested split ratios."
+            "Not enough distinct chunk IDs for the requested splits."
         )
 
-    train_ids = set(unique_chunk_ids[:train_count])
-
-    validation_start = train_count
-    validation_end = train_count + validation_count
+    train_ids = set(
+        unique_chunk_ids[:train_count]
+    )
 
     validation_ids = set(
-        unique_chunk_ids[validation_start:validation_end]
+        unique_chunk_ids[
+            train_count:
+            train_count + validation_count
+        ]
     )
-    test_ids = set(unique_chunk_ids[validation_end:])
+
+    test_ids = set(
+        unique_chunk_ids[
+            train_count + validation_count:
+        ]
+    )
 
     train_pairs = [
-        pair for pair in pairs
+        pair
+        for pair in pairs
         if pair["chunk_id"] in train_ids
     ]
+
     validation_pairs = [
-        pair for pair in pairs
+        pair
+        for pair in pairs
         if pair["chunk_id"] in validation_ids
     ]
+
     test_pairs = [
-        pair for pair in pairs
+        pair
+        for pair in pairs
         if pair["chunk_id"] in test_ids
     ]
 
@@ -289,15 +353,15 @@ def make_ir_evaluator(
 
     for index, pair in enumerate(pairs):
         query_id = f"{name}_question_{index:05d}"
-        queries[query_id] = pair["question"]
-        relevant_docs[query_id] = {pair["chunk_id"]}
 
-    # Evaluate against the full corpus, not only the labeled split.
-    corpus = dict(chunk_map)
+        queries[query_id] = pair["question"]
+        relevant_docs[query_id] = {
+            pair["chunk_id"]
+        }
 
     return InformationRetrievalEvaluator(
         queries=queries,
-        corpus=corpus,
+        corpus=dict(chunk_map),
         relevant_docs=relevant_docs,
         mrr_at_k=[10],
         accuracy_at_k=[1, 3, 5, 10],
@@ -336,56 +400,132 @@ def make_json_serializable(value: Any) -> Any:
     return value
 
 
+# ============================================================
+# MAIN TRAINING PIPELINE
+# ============================================================
+
 def main() -> None:
+    total_start = time.perf_counter()
     random.seed(RANDOM_SEED)
 
-    SPLITS_DIR.mkdir(parents=True, exist_ok=True)
-    CHECKPOINT_DIR.mkdir(parents=True, exist_ok=True)
-    FINAL_MODEL_DIR.mkdir(parents=True, exist_ok=True)
-    EVALUATION_DIR.mkdir(parents=True, exist_ok=True)
+    stage_message(
+        "Stage 2/8",
+        "Checking hardware and preparing output folders...",
+    )
+
+    print(
+        "CUDA available:",
+        torch.cuda.is_available(),
+        flush=True,
+    )
+
+    if torch.cuda.is_available():
+        print(
+            "GPU:",
+            torch.cuda.get_device_name(0),
+            flush=True,
+        )
+
+    else:
+        print(
+            "Warning: No GPU detected. "
+            "In Colab, select Runtime > Change runtime type > GPU.",
+            flush=True,
+        )
+
+    for directory in (
+        OUTPUT_DIR,
+        INPUT_BACKUP_DIR,
+        SPLITS_DIR,
+        FINAL_MODEL_DIR,
+        EVALUATION_DIR,
+        CHECKPOINT_DIR,
+    ):
+        directory.mkdir(
+            parents=True,
+            exist_ok=True,
+        )
+
+    print(
+        "[Stage 2/8] Hardware check and folder setup complete.",
+        flush=True,
+    )
+
+    stage_message(
+        "Stage 3/8",
+        "Loading and validating uploaded JSON files...",
+    )
+
+    data_start = time.perf_counter()
 
     chunks_data = load_json(CHUNKS_FILE)
     question_data = load_json(QUESTIONS_FILE)
 
+    # Save backup copies inside the final ZIP.
+    shutil.copy2(
+        QUESTIONS_FILE,
+        INPUT_BACKUP_DIR / QUESTIONS_FILE.name,
+    )
+
+    shutil.copy2(
+        CHUNKS_FILE,
+        INPUT_BACKUP_DIR / CHUNKS_FILE.name,
+    )
+
     chunks = extract_chunk_list(chunks_data)
     chunk_map = build_chunk_map(chunks)
+
     question_pairs = load_question_pairs(
         question_data,
         chunk_map,
     )
 
-    train_pairs, validation_pairs, test_pairs = split_by_chunk_id(
-        question_pairs
+    print(
+        f"[Stage 3/8] Loaded {len(chunk_map)} chunks and "
+        f"{len(question_pairs)} question pairs in "
+        f"{format_elapsed(time.perf_counter() - data_start)}.",
+        flush=True,
     )
 
-    save_json(train_pairs, SPLITS_DIR / "train.json")
-    save_json(validation_pairs, SPLITS_DIR / "validation.json")
-    save_json(test_pairs, SPLITS_DIR / "test.json")
+    stage_message(
+        "Stage 4/8",
+        "Splitting data and creating training datasets...",
+    )
 
-    print("Dataset split complete")
-    print("-" * 40)
-    print(f"Corpus chunks:       {len(chunk_map)}")
-    print(f"All questions:       {len(question_pairs)}")
-    print(f"Training questions:  {len(train_pairs)}")
-    print(f"Validation questions:{len(validation_pairs):>6}")
-    print(f"Test questions:      {len(test_pairs)}")
-    print(
-        "Training chunk IDs: ",
-        len({pair["chunk_id"] for pair in train_pairs}),
+    split_start = time.perf_counter()
+
+    train_pairs, validation_pairs, test_pairs = (
+        split_by_chunk_id(question_pairs)
     )
-    print(
-        "Validation chunk IDs:",
-        len({pair["chunk_id"] for pair in validation_pairs}),
+
+    save_json(
+        train_pairs,
+        SPLITS_DIR / "train.json",
     )
-    print(
-        "Test chunk IDs:     ",
-        len({pair["chunk_id"] for pair in test_pairs}),
+
+    save_json(
+        validation_pairs,
+        SPLITS_DIR / "validation.json",
     )
+
+    save_json(
+        test_pairs,
+        SPLITS_DIR / "test.json",
+    )
+
+    print("\nDataset split complete")
+    print("-" * 45)
+    print(f"Corpus chunks:        {len(chunk_map)}")
+    print(f"All questions:        {len(question_pairs)}")
+    print(f"Training questions:   {len(train_pairs)}")
+    print(f"Validation questions: {len(validation_pairs)}")
+    print(f"Test questions:       {len(test_pairs)}")
 
     train_dataset = make_training_dataset(
         train_pairs,
         chunk_map,
     )
+
     validation_dataset = make_training_dataset(
         validation_pairs,
         chunk_map,
@@ -396,15 +536,44 @@ def main() -> None:
         chunk_map,
         name="validation",
     )
+
     test_evaluator = make_ir_evaluator(
         test_pairs,
         chunk_map,
         name="test",
     )
 
-    model = SentenceTransformer(BASE_MODEL_NAME)
+    print(
+        f"[Stage 4/8] Splits and datasets ready in "
+        f"{format_elapsed(time.perf_counter() - split_start)}.",
+        flush=True,
+    )
 
-    training_loss = losses.MultipleNegativesRankingLoss(model)
+    stage_message(
+        "Stage 5/8",
+        "Loading the base MiniLM embedding model...",
+    )
+
+    model_start = time.perf_counter()
+
+    model = SentenceTransformer(
+        BASE_MODEL_NAME,
+        device=(
+            "cuda"
+            if torch.cuda.is_available()
+            else "cpu"
+        ),
+    )
+
+    print(
+        f"[Stage 5/8] Base model loaded in "
+        f"{format_elapsed(time.perf_counter() - model_start)}.",
+        flush=True,
+    )
+
+    training_loss = (
+        losses.MultipleNegativesRankingLoss(model)
+    )
 
     training_args = SentenceTransformerTrainingArguments(
         output_dir=str(CHECKPOINT_DIR),
@@ -420,7 +589,7 @@ def main() -> None:
         logging_steps=10,
         report_to="none",
         seed=RANDOM_SEED,
-        fp16=False,
+        fp16=torch.cuda.is_available(),
         bf16=False,
     )
 
@@ -433,20 +602,65 @@ def main() -> None:
         evaluator=validation_evaluator,
     )
 
-    print("\nStarting fine-tuning...")
+    stage_message(
+        "Stage 6/8",
+        f"Starting fine-tuning for {NUM_EPOCHS} epochs. "
+        "The progress bar below shows training steps.",
+    )
+
+    training_start = time.perf_counter()
+
     trainer.train()
 
-    model.save_pretrained(str(FINAL_MODEL_DIR))
+    print(
+        f"[Stage 6/8] Fine-tuning finished in "
+        f"{format_elapsed(time.perf_counter() - training_start)}.",
+        flush=True,
+    )
 
-    print("\nEvaluating the trained model on validation data...")
-    trained_validation_metrics = validation_evaluator(
+    stage_message(
+        "Stage 7/8",
+        "Saving the model and evaluating validation/test sets...",
+    )
+
+    evaluation_start = time.perf_counter()
+
+    print(
+        "Saving the final model...",
+        flush=True,
+    )
+
+    model.save_pretrained(
+        str(FINAL_MODEL_DIR)
+    )
+
+    print(
+        "Final model saved.",
+        flush=True,
+    )
+
+    print(
+        "Evaluating the trained model on validation data...",
+        flush=True,
+    )
+
+    validation_metrics = validation_evaluator(
         model,
         output_path=str(EVALUATION_DIR),
         epoch=NUM_EPOCHS,
         steps=-1,
     )
 
-    print("\nEvaluating the trained model on the held-out test data...")
+    print(
+        "Validation evaluation complete.",
+        flush=True,
+    )
+
+    print(
+        "Evaluating the trained model on held-out test data...",
+        flush=True,
+    )
+
     test_metrics = test_evaluator(
         model,
         output_path=str(EVALUATION_DIR),
@@ -454,8 +668,29 @@ def main() -> None:
         steps=-1,
     )
 
+    print(
+        "Test evaluation complete.",
+        flush=True,
+    )
+
+    print(
+        f"[Stage 7/8] Saving and evaluation finished in "
+        f"{format_elapsed(time.perf_counter() - evaluation_start)}.",
+        flush=True,
+    )
+
+    stage_message(
+        "Stage 8/8",
+        "Writing the summary, creating the ZIP, and starting download...",
+    )
+
     summary = {
         "base_model": BASE_MODEL_NAME,
+        "device": (
+            torch.cuda.get_device_name(0)
+            if torch.cuda.is_available()
+            else "CPU"
+        ),
         "final_model_directory": str(FINAL_MODEL_DIR),
         "random_seed": RANDOM_SEED,
         "split_ratios": {
@@ -469,18 +704,6 @@ def main() -> None:
             "train_questions": len(train_pairs),
             "validation_questions": len(validation_pairs),
             "test_questions": len(test_pairs),
-            "train_chunk_ids": len({
-                pair["chunk_id"]
-                for pair in train_pairs
-            }),
-            "validation_chunk_ids": len({
-                pair["chunk_id"]
-                for pair in validation_pairs
-            }),
-            "test_chunk_ids": len({
-                pair["chunk_id"]
-                for pair in test_pairs
-            }),
         },
         "training": {
             "epochs": NUM_EPOCHS,
@@ -488,24 +711,49 @@ def main() -> None:
             "learning_rate": LEARNING_RATE,
             "loss": "MultipleNegativesRankingLoss",
         },
-        "trained_validation_metrics": make_json_serializable(
-            trained_validation_metrics
+        "trained_validation_metrics": (
+            make_json_serializable(validation_metrics)
         ),
-        "test_metrics": make_json_serializable(test_metrics),
+        "test_metrics": (
+            make_json_serializable(test_metrics)
+        ),
     }
 
-    summary_file = EVALUATION_DIR / "training_summary.json"
-    save_json(summary, summary_file)
+    summary_file = (
+        EVALUATION_DIR
+        / "training_summary.json"
+    )
+
+    save_json(
+        summary,
+        summary_file,
+    )
+
+    zip_path = shutil.make_archive(
+        str(ZIP_BASE_PATH),
+        "zip",
+        root_dir=OUTPUT_DIR,
+    )
+
+    total_elapsed = (
+        time.perf_counter()
+        - total_start
+    )
 
     print("\nTraining complete")
-    print("-" * 40)
-    print(f"Fine-tuned model: {FINAL_MODEL_DIR}")
-    print(f"Dataset splits:   {SPLITS_DIR}")
-    print(f"Metrics summary:  {summary_file}")
+    print("-" * 45)
+    print(f"Total runtime:       {format_elapsed(total_elapsed)}")
+    print(f"Final model folder:  {FINAL_MODEL_DIR}")
+    print(f"Dataset splits:      {SPLITS_DIR}")
+    print(f"Metrics summary:     {summary_file}")
+    print(f"ZIP file:            {zip_path}")
     print(
-        "\nNext, regenerate every document embedding using the "
-        "fine-tuned model before using it in rag_search."
+        "\nThe browser download should begin now. "
+        "Do not reset the runtime until it finishes.",
+        flush=True,
     )
+
+    files.download(zip_path)
 
 
 if __name__ == "__main__":
