@@ -37,12 +37,16 @@ names = {
   27: "Yuyin Zhou",
 }
 
+# Folder containing one subfolder per person
+FACULTY_IMAGES_DIR = "faculty_images2"
 ENCODINGS_PATH = "encodings.joblib"
 MODEL_NAME = "Facenet"
 
 DETECTOR_BACKEND = "retinaface"
 
 MATCH_THRESHOLD = 0.40
+
+VALID_EXTENSIONS = (".jpg", ".jpeg", ".png")
 
 
 def _cosine_distance(a, b):
@@ -51,25 +55,54 @@ def _cosine_distance(a, b):
     return 1 - (np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b)))
 
 
+def _folder_name_for(name):
+    # "Jose Renau" -> "Jose_Renau" (matches the extracted zip's folder names)
+    return name.replace(" ", "_")
+
+
 def initEncodings():
+    """
+    Builds one embedding per training image (not per person) and stores them
+    grouped by person index, so each person can have a variable number of
+    reference photos (2, 3, or more).
+    """
     print("[INFO] Building faculty encodings...")
-    encodings = []
-    for i in range(len(names)):
-        path = str(pathlib.Path("faculty_images") / f"{i}.jpg")
-        try:
-            result = DeepFace.represent(
-                img_path=path,
-                model_name=MODEL_NAME,
-                detector_backend=DETECTOR_BACKEND,
-                enforce_detection=False,  
-            )
-            if result and len(result) > 0:
-                encodings.append(result[0]["embedding"])
-            else:
-                encodings.append(None)
-        except Exception as e:
-            print(f"[WARN] Could not encode faculty_images/{i}.jpg ({names.get(i)}): {e}")
-            encodings.append(None)
+    encodings = {}  # person_index -> list of embeddings
+
+    for i, name in names.items():
+        person_dir = pathlib.Path(FACULTY_IMAGES_DIR) / _folder_name_for(name)
+        person_embeddings = []
+
+        if not person_dir.is_dir():
+            print(f"[WARN] No folder found for {name} at {person_dir}")
+            encodings[i] = person_embeddings
+            continue
+
+        image_paths = sorted(
+            p for p in person_dir.iterdir()
+            if p.suffix.lower() in VALID_EXTENSIONS
+        )
+
+        if not image_paths:
+            print(f"[WARN] No images found in {person_dir}")
+
+        for img_path in image_paths:
+            try:
+                result = DeepFace.represent(
+                    img_path=str(img_path),
+                    model_name=MODEL_NAME,
+                    detector_backend=DETECTOR_BACKEND,
+                    enforce_detection=False,
+                )
+                if result and len(result) > 0:
+                    person_embeddings.append(result[0]["embedding"])
+                else:
+                    print(f"[WARN] No face found in {img_path}")
+            except Exception as e:
+                print(f"[WARN] Could not encode {img_path} ({name}): {e}")
+
+        encodings[i] = person_embeddings
+        print(f"[INFO] {name}: {len(person_embeddings)} embedding(s) built")
 
     joblib.dump(encodings, ENCODINGS_PATH)
     print("[INFO] Encodings saved to disk.")
@@ -105,13 +138,16 @@ def getPeople(frame):
 
         best_index = None
         best_distance = None
-        for i, known_embedding in enumerate(encodings):
-            if known_embedding is None:
-                continue
-            distance = _cosine_distance(embedding, known_embedding)
-            if best_distance is None or distance < best_distance:
-                best_distance = distance
-                best_index = i
+
+        # Compare against every stored embedding for every person, and keep
+        # whichever single reference photo is closest (nearest-neighbor 
+        # matching across all training images)
+        for i, known_embeddings in encodings.items():
+            for known_embedding in known_embeddings:
+                distance = _cosine_distance(embedding, known_embedding)
+                if best_distance is None or distance < best_distance:
+                    best_distance = distance
+                    best_index = i
 
         if best_index is not None and best_distance < MATCH_THRESHOLD:
             frame_names.append(names[best_index])
