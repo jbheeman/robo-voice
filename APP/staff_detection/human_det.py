@@ -57,7 +57,7 @@ def main():
     cam = ThreadedCamera(src=0).start()
     time.sleep(1.0)
 
-    if not cam.isOpened():
+    if not cap.isOpened():
         print("Error: Could not open camera.")
         return
 
