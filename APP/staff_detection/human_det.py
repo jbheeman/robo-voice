@@ -9,7 +9,14 @@ from staff_recognition import getPeople
 model = YOLO("yolov8n.pt")
 
 # Automatically select the best available device
+if torch.backends.mps.is_available():
+    device = "mps"
+elif torch.cuda.is_available():
+    device = "cuda"
+else:
+    device = "cpu"
 
+model.to(device)
 GENERIC_GREETING = "Welcome to the UCSC silicon valley extension"
 STAFF_GREETING_TEMPLATE = "Hello, {name}!"
 
