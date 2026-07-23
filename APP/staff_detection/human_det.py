@@ -3,36 +3,9 @@ import time
 import threading
 from ultralytics import YOLO
 import pyttsx3
-import torch
+
 from staff_recognition import getPeople
 
-
-class ThreadedCamera:
-    def __init__(self, src=0):
-        self.cap = cv2.VideoCapture(src)
-        self.ret, self.frame = self.cap.read()
-        self.stopped = False
-
-    def start(self):
-        # Starts a background thread dedicated solely to reading frames
-        threading.Thread(target=self.update, daemon=True).start()
-        return self
-
-    def update(self):
-        while not self.stopped:
-            self.ret, self.frame = self.cap.read()
-
-    def read(self):
-        # Always returns the most recent frame grabbed by the thread
-        return self.frame
-   
-    def isOpened(self):
-        return self.cap.isOpened()
-   
-    def stop(self):
-        self.stopped = True
-        self.cap.release()
-        
 model = YOLO("yolov8n.pt")
 
 GENERIC_GREETING = "Welcome to the UCSC silicon valley extension"
@@ -57,10 +30,9 @@ def speak_phrase(text):
 
 
 def main():
-    cam = ThreadedCamera(src=0).start()
-    time.sleep(1.0)
+    cap = cv2.VideoCapture(0)
 
-    if not cam.isOpened():
+    if not cap.isOpened():
         print("Error: Could not open camera.")
         return
 
@@ -74,8 +46,8 @@ def main():
 
     try:
         while True:
-            frame = cam.read()
-            if frame is None:
+            success, frame = cap.read()
+            if not success:
                 break
 
             results = model(frame, stream=True, conf=0.5)
@@ -138,7 +110,7 @@ def main():
         print(f"Encountered an error: {e}")
     finally:
         print("[INFO] Releasing camera resource...")
-        cam.release()
+        cap.release()
         cv2.destroyAllWindows()
 
 
