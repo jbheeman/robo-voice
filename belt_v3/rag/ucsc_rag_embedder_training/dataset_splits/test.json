@@ -1,0 +1,242 @@
+[
+  {
+    "question": "Who is the 11th chancellor of UC Santa Cruz?",
+    "chunk_id": "chunk_00077"
+  },
+  {
+    "question": "What goals did Cynthia Larive prioritize after arriving at UCSC in 2019?",
+    "chunk_id": "chunk_00077"
+  },
+  {
+    "question": "What is Chancellor Larive's academic background?",
+    "chunk_id": "chunk_00077"
+  },
+  {
+    "question": "How does UCSC describe Chancellor Cynthia Larive's leadership priorities?",
+    "chunk_id": "chunk_00077"
+  },
+  {
+    "question": "How many academic fields and concentrations are available for graduate study at UCSC?",
+    "chunk_id": "chunk_00084"
+  },
+  {
+    "question": "Do UCSC graduate programs include interdisciplinary components?",
+    "chunk_id": "chunk_00084"
+  },
+  {
+    "question": "What major Graduate Division events are mentioned for graduate students?",
+    "chunk_id": "chunk_00084"
+  },
+  {
+    "question": "What kinds of academic and mentoring resources are highlighted for UCSC graduate students?",
+    "chunk_id": "chunk_00084"
+  },
+  {
+    "question": "How many residential colleges and student organizations does UCSC have?",
+    "chunk_id": "chunk_00087"
+  },
+  {
+    "question": "Why is UCSC's location useful for internships and future employment?",
+    "chunk_id": "chunk_00087"
+  },
+  {
+    "question": "What physical, mental, emotional, and safety resources are available to UCSC students?",
+    "chunk_id": "chunk_00087"
+  },
+  {
+    "question": "What information is included in UCSC's Annual Security and Fire Safety Report?",
+    "chunk_id": "chunk_00087"
+  },
+  {
+    "question": "How does El Centro support student transition, retention, and graduation?",
+    "chunk_id": "chunk_00316"
+  },
+  {
+    "question": "What is La Bienvenida at UC Santa Cruz?",
+    "chunk_id": "chunk_00316"
+  },
+  {
+    "question": "When is El Centro's La Bienvenida welcome event held?",
+    "chunk_id": "chunk_00316"
+  },
+  {
+    "question": "What does La Bienvenida help new students connect with?",
+    "chunk_id": "chunk_00316"
+  },
+  {
+    "question": "What does Student Business Services help students do in MyUCSC?",
+    "chunk_id": "chunk_00168"
+  },
+  {
+    "question": "Who should students contact with eBill or ePay access questions?",
+    "chunk_id": "chunk_00168"
+  },
+  {
+    "question": "Can Student Business Services explain billing statements and payment information?",
+    "chunk_id": "chunk_00168"
+  },
+  {
+    "question": "What billing resources and referrals are provided by UCSC Student Business Services?",
+    "chunk_id": "chunk_00168"
+  },
+  {
+    "question": "What services does the Office of the Registrar manage at UCSC?",
+    "chunk_id": "chunk_00216"
+  },
+  {
+    "question": "Where should students check important enrollment and academic deadlines?",
+    "chunk_id": "chunk_00216"
+  },
+  {
+    "question": "How does the Registrar support registration, transcripts, and graduation?",
+    "chunk_id": "chunk_00216"
+  },
+  {
+    "question": "What academic records should students keep updated in MyUCSC?",
+    "chunk_id": "chunk_00216"
+  },
+  {
+    "question": "What major astronomy collaborations and research areas involve UC Santa Cruz?",
+    "chunk_id": "chunk_00149"
+  },
+  {
+    "question": "How does UCSC use the James Webb Space Telescope in astronomy research?",
+    "chunk_id": "chunk_00149"
+  },
+  {
+    "question": "What are UCSC astrophysicists studying about fast radio bursts?",
+    "chunk_id": "chunk_00149"
+  },
+  {
+    "question": "Why is UCSC considered a leader in observational, instrumental, and computational astrophysics?",
+    "chunk_id": "chunk_00149"
+  },
+  {
+    "question": "What fields are included in UCSC's interdisciplinary study of literature?",
+    "chunk_id": "chunk_00818"
+  },
+  {
+    "question": "How does the Literature Department encourage comparative approaches?",
+    "chunk_id": "chunk_00818"
+  },
+  {
+    "question": "What values does the UCSC Literature Department commit to?",
+    "chunk_id": "chunk_00818"
+  },
+  {
+    "question": "How does the department describe its goals for inclusion and cultural diversity?",
+    "chunk_id": "chunk_00818"
+  },
+  {
+    "question": "What is the current status of the Digital Arts and New Media MFA program?",
+    "chunk_id": "chunk_00432"
+  },
+  {
+    "question": "When did Graduate Council review the DANM restructuring documents?",
+    "chunk_id": "chunk_00432"
+  },
+  {
+    "question": "Why were admissions to the DANM MFA suspended for 2023–24?",
+    "chunk_id": "chunk_00432"
+  },
+  {
+    "question": "What planning information did Graduate Council request about future DANM admissions?",
+    "chunk_id": "chunk_00432"
+  },
+  {
+    "question": "What gap is the Center for Research in Open Source Software designed to bridge?",
+    "chunk_id": "chunk_00301"
+  },
+  {
+    "question": "How does CROSS fund innovative projects after students graduate?",
+    "chunk_id": "chunk_00301"
+  },
+  {
+    "question": "How does CROSS help research prototypes connect with open-source communities and companies?",
+    "chunk_id": "chunk_00301"
+  },
+  {
+    "question": "What is the purpose of the University of California Open Source Program Office Network?",
+    "chunk_id": "chunk_00301"
+  },
+  {
+    "question": "What teaching challenges can the Teaching and Learning Center resource library help with?",
+    "chunk_id": "chunk_00296"
+  },
+  {
+    "question": "How does the TLC support inclusive and effective teaching at UCSC?",
+    "chunk_id": "chunk_00296"
+  },
+  {
+    "question": "What programs, workshops, and learning communities are available to campus educators?",
+    "chunk_id": "chunk_00296"
+  },
+  {
+    "question": "How can faculty partner with the TLC on course design and grants?",
+    "chunk_id": "chunk_00296"
+  },
+  {
+    "question": "What information is included in UCSC's budget overview?",
+    "chunk_id": "chunk_00172"
+  },
+  {
+    "question": "Where can campus users find recent budget updates and communications?",
+    "chunk_id": "chunk_00172"
+  },
+  {
+    "question": "What does the annual budget framework explain?",
+    "chunk_id": "chunk_00172"
+  },
+  {
+    "question": "How do the General Budgeting Guidelines support campus budget development?",
+    "chunk_id": "chunk_00172"
+  },
+  {
+    "question": "When was the 2026 women's volleyball match against Cal Poly Humboldt scheduled?",
+    "chunk_id": "chunk_00155"
+  },
+  {
+    "question": "Who was the UCSC women's soccer team scheduled to play on August 22, 2026?",
+    "chunk_id": "chunk_00155"
+  },
+  {
+    "question": "Where was the men's soccer match against CSU Monterey Bay scheduled?",
+    "chunk_id": "chunk_00155"
+  },
+  {
+    "question": "Which UCSC teams had events listed for August 23, 2026?",
+    "chunk_id": "chunk_00155"
+  },
+  {
+    "question": "How can a student organization get a funding request added to an SUA meeting agenda?",
+    "chunk_id": "chunk_01125"
+  },
+  {
+    "question": "What is the deadline for contacting the SUA Parliamentarian before a meeting?",
+    "chunk_id": "chunk_01125"
+  },
+  {
+    "question": "What vote is required for a funding request of 10 percent or less of the line item?",
+    "chunk_id": "chunk_01125"
+  },
+  {
+    "question": "What criteria must an event meet to be considered for SUA general programming funds?",
+    "chunk_id": "chunk_01125"
+  },
+  {
+    "question": "What services can Residential Community Service Partners provide?",
+    "chunk_id": "chunk_00344"
+  },
+  {
+    "question": "How do RCSPs coordinate with police, fire, and University Dispatch?",
+    "chunk_id": "chunk_00344"
+  },
+  {
+    "question": "What phone number should residents call for RCSP dispatch assistance?",
+    "chunk_id": "chunk_00344"
+  },
+  {
+    "question": "Can RCSPs help with lockouts, first aid, noise concerns, and nighttime maintenance?",
+    "chunk_id": "chunk_00344"
+  }
+]

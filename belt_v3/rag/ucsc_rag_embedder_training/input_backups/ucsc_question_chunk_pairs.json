@@ -1,0 +1,2402 @@
+[
+  {
+    "question": "How many undergraduate and graduate students attend UC Santa Cruz?",
+    "chunk_id": "chunk_00000"
+  },
+  {
+    "question": "What is the total size of the UC Santa Cruz student body?",
+    "chunk_id": "chunk_00000"
+  },
+  {
+    "question": "Where is the UC Santa Cruz campus located in relation to the redwoods and Pacific Ocean?",
+    "chunk_id": "chunk_00000"
+  },
+  {
+    "question": "How many undergraduate majors and graduate programs does UCSC offer?",
+    "chunk_id": "chunk_00000"
+  },
+  {
+    "question": "How long does undergraduate advising support students at UC Santa Cruz?",
+    "chunk_id": "chunk_00005"
+  },
+  {
+    "question": "Who should I contact for help choosing classes or planning my next academic steps?",
+    "chunk_id": "chunk_00005"
+  },
+  {
+    "question": "Where can a UCSC student find their academic advisor?",
+    "chunk_id": "chunk_00005"
+  },
+  {
+    "question": "What important spring 2026 academic dates are listed by Undergraduate Advising?",
+    "chunk_id": "chunk_00005"
+  },
+  {
+    "question": "What areas of academic planning does Academic Affairs lead at UCSC?",
+    "chunk_id": "chunk_00056"
+  },
+  {
+    "question": "Which office handles new program development and external program reviews at UC Santa Cruz?",
+    "chunk_id": "chunk_00056"
+  },
+  {
+    "question": "Is UC Santa Cruz accredited by the WASC Senior College and University Commission?",
+    "chunk_id": "chunk_00056"
+  },
+  {
+    "question": "What academic planning resources are listed for course redesign and learning outcomes?",
+    "chunk_id": "chunk_00056"
+  },
+  {
+    "question": "How many undergraduate majors does UC Santa Cruz offer?",
+    "chunk_id": "chunk_00061"
+  },
+  {
+    "question": "How many graduate programs are available at UCSC?",
+    "chunk_id": "chunk_00061"
+  },
+  {
+    "question": "How close is UC Santa Cruz to Silicon Valley?",
+    "chunk_id": "chunk_00061"
+  },
+  {
+    "question": "What academic opportunities and facilities are highlighted on the UCSC academics page?",
+    "chunk_id": "chunk_00061"
+  },
+  {
+    "question": "Since what year has UC Santa Cruz been fully accredited by WSCUC?",
+    "chunk_id": "chunk_00070"
+  },
+  {
+    "question": "When was UCSC's accreditation most recently reaffirmed?",
+    "chunk_id": "chunk_00070"
+  },
+  {
+    "question": "What reviews took place during UCSC's 2025 accreditation cycle?",
+    "chunk_id": "chunk_00070"
+  },
+  {
+    "question": "What standards and assessment processes guide UCSC accreditation?",
+    "chunk_id": "chunk_00070"
+  },
+  {
+    "question": "Who is the 11th chancellor of UC Santa Cruz?",
+    "chunk_id": "chunk_00077"
+  },
+  {
+    "question": "What goals did Cynthia Larive prioritize after arriving at UCSC in 2019?",
+    "chunk_id": "chunk_00077"
+  },
+  {
+    "question": "What is Chancellor Larive's academic background?",
+    "chunk_id": "chunk_00077"
+  },
+  {
+    "question": "How does UCSC describe Chancellor Cynthia Larive's leadership priorities?",
+    "chunk_id": "chunk_00077"
+  },
+  {
+    "question": "How many academic fields and concentrations are available for graduate study at UCSC?",
+    "chunk_id": "chunk_00084"
+  },
+  {
+    "question": "Do UCSC graduate programs include interdisciplinary components?",
+    "chunk_id": "chunk_00084"
+  },
+  {
+    "question": "What major Graduate Division events are mentioned for graduate students?",
+    "chunk_id": "chunk_00084"
+  },
+  {
+    "question": "What kinds of academic and mentoring resources are highlighted for UCSC graduate students?",
+    "chunk_id": "chunk_00084"
+  },
+  {
+    "question": "How many residential colleges and student organizations does UCSC have?",
+    "chunk_id": "chunk_00087"
+  },
+  {
+    "question": "Why is UCSC's location useful for internships and future employment?",
+    "chunk_id": "chunk_00087"
+  },
+  {
+    "question": "What physical, mental, emotional, and safety resources are available to UCSC students?",
+    "chunk_id": "chunk_00087"
+  },
+  {
+    "question": "What information is included in UCSC's Annual Security and Fire Safety Report?",
+    "chunk_id": "chunk_00087"
+  },
+  {
+    "question": "What communities does the African American Resource and Cultural Center support?",
+    "chunk_id": "chunk_00098"
+  },
+  {
+    "question": "What are some programs and cultural events offered by AARCC?",
+    "chunk_id": "chunk_00098"
+  },
+  {
+    "question": "How do AARCC mentoring programs support students at UCSC?",
+    "chunk_id": "chunk_00098"
+  },
+  {
+    "question": "What leadership and professional development benefits can AARCC mentors gain?",
+    "chunk_id": "chunk_00098"
+  },
+  {
+    "question": "What is the mission of the American Indian Resource Center at UCSC?",
+    "chunk_id": "chunk_00112"
+  },
+  {
+    "question": "How does AIRC increase Native visibility on campus?",
+    "chunk_id": "chunk_00112"
+  },
+  {
+    "question": "What mentoring and leadership opportunities does AIRC offer?",
+    "chunk_id": "chunk_00112"
+  },
+  {
+    "question": "How does the American Indian Resource Center help students transition to campus life?",
+    "chunk_id": "chunk_00112"
+  },
+  {
+    "question": "Which student communities are supported by the Asian American and Pacific Islander Resource Center?",
+    "chunk_id": "chunk_00147"
+  },
+  {
+    "question": "What awards, scholarships, and retention resources does AA/PIRC offer?",
+    "chunk_id": "chunk_00147"
+  },
+  {
+    "question": "What kinds of cultural courses and educational opportunities are available through AA/PIRC?",
+    "chunk_id": "chunk_00147"
+  },
+  {
+    "question": "What types of events does AA/PIRC host for AA/PI and SWANA communities?",
+    "chunk_id": "chunk_00147"
+  },
+  {
+    "question": "What is the mission of the Lionel Cantú Queer Resource Center?",
+    "chunk_id": "chunk_00251"
+  },
+  {
+    "question": "How does the Cantú Queer Center challenge binary ideas about gender and sexuality?",
+    "chunk_id": "chunk_00251"
+  },
+  {
+    "question": "Where is the Cantú Cabin located on the UCSC campus?",
+    "chunk_id": "chunk_00251"
+  },
+  {
+    "question": "What support and resources can students find at the Cantú Cabin?",
+    "chunk_id": "chunk_00251"
+  },
+  {
+    "question": "What is the mission of the UCSC Women's Center?",
+    "chunk_id": "chunk_01193"
+  },
+  {
+    "question": "When was the UCSC Women's Center established?",
+    "chunk_id": "chunk_01193"
+  },
+  {
+    "question": "What support can students find through the Women's Center resource guide?",
+    "chunk_id": "chunk_01193"
+  },
+  {
+    "question": "What annual events are hosted by the UCSC Women's Center?",
+    "chunk_id": "chunk_01193"
+  },
+  {
+    "question": "How does El Centro support student transition, retention, and graduation?",
+    "chunk_id": "chunk_00316"
+  },
+  {
+    "question": "What is La Bienvenida at UC Santa Cruz?",
+    "chunk_id": "chunk_00316"
+  },
+  {
+    "question": "When is El Centro's La Bienvenida welcome event held?",
+    "chunk_id": "chunk_00316"
+  },
+  {
+    "question": "What does La Bienvenida help new students connect with?",
+    "chunk_id": "chunk_00316"
+  },
+  {
+    "question": "What kinds of situations does UCSC CARE provide confidential support for?",
+    "chunk_id": "chunk_00227"
+  },
+  {
+    "question": "Is support from the CARE office free and confidential?",
+    "chunk_id": "chunk_00227"
+  },
+  {
+    "question": "How can someone request an advocacy session from CARE?",
+    "chunk_id": "chunk_00227"
+  },
+  {
+    "question": "What prevention workshops and community resources does the CARE office provide?",
+    "chunk_id": "chunk_00227"
+  },
+  {
+    "question": "What academic accommodations can the Disability Resource Center provide?",
+    "chunk_id": "chunk_00440"
+  },
+  {
+    "question": "How does the DRC help faculty create an equitable learning environment?",
+    "chunk_id": "chunk_00440"
+  },
+  {
+    "question": "How can a student contact the UCSC Disability Resource Center?",
+    "chunk_id": "chunk_00440"
+  },
+  {
+    "question": "What assistive technology and note-taking support are available through the DRC?",
+    "chunk_id": "chunk_00440"
+  },
+  {
+    "question": "Can UCSC students speak with a CAPS counselor without an appointment?",
+    "chunk_id": "chunk_00376"
+  },
+  {
+    "question": "What psychiatric services are available through CAPS?",
+    "chunk_id": "chunk_00376"
+  },
+  {
+    "question": "How can a CAPS case manager help a student find mental health care?",
+    "chunk_id": "chunk_00376"
+  },
+  {
+    "question": "What on-campus, off-campus, and digital mental health resources does CAPS connect students with?",
+    "chunk_id": "chunk_00376"
+  },
+  {
+    "question": "What medical services are offered by the UCSC Student Health Center?",
+    "chunk_id": "chunk_00681"
+  },
+  {
+    "question": "How can a Student Health case manager help with providers and insurance coverage?",
+    "chunk_id": "chunk_00681"
+  },
+  {
+    "question": "What health insurance and immunization requirements apply to UC students?",
+    "chunk_id": "chunk_00681"
+  },
+  {
+    "question": "Where can students find mental health, recovery, and after-hours health resources?",
+    "chunk_id": "chunk_00681"
+  },
+  {
+    "question": "Is the UCSC online Orientation Course required for new students?",
+    "chunk_id": "chunk_00243"
+  },
+  {
+    "question": "When should new students complete the online Orientation Course?",
+    "chunk_id": "chunk_00243"
+  },
+  {
+    "question": "Where is the UCSC Orientation Course completed?",
+    "chunk_id": "chunk_00243"
+  },
+  {
+    "question": "How can Orientation Leaders help students with enrollment and campus-life questions?",
+    "chunk_id": "chunk_00243"
+  },
+  {
+    "question": "What kinds of challenges can Slug Support case managers help students navigate?",
+    "chunk_id": "chunk_00241"
+  },
+  {
+    "question": "Where can UCSC students learn about their rights and responsibilities?",
+    "chunk_id": "chunk_00241"
+  },
+  {
+    "question": "What is the purpose of the Get Connected page?",
+    "chunk_id": "chunk_00241"
+  },
+  {
+    "question": "How can students find campus resources, communities, and opportunities at UCSC?",
+    "chunk_id": "chunk_00241"
+  },
+  {
+    "question": "By how much has UCSC reduced water use compared with the 2005 to 2008 baseline?",
+    "chunk_id": "chunk_00247"
+  },
+  {
+    "question": "Did UCSC exceed its 2025 water conservation target?",
+    "chunk_id": "chunk_00247"
+  },
+  {
+    "question": "How much has per-capita municipal solid waste generation decreased at UCSC?",
+    "chunk_id": "chunk_00247"
+  },
+  {
+    "question": "What percentage of campus waste is currently diverted from landfills?",
+    "chunk_id": "chunk_00247"
+  },
+  {
+    "question": "What can UCSC students do through Handshake?",
+    "chunk_id": "chunk_00269"
+  },
+  {
+    "question": "Does every UCSC student already have a Handshake account?",
+    "chunk_id": "chunk_00269"
+  },
+  {
+    "question": "How do students sign in to Handshake at UC Santa Cruz?",
+    "chunk_id": "chunk_00269"
+  },
+  {
+    "question": "What career industry resources and opportunities does Career Success provide?",
+    "chunk_id": "chunk_00269"
+  },
+  {
+    "question": "What career platforms are available to UCSC alumni within two years of graduation?",
+    "chunk_id": "chunk_00262"
+  },
+  {
+    "question": "What topics can recent alumni discuss in one-on-one career coaching appointments?",
+    "chunk_id": "chunk_00262"
+  },
+  {
+    "question": "How can employers post jobs for UCSC students and alumni?",
+    "chunk_id": "chunk_00262"
+  },
+  {
+    "question": "What is the purpose of the SlugsHireSlugs hashtag?",
+    "chunk_id": "chunk_00262"
+  },
+  {
+    "question": "How much annual financial aid and resources does UCSC provide?",
+    "chunk_id": "chunk_00627"
+  },
+  {
+    "question": "How much undergraduate scholarship funding is awarded each year at UCSC?",
+    "chunk_id": "chunk_00627"
+  },
+  {
+    "question": "About how many students receive undergraduate scholarships from UCSC each year?",
+    "chunk_id": "chunk_00627"
+  },
+  {
+    "question": "How does the Financial Aid and Scholarship Office help students reduce financial barriers?",
+    "chunk_id": "chunk_00627"
+  },
+  {
+    "question": "What does Student Business Services help students do in MyUCSC?",
+    "chunk_id": "chunk_00168"
+  },
+  {
+    "question": "Who should students contact with eBill or ePay access questions?",
+    "chunk_id": "chunk_00168"
+  },
+  {
+    "question": "Can Student Business Services explain billing statements and payment information?",
+    "chunk_id": "chunk_00168"
+  },
+  {
+    "question": "What billing resources and referrals are provided by UCSC Student Business Services?",
+    "chunk_id": "chunk_00168"
+  },
+  {
+    "question": "What convenience fee applies to domestic credit card payments at UCSC?",
+    "chunk_id": "chunk_00276"
+  },
+  {
+    "question": "What convenience fee applies to international credit card payments?",
+    "chunk_id": "chunk_00276"
+  },
+  {
+    "question": "When does the $3 minimum convenience fee apply to a transaction?",
+    "chunk_id": "chunk_00276"
+  },
+  {
+    "question": "Who collects the credit card convenience fees for UCSC payments?",
+    "chunk_id": "chunk_00276"
+  },
+  {
+    "question": "Who is eligible for Highway 17 Express round-trip vouchers from UCSC?",
+    "chunk_id": "chunk_00202"
+  },
+  {
+    "question": "How many one-way Highway 17 vouchers can a student request for financial hardship?",
+    "chunk_id": "chunk_00202"
+  },
+  {
+    "question": "Can lost or stolen Highway 17 vouchers be replaced?",
+    "chunk_id": "chunk_00202"
+  },
+  {
+    "question": "Where must financial-hardship Highway 17 vouchers be picked up?",
+    "chunk_id": "chunk_00202"
+  },
+  {
+    "question": "Which campus circulator routes are listed by UCSC Transportation?",
+    "chunk_id": "chunk_00204"
+  },
+  {
+    "question": "What service provides point-to-point rides on campus after dark?",
+    "chunk_id": "chunk_00204"
+  },
+  {
+    "question": "What shuttle connects the residential campus with the Silicon Valley Campus?",
+    "chunk_id": "chunk_00204"
+  },
+  {
+    "question": "Which transportation service is available for riders with functional and access needs?",
+    "chunk_id": "chunk_00204"
+  },
+  {
+    "question": "What transportation options does TAPS offer besides driving alone?",
+    "chunk_id": "chunk_00908"
+  },
+  {
+    "question": "How does TAPS encourage sustainable transportation around campus?",
+    "chunk_id": "chunk_00908"
+  },
+  {
+    "question": "What rideshare choices are available to UCSC commuters?",
+    "chunk_id": "chunk_00908"
+  },
+  {
+    "question": "Which campus transportation programs include buses, METRO, DVS, and Safe Ride?",
+    "chunk_id": "chunk_00908"
+  },
+  {
+    "question": "What are the six service areas used by the Disability Van Service?",
+    "chunk_id": "chunk_00443"
+  },
+  {
+    "question": "What are DVS ride hours during the regular school term?",
+    "chunk_id": "chunk_00443"
+  },
+  {
+    "question": "When must weekend and late-night DVS rides be scheduled?",
+    "chunk_id": "chunk_00443"
+  },
+  {
+    "question": "How many wheelchair-accessible minivans are in the DVS fleet?",
+    "chunk_id": "chunk_00443"
+  },
+  {
+    "question": "How does UCSC Dining support students with dietary restrictions or food insecurity?",
+    "chunk_id": "chunk_00437"
+  },
+  {
+    "question": "What can students do with the GET dining app?",
+    "chunk_id": "chunk_00437"
+  },
+  {
+    "question": "How many tons of food scraps does UCSC Dining divert from landfills each year?",
+    "chunk_id": "chunk_00437"
+  },
+  {
+    "question": "What sustainability and allergy information does UCSC Dining provide?",
+    "chunk_id": "chunk_00437"
+  },
+  {
+    "question": "Which UCSC dining hall was listed as open until 7 PM?",
+    "chunk_id": "chunk_00213"
+  },
+  {
+    "question": "Which campus coffee house was listed as open until 8 PM?",
+    "chunk_id": "chunk_00213"
+  },
+  {
+    "question": "When was the Perk Coffee Bar at Baskin Engineering scheduled to reopen?",
+    "chunk_id": "chunk_00213"
+  },
+  {
+    "question": "Which campus dining location was closed until fall 2026?",
+    "chunk_id": "chunk_00213"
+  },
+  {
+    "question": "When should fall 2026 undergraduate housing assignments be released?",
+    "chunk_id": "chunk_00711"
+  },
+  {
+    "question": "When is UCSC fall-quarter move-in scheduled for 2026?",
+    "chunk_id": "chunk_00711"
+  },
+  {
+    "question": "What information is available on each UCSC housing community page?",
+    "chunk_id": "chunk_00711"
+  },
+  {
+    "question": "By what date can students submit fall meal-plan changes through the housing portal?",
+    "chunk_id": "chunk_00711"
+  },
+  {
+    "question": "How do graduate students apply for UCSC housing?",
+    "chunk_id": "chunk_00672"
+  },
+  {
+    "question": "When was the summer and fall 2026 graduate housing application period?",
+    "chunk_id": "chunk_00672"
+  },
+  {
+    "question": "When are most graduate housing assignments made?",
+    "chunk_id": "chunk_00672"
+  },
+  {
+    "question": "What kind of contract is Graduate Student Housing primarily intended for?",
+    "chunk_id": "chunk_00672"
+  },
+  {
+    "question": "What housing features are offered to UCSC students with families?",
+    "chunk_id": "chunk_00613"
+  },
+  {
+    "question": "Does Family Student Housing provide two-bedroom apartments and year-round contracts?",
+    "chunk_id": "chunk_00613"
+  },
+  {
+    "question": "What child-care programs are available near Family Student Housing?",
+    "chunk_id": "chunk_00613"
+  },
+  {
+    "question": "Where are UCSC Early Education Services located in relation to Family Student Housing?",
+    "chunk_id": "chunk_00613"
+  },
+  {
+    "question": "How can landlords advertise rentals to UCSC students, staff, and faculty?",
+    "chunk_id": "chunk_00340"
+  },
+  {
+    "question": "What information can a Places4Students rental listing include?",
+    "chunk_id": "chunk_00340"
+  },
+  {
+    "question": "What topics are covered in the Understanding Lease Agreements resources?",
+    "chunk_id": "chunk_00340"
+  },
+  {
+    "question": "What tenant rights are highlighted for students living off campus?",
+    "chunk_id": "chunk_00340"
+  },
+  {
+    "question": "What is the purpose of the UCSC Early Education Center?",
+    "chunk_id": "chunk_00319"
+  },
+  {
+    "question": "Which age groups are served by the Early Education Center?",
+    "chunk_id": "chunk_00319"
+  },
+  {
+    "question": "Where is the new UCSC Early Education Center located?",
+    "chunk_id": "chunk_00319"
+  },
+  {
+    "question": "How does the Early Education Center support UCSC students and employees?",
+    "chunk_id": "chunk_00319"
+  },
+  {
+    "question": "What services does the Office of the Registrar manage at UCSC?",
+    "chunk_id": "chunk_00216"
+  },
+  {
+    "question": "Where should students check important enrollment and academic deadlines?",
+    "chunk_id": "chunk_00216"
+  },
+  {
+    "question": "How does the Registrar support registration, transcripts, and graduation?",
+    "chunk_id": "chunk_00216"
+  },
+  {
+    "question": "What academic records should students keep updated in MyUCSC?",
+    "chunk_id": "chunk_00216"
+  },
+  {
+    "question": "What does the Degree Progress Unit help UCSC students do?",
+    "chunk_id": "chunk_00415"
+  },
+  {
+    "question": "How can a Degree Progress Report help a student stay on track for graduation?",
+    "chunk_id": "chunk_00415"
+  },
+  {
+    "question": "Where can students see how transfer courses apply to their UCSC degree?",
+    "chunk_id": "chunk_00415"
+  },
+  {
+    "question": "What information is available about exam credit and course equivalencies?",
+    "chunk_id": "chunk_00415"
+  },
+  {
+    "question": "Where can students find their assigned enrollment appointment in MyUCSC?",
+    "chunk_id": "chunk_00580"
+  },
+  {
+    "question": "How does UCSC's two-pass enrollment system work for frosh, sophomores, and juniors?",
+    "chunk_id": "chunk_00580"
+  },
+  {
+    "question": "How many credits can most students enroll in during their first and second passes?",
+    "chunk_id": "chunk_00580"
+  },
+  {
+    "question": "Which students can enroll in 19 credits during the first enrollment pass?",
+    "chunk_id": "chunk_00580"
+  },
+  {
+    "question": "How many academic programs are listed in the UCSC program finder?",
+    "chunk_id": "chunk_00828"
+  },
+  {
+    "question": "How can students filter the list of undergraduate majors at UCSC?",
+    "chunk_id": "chunk_00828"
+  },
+  {
+    "question": "Where should a student go after choosing a UCSC major to learn about applying?",
+    "chunk_id": "chunk_00828"
+  },
+  {
+    "question": "What broad academic areas are represented in the UCSC majors list?",
+    "chunk_id": "chunk_00828"
+  },
+  {
+    "question": "Who is allowed to take classes through UCSC Summer Session?",
+    "chunk_id": "chunk_01135"
+  },
+  {
+    "question": "Are UCSC summer courses available both online and in person?",
+    "chunk_id": "chunk_01135"
+  },
+  {
+    "question": "How can high school students earn UC credit during the summer?",
+    "chunk_id": "chunk_01135"
+  },
+  {
+    "question": "What options does Summer Session provide for current, former, and visiting students?",
+    "chunk_id": "chunk_01135"
+  },
+  {
+    "question": "What are Global Classrooms at UC Santa Cruz?",
+    "chunk_id": "chunk_01133"
+  },
+  {
+    "question": "What is the UCDC Washington academic internship program?",
+    "chunk_id": "chunk_01133"
+  },
+  {
+    "question": "How does UCEAP differ from independent study-abroad programs?",
+    "chunk_id": "chunk_01133"
+  },
+  {
+    "question": "Which study-abroad and service-learning options are listed for UCSC students?",
+    "chunk_id": "chunk_01133"
+  },
+  {
+    "question": "What does UCSC's internationalization plan say about global collaboration?",
+    "chunk_id": "chunk_00535"
+  },
+  {
+    "question": "Why does UCSC emphasize international perspectives in education and research?",
+    "chunk_id": "chunk_00535"
+  },
+  {
+    "question": "What international services and programming updates are highlighted by the campus?",
+    "chunk_id": "chunk_00535"
+  },
+  {
+    "question": "How does UCSC connect global learning with problem-solving across borders?",
+    "chunk_id": "chunk_00535"
+  },
+  {
+    "question": "When are UCDC information sessions usually held?",
+    "chunk_id": "chunk_01169"
+  },
+  {
+    "question": "What GPA is required to be considered for the UCDC program?",
+    "chunk_id": "chunk_01169"
+  },
+  {
+    "question": "What class standing and coursework are required for UCDC applicants?",
+    "chunk_id": "chunk_01169"
+  },
+  {
+    "question": "Are students from all majors allowed to apply to UCDC?",
+    "chunk_id": "chunk_01169"
+  },
+  {
+    "question": "How can students find courses that satisfy the PR-S general education requirement?",
+    "chunk_id": "chunk_00755"
+  },
+  {
+    "question": "Where can UCSC students search for nonprofit volunteer opportunities?",
+    "chunk_id": "chunk_00755"
+  },
+  {
+    "question": "What is the difference between volunteer opportunities and field-study courses?",
+    "chunk_id": "chunk_00755"
+  },
+  {
+    "question": "How do practicum and field-study courses combine experience with academic reflection?",
+    "chunk_id": "chunk_00755"
+  },
+  {
+    "question": "Can undergraduate students participate in world-class research at UC Santa Cruz?",
+    "chunk_id": "chunk_00996"
+  },
+  {
+    "question": "What kinds of creative and scientific research opportunities are available to undergraduates?",
+    "chunk_id": "chunk_00996"
+  },
+  {
+    "question": "Which UCSC researchers are highlighted for work in earthquakes, cyber-physical systems, justice, and ancient DNA?",
+    "chunk_id": "chunk_00996"
+  },
+  {
+    "question": "How do undergraduate research experiences support career exploration?",
+    "chunk_id": "chunk_00996"
+  },
+  {
+    "question": "What kinds of materials can students search through the UCSC Library databases?",
+    "chunk_id": "chunk_00812"
+  },
+  {
+    "question": "How can students reserve a study room at the University Library?",
+    "chunk_id": "chunk_00812"
+  },
+  {
+    "question": "What research-help services are available through the UCSC Library?",
+    "chunk_id": "chunk_00812"
+  },
+  {
+    "question": "What technology, remote access, and course-guide resources does the library provide?",
+    "chunk_id": "chunk_00812"
+  },
+  {
+    "question": "What printing, scanning, and computer services are available at McHenry Library?",
+    "chunk_id": "chunk_00846"
+  },
+  {
+    "question": "How many people can use McHenry Library's reservable study spaces?",
+    "chunk_id": "chunk_00846"
+  },
+  {
+    "question": "What support is available through the Digital Scholarship Commons?",
+    "chunk_id": "chunk_00846"
+  },
+  {
+    "question": "Which special archive is featured in a public exhibit at McHenry Library?",
+    "chunk_id": "chunk_00846"
+  },
+  {
+    "question": "When did the Science and Engineering Library originally open?",
+    "chunk_id": "chunk_01014"
+  },
+  {
+    "question": "What goals are described for the S&E Library renovation?",
+    "chunk_id": "chunk_01014"
+  },
+  {
+    "question": "How will the redesigned library support STEM students and faculty?",
+    "chunk_id": "chunk_01014"
+  },
+  {
+    "question": "How can donors support or name spaces in the Science and Engineering Library?",
+    "chunk_id": "chunk_01014"
+  },
+  {
+    "question": "What is Canvas used for at UC Santa Cruz?",
+    "chunk_id": "chunk_00255"
+  },
+  {
+    "question": "What can instructors do with the UCSC Canvas learning management system?",
+    "chunk_id": "chunk_00255"
+  },
+  {
+    "question": "What can students access and submit through Canvas?",
+    "chunk_id": "chunk_00255"
+  },
+  {
+    "question": "Does Canvas support in-person, hybrid, and fully online courses?",
+    "chunk_id": "chunk_00255"
+  },
+  {
+    "question": "Which Google Workspace tools are available at UC Santa Cruz?",
+    "chunk_id": "chunk_00218"
+  },
+  {
+    "question": "How do UCSC users sign in to Google Workspace services?",
+    "chunk_id": "chunk_00218"
+  },
+  {
+    "question": "Are Google Workspace services provided at no cost to the UCSC community?",
+    "chunk_id": "chunk_00218"
+  },
+  {
+    "question": "Which collaboration and storage features are included with UCSC Google Workspace?",
+    "chunk_id": "chunk_00218"
+  },
+  {
+    "question": "What email service does UC Santa Cruz provide?",
+    "chunk_id": "chunk_00553"
+  },
+  {
+    "question": "How can UCSC users organize messages and collaborate through Gmail?",
+    "chunk_id": "chunk_00553"
+  },
+  {
+    "question": "Which chat and video-call features are integrated with UCSC email?",
+    "chunk_id": "chunk_00553"
+  },
+  {
+    "question": "Who is eligible to use the UCSC Gmail service?",
+    "chunk_id": "chunk_00553"
+  },
+  {
+    "question": "How can students connect to Wi-Fi on the UCSC campus?",
+    "chunk_id": "chunk_01191"
+  },
+  {
+    "question": "What wireless options are available in residence halls and Family Student Housing?",
+    "chunk_id": "chunk_01191"
+  },
+  {
+    "question": "Where can visitors find information about guest wireless access?",
+    "chunk_id": "chunk_01191"
+  },
+  {
+    "question": "What does the UCSC wireless guide explain about campus and cellular coverage?",
+    "chunk_id": "chunk_01191"
+  },
+  {
+    "question": "What is eduroam and where can it be used at UC Santa Cruz?",
+    "chunk_id": "chunk_00542"
+  },
+  {
+    "question": "Who is eligible to use UCSC's eduroam wireless network?",
+    "chunk_id": "chunk_00542"
+  },
+  {
+    "question": "What credentials are required to connect to eduroam?",
+    "chunk_id": "chunk_00542"
+  },
+  {
+    "question": "Is campus wireless access through eduroam free?",
+    "chunk_id": "chunk_00542"
+  },
+  {
+    "question": "How can someone contact the UCSC ITS support desk?",
+    "chunk_id": "chunk_00353"
+  },
+  {
+    "question": "What are the phone-support hours for UCSC computer help?",
+    "chunk_id": "chunk_00353"
+  },
+  {
+    "question": "Where can users check for IT outages and scheduled maintenance?",
+    "chunk_id": "chunk_00353"
+  },
+  {
+    "question": "What common technology issues can ITS help with?",
+    "chunk_id": "chunk_00353"
+  },
+  {
+    "question": "What role does Information Technology Services play at UC Santa Cruz?",
+    "chunk_id": "chunk_00725"
+  },
+  {
+    "question": "Who can receive technical support from UCSC ITS?",
+    "chunk_id": "chunk_00725"
+  },
+  {
+    "question": "What digital accessibility initiative is highlighted by ITS?",
+    "chunk_id": "chunk_00725"
+  },
+  {
+    "question": "Where can students and employees find UCSC technology guides and security resources?",
+    "chunk_id": "chunk_00725"
+  },
+  {
+    "question": "What is ResWiFi-Devices used for in UCSC residence halls?",
+    "chunk_id": "chunk_00769"
+  },
+  {
+    "question": "How does ITS provide secure file storage for groups and individual users?",
+    "chunk_id": "chunk_00769"
+  },
+  {
+    "question": "When would someone request an information-security exception?",
+    "chunk_id": "chunk_00769"
+  },
+  {
+    "question": "What software and softphone services are available through the ITS catalog?",
+    "chunk_id": "chunk_00769"
+  },
+  {
+    "question": "How many computer labs are managed by UCSC ITS?",
+    "chunk_id": "chunk_00144"
+  },
+  {
+    "question": "What operating systems are available in campus computer labs?",
+    "chunk_id": "chunk_00144"
+  },
+  {
+    "question": "Who is eligible to use UCSC instructional computer labs?",
+    "chunk_id": "chunk_00144"
+  },
+  {
+    "question": "What printing, scanning, software, and accessibility tools are available in the labs?",
+    "chunk_id": "chunk_00144"
+  },
+  {
+    "question": "How far in advance should an audio-visual event-support request be submitted?",
+    "chunk_id": "chunk_00161"
+  },
+  {
+    "question": "What information should be included in an AV support request?",
+    "chunk_id": "chunk_00161"
+  },
+  {
+    "question": "What audio equipment can UCSC provide for campus events?",
+    "chunk_id": "chunk_00161"
+  },
+  {
+    "question": "Who are the listed contacts for event AV support and video production?",
+    "chunk_id": "chunk_00161"
+  },
+  {
+    "question": "Where was the UCSC Copy Center scheduled to move in summer 2026?",
+    "chunk_id": "chunk_00371"
+  },
+  {
+    "question": "When was the Copy Center's last day in Baskin Engineering?",
+    "chunk_id": "chunk_00371"
+  },
+  {
+    "question": "When was the Copy Center scheduled to reopen in H Barn?",
+    "chunk_id": "chunk_00371"
+  },
+  {
+    "question": "What was the final job-submission deadline before the 2026 Copy Center move?",
+    "chunk_id": "chunk_00371"
+  },
+  {
+    "question": "What can people search for in the UCSC Campus Directory?",
+    "chunk_id": "chunk_00238"
+  },
+  {
+    "question": "Can the UCSC directory be used for commercial purposes?",
+    "chunk_id": "chunk_00238"
+  },
+  {
+    "question": "Where can users update their directory listing or CruzAlert information?",
+    "chunk_id": "chunk_00238"
+  },
+  {
+    "question": "Which privacy law is cited for protecting information in the campus directory?",
+    "chunk_id": "chunk_00238"
+  },
+  {
+    "question": "What is the general mailing address for UC Santa Cruz?",
+    "chunk_id": "chunk_00075"
+  },
+  {
+    "question": "What is the campus operator phone number?",
+    "chunk_id": "chunk_00075"
+  },
+  {
+    "question": "What mailing address should be used for a student at Rachel Carson College?",
+    "chunk_id": "chunk_00075"
+  },
+  {
+    "question": "What are the street addresses for Cowell, Crown, and Kresge Colleges?",
+    "chunk_id": "chunk_00075"
+  },
+  {
+    "question": "How far is UC Santa Cruz from San Francisco?",
+    "chunk_id": "chunk_01189"
+  },
+  {
+    "question": "Which airport is closest to the UCSC campus?",
+    "chunk_id": "chunk_01189"
+  },
+  {
+    "question": "Which highways serve Santa Cruz?",
+    "chunk_id": "chunk_01189"
+  },
+  {
+    "question": "What transportation and public campus destinations are recommended for visitors?",
+    "chunk_id": "chunk_01189"
+  },
+  {
+    "question": "How long is a student-guided UCSC campus tour?",
+    "chunk_id": "chunk_01149"
+  },
+  {
+    "question": "What terrain and walking conditions should visitors expect on the tour?",
+    "chunk_id": "chunk_01149"
+  },
+  {
+    "question": "How early should visitors arrive for a guided campus tour?",
+    "chunk_id": "chunk_01149"
+  },
+  {
+    "question": "Is there a self-guided mobile tour for people who cannot attend a scheduled tour?",
+    "chunk_id": "chunk_01149"
+  },
+  {
+    "question": "What major astronomy collaborations and research areas involve UC Santa Cruz?",
+    "chunk_id": "chunk_00149"
+  },
+  {
+    "question": "How does UCSC use the James Webb Space Telescope in astronomy research?",
+    "chunk_id": "chunk_00149"
+  },
+  {
+    "question": "What are UCSC astrophysicists studying about fast radio bursts?",
+    "chunk_id": "chunk_00149"
+  },
+  {
+    "question": "Why is UCSC considered a leader in observational, instrumental, and computational astrophysics?",
+    "chunk_id": "chunk_00149"
+  },
+  {
+    "question": "What topics does anthropology study at UC Santa Cruz?",
+    "chunk_id": "chunk_00116"
+  },
+  {
+    "question": "What careers can a UCSC anthropology degree prepare students for?",
+    "chunk_id": "chunk_00116"
+  },
+  {
+    "question": "How does the anthropology major combine biological and cultural perspectives?",
+    "chunk_id": "chunk_00116"
+  },
+  {
+    "question": "What archaeological experience is mentioned at the Cowell Lime Works Historic District?",
+    "chunk_id": "chunk_00116"
+  },
+  {
+    "question": "When was the Baskin School of Engineering founded?",
+    "chunk_id": "chunk_00121"
+  },
+  {
+    "question": "How does Baskin Engineering describe its approach to socially responsible innovation?",
+    "chunk_id": "chunk_00121"
+  },
+  {
+    "question": "What kind of community does Baskin Engineering offer to problem solvers?",
+    "chunk_id": "chunk_00121"
+  },
+  {
+    "question": "How do Baskin faculty and students use technology to create positive social impact?",
+    "chunk_id": "chunk_00121"
+  },
+  {
+    "question": "Which foundational subjects are included in the biochemistry and molecular biology major?",
+    "chunk_id": "chunk_00170"
+  },
+  {
+    "question": "Is the BMB major a screening major for transfer students?",
+    "chunk_id": "chunk_00170"
+  },
+  {
+    "question": "What career areas are listed for graduates of the BMB program?",
+    "chunk_id": "chunk_00170"
+  },
+  {
+    "question": "How can students contact the biochemistry and molecular biology advising office?",
+    "chunk_id": "chunk_00170"
+  },
+  {
+    "question": "What does the Biomolecular cryoEM Facility provide to researchers?",
+    "chunk_id": "chunk_00310"
+  },
+  {
+    "question": "What support is available through the Macromolecular Structure Function Core Facility?",
+    "chunk_id": "chunk_00310"
+  },
+  {
+    "question": "Which mass spectrometry instruments are housed by the Chemistry and Biochemistry Department?",
+    "chunk_id": "chunk_00310"
+  },
+  {
+    "question": "How many high-resolution NMR spectrometers are managed by the NMR facility?",
+    "chunk_id": "chunk_00310"
+  },
+  {
+    "question": "Which undergraduate degrees are offered by Earth and Planetary Sciences?",
+    "chunk_id": "chunk_00455"
+  },
+  {
+    "question": "What graduate degrees and combined pathways are available in Earth and Planetary Sciences?",
+    "chunk_id": "chunk_00455"
+  },
+  {
+    "question": "What is UCSC studying about wetlands, carbon sequestration, and air quality?",
+    "chunk_id": "chunk_00455"
+  },
+  {
+    "question": "How does the partnership with NASA Ames support students and research collaboration?",
+    "chunk_id": "chunk_00455"
+  },
+  {
+    "question": "What ecosystems do UCSC ecology and evolutionary biology researchers study?",
+    "chunk_id": "chunk_00458"
+  },
+  {
+    "question": "How do small classes and faculty collaboration shape the EEB student experience?",
+    "chunk_id": "chunk_00458"
+  },
+  {
+    "question": "Where do UCSC EEB students and faculty conduct field research?",
+    "chunk_id": "chunk_00458"
+  },
+  {
+    "question": "How has UCSC contributed to advances in ecological theory and genetic technology?",
+    "chunk_id": "chunk_00458"
+  },
+  {
+    "question": "How can economics students get involved in labs, centers, and research initiatives?",
+    "chunk_id": "chunk_00465"
+  },
+  {
+    "question": "What areas of experimental and behavioral economics are highlighted in department news?",
+    "chunk_id": "chunk_00465"
+  },
+  {
+    "question": "What economic argument was made for resilient coastal forests?",
+    "chunk_id": "chunk_00465"
+  },
+  {
+    "question": "Where can students find economics events and Ph.D. job-market placement information?",
+    "chunk_id": "chunk_00465"
+  },
+  {
+    "question": "What research themes does the UCSC Education Department focus on?",
+    "chunk_id": "chunk_00532"
+  },
+  {
+    "question": "How does education research at UCSC address equity and systemic barriers?",
+    "chunk_id": "chunk_00532"
+  },
+  {
+    "question": "What broader outcomes can education improve according to the department?",
+    "chunk_id": "chunk_00532"
+  },
+  {
+    "question": "How does the Education Department work with communities and account for history and power?",
+    "chunk_id": "chunk_00532"
+  },
+  {
+    "question": "What careers are listed for electrical and computer engineering students?",
+    "chunk_id": "chunk_00546"
+  },
+  {
+    "question": "How is ECE research being used in smart tractors and irrigation systems?",
+    "chunk_id": "chunk_00546"
+  },
+  {
+    "question": "What happened at the first UCSC agentic AI hackathon with NVIDIA and ASUS?",
+    "chunk_id": "chunk_00546"
+  },
+  {
+    "question": "How does the Braingeneers platform support students' identities as scientists?",
+    "chunk_id": "chunk_00546"
+  },
+  {
+    "question": "How are graduate students admitted into the Environmental Studies program?",
+    "chunk_id": "chunk_00596"
+  },
+  {
+    "question": "What is the purpose of the environmental studies designated emphasis?",
+    "chunk_id": "chunk_00596"
+  },
+  {
+    "question": "Which academic disciplines are represented among Environmental Studies faculty?",
+    "chunk_id": "chunk_00596"
+  },
+  {
+    "question": "How does the department approach interdisciplinary environmental problem-solving?",
+    "chunk_id": "chunk_00596"
+  },
+  {
+    "question": "What topics are covered in FMST 175 on genders and sexualities in Latin America?",
+    "chunk_id": "chunk_00617"
+  },
+  {
+    "question": "When is the highlighted FMST 175 summer course scheduled?",
+    "chunk_id": "chunk_00617"
+  },
+  {
+    "question": "How does FMST 175 examine power, race, coloniality, and transnational processes?",
+    "chunk_id": "chunk_00617"
+  },
+  {
+    "question": "Where is the summer Feminist Studies course FMST 175 held?",
+    "chunk_id": "chunk_00617"
+  },
+  {
+    "question": "When was the 2026 Social Documentation MFA Thesis Screening scheduled?",
+    "chunk_id": "chunk_00625"
+  },
+  {
+    "question": "Where was the SocDoc MFA Thesis Screening held?",
+    "chunk_id": "chunk_00625"
+  },
+  {
+    "question": "What kind of films are shown at the annual Social Documentation thesis screening?",
+    "chunk_id": "chunk_00625"
+  },
+  {
+    "question": "Which graduating students' work is featured at the SocDoc MFA screening?",
+    "chunk_id": "chunk_00625"
+  },
+  {
+    "question": "What skills do students develop in the UCSC history major?",
+    "chunk_id": "chunk_00703"
+  },
+  {
+    "question": "How does a history degree help students understand different regions and time periods?",
+    "chunk_id": "chunk_00703"
+  },
+  {
+    "question": "Why might a student in another major add a history minor?",
+    "chunk_id": "chunk_00703"
+  },
+  {
+    "question": "What is the global and transnational focus of the UCSC history Ph.D. program?",
+    "chunk_id": "chunk_00703"
+  },
+  {
+    "question": "What kinds of visual media and cultures are studied in HAVC?",
+    "chunk_id": "chunk_00707"
+  },
+  {
+    "question": "How does the HAVC major develop visual literacy?",
+    "chunk_id": "chunk_00707"
+  },
+  {
+    "question": "What undergraduate degrees are available in History of Art and Visual Culture?",
+    "chunk_id": "chunk_00707"
+  },
+  {
+    "question": "What is the focus of the Visual Studies Ph.D. program?",
+    "chunk_id": "chunk_00707"
+  },
+  {
+    "question": "How can a legal studies minor complement another UCSC major?",
+    "chunk_id": "chunk_00808"
+  },
+  {
+    "question": "How flexible are the course choices for the legal studies minor?",
+    "chunk_id": "chunk_00808"
+  },
+  {
+    "question": "What professional experience do Legal Studies lecturers bring to the program?",
+    "chunk_id": "chunk_00808"
+  },
+  {
+    "question": "What aspects of law do UCSC Legal Studies faculty research?",
+    "chunk_id": "chunk_00808"
+  },
+  {
+    "question": "What fields are included in UCSC's interdisciplinary study of literature?",
+    "chunk_id": "chunk_00818"
+  },
+  {
+    "question": "How does the Literature Department encourage comparative approaches?",
+    "chunk_id": "chunk_00818"
+  },
+  {
+    "question": "What values does the UCSC Literature Department commit to?",
+    "chunk_id": "chunk_00818"
+  },
+  {
+    "question": "How does the department describe its goals for inclusion and cultural diversity?",
+    "chunk_id": "chunk_00818"
+  },
+  {
+    "question": "What does the UCSC marine biology major teach about marine ecosystems?",
+    "chunk_id": "chunk_00830"
+  },
+  {
+    "question": "How does the marine biology B.S. compare with the general biology B.A.?",
+    "chunk_id": "chunk_00830"
+  },
+  {
+    "question": "What careers or graduate pathways can a marine biology degree support?",
+    "chunk_id": "chunk_00830"
+  },
+  {
+    "question": "How can marine biology graduates prepare to teach K–12 science?",
+    "chunk_id": "chunk_00830"
+  },
+  {
+    "question": "Which undergraduate and graduate mathematics degrees are offered at UCSC?",
+    "chunk_id": "chunk_00836"
+  },
+  {
+    "question": "What seminars and colloquia are hosted by the Mathematics Department?",
+    "chunk_id": "chunk_00836"
+  },
+  {
+    "question": "How do math circles and summer programs support the broader community?",
+    "chunk_id": "chunk_00836"
+  },
+  {
+    "question": "When are most UCSC mathematics seminars held?",
+    "chunk_id": "chunk_00836"
+  },
+  {
+    "question": "When and where are the MCD Biology seminars held?",
+    "chunk_id": "chunk_00860"
+  },
+  {
+    "question": "Which course numbers correspond to the department's regular seminars?",
+    "chunk_id": "chunk_00860"
+  },
+  {
+    "question": "What kinds of academic job openings are listed by MCD Biology?",
+    "chunk_id": "chunk_00860"
+  },
+  {
+    "question": "Where should applicants ask about additional postdoctoral opportunities?",
+    "chunk_id": "chunk_00860"
+  },
+  {
+    "question": "What degrees and pathways are offered in Microbiology and Environmental Toxicology?",
+    "chunk_id": "chunk_00856"
+  },
+  {
+    "question": "What careers does the METX training environment prepare students for?",
+    "chunk_id": "chunk_00856"
+  },
+  {
+    "question": "What did UCSC toxicologists find about maternal diet and metabolic risk?",
+    "chunk_id": "chunk_00856"
+  },
+  {
+    "question": "How is lead exposure affecting California condors according to METX research?",
+    "chunk_id": "chunk_00856"
+  },
+  {
+    "question": "What performance and composition opportunities are available to UCSC music students?",
+    "chunk_id": "chunk_00874"
+  },
+  {
+    "question": "Who teaches instrument and voice lessons in the Music Department?",
+    "chunk_id": "chunk_00874"
+  },
+  {
+    "question": "How do ensemble courses give students regular performance experience?",
+    "chunk_id": "chunk_00874"
+  },
+  {
+    "question": "Which undergraduate and graduate music degrees are offered at UCSC?",
+    "chunk_id": "chunk_00874"
+  },
+  {
+    "question": "How highly was UCSC ranked in marine and freshwater biology in 2025?",
+    "chunk_id": "chunk_00891"
+  },
+  {
+    "question": "How many research partners work with Ocean Sciences around Monterey Bay?",
+    "chunk_id": "chunk_00891"
+  },
+  {
+    "question": "What areas of oceanography are studied by UCSC Ocean Sciences faculty?",
+    "chunk_id": "chunk_00891"
+  },
+  {
+    "question": "How can students access research facilities and equipment in Ocean Sciences?",
+    "chunk_id": "chunk_00891"
+  },
+  {
+    "question": "Which UCSC philosophy Ph.D. students received Humanities Institute summer fellowships in 2026?",
+    "chunk_id": "chunk_00916"
+  },
+  {
+    "question": "What was the purpose of the grant for the Queer Analytic Philosophy Conference?",
+    "chunk_id": "chunk_00916"
+  },
+  {
+    "question": "How much funding did philosophy faculty receive from the American Philosophical Association?",
+    "chunk_id": "chunk_00916"
+  },
+  {
+    "question": "What research and event opportunities are highlighted by the Philosophy Department?",
+    "chunk_id": "chunk_00916"
+  },
+  {
+    "question": "What physics degrees are offered at UC Santa Cruz?",
+    "chunk_id": "chunk_00934"
+  },
+  {
+    "question": "What is the weekly Condensed Matter Seminar and Colloquium?",
+    "chunk_id": "chunk_00934"
+  },
+  {
+    "question": "How can students add the UCSC Physics events calendar?",
+    "chunk_id": "chunk_00934"
+  },
+  {
+    "question": "What detection-system research is being developed for next-generation accelerators?",
+    "chunk_id": "chunk_00934"
+  },
+  {
+    "question": "What requirements apply to the designated emphasis in politics?",
+    "chunk_id": "chunk_00942"
+  },
+  {
+    "question": "How many Politics courses must designated-emphasis students take?",
+    "chunk_id": "chunk_00942"
+  },
+  {
+    "question": "Which subfields are represented among UCSC Politics faculty?",
+    "chunk_id": "chunk_00942"
+  },
+  {
+    "question": "How does the Politics Department contribute to debates on local, national, and global issues?",
+    "chunk_id": "chunk_00942"
+  },
+  {
+    "question": "What research topics are studied by the UCSC Psychology Department?",
+    "chunk_id": "chunk_00971"
+  },
+  {
+    "question": "How does psychology research at UCSC address identity, gender, racism, and classism?",
+    "chunk_id": "chunk_00971"
+  },
+  {
+    "question": "What recent research is highlighted on LGBT experiences across generations?",
+    "chunk_id": "chunk_00971"
+  },
+  {
+    "question": "Which psychology topics are connected to dreams, sleep, and consciousness?",
+    "chunk_id": "chunk_00971"
+  },
+  {
+    "question": "How does the sociology program teach students to use technology for social change?",
+    "chunk_id": "chunk_01037"
+  },
+  {
+    "question": "What is distinctive about the UCSC sociology Ph.D. program?",
+    "chunk_id": "chunk_01037"
+  },
+  {
+    "question": "What is a designated emphasis in sociology?",
+    "chunk_id": "chunk_01037"
+  },
+  {
+    "question": "Which other disciplines contribute to the Sociology Department's interdisciplinary approach?",
+    "chunk_id": "chunk_01037"
+  },
+  {
+    "question": "What critical-analysis skills are expected from Spanish Studies students?",
+    "chunk_id": "chunk_01044"
+  },
+  {
+    "question": "How does the Spanish Studies program connect Latin America, Spain, and U.S. Latino communities?",
+    "chunk_id": "chunk_01044"
+  },
+  {
+    "question": "Why does the department encourage students to declare the Spanish Studies major early?",
+    "chunk_id": "chunk_01044"
+  },
+  {
+    "question": "Why is careful sequencing of Spanish Studies prerequisites and requirements important?",
+    "chunk_id": "chunk_01044"
+  },
+  {
+    "question": "Who receives writing instruction from the UCSC Writing Program?",
+    "chunk_id": "chunk_01197"
+  },
+  {
+    "question": "How does the Writing Program prepare students for university and daily-life writing?",
+    "chunk_id": "chunk_01197"
+  },
+  {
+    "question": "What is distinctive about class sizes in the UCSC Writing Program?",
+    "chunk_id": "chunk_01197"
+  },
+  {
+    "question": "Where can students find additional writing assistance at UCSC?",
+    "chunk_id": "chunk_01197"
+  },
+  {
+    "question": "How does the UCSC Art Department describe art as a transformative practice?",
+    "chunk_id": "chunk_00133"
+  },
+  {
+    "question": "What undergraduate and graduate art degrees are offered?",
+    "chunk_id": "chunk_00133"
+  },
+  {
+    "question": "Which values guide teaching, art making, and research in the Art Department?",
+    "chunk_id": "chunk_00133"
+  },
+  {
+    "question": "How does the department connect diversity with creativity and academic excellence?",
+    "chunk_id": "chunk_00133"
+  },
+  {
+    "question": "What are the Mary Porter Sesnon Gallery's Wednesday hours?",
+    "chunk_id": "chunk_00138"
+  },
+  {
+    "question": "When are guided public tours offered at the Sesnon Galleries?",
+    "chunk_id": "chunk_00138"
+  },
+  {
+    "question": "Is admission to the Sesnon Galleries free?",
+    "chunk_id": "chunk_00138"
+  },
+  {
+    "question": "Where is the Sesnon Gallery located and how can visitors contact it?",
+    "chunk_id": "chunk_00138"
+  },
+  {
+    "question": "What combination of creativity and collaboration defines the UCSC Arts Division?",
+    "chunk_id": "chunk_00139"
+  },
+  {
+    "question": "How does the Arts Division connect artistic work with social and environmental justice?",
+    "chunk_id": "chunk_00139"
+  },
+  {
+    "question": "Who founded the Slug 48 filmmaking event?",
+    "chunk_id": "chunk_00139"
+  },
+  {
+    "question": "What is the purpose of the 48-hour Slug 48 filmmaking event?",
+    "chunk_id": "chunk_00139"
+  },
+  {
+    "question": "What is the current status of the Digital Arts and New Media MFA program?",
+    "chunk_id": "chunk_00432"
+  },
+  {
+    "question": "When did Graduate Council review the DANM restructuring documents?",
+    "chunk_id": "chunk_00432"
+  },
+  {
+    "question": "Why were admissions to the DANM MFA suspended for 2023–24?",
+    "chunk_id": "chunk_00432"
+  },
+  {
+    "question": "What planning information did Graduate Council request about future DANM admissions?",
+    "chunk_id": "chunk_00432"
+  },
+  {
+    "question": "How can undergraduates participate in Performance, Play and Design productions?",
+    "chunk_id": "chunk_01146"
+  },
+  {
+    "question": "What ticket benefit is offered to undergraduates for department shows?",
+    "chunk_id": "chunk_01146"
+  },
+  {
+    "question": "How does the department connect performance with social equity and inclusion?",
+    "chunk_id": "chunk_01146"
+  },
+  {
+    "question": "What kinds of narratives and communities does Performance, Play and Design seek to center?",
+    "chunk_id": "chunk_01146"
+  },
+  {
+    "question": "What recurring summer events are offered at the UCSC Arboretum?",
+    "chunk_id": "chunk_00129"
+  },
+  {
+    "question": "What happens to many Mediterranean-climate plants during the dry summer?",
+    "chunk_id": "chunk_00129"
+  },
+  {
+    "question": "What kinds of plants and gifts are sold at Norrie's Gift and Garden Shop?",
+    "chunk_id": "chunk_00129"
+  },
+  {
+    "question": "Why is summer a good time for wildlife watching and birding at the Arboretum?",
+    "chunk_id": "chunk_00129"
+  },
+  {
+    "question": "How does the Center for Agroecology advance equitable food systems?",
+    "chunk_id": "chunk_00285"
+  },
+  {
+    "question": "How many pounds of produce do students grow and distribute for campus Basic Needs each year?",
+    "chunk_id": "chunk_00285"
+  },
+  {
+    "question": "How many learners have engaged with the Center for Agroecology online and on site?",
+    "chunk_id": "chunk_00285"
+  },
+  {
+    "question": "How much coastal farmland would the Center manage through its partnership with The Conservation Fund?",
+    "chunk_id": "chunk_00285"
+  },
+  {
+    "question": "What hands-on animal experiences are available at the Seymour Marine Discovery Center?",
+    "chunk_id": "chunk_01018"
+  },
+  {
+    "question": "How long is the outdoor docent tour at the Seymour Center?",
+    "chunk_id": "chunk_01018"
+  },
+  {
+    "question": "What can visitors learn during the coastal science tour?",
+    "chunk_id": "chunk_01018"
+  },
+  {
+    "question": "How long is the walking loop around UCSC's Coastal Campus?",
+    "chunk_id": "chunk_01018"
+  },
+  {
+    "question": "What internship opportunities are available at the Fort Ord Natural Reserve?",
+    "chunk_id": "chunk_00877"
+  },
+  {
+    "question": "Which field course introduces students to research and conservation at UCSC reserves?",
+    "chunk_id": "chunk_00877"
+  },
+  {
+    "question": "How do the UC Santa Cruz Natural Reserves function as living laboratories and outdoor classrooms?",
+    "chunk_id": "chunk_00877"
+  },
+  {
+    "question": "Where can students find research, internship, and job opportunities connected to UCSC Natural Reserves?",
+    "chunk_id": "chunk_00877"
+  },
+  {
+    "question": "What is the mission of the Predatory Bird Research Group at UC Santa Cruz?",
+    "chunk_id": "chunk_00947"
+  },
+  {
+    "question": "How does Peregrine Falcon recovery inspire the group's current conservation work?",
+    "chunk_id": "chunk_00947"
+  },
+  {
+    "question": "Who helps monitor Peregrine Falcons in the San Francisco Bay Area?",
+    "chunk_id": "chunk_00947"
+  },
+  {
+    "question": "How does the group involve students and community scientists in predatory-bird research?",
+    "chunk_id": "chunk_00947"
+  },
+  {
+    "question": "Which scientific fields are represented in the UCSC RNA Center?",
+    "chunk_id": "chunk_00298"
+  },
+  {
+    "question": "Why is UC Santa Cruz considered a major center for RNA research?",
+    "chunk_id": "chunk_00298"
+  },
+  {
+    "question": "What discovery is RNA Center founder Harry Noller known for?",
+    "chunk_id": "chunk_00298"
+  },
+  {
+    "question": "What did UCSC researchers learn about small RNA molecules in sperm and offspring health?",
+    "chunk_id": "chunk_00298"
+  },
+  {
+    "question": "What gap is the Center for Research in Open Source Software designed to bridge?",
+    "chunk_id": "chunk_00301"
+  },
+  {
+    "question": "How does CROSS fund innovative projects after students graduate?",
+    "chunk_id": "chunk_00301"
+  },
+  {
+    "question": "How does CROSS help research prototypes connect with open-source communities and companies?",
+    "chunk_id": "chunk_00301"
+  },
+  {
+    "question": "What is the purpose of the University of California Open Source Program Office Network?",
+    "chunk_id": "chunk_00301"
+  },
+  {
+    "question": "What does the Institute of Marine Sciences study about the world's oceans?",
+    "chunk_id": "chunk_00740"
+  },
+  {
+    "question": "Who was appointed director of the Institute of Marine Sciences?",
+    "chunk_id": "chunk_00740"
+  },
+  {
+    "question": "What other UCSC program does IMS director Eric Palkovacs lead?",
+    "chunk_id": "chunk_00740"
+  },
+  {
+    "question": "What inequality in access to ocean benefits is highlighted by IMS researchers?",
+    "chunk_id": "chunk_00740"
+  },
+  {
+    "question": "What kinds of innovation does the QB3 Biotech Idea Factory support?",
+    "chunk_id": "chunk_00735"
+  },
+  {
+    "question": "How does QB3 help scientists turn discoveries into products and services?",
+    "chunk_id": "chunk_00735"
+  },
+  {
+    "question": "What resources and networks does QB3 connect life-science innovators with?",
+    "chunk_id": "chunk_00735"
+  },
+  {
+    "question": "Which industries have benefited from QB3 incubators and venture investment?",
+    "chunk_id": "chunk_00735"
+  },
+  {
+    "question": "How does the study of games combine engineering and art at UCSC?",
+    "chunk_id": "chunk_00292"
+  },
+  {
+    "question": "What kinds of technical, social, and design problems can game development address?",
+    "chunk_id": "chunk_00292"
+  },
+  {
+    "question": "Whose work is celebrated by the UCSC Games Showcase and Sammy Awards?",
+    "chunk_id": "chunk_00292"
+  },
+  {
+    "question": "What events were included in the listed Games Showcase schedule?",
+    "chunk_id": "chunk_00292"
+  },
+  {
+    "question": "What teaching challenges can the Teaching and Learning Center resource library help with?",
+    "chunk_id": "chunk_00296"
+  },
+  {
+    "question": "How does the TLC support inclusive and effective teaching at UCSC?",
+    "chunk_id": "chunk_00296"
+  },
+  {
+    "question": "What programs, workshops, and learning communities are available to campus educators?",
+    "chunk_id": "chunk_00296"
+  },
+  {
+    "question": "How can faculty partner with the TLC on course design and grants?",
+    "chunk_id": "chunk_00296"
+  },
+  {
+    "question": "What administrative work does the PPDO Business Office handle?",
+    "chunk_id": "chunk_00231"
+  },
+  {
+    "question": "Who must initiate a Start-A-Project request for a campus improvement project?",
+    "chunk_id": "chunk_00231"
+  },
+  {
+    "question": "How does a detailed project scope affect the accuracy of a cost estimate?",
+    "chunk_id": "chunk_00231"
+  },
+  {
+    "question": "What environmental law guides campus planning reviews?",
+    "chunk_id": "chunk_00231"
+  },
+  {
+    "question": "How often is the Capital Financial Plan updated?",
+    "chunk_id": "chunk_00259"
+  },
+  {
+    "question": "Which projects are included in UCSC's six-year Capital Financial Plan?",
+    "chunk_id": "chunk_00259"
+  },
+  {
+    "question": "Who reviews proposed capital priorities and campus space needs?",
+    "chunk_id": "chunk_00259"
+  },
+  {
+    "question": "When do the UC Regents formally accept the Capital Financial Plan?",
+    "chunk_id": "chunk_00259"
+  },
+  {
+    "question": "How can students, faculty, and staff submit a CruzFix work order?",
+    "chunk_id": "chunk_00192"
+  },
+  {
+    "question": "What kinds of requests can be made through Fleet Work Orders?",
+    "chunk_id": "chunk_00192"
+  },
+  {
+    "question": "What travel services are available through UCruz vehicle rentals?",
+    "chunk_id": "chunk_00192"
+  },
+  {
+    "question": "How does Facilities Management use building data to support sustainability?",
+    "chunk_id": "chunk_00192"
+  },
+  {
+    "question": "Who is responsible for tree, turf, irrigation, and pest-control crews at UCSC?",
+    "chunk_id": "chunk_00678"
+  },
+  {
+    "question": "How can someone contact the Grounds Services superintendent for specialty crews?",
+    "chunk_id": "chunk_00678"
+  },
+  {
+    "question": "Who supervises gardening services and landscaping groundskeeping?",
+    "chunk_id": "chunk_00678"
+  },
+  {
+    "question": "Who is the listed superintendent for Resource Recovery Services?",
+    "chunk_id": "chunk_00678"
+  },
+  {
+    "question": "What is the mission of UCSC Custodial Services?",
+    "chunk_id": "chunk_00403"
+  },
+  {
+    "question": "How often are laboratories cleaned under the listed custodial schedule?",
+    "chunk_id": "chunk_00403"
+  },
+  {
+    "question": "Which campus spaces continue to receive daily cleaning?",
+    "chunk_id": "chunk_00403"
+  },
+  {
+    "question": "What custodial services are provided to private offices?",
+    "chunk_id": "chunk_00403"
+  },
+  {
+    "question": "What UC water-conservation target has UCSC already met?",
+    "chunk_id": "chunk_00362"
+  },
+  {
+    "question": "How much has UCSC reduced per-capita potable water use from its baseline?",
+    "chunk_id": "chunk_00362"
+  },
+  {
+    "question": "Which campus goal connects water and land stewardship with healthy ecosystems?",
+    "chunk_id": "chunk_00362"
+  },
+  {
+    "question": "Where can people find UCSC's Water Action Plan and water-saving resources?",
+    "chunk_id": "chunk_00362"
+  },
+  {
+    "question": "Which bins should be used for compost, recycling, and landfill waste at UCSC?",
+    "chunk_id": "chunk_00982"
+  },
+  {
+    "question": "Where should cardboard be recycled on campus?",
+    "chunk_id": "chunk_00982"
+  },
+  {
+    "question": "Where can faculty housing residents find city waste-service information?",
+    "chunk_id": "chunk_00982"
+  },
+  {
+    "question": "Are printable compost, recycling, and landfill signs available from UCSC?",
+    "chunk_id": "chunk_00982"
+  },
+  {
+    "question": "How does the UCSC Stormwater Program protect campus watersheds?",
+    "chunk_id": "chunk_01082"
+  },
+  {
+    "question": "Which regulatory permits are implemented by the Clean Water Program?",
+    "chunk_id": "chunk_01082"
+  },
+  {
+    "question": "What is the purpose of the campus MS4 stormwater permit?",
+    "chunk_id": "chunk_01082"
+  },
+  {
+    "question": "How does UCSC combine sustainable stormwater practices with community engagement?",
+    "chunk_id": "chunk_01082"
+  },
+  {
+    "question": "What rental and travel services are available through the UCruz program?",
+    "chunk_id": "chunk_00272"
+  },
+  {
+    "question": "How many vehicles and pieces of equipment are operated by UCSC Fleet Services?",
+    "chunk_id": "chunk_00272"
+  },
+  {
+    "question": "How can campus units contact Fleet Services for repairs or assistance?",
+    "chunk_id": "chunk_00272"
+  },
+  {
+    "question": "How long has Fleet Services been keeping UCSC vehicles operating?",
+    "chunk_id": "chunk_00272"
+  },
+  {
+    "question": "How did UCSC redefine catering beginning May 1, 2026?",
+    "chunk_id": "chunk_00210"
+  },
+  {
+    "question": "When are campus events required to use UCSC Catering?",
+    "chunk_id": "chunk_00210"
+  },
+  {
+    "question": "Who should suppliers contact for help with Email Order Management?",
+    "chunk_id": "chunk_00210"
+  },
+  {
+    "question": "What role does Procurement and Supply Chain Services play in acquiring goods and services?",
+    "chunk_id": "chunk_00210"
+  },
+  {
+    "question": "What internal-control responsibilities does the Campus Controller's Office have?",
+    "chunk_id": "chunk_00234"
+  },
+  {
+    "question": "How does the Controller's Office support financial accountability across UCSC?",
+    "chunk_id": "chunk_00234"
+  },
+  {
+    "question": "Where can campus units find internal-control guidance?",
+    "chunk_id": "chunk_00234"
+  },
+  {
+    "question": "How can someone contact the UCSC Campus Controller's Office?",
+    "chunk_id": "chunk_00234"
+  },
+  {
+    "question": "What legal matters are handled by the UCSC Office of Campus Counsel?",
+    "chunk_id": "chunk_00236"
+  },
+  {
+    "question": "How does Campus Counsel support university business and operations?",
+    "chunk_id": "chunk_00236"
+  },
+  {
+    "question": "Can UCSC attorneys give personal legal advice to individual students or employees?",
+    "chunk_id": "chunk_00236"
+  },
+  {
+    "question": "How can campus units contact the Office of Campus Counsel?",
+    "chunk_id": "chunk_00236"
+  },
+  {
+    "question": "What information is included in UCSC's budget overview?",
+    "chunk_id": "chunk_00172"
+  },
+  {
+    "question": "Where can campus users find recent budget updates and communications?",
+    "chunk_id": "chunk_00172"
+  },
+  {
+    "question": "What does the annual budget framework explain?",
+    "chunk_id": "chunk_00172"
+  },
+  {
+    "question": "How do the General Budgeting Guidelines support campus budget development?",
+    "chunk_id": "chunk_00172"
+  },
+  {
+    "question": "When did UCSC's current core-funds structural deficit begin?",
+    "chunk_id": "chunk_00182"
+  },
+  {
+    "question": "Why did the campus initially use one-time savings to manage its deficit?",
+    "chunk_id": "chunk_00182"
+  },
+  {
+    "question": "What budget model was developed in 2022 to improve forecasting and return unused allocations?",
+    "chunk_id": "chunk_00182"
+  },
+  {
+    "question": "Why did UCSC's structural deficit grow more quickly in 2023?",
+    "chunk_id": "chunk_00182"
+  },
+  {
+    "question": "Why should employees avoid sending detailed health information through UCSC email?",
+    "chunk_id": "chunk_00166"
+  },
+  {
+    "question": "What office hours are listed for the UCSC Benefits Office?",
+    "chunk_id": "chunk_00166"
+  },
+  {
+    "question": "What is the Benefits Office phone number?",
+    "chunk_id": "chunk_00166"
+  },
+  {
+    "question": "Where can employees find benefits applications, forms, and retirement information?",
+    "chunk_id": "chunk_00166"
+  },
+  {
+    "question": "What kinds of jobs are available through the UCSC careers page?",
+    "chunk_id": "chunk_00571"
+  },
+  {
+    "question": "Where can external and internal staff applicants find UCSC openings?",
+    "chunk_id": "chunk_00571"
+  },
+  {
+    "question": "Does UCSC list academic, student, and entry-level employment opportunities?",
+    "chunk_id": "chunk_00571"
+  },
+  {
+    "question": "Where should applicants go for help with staff job openings?",
+    "chunk_id": "chunk_00571"
+  },
+  {
+    "question": "Why should UCSC alumni update their contact information?",
+    "chunk_id": "chunk_00104"
+  },
+  {
+    "question": "What values are highlighted in UCSC alumni stories?",
+    "chunk_id": "chunk_00104"
+  },
+  {
+    "question": "When was Return to the Redwoods 2026 scheduled?",
+    "chunk_id": "chunk_00104"
+  },
+  {
+    "question": "Where and when was the HireUC Alumni Career Summit listed?",
+    "chunk_id": "chunk_00104"
+  },
+  {
+    "question": "How can UCSC alumni access the Alumni Finder?",
+    "chunk_id": "chunk_00110"
+  },
+  {
+    "question": "Who is allowed to use the Alumni Finder database?",
+    "chunk_id": "chunk_00110"
+  },
+  {
+    "question": "Which search fields currently work in the Alumni Finder?",
+    "chunk_id": "chunk_00110"
+  },
+  {
+    "question": "How can an alum get help reconnecting with a classmate or faculty member?",
+    "chunk_id": "chunk_00110"
+  },
+  {
+    "question": "How can UCSC Humanities alumni help current students?",
+    "chunk_id": "chunk_00092"
+  },
+  {
+    "question": "What volunteer opportunities are available through the Center for Agroecology?",
+    "chunk_id": "chunk_00092"
+  },
+  {
+    "question": "How many volunteers does the UCSC Arboretum rely on each year?",
+    "chunk_id": "chunk_00092"
+  },
+  {
+    "question": "How can Physical and Biological Sciences alumni support the Science Internship Program?",
+    "chunk_id": "chunk_00092"
+  },
+  {
+    "question": "When was the 2026 women's volleyball match against Cal Poly Humboldt scheduled?",
+    "chunk_id": "chunk_00155"
+  },
+  {
+    "question": "Who was the UCSC women's soccer team scheduled to play on August 22, 2026?",
+    "chunk_id": "chunk_00155"
+  },
+  {
+    "question": "Where was the men's soccer match against CSU Monterey Bay scheduled?",
+    "chunk_id": "chunk_00155"
+  },
+  {
+    "question": "Which UCSC teams had events listed for August 23, 2026?",
+    "chunk_id": "chunk_00155"
+  },
+  {
+    "question": "What event-planning resources does SOAR provide to student organizations?",
+    "chunk_id": "chunk_01027"
+  },
+  {
+    "question": "Where can student groups find campus funding sources and application steps?",
+    "chunk_id": "chunk_01027"
+  },
+  {
+    "question": "What forms are available for event proposals and financial requests?",
+    "chunk_id": "chunk_01027"
+  },
+  {
+    "question": "How can student organizations contact SOMeCA staff for advising and support?",
+    "chunk_id": "chunk_01027"
+  },
+  {
+    "question": "How can a student organization get a funding request added to an SUA meeting agenda?",
+    "chunk_id": "chunk_01125"
+  },
+  {
+    "question": "What is the deadline for contacting the SUA Parliamentarian before a meeting?",
+    "chunk_id": "chunk_01125"
+  },
+  {
+    "question": "What vote is required for a funding request of 10 percent or less of the line item?",
+    "chunk_id": "chunk_01125"
+  },
+  {
+    "question": "What criteria must an event meet to be considered for SUA general programming funds?",
+    "chunk_id": "chunk_01125"
+  },
+  {
+    "question": "What issues does the UCSC Graduate Student Association advocate for?",
+    "chunk_id": "chunk_00664"
+  },
+  {
+    "question": "Does the GSA provide travel grants for conferences and thesis research?",
+    "chunk_id": "chunk_00664"
+  },
+  {
+    "question": "How does the GSA represent graduate students in university decision-making?",
+    "chunk_id": "chunk_00664"
+  },
+  {
+    "question": "Who serves on the GSA Council?",
+    "chunk_id": "chunk_00664"
+  },
+  {
+    "question": "When did KZSC publish its interview with People's Disco co-founder Jared Gampel?",
+    "chunk_id": "chunk_00784"
+  },
+  {
+    "question": "What did KZSC cover in its 2026 alternative music releases article?",
+    "chunk_id": "chunk_00784"
+  },
+  {
+    "question": "Which artists were interviewed in KZSC's feature on Nintendocore?",
+    "chunk_id": "chunk_00784"
+  },
+  {
+    "question": "When did KZSC report on FKA twigs performing in San Francisco?",
+    "chunk_id": "chunk_00784"
+  },
+  {
+    "question": "How many student-run organizations are part of UCSC Student Media?",
+    "chunk_id": "chunk_01110"
+  },
+  {
+    "question": "What kinds of publications, performances, and productions do SOMeCA organizations create?",
+    "chunk_id": "chunk_01110"
+  },
+  {
+    "question": "How can students contact the Student Media front desk?",
+    "chunk_id": "chunk_01110"
+  },
+  {
+    "question": "What is the purpose of UCSC Student Media's student-run organizations?",
+    "chunk_id": "chunk_01110"
+  },
+  {
+    "question": "What services can Residential Community Service Partners provide?",
+    "chunk_id": "chunk_00344"
+  },
+  {
+    "question": "How do RCSPs coordinate with police, fire, and University Dispatch?",
+    "chunk_id": "chunk_00344"
+  },
+  {
+    "question": "What phone number should residents call for RCSP dispatch assistance?",
+    "chunk_id": "chunk_00344"
+  },
+  {
+    "question": "Can RCSPs help with lockouts, first aid, noise concerns, and nighttime maintenance?",
+    "chunk_id": "chunk_00344"
+  },
+  {
+    "question": "What mission statement is used by the UC Santa Cruz Police Department?",
+    "chunk_id": "chunk_00939"
+  },
+  {
+    "question": "What accreditation did the UCSC Police Department obtain?",
+    "chunk_id": "chunk_00939"
+  },
+  {
+    "question": "How did UCSC police and students collaborate on crime data?",
+    "chunk_id": "chunk_00939"
+  },
+  {
+    "question": "What campus safety alerts and police news are highlighted on the department page?",
+    "chunk_id": "chunk_00939"
+  },
+  {
+    "question": "Who leads the campus Emergency Operations Center during major emergencies?",
+    "chunk_id": "chunk_00557"
+  },
+  {
+    "question": "What is the role of the EOC Director?",
+    "chunk_id": "chunk_00557"
+  },
+  {
+    "question": "What responsibilities does the EOC Coordinator have?",
+    "chunk_id": "chunk_00557"
+  },
+  {
+    "question": "Who coordinates emergency communications with the campus and larger community?",
+    "chunk_id": "chunk_00557"
+  },
+  {
+    "question": "Which UCSC resources should be contacted for immediate or after-hours emergencies?",
+    "chunk_id": "chunk_00359"
+  },
+  {
+    "question": "What is the non-emergency phone number for the UCSC Police Department?",
+    "chunk_id": "chunk_00359"
+  },
+  {
+    "question": "How can the Campus Mobile Crisis Team help students after hours?",
+    "chunk_id": "chunk_00359"
+  },
+  {
+    "question": "What is the recommended first step for resolving a workplace or academic conflict?",
+    "chunk_id": "chunk_00359"
+  },
+  {
+    "question": "What values are included in the UCSC Principles of Community?",
+    "chunk_id": "chunk_00950"
+  },
+  {
+    "question": "What does it mean for the UCSC community to be diverse and open?",
+    "chunk_id": "chunk_00950"
+  },
+  {
+    "question": "How does UCSC describe a purposeful campus community?",
+    "chunk_id": "chunk_00950"
+  },
+  {
+    "question": "What commitments are included under the principles of being caring and just?",
+    "chunk_id": "chunk_00950"
+  },
+  {
+    "question": "What does Title IX prohibit in federally funded education programs?",
+    "chunk_id": "chunk_01015"
+  },
+  {
+    "question": "Which forms of sexual violence are covered by UCSC's Title IX policies?",
+    "chunk_id": "chunk_01015"
+  },
+  {
+    "question": "Does Title IX cover discrimination based on pregnancy and family status?",
+    "chunk_id": "chunk_01015"
+  },
+  {
+    "question": "How does UCSC define gender- or sex-based discrimination?",
+    "chunk_id": "chunk_01015"
+  },
+  {
+    "question": "What support does the Veterans Resource Center provide to military-connected students?",
+    "chunk_id": "chunk_01183"
+  },
+  {
+    "question": "Do all UCSC veterans receive priority enrollment?",
+    "chunk_id": "chunk_01183"
+  },
+  {
+    "question": "How can veterans who are not using VA benefits request first-choice enrollment?",
+    "chunk_id": "chunk_01183"
+  },
+  {
+    "question": "What help is available for accessing VA education benefits and tuition assistance?",
+    "chunk_id": "chunk_01183"
+  },
+  {
+    "question": "Which visa categories does UCSC sponsor for full-time international students?",
+    "chunk_id": "chunk_00748"
+  },
+  {
+    "question": "What immigration advising and workshops are available through iGlobal?",
+    "chunk_id": "chunk_00748"
+  },
+  {
+    "question": "What issues can international students discuss with an ISSS advisor?",
+    "chunk_id": "chunk_00748"
+  },
+  {
+    "question": "How does ISSS help with work authorization, travel, documents, and maintaining status?",
+    "chunk_id": "chunk_00748"
+  },
+  {
+    "question": "Which students are supported by UCSC's Educational Opportunity Programs?",
+    "chunk_id": "chunk_00536"
+  },
+  {
+    "question": "What academic, financial, and community-building support does EOP provide?",
+    "chunk_id": "chunk_00536"
+  },
+  {
+    "question": "How can students learn about EOP eligibility and status?",
+    "chunk_id": "chunk_00536"
+  },
+  {
+    "question": "What topics can students discuss with EOP counselors and peer mentors?",
+    "chunk_id": "chunk_00536"
+  },
+  {
+    "question": "What skills class is included with each COSMOS cluster?",
+    "chunk_id": "chunk_00225"
+  },
+  {
+    "question": "Which COSMOS cluster focuses on number theory and discrete mathematics?",
+    "chunk_id": "chunk_00225"
+  },
+  {
+    "question": "Which COSMOS topics involve machine learning, robotics, and semiconductor engineering?",
+    "chunk_id": "chunk_00225"
+  },
+  {
+    "question": "What quantum science and materials clusters are offered through COSMOS?",
+    "chunk_id": "chunk_00225"
+  },
+  {
+    "question": "What kind of training does the UCSC Science Communication Program provide?",
+    "chunk_id": "chunk_01011"
+  },
+  {
+    "question": "How are SciCom graduates described by the program's external review?",
+    "chunk_id": "chunk_01011"
+  },
+  {
+    "question": "Which science-journalism honors were received by UCSC SciCom alumni?",
+    "chunk_id": "chunk_01011"
+  },
+  {
+    "question": "How does the program prepare journalists to communicate climate and science stories?",
+    "chunk_id": "chunk_01011"
+  },
+  {
+    "question": "What can students schedule through TutorHub?",
+    "chunk_id": "chunk_00806"
+  },
+  {
+    "question": "How many undergraduate student employees does Learning Support Services hire and train each year?",
+    "chunk_id": "chunk_00806"
+  },
+  {
+    "question": "Is prior tutoring experience required to work for LSS?",
+    "chunk_id": "chunk_00806"
+  },
+  {
+    "question": "How do peer tutoring sessions help UCSC undergraduates catch up, keep up, and excel?",
+    "chunk_id": "chunk_00806"
+  },
+  {
+    "question": "What services are offered by SHOP's Slug Love sexual-health team?",
+    "chunk_id": "chunk_01101"
+  },
+  {
+    "question": "What is the Condom Co-Op and Birth Control Patrol?",
+    "chunk_id": "chunk_01101"
+  },
+  {
+    "question": "How does SHOP approach alcohol, tobacco, and other drug education?",
+    "chunk_id": "chunk_01101"
+  },
+  {
+    "question": "What is The Cove and who can use its recovery support space?",
+    "chunk_id": "chunk_01101"
+  },
+  {
+    "question": "Which UCSC students are supported by the Smith Society?",
+    "chunk_id": "chunk_01023"
+  },
+  {
+    "question": "How does the Smith Society connect students with volunteer mentors?",
+    "chunk_id": "chunk_01023"
+  },
+  {
+    "question": "What scholarships, internships, and community programs are offered by the society?",
+    "chunk_id": "chunk_01023"
+  },
+  {
+    "question": "Why are the Smith Society's intergenerational relationships described as life changing?",
+    "chunk_id": "chunk_01023"
+  }
+]
