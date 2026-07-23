@@ -25,7 +25,10 @@ class ThreadedCamera:
     def read(self):
         # Always returns the most recent frame grabbed by the thread
         return self.frame
-
+   
+    def isOpened(self):
+        return self.cap.isOpened()
+   
     def stop(self):
         self.stopped = True
         self.cap.release()
@@ -57,7 +60,7 @@ def main():
     cam = ThreadedCamera(src=0).start()
     time.sleep(1.0)
 
-    if not cap.isOpened():
+    if not cam.isOpened():
         print("Error: Could not open camera.")
         return
 
