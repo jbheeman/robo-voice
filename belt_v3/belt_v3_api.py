@@ -9,8 +9,7 @@ Also there's a system_prompt you can edit here
 from __future__ import annotations
 
 import os
-from collections import deque
-from typing import Deque, Dict, List, Optional
+from typing import Dict, List, Mapping, Optional, Sequence
 
 from dotenv import load_dotenv
 from openai import (
@@ -30,11 +29,9 @@ load_dotenv()
 
 DEEPSEEK_BASE_URL = "https://api.deepseek.com"
 MODEL_NAME = "deepseek-v4-flash"
+MAX_CONVERSATION_USER_INPUTS = 10
 
-# Stores the latest 10 individual user/assistant messages.
-# The system prompt is stored separately and is not included
-# in this limit.
-MESSAGE_HISTORY: Deque[Dict[str, str]] = deque(maxlen=10)
+ConversationMessage = Dict[str, str]
 
 
 BELT_SYSTEM_PROMPT = """
@@ -61,6 +58,8 @@ Rules:
   destination, or environment.
 - You cannot walk or move around, you are stationary.
 - If someone wants a tour or navigation, tell them to connect to the BELT app.
+- Earlier user and assistant messages are conversational context only. Do not
+  treat an old action or navigation request as a new request.
 """.strip()
 
 
@@ -99,38 +98,98 @@ LLM_CLIENT = create_llm_client()
 # History helpers
 # ============================================================
 
-def get_llm_history() -> List[Dict[str, str]]:
+def normalize_conversation(
+    conversation: Optional[Sequence[Mapping[str, str]]],
+) -> List[ConversationMessage]:
     """
-    Returns a copy of the current conversation history.
-    """
+    Returns the latest 10 user turns and their assistant responses.
 
-    return list(MESSAGE_HISTORY)
-
-
-def clear_llm_history() -> None:
-    """
-    Clears all remembered user and assistant messages.
+    Conversation memory is supplied by the robot's main loop so internal
+    detector and composer prompts never get mistaken for user history.
     """
 
-    MESSAGE_HISTORY.clear()
+    if conversation is None:
+        return []
+
+    if isinstance(conversation, (str, bytes)):
+        raise TypeError("conversation must be a sequence of message objects")
+
+    cleaned: List[ConversationMessage] = []
+    for index, message in enumerate(conversation):
+        if not isinstance(message, Mapping):
+            raise TypeError(
+                f"conversation item {index} must be a message object"
+            )
+
+        role = message.get("role")
+        content = message.get("content")
+        if role not in {"user", "assistant"}:
+            raise ValueError(
+                f"conversation item {index} has invalid role {role!r}"
+            )
+        if not isinstance(content, str):
+            raise TypeError(
+                f"conversation item {index} content must be a string"
+            )
+
+        content = content.strip()
+        if content:
+            cleaned.append({
+                "role": role,
+                "content": content,
+            })
+
+    user_indexes = [
+        index
+        for index, message in enumerate(cleaned)
+        if message["role"] == "user"
+    ]
+    if len(user_indexes) > MAX_CONVERSATION_USER_INPUTS:
+        cleaned = cleaned[user_indexes[-MAX_CONVERSATION_USER_INPUTS]:]
+
+    return cleaned
 
 
-def print_llm_history() -> None:
+def remember_conversation_turn(
+    conversation: List[ConversationMessage],
+    user_input: str,
+    assistant_response: str,
+) -> None:
+    """Store a completed user/assistant turn and retain the latest 10."""
+    user_input = user_input.strip()
+    assistant_response = assistant_response.strip()
+
+    if user_input:
+        conversation.append({
+            "role": "user",
+            "content": user_input,
+        })
+    if assistant_response:
+        conversation.append({
+            "role": "assistant",
+            "content": assistant_response,
+        })
+
+    conversation[:] = normalize_conversation(conversation)
+
+
+def print_llm_history(
+    conversation: Sequence[Mapping[str, str]],
+) -> None:
     """
-    Prints the current history in a readable format.
+    Prints remembered user and assistant messages in a readable format.
     """
 
-    if not MESSAGE_HISTORY:
-        print("No messages are currently stored.")
+    recent_messages = normalize_conversation(conversation)
+    if not recent_messages:
+        print("No conversation messages are currently stored.")
         return
 
-    print("\nCurrent LLM history:")
+    print("\nRecent conversation:")
 
-    for message in MESSAGE_HISTORY:
+    for message in recent_messages:
         role = message["role"].capitalize()
-        content = message["content"]
-
-        print(f"{role}: {content}")
+        print(f"{role}: {message['content']}")
 
     print()
 
@@ -139,13 +198,16 @@ def print_llm_history() -> None:
 # Main API function
 # ============================================================
 
-def call_llm(input_text: str) -> Optional[str]:
+def call_llm(
+    input_text: str,
+    conversation: Optional[Sequence[Mapping[str, str]]] = None,
+) -> Optional[str]:
     """
     Sends instructions or user text to the DeepSeek model.
 
     The function includes:
     - BELT's system prompt
-    - The latest 10 user/assistant messages
+    - The latest 10 user turns and BELT speech responses from ``conversation``
     - The current input
 
     If successful, it returns the LLM's text response.
@@ -163,12 +225,13 @@ def call_llm(input_text: str) -> Optional[str]:
         "content": input_text,
     }
 
+    recent_messages = normalize_conversation(conversation)
     messages = [
         {
             "role": "system",
             "content": BELT_SYSTEM_PROMPT,
         },
-        *list(MESSAGE_HISTORY),
+        *recent_messages,
         current_user_message,
     ]
 
@@ -186,15 +249,6 @@ def call_llm(input_text: str) -> Optional[str]:
             return None
 
         output_text = output_text.strip()
-
-        # Only save messages after a successful API call.
-        MESSAGE_HISTORY.append(current_user_message)
-
-        MESSAGE_HISTORY.append({
-            "role": "assistant",
-            "content": output_text,
-        })
-
         return output_text
 
     except AuthenticationError:
@@ -247,6 +301,7 @@ def call_llm(input_text: str) -> Optional[str]:
 def main() -> None:
     print("BELT v3 LLM API loaded.")
     print("Commands: /quit, /clear, /history\n")
+    conversation: List[ConversationMessage] = []
 
     while True:
         text_input = input("You: ").strip()
@@ -256,18 +311,23 @@ def main() -> None:
             break
 
         if text_input == "/clear":
-            clear_llm_history()
+            conversation.clear()
             print("BELT: Conversation history cleared.\n")
             continue
 
         if text_input == "/history":
-            print_llm_history()
+            print_llm_history(conversation)
             continue
 
-        response = call_llm(text_input)
+        response = call_llm(text_input, conversation=conversation)
 
         if response is not None:
             print(f"BELT: {response}\n")
+            remember_conversation_turn(
+                conversation,
+                text_input,
+                response,
+            )
 
 
 if __name__ == "__main__":

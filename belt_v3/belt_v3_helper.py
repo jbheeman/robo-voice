@@ -1,6 +1,6 @@
 import json
 import re
-from typing import Any
+from typing import Any, Mapping, Sequence
 
 from belt_v3_api import call_llm
 from rag.belt_v3_rag import rag_search
@@ -164,8 +164,12 @@ def extract_nav_action(text_input):
     return python_dict_output
 
 
-def compose_response(nav_action_dict, user_text):
-    rag_context = rag_search(user_text)
+def compose_response(
+    nav_action_dict,
+    user_text,
+    conversation: Sequence[Mapping[str, str]],
+):
+    rag_context = rag_search(user_text, top_k = 5)
 
     if rag_context is None:
         rag_context = "No relevant document information found."
@@ -203,7 +207,7 @@ Behavior:
 - Return only BELT's concise spoken response. Do not include stage directions.
 """.strip()
 
-    speech = call_llm(prompt)
+    speech = call_llm(prompt, conversation=conversation)
 
     return {
         "simple_action": nav_action_dict.get(

@@ -2,18 +2,20 @@ import joblib
 from movement.belt_v3_simple_action_handle import simple_action_handle
 from speech.belt_v3_speech_handle import speech_handle, testing_speech_handle
 from navigation.belt_v3_navigation_handle import navigation_handle
+from belt_v3_api import ConversationMessage, remember_conversation_turn
 from belt_v3_helper import extract_nav_action, compose_response
+from belt_v3_input import get_input
 
 CHAT_CHECKER_MODEL = joblib.load(
     "chat_checker/chat_checker_model.joblib"
 )
 
 #hyperparams? idk
-DEBUG = True
+DEBUG = False
 CHAT_THRESHOLD = 0.99
 
-def get_input():
-    return input("> ").strip()
+# Holds the latest 10 user inputs and BELT's corresponding speech responses.
+conversation: list[ConversationMessage] = []
 
 def chat_checker(text_input: str):
     prob = CHAT_CHECKER_MODEL.predict_proba([text_input])[0][1]
@@ -24,7 +26,11 @@ def chat_checker(text_input: str):
     return prob
     
 
-def request_extractor(text_input: str, chat_prob: float):
+def request_extractor(
+    text_input: str,
+    chat_prob: float,
+    conversation: list[ConversationMessage],
+):
     nav_action_dict = {
     "simple_action": {
         "requested": False,
@@ -38,13 +44,17 @@ def request_extractor(text_input: str, chat_prob: float):
     if chat_prob < CHAT_THRESHOLD:
         nav_action_dict = extract_nav_action(text_input)
         
-    output, rag_context = compose_response(nav_action_dict, text_input) #python dict 
+    output, rag_context = compose_response(
+        nav_action_dict,
+        text_input,
+        conversation,
+    )  # Python dictionary
     
-    if DEBUG:
-        print("Rag context:")
-        print(rag_context)
-        print("Request Extractor output:")
-        print(output)
+    # if DEBUG:
+    #     print("Rag context:")
+    #     print(rag_context)
+    #     print("Request Extractor output:")
+    #     print(output)
     
     return output
 
@@ -74,7 +84,18 @@ def main():
         
         #handles info based on request
         #returns speech text, navigation dict, simple_action dict
-        extractor_output = request_extractor(text_input, chat_prob)
+        extractor_output = request_extractor(
+            text_input,
+            chat_prob,
+            conversation,
+        )
+
+        # Store the real user input and the response BELT will speak.
+        remember_conversation_turn(
+            conversation,
+            text_input,
+            extractor_output["speech"],
+        )
         
         #execute modules based on request
         execute_modules(extractor_output)
