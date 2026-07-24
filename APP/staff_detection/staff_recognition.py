@@ -149,6 +149,9 @@ def getPeople(frame):
                     best_distance = distance
                     best_index = i
 
+        if best_index is not None:
+            print(f"[DEBUG] Closest match: {names[best_index]} (distance={best_distance:.3f}, threshold={MATCH_THRESHOLD})")
+
         if best_index is not None and best_distance < MATCH_THRESHOLD:
             frame_names.append(names[best_index])
 
