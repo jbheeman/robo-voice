@@ -1,4 +1,4 @@
-pip install deepface tensorflow opencv-python numpy joblib ultralytics pyttsx3
+pip install ultralytics opencv-python pyttsx3 deepface retina-face tf-keras joblib numpy
 pip install tf-keras
 
 python3 human_det.py
