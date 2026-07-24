@@ -1,0 +1,22 @@
+CUSTOM_GESTURES = [
+    "wave_left",
+    "wave_right",
+    "small_wave",
+    "point_left",
+    "point_right",
+    "point_forward",
+    "point_self",
+    "open_hand_left",
+    "open_hand_right",
+    "present_left",
+    "present_right",
+    "heart_hands",
+    "thumbs_up",
+    "thumbs_down",
+    "high_five",
+    "fist_bump",
+    "clap",
+    "come_here",
+    "stop_hand",
+    "celebrate"
+]
