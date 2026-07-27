@@ -8,7 +8,6 @@ from rag.belt_v3_rag import rag_search
 from movement.belt_v3_valid_movements import VALID_MOVEMENTS
 from navigation.belt_v3_valid_navigation import VALID_LOCATIONS
 
-MAX_RESPONSE_TOKENS = 200
 RAG_TOP_K = 3
 RAG_MIN_SCORE = 0.30
 
@@ -78,7 +77,6 @@ def safely_parse_json_to_python_dict(input_data: Any) -> dict | None:
             continue
 
     print("JSON parsing failed: no valid JSON object was found.")
-    print(f"Raw input: {input_data}")
     return None
 
 
@@ -210,25 +208,34 @@ def _validated_request(
     }
 
 
-def _validated_llm_response(raw_response: Any) -> dict:
+def _fallback_response() -> dict:
+    return {
+        "simple_action": {
+            "requested": False,
+            "actions": [],
+        },
+        "navigation": {
+            "requested": False,
+            "locations": [],
+        },
+        "speech": "Sorry, I couldn't process that request.",
+    }
+
+
+def _validated_llm_response(
+    raw_response: Any,
+) -> dict:
+    if raw_response is None:
+        return _fallback_response()
+
     parsed_response = safely_parse_json_to_python_dict(raw_response)
 
     if parsed_response is None:
-        return {
-            "simple_action": {
-                "requested": False,
-                "actions": [],
-            },
-            "navigation": {
-                "requested": False,
-                "locations": [],
-            },
-            "speech": "Sorry, I couldn't process that request.",
-        }
+        return _fallback_response()
 
     speech = parsed_response.get("speech")
     if not isinstance(speech, str) or not speech.strip():
-        speech = "Sorry, I couldn't process that request."
+        return _fallback_response()
 
     return {
         "simple_action": _validated_request(
@@ -258,10 +265,7 @@ def compose_response(
 
     if debug:
         rag_time = time.perf_counter() - rag_start
-        print(
-            f"Done Searching RAG ({rag_time:.3f} seconds, "
-            f"{len(rag_context)}/{len(rag_results)} relevant chunks)"
-        )
+        print(f"Done Searching RAG ({rag_time:.3f} seconds)")
 
     if not rag_context:
         rag_context = "No relevant document information found."
@@ -274,7 +278,7 @@ def compose_response(
     llm_response = call_llm(
         prompt,
         conversation=conversation,
-        max_tokens=MAX_RESPONSE_TOKENS,
+        debug=debug,
     )
 
     if debug:

@@ -37,19 +37,13 @@ if not EMBEDDINGS_FILE.exists():
     )
 
 
-print("Loading fine-tuned embedding model...")
-
 model = SentenceTransformer(
     str(MODEL_PATH),
     local_files_only=True
 )
 
-print("Loading document chunks...")
-
 with CHUNKS_FILE.open("r", encoding="utf-8") as file:
     document_chunks = json.load(file)
-
-print("Loading fine-tuned document embeddings...")
 
 document_embeddings = np.load(
     EMBEDDINGS_FILE
@@ -64,7 +58,7 @@ if len(document_chunks) != len(document_embeddings):
     )
 
 
-expected_dimension = model.get_sentence_embedding_dimension()
+expected_dimension = model.get_embedding_dimension()
 
 if document_embeddings.ndim != 2:
     raise ValueError(
@@ -77,10 +71,6 @@ if document_embeddings.shape[1] != expected_dimension:
         f"Model dimension: {expected_dimension}\n"
         f"Saved embedding dimension: {document_embeddings.shape[1]}"
     )
-
-
-print("Fine-tuned RAG model loaded successfully.")
-
 
 def rag_search(
     text: str,
