@@ -1,104 +1,99 @@
-import joblib
+import time
 from movement.belt_v3_simple_action_handle import simple_action_handle
 from speech.belt_v3_speech_handle import speech_handle, testing_speech_handle
 from navigation.belt_v3_navigation_handle import navigation_handle
 from belt_v3_api import ConversationMessage, remember_conversation_turn
-from belt_v3_helper import extract_nav_action, compose_response
-from belt_v3_input import get_input
-
-CHAT_CHECKER_MODEL = joblib.load(
-    "chat_checker/chat_checker_model.joblib"
-)
+from belt_v3_helper import compose_response
+from belt_v3_input import get_input, terminal_get_input
+from launch_streamlit import start_streamlit, stop_streamlit
 
 #hyperparams? idk
-DEBUG = False
-CHAT_THRESHOLD = 0.99
+DEBUG = True
+LAUNCH_STREAMLIT = False
+
+PROGRAM_START_TIME = time.perf_counter() if DEBUG else 0.0
 
 # Holds the latest 10 user inputs and BELT's corresponding speech responses.
 conversation: list[ConversationMessage] = []
 
-def chat_checker(text_input: str):
-    prob = CHAT_CHECKER_MODEL.predict_proba([text_input])[0][1]
-    
-    if (DEBUG):
-        print("chat_checker probability: ", prob)
 
-    return prob
-    
-
-def request_extractor(
+def generate_response(
     text_input: str,
-    chat_prob: float,
     conversation: list[ConversationMessage],
 ):
-    nav_action_dict = {
-    "simple_action": {
-        "requested": False,
-        "actions": []
-    },
-    "navigation": {
-        "requested": False,
-        "locations": []
-    }}
-    
-    if chat_prob < CHAT_THRESHOLD:
-        nav_action_dict = extract_nav_action(text_input)
-        
+    if DEBUG:
+        request_start = time.perf_counter()
+
     output, rag_context = compose_response(
-        nav_action_dict,
         text_input,
         conversation,
+        debug=DEBUG,
     )  # Python dictionary
     
-    # if DEBUG:
+    if DEBUG:
+        total_time = time.perf_counter() - request_start
+        print(f"Total response time ({total_time:.3f} seconds)")
     #     print("Rag context:")
     #     print(rag_context)
-    #     print("Request Extractor output:")
+    #     print("Structured response output:")
     #     print(output)
     
     return output
 
 
-def execute_modules(extractor_output: dict):
+def execute_modules(response_output: dict):
     if DEBUG == True:
-        testing_speech_handle(extractor_output["speech"])
+        testing_speech_handle(response_output["speech"])
     else:
-        speech_handle(extractor_output["speech"])
+        speech_handle(response_output["speech"])
         
-    if extractor_output["simple_action"]["requested"]:
-        simple_action_handle(extractor_output["simple_action"]["actions"])
+    if response_output["simple_action"]["requested"]:
+        simple_action_handle(response_output["simple_action"]["actions"])
         
-    if extractor_output["navigation"]["requested"]:
-        navigation_handle(extractor_output["navigation"]["locations"])
+    if response_output["navigation"]["requested"]:
+        navigation_handle(response_output["navigation"]["locations"])
 
 
 def main():
-    while True:
-        #for now this text input is just simple input from terminal
-        #later we will change to handle robot audio
-        text_input = get_input()
-        
-        #checks if navigation or simple_action or none
-        #request is a python dictionary, ex: {"navigation": 0, "simple_action":1}
-        chat_prob = chat_checker(text_input)
-        
-        #handles info based on request
-        #returns speech text, navigation dict, simple_action dict
-        extractor_output = request_extractor(
-            text_input,
-            chat_prob,
-            conversation,
-        )
+    dashboard_process = None
 
-        # Store the real user input and the response BELT will speak.
-        remember_conversation_turn(
-            conversation,
-            text_input,
-            extractor_output["speech"],
-        )
-        
-        #execute modules based on request
-        execute_modules(extractor_output)
+    if LAUNCH_STREAMLIT:
+        try:
+            dashboard_process = start_streamlit()
+        except RuntimeError as error:
+            print(f"BELT could not start the audio dashboard: {error}")
+            return
+
+    try:
+        if DEBUG:
+            startup_time = time.perf_counter() - PROGRAM_START_TIME
+            print(f"Done starting up ({startup_time:.3f} seconds)")
+
+        while True:
+            if DEBUG:
+                text_input = terminal_get_input()
+            else:
+                text_input = get_input()
+
+            # One LLM call returns speech, navigation, and simple actions.
+            response_output = generate_response(
+                text_input,
+                conversation,
+            )
+
+            # Store the real user input and the response BELT will speak.
+            remember_conversation_turn(
+                conversation,
+                text_input,
+                response_output["speech"],
+            )
+
+            #execute modules based on request
+            execute_modules(response_output)
+    except KeyboardInterrupt:
+        print("\nBELT stopped.")
+    finally:
+        stop_streamlit(dashboard_process)
 
 
 if __name__ == "__main__":

@@ -1,11 +1,17 @@
 import json
 import re
-from typing import Any, Mapping, Sequence
+import time
+from typing import Any, Collection, Mapping, Sequence
 
 from belt_v3_api import call_llm
 from rag.belt_v3_rag import rag_search
 from movement.belt_v3_valid_movements import VALID_MOVEMENTS
 from navigation.belt_v3_valid_navigation import VALID_LOCATIONS
+
+MAX_RESPONSE_TOKENS = 200
+RAG_TOP_K = 3
+RAG_MIN_SCORE = 0.30
+
 
 def safely_parse_json_to_python_dict(input_data: Any) -> dict | None:
     """
@@ -77,13 +83,12 @@ def safely_parse_json_to_python_dict(input_data: Any) -> dict | None:
 
 
 
-def build_location_action_detection_prompt(sentence: str) -> str:
+def build_response_prompt(
+    user_text: str,
+    rag_context: list[dict] | str,
+) -> str:
     return f"""
-You are BELT's request-detection module.
-
-Your job is to detect only:
-1. Physical actions the user is asking BELT to perform.
-2. Locations the user wants BELT to guide them to, help them find, or navigate toward.
+You are the response planner for a receptionist robot named BELT.
 
 Return only valid JSON in exactly this format:
 
@@ -95,134 +100,185 @@ Return only valid JSON in exactly this format:
     "navigation": {{
         "requested": false,
         "locations": []
-    }}
+    }},
+    "speech": "BELT's short natural-language response"
 }}
+
+Current user input:
+{json.dumps(user_text)}
+
+Relevant UCSC document information:
+{json.dumps(rag_context, ensure_ascii=False)}
+
+Supported locations:
+{json.dumps(sorted(VALID_LOCATIONS), ensure_ascii=False)}
+
+Supported movements:
+{json.dumps(sorted(VALID_MOVEMENTS), ensure_ascii=False)}
 
 Rules:
-- Set "simple_action.requested" to true only when the user directly or indirectly asks BELT to perform a physical action.
-- Set "navigation.requested" to true only when the user wants to find, reach, visit, or be guided to a location.
+- Answer casual conversation and general questions naturally and concisely.
+- Use relevant UCSC document information for UCSC questions, but ignore it when
+  it is unrelated to the user's input.
+- Never invent UCSC-specific facts.
+- Set "simple_action.requested" to true only when the current user input asks
+  BELT to perform a supported physical movement.
+- Set "navigation.requested" to true only when the current user input asks to
+  find, reach, visit, or be guided to a supported location.
 - Do not extract actions or locations that are only mentioned, described, remembered, or discussed.
 - Do not treat questions about BELT's abilities as requests.
-- Extract every requested action and location.
-- Use short normalized action names such as "wave", "spin", "nod", or "point left".
-- Use short normalized location names such as "bathroom", "lab", "break room"
-- Keep important adjectives of locations like "student lounge" instead of "lounge" and "gender neutral bathroom" instead of "bathroom"
-- Preserve location names as written by the user.
-- Do not invent actions or locations.
-- Do not include explanations or Markdown.
-
-Examples:
-
-Sentence: "Can you wave and take me to room 101?"
-Output:
-{{
-    "simple_action": {{
-        "requested": true,
-        "actions": ["wave"]
-    }},
-    "navigation": {{
-        "requested": true,
-        "locations": ["room 101"]
-    }}
-}}
-
-Sentence: "I saw someone waving near the library."
-Output:
-{{
-    "simple_action": {{
-        "requested": false,
-        "actions": []
-    }},
-    "navigation": {{
-        "requested": false,
-        "locations": []
-    }}
-}}
-
-Sentence: "Do you know how to dance?"
-Output:
-{{
-    "simple_action": {{
-        "requested": false,
-        "actions": []
-    }},
-    "navigation": {{
-        "requested": false,
-        "locations": []
-    }}
-}}
-
-Sentence: {json.dumps(sentence)}
+- Extract every supported movement and location requested in the current input.
+- Values in "actions" must exactly match entries in Supported movements.
+- Values in "locations" must exactly match entries in Supported locations.
+- "requested" must be true if and only if its corresponding list contains at
+  least one supported request.
+- When a requested movement or location is unsupported, leave it out of the
+  command lists and explain the limitation in "speech".
+- For valid requests, acknowledge them without claiming they already happened.
+- "speech" must contain only what BELT should say, without stage directions.
+- Do not include Markdown or any text outside the JSON object.
 """.strip()
 
 
+def _relevant_rag_context(rag_results: list[dict]) -> list[dict[str, str]]:
+    relevant_context: list[dict[str, str]] = []
 
-def extract_nav_action(text_input):
-    prompt = build_location_action_detection_prompt(text_input)
-    llm_response = call_llm(prompt)
-    python_dict_output = safely_parse_json_to_python_dict(llm_response)
-    return python_dict_output
+    for result in rag_results:
+        score = result.get("score")
+        title = result.get("title")
+        text = result.get("text")
+
+        if not isinstance(score, (int, float)) or score < RAG_MIN_SCORE:
+            continue
+        if not isinstance(title, str) or not isinstance(text, str):
+            continue
+
+        relevant_context.append({
+            "title": title,
+            "text": text,
+        })
+
+    return relevant_context
+
+
+def _validated_values(
+    raw_values: Any,
+    valid_values: Collection[str],
+) -> list[str]:
+    if not isinstance(raw_values, list):
+        return []
+
+    canonical_values = {
+        value.casefold(): value
+        for value in valid_values
+    }
+    validated: list[str] = []
+
+    for raw_value in raw_values:
+        if not isinstance(raw_value, str):
+            continue
+
+        canonical_value = canonical_values.get(
+            raw_value.strip().casefold()
+        )
+        if canonical_value is not None and canonical_value not in validated:
+            validated.append(canonical_value)
+
+    return validated
+
+
+def _validated_request(
+    raw_request: Any,
+    values_key: str,
+    valid_values: Collection[str],
+) -> dict:
+    if not isinstance(raw_request, Mapping):
+        return {
+            "requested": False,
+            values_key: [],
+        }
+
+    values = _validated_values(
+        raw_request.get(values_key),
+        valid_values,
+    )
+    requested = raw_request.get("requested") is True and bool(values)
+
+    return {
+        "requested": requested,
+        values_key: values if requested else [],
+    }
+
+
+def _validated_llm_response(raw_response: Any) -> dict:
+    parsed_response = safely_parse_json_to_python_dict(raw_response)
+
+    if parsed_response is None:
+        return {
+            "simple_action": {
+                "requested": False,
+                "actions": [],
+            },
+            "navigation": {
+                "requested": False,
+                "locations": [],
+            },
+            "speech": "Sorry, I couldn't process that request.",
+        }
+
+    speech = parsed_response.get("speech")
+    if not isinstance(speech, str) or not speech.strip():
+        speech = "Sorry, I couldn't process that request."
+
+    return {
+        "simple_action": _validated_request(
+            parsed_response.get("simple_action"),
+            "actions",
+            VALID_MOVEMENTS,
+        ),
+        "navigation": _validated_request(
+            parsed_response.get("navigation"),
+            "locations",
+            VALID_LOCATIONS,
+        ),
+        "speech": speech.strip(),
+    }
 
 
 def compose_response(
-    nav_action_dict,
     user_text,
     conversation: Sequence[Mapping[str, str]],
+    debug: bool = False,
 ):
-    rag_context = rag_search(user_text, top_k = 5)
+    if debug:
+        rag_start = time.perf_counter()
 
-    if rag_context is None:
+    rag_results = rag_search(user_text, top_k=RAG_TOP_K)
+    rag_context = _relevant_rag_context(rag_results)
+
+    if debug:
+        rag_time = time.perf_counter() - rag_start
+        print(
+            f"Done Searching RAG ({rag_time:.3f} seconds, "
+            f"{len(rag_context)}/{len(rag_results)} relevant chunks)"
+        )
+
+    if not rag_context:
         rag_context = "No relevant document information found."
 
-    prompt = f"""
-You are the response composer for a receptionist robot named BELT.
+    prompt = build_response_prompt(user_text, rag_context)
 
-User input:
-{user_text}
+    if debug:
+        llm_start = time.perf_counter()
 
-Navigation and simple-action result:
-{json.dumps(nav_action_dict, indent=2)}
+    llm_response = call_llm(
+        prompt,
+        conversation=conversation,
+        max_tokens=MAX_RESPONSE_TOKENS,
+    )
 
-Relevant document information:
-{rag_context}
+    if debug:
+        llm_time = time.perf_counter() - llm_start
+        print(f"Done Calling Response LLM ({llm_time:.3f} seconds)")
 
-Valid Locations:
-{VALID_LOCATIONS}
-
-Valid Movements:
-{VALID_MOVEMENTS}
-
-Write only the short natural-language response BELT should say.
-
-Behavior:
-- Answer casual conversation and general questions normally.
-- Use the provided UCSC information when relevant. Do not invent UCSC-specific facts.
-- For every detected location or movement, check whether it is supported.
-- If a request is valid, acknowledge it naturally without claiming it has already been completed.
-- If a location is invalid, explain that it is not a destination BELT can navigate to and mention that BELT only supports specific UCSC locations.
-- If a movement is invalid, explain that BELT cannot perform that movement.
-- If a request is invalid, find similar-sounding locations/actions that are valid and offer to do them.
-- Do not ignore invalid requests.
-- Only discuss navigation or movements detected in the provided result.
-- Return only BELT's concise spoken response. Do not include stage directions.
-""".strip()
-
-    speech = call_llm(prompt, conversation=conversation)
-
-    return {
-        "simple_action": nav_action_dict.get(
-            "simple_action",
-            {
-                "requested": False,
-                "actions": []
-            }
-        ),
-        "navigation": nav_action_dict.get(
-            "navigation",
-            {
-                "requested": False,
-                "locations": []
-            }
-        ),
-        "speech": speech.strip() if isinstance(speech, str) else ""
-    }, rag_context
+    return _validated_llm_response(llm_response), rag_context

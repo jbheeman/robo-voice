@@ -173,6 +173,11 @@ def main() -> None:
     finally:
         _close_audio_input()
 
+def terminal_get_input():
+    return input("> ").strip()
+
 
 if __name__ == "__main__":
     main()
+
+

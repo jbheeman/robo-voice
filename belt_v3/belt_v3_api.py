@@ -9,7 +9,7 @@ Also there's a system_prompt you can edit here
 from __future__ import annotations
 
 import os
-from typing import Dict, List, Mapping, Optional, Sequence
+from typing import Any, Dict, List, Mapping, Optional, Sequence
 
 from dotenv import load_dotenv
 from openai import (
@@ -201,6 +201,7 @@ def print_llm_history(
 def call_llm(
     input_text: str,
     conversation: Optional[Sequence[Mapping[str, str]]] = None,
+    max_tokens: Optional[int] = None,
 ) -> Optional[str]:
     """
     Sends instructions or user text to the DeepSeek model.
@@ -220,6 +221,9 @@ def call_llm(
         print("BELT API: Input text cannot be empty.")
         return None
 
+    if max_tokens is not None and max_tokens <= 0:
+        raise ValueError("max_tokens must be greater than 0")
+
     current_user_message = {
         "role": "user",
         "content": input_text,
@@ -236,11 +240,15 @@ def call_llm(
     ]
 
     try:
-        response = LLM_CLIENT.chat.completions.create(
-            model=MODEL_NAME,
-            messages=messages,
-            stream=False,
-        )
+        request_options: Dict[str, Any] = {
+            "model": MODEL_NAME,
+            "messages": messages,
+            "stream": False,
+        }
+        if max_tokens is not None:
+            request_options["max_tokens"] = max_tokens
+
+        response = LLM_CLIENT.chat.completions.create(**request_options)
 
         output_text = response.choices[0].message.content
 
