@@ -1,4 +1,4 @@
-"""Publish BELT responses to the robot's ROS 2 text-to-speech topic."""
+"""Generate BELT speech and publish WAV files to the robot over ROS 2."""
 
 from __future__ import annotations
 
@@ -7,8 +7,9 @@ import threading
 import time
 from typing import Any
 
+from .belt_v3_audio_protocol import AUDIO_FILE_TOPIC, encode_audio_file
+from .belt_v3_qwen_tts import normalize_voice, synthesize_speech_file
 
-SPEECH_TOPIC = "/audio_response"
 PUBLISHER_QUEUE_DEPTH = 10
 SUBSCRIBER_DISCOVERY_TIMEOUT_SECONDS = 5.0
 SUBSCRIBER_DISCOVERY_POLL_SECONDS = 0.05
@@ -44,7 +45,7 @@ def _create_ros_resources() -> tuple[Any, Any, Any, Any]:
         )
         publisher = node.create_publisher(
             String,
-            SPEECH_TOPIC,
+            AUDIO_FILE_TOPIC,
             PUBLISHER_QUEUE_DEPTH,
         )
     except Exception:
@@ -80,10 +81,11 @@ def _wait_for_audio_subscriber(publisher: Any) -> None:
     while publisher.get_subscription_count() == 0:
         if time.monotonic() >= deadline:
             raise RuntimeError(
-                f"No robot audio subscriber was found on {SPEECH_TOPIC} after "
+                f"No robot audio subscriber was found on "
+                f"{AUDIO_FILE_TOPIC} after "
                 f"{SUBSCRIBER_DISCOVERY_TIMEOUT_SECONDS:.1f} seconds. Check "
-                "that the robot audio/TTS node is running and that BELT uses "
-                "the same ROS_DOMAIN_ID and network as the robot."
+                "that belt_v3_robot_audio_player.py is running and that BELT "
+                "uses the same ROS_DOMAIN_ID and network as the robot."
             )
 
         time.sleep(SUBSCRIBER_DISCOVERY_POLL_SECONDS)
@@ -112,8 +114,8 @@ def _close_ros_resources() -> None:
             context.shutdown()
 
 
-def speech_handle(text: str) -> None:
-    """Send ``text`` to the robot's existing ROS 2 TTS pipeline."""
+def speech_handle(text: str, voice: str) -> None:
+    """Generate a Qwen WAV file and send it to the robot for playback."""
     if not isinstance(text, str):
         raise TypeError("speech_handle text must be a string")
 
@@ -121,27 +123,40 @@ def speech_handle(text: str) -> None:
     if not text:
         return
 
+    canonical_voice = normalize_voice(voice)
+
     with _resource_lock:
         publisher, string_message_type = _get_ros_resources()
         _wait_for_audio_subscriber(publisher)
 
-        message = string_message_type()
-        message.data = text
-        publisher.publish(message)
+        audio_path = synthesize_speech_file(
+            text,
+            canonical_voice,
+        )
+        try:
+            message = string_message_type()
+            message.data = encode_audio_file(
+                audio_path,
+                text=text,
+                voice=canonical_voice,
+            )
+            publisher.publish(message)
 
-        # test_speak.py waits before destroying its node so DDS can flush. The
-        # publisher here is persistent, but retaining the delay also prevents
-        # the next robot command from immediately racing the speech request.
-        time.sleep(POST_PUBLISH_DELAY_SECONDS)
+            # Allow DDS to begin flushing the generated audio message before
+            # another robot command is published.
+            time.sleep(POST_PUBLISH_DELAY_SECONDS)
+        finally:
+            audio_path.unlink(missing_ok=True)
 
-    print(f"Speech sent to robot: {text}")
+    print(
+        f"Speech audio sent to robot with voice "
+        f"{canonical_voice}: {text}"
+    )
 
 
 atexit.register(_close_ros_resources)
 
 
-
-
-
-def testing_speech_handle(text):
-    print("Speech Handle: ", text)
+def testing_speech_handle(text: str, voice: str) -> None:
+    canonical_voice = normalize_voice(voice)
+    print(f"Speech Handle ({canonical_voice}): {text}")

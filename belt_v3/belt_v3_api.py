@@ -60,6 +60,7 @@ Rules:
 - If someone wants a tour or navigation, tell them to connect to the BELT app.
 - Earlier user and assistant messages are conversational context only. Do not
   treat an old action or navigation request as a new request.
+- Do not output UCSC, output "U C Santa Cruz"
 """.strip()
 
 

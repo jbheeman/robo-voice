@@ -2,7 +2,11 @@
 
 from __future__ import annotations
 
+import base64
+import json
+import tempfile
 import unittest
+from pathlib import Path
 from unittest.mock import patch
 
 from speech import belt_v3_speech_handle as speech
@@ -60,32 +64,73 @@ class SpeechHandleTests(unittest.TestCase):
     def test_publishes_stripped_text_and_reuses_publisher(self) -> None:
         publisher = FakePublisher()
 
-        with (
-            patch.object(
-                speech,
-                "_create_ros_resources",
-                return_value=self.resources(publisher),
-            ) as create_resources,
-            patch.object(speech.time, "sleep"),
-        ):
-            speech.speech_handle("  Hello, robot!  ")
-            speech.speech_handle("Second response")
+        with tempfile.TemporaryDirectory() as temp_directory:
+            first_audio = Path(temp_directory) / "first.wav"
+            second_audio = Path(temp_directory) / "second.wav"
+            first_audio.write_bytes(b"first wav")
+            second_audio.write_bytes(b"second wav")
+
+            with (
+                patch.object(
+                    speech,
+                    "_create_ros_resources",
+                    return_value=self.resources(publisher),
+                ) as create_resources,
+                patch.object(
+                    speech,
+                    "synthesize_speech_file",
+                    side_effect=[first_audio, second_audio],
+                ) as synthesize,
+                patch.object(speech.time, "sleep"),
+            ):
+                speech.speech_handle("  Hello, robot!  ", "Aiden")
+                speech.speech_handle("Second response", "Ryan")
+
+        payloads = [
+            json.loads(message.data)
+            for message in publisher.messages
+        ]
 
         self.assertEqual(
-            [message.data for message in publisher.messages],
+            [payload["text"] for payload in payloads],
             ["Hello, robot!", "Second response"],
         )
+        self.assertEqual(
+            [payload["voice"] for payload in payloads],
+            ["Aiden", "Ryan"],
+        )
+        self.assertEqual(
+            [
+                base64.b64decode(payload["audio"])
+                for payload in payloads
+            ],
+            [b"first wav", b"second wav"],
+        )
+        self.assertEqual(
+            synthesize.call_args_list[0].args,
+            ("Hello, robot!", "Aiden"),
+        )
+        self.assertEqual(
+            synthesize.call_args_list[1].args,
+            ("Second response", "Ryan"),
+        )
         create_resources.assert_called_once_with()
+        self.assertFalse(first_audio.exists())
+        self.assertFalse(second_audio.exists())
 
     def test_empty_text_does_not_create_ros_resources(self) -> None:
         with patch.object(speech, "_create_ros_resources") as create_resources:
-            speech.speech_handle("   ")
+            speech.speech_handle("   ", "Aiden")
 
         create_resources.assert_not_called()
 
     def test_non_string_text_is_rejected(self) -> None:
         with self.assertRaisesRegex(TypeError, "must be a string"):
-            speech.speech_handle(None)  # type: ignore[arg-type]
+            speech.speech_handle(None, "Aiden")  # type: ignore[arg-type]
+
+    def test_unsupported_voice_is_rejected(self) -> None:
+        with self.assertRaisesRegex(ValueError, "Unsupported Qwen voice"):
+            speech.speech_handle("Hello", "Unknown")
 
     def test_missing_audio_subscriber_raises_clear_error(self) -> None:
         publisher = FakePublisher(subscription_count=0)
@@ -102,7 +147,7 @@ class SpeechHandleTests(unittest.TestCase):
                 RuntimeError,
                 "No robot audio subscriber",
             ):
-                speech.speech_handle("Can you hear me?")
+                speech.speech_handle("Can you hear me?", "Aiden")
 
         self.assertEqual(publisher.messages, [])
 

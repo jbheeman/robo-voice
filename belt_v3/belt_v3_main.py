@@ -9,7 +9,9 @@ from launch_streamlit import start_streamlit, stop_streamlit
 
 #hyperparams? idk
 DEBUG = True
+USING_ROBOT = True
 LAUNCH_STREAMLIT = False
+VOICE = "Aiden"
 
 PROGRAM_START_TIME = time.perf_counter() if DEBUG else 0.0
 
@@ -42,10 +44,10 @@ def generate_response(
 
 
 def execute_modules(response_output: dict):
-    if DEBUG == True:
-        testing_speech_handle(response_output["speech"])
+    if USING_ROBOT:
+        speech_handle(response_output["speech"], VOICE)
     else:
-        speech_handle(response_output["speech"])
+        testing_speech_handle(response_output["speech"], VOICE)
         
     if response_output["simple_action"]["requested"]:
         simple_action_handle(response_output["simple_action"]["actions"])
@@ -70,7 +72,7 @@ def main():
             print(f"Done starting up ({startup_time:.3f} seconds)")
 
         while True:
-            if DEBUG:
+            if USING_ROBOT:
                 text_input = terminal_get_input()
             else:
                 text_input = get_input()

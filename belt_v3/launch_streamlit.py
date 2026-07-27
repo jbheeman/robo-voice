@@ -18,9 +18,10 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
+from speech.belt_v3_audio_protocol import AUDIO_FILE_TOPIC
 
 INPUT_TOPIC = "/audio_msg_bridge"
-OUTPUT_TOPIC = "/audio_response"
+OUTPUT_TOPIC = AUDIO_FILE_TOPIC
 TRANSCRIPT_SETTLE_SECONDS = 0.8
 REPEATED_UTTERANCE_GAP_SECONDS = 1.5
 MAX_LOG_ENTRIES = 500
@@ -215,15 +216,29 @@ class RobotAudioLog:
         )
 
     def _output_callback(self, message: Any) -> None:
-        text = message.data.strip()
-        if not text:
+        try:
+            payload = json.loads(message.data)
+        except (json.JSONDecodeError, TypeError):
             return
 
+        if not isinstance(payload, dict):
+            return
+
+        text = payload.get("text")
+        voice = payload.get("voice")
+        if not isinstance(text, str) or not text.strip():
+            return
+
+        details = (
+            f"voice={voice}"
+            if isinstance(voice, str) and voice
+            else ""
+        )
         self._append_entry(
             direction="Output",
-            text=text,
+            text=text.strip(),
             topic=OUTPUT_TOPIC,
-            details="",
+            details=details,
         )
 
     def _append_entry(
