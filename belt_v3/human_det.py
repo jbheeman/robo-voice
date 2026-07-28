@@ -1,22 +1,24 @@
 """
-BELT greeter: YOLO watches for people, DeepFace identifies them, TTS greets
+human_det.py
+------------
+BELT greeter: YOLO watches for people, DeepFace identifies them, TTS greets.
 
   * Recognized staff  -> "Hello, {name}!"
   * Unrecognized face -> "Welcome"
 
 Design notes:
   * YOLO runs every frame (cheap). Face recognition runs at most once every
-    RECOGNITION_INTERVAL seconds and only when YOLO sees a person -- otherwise
-    retinaface + Facenet would drag the feed down to a few FPS. Between passes
-    the last known boxes are drawn, so the overlay still looks live
+    RECOGNITION_INTERVAL seconds and only when YOLO sees a person, so the
+    video feed stays smooth. Between passes the last known boxes are drawn,
+    so the overlay still looks live.
   * Greetings are driven ONLY by fresh recognition results. "Welcome" fires on
     a detected *face* that matched nobody -- not merely on a YOLO person box --
-    so a person's back or an arm in frame won't trigger it
+    so a person's back or an arm in frame won't trigger it.
   * All speech goes through one worker thread + queue. Spawning a pyttsx3
     engine per utterance (the old approach) deadlocks or drops audio when two
-    greetings overlap
+    greetings overlap.
 
-Press 'q' to quit, 'd' to toggle debug distances, 'r' to reset greeting state
+Press 'q' to quit, 'd' to toggle debug distances, 'r' to reset greeting state.
 """
 
 import queue
@@ -29,6 +31,10 @@ from ultralytics import YOLO
 
 from staff_recognition import KNOWN_NAMES, detect_faces
 
+# --------------------------------------------------------------------------
+# Configuration
+# --------------------------------------------------------------------------
+
 CAMERA_INDEX = 0
 FRAME_WIDTH, FRAME_HEIGHT = 1280, 720
 
@@ -39,9 +45,10 @@ PERSON_CLASS_ID = 0
 GENERIC_GREETING = "Welcome"
 STAFF_GREETING_TEMPLATE = "Hello, {name}!"
 
-# Lower = snappier greetings
-# Higher = smoother video.
-RECOGNITION_INTERVAL = 0.60
+# Run face recognition at most this often (seconds). Lower = snappier
+# greetings, higher = smoother video. InsightFace on CPU takes roughly
+# 60-120ms per pass on Apple Silicon, so 0.25 is comfortable.
+RECOGNITION_INTERVAL = 0.25
 
 # How long a recognition result stays on screen before it is considered stale.
 RESULT_TTL = 1.5
@@ -58,6 +65,10 @@ SHOW_YOLO_BOXES = False  # the person boxes are noisy; face boxes are enough
 COLOR_KNOWN = (0, 200, 0)
 COLOR_UNKNOWN = (0, 165, 255)
 
+
+# --------------------------------------------------------------------------
+# Text to speech: one engine, one thread, one queue
+# --------------------------------------------------------------------------
 
 class Speaker:
     def __init__(self, rate=165):
@@ -96,6 +107,7 @@ class Speaker:
             pass
 
     def say(self, text):
+        # Don't let a backlog build up if recognition goes haywire.
         if self._queue.qsize() < 3:
             self._queue.put(text)
 
@@ -104,6 +116,9 @@ class Speaker:
         self._queue.put(None)
 
 
+# --------------------------------------------------------------------------
+# Greeting state machine
+# --------------------------------------------------------------------------
 
 class GreetingTracker:
     """
@@ -118,6 +133,7 @@ class GreetingTracker:
         self.present = set()
 
     def observe(self, subject, now):
+        """Returns True if `subject` should be greeted right now."""
         was_present = subject in self.present
         self.last_seen[subject] = now
         self.present.add(subject)
@@ -140,6 +156,10 @@ class GreetingTracker:
         self.last_greeted.clear()
         self.present.clear()
 
+
+# --------------------------------------------------------------------------
+# Drawing
+# --------------------------------------------------------------------------
 
 def draw_faces(frame, faces, show_debug):
     for face in faces:
@@ -173,6 +193,9 @@ def draw_hud(frame, fps, person_count, stale):
     return frame
 
 
+# --------------------------------------------------------------------------
+# Main loop
+# --------------------------------------------------------------------------
 
 def main():
     print(f"[INFO] Enrolled staff ({len(KNOWN_NAMES)}): {', '.join(KNOWN_NAMES) or 'none'}")
@@ -209,7 +232,7 @@ def main():
 
             now = time.time()
 
-            # Is there a person at all?
+            # ---- 1. Cheap pass: is there a person at all? ----------------
             results = model.predict(frame, conf=YOLO_CONF, classes=[PERSON_CLASS_ID], verbose=False)
             person_count = sum(len(r.boxes) for r in results if r.boxes is not None)
             human_detected = person_count > 0
@@ -220,7 +243,7 @@ def main():
                     for box in r.boxes.xyxy.cpu().numpy().astype(int):
                         cv2.rectangle(display, (box[0], box[1]), (box[2], box[3]), (200, 200, 200), 1)
 
-            # Who is it?
+            # ---- 2. Expensive pass: who is it? (throttled) ---------------
             fresh_faces = None
             if human_detected and (now - last_recognition_at) >= RECOGNITION_INTERVAL:
                 last_recognition_at = now
@@ -237,17 +260,18 @@ def main():
 
             display = draw_faces(display, cached_faces, show_debug)
 
-            # Greetings
+            # ---- 3. Greetings, driven only by FRESH results --------------
             if fresh_faces is not None:
                 named = [f["name"] for f in fresh_faces if f["name"]]
                 unknown_faces = [f for f in fresh_faces if f["name"] is None]
 
-                for name in dict.fromkeys(named):  
+                for name in dict.fromkeys(named):  # de-dupe, keep order
                     if staff.observe(name, now):
                         print(f"[GREET] Staff recognized: {name}")
                         speaker.say(STAFF_GREETING_TEMPLATE.format(name=name))
 
-                # One generic greeting regardless of how many unkown faces are in the shot.
+                # One generic greeting per "a stranger is here" episode,
+                # regardless of how many unknown faces are in the shot.
                 if unknown_faces:
                     if visitors.observe("__visitor__", now):
                         print(f"[GREET] Unrecognized visitor(s): {len(unknown_faces)}")
@@ -256,6 +280,7 @@ def main():
             staff.expire(now)
             visitors.expire(now)
 
+            # ---- 4. HUD + input ------------------------------------------
             fps_frames += 1
             if now - fps_since >= 0.5:
                 fps = fps_frames / (now - fps_since)
