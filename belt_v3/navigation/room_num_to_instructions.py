@@ -53,7 +53,7 @@ def general_nav(start, end):
     start = symbols[start]
     end = symbols[end]
     if start == end:
-        return general_format([])
+        return general_format(start, [])
     if start == '7':
         return nav(end)
     for x in range(29):
