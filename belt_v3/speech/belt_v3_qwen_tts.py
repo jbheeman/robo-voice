@@ -12,7 +12,7 @@ from typing import Any
 
 
 QWEN_TTS_MODEL_ID = "Qwen/Qwen3-TTS-12Hz-0.6B-CustomVoice"
-DEFAULT_VOICE = "Aiden"
+DEFAULT_VOICE = "Vivian"
 SUPPORTED_VOICES = (
     "Vivian",
     "Serena",
