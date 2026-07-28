@@ -53,7 +53,7 @@ def general_nav(start, end):
     start = symbols[start]
     end = symbols[end]
     if start == end:
-        return []
+        return general_format([])
     if start == '7':
         return nav(end)
     for x in range(29):
@@ -136,6 +136,8 @@ def general_format(start, dlist):
             out.append("Your destination will be on the left.")
         elif rot == 3:
             out.append("Your destination will be on the right.")
+        else:
+            out.append("You destination will be in front of you.")
     else:
         if rot == 1:
             out.append("Turn left.")
