@@ -2,8 +2,8 @@
 
 BELT greeter: YOLO watches for people, DeepFace identifies them, TTS greets.
 
-The robot's ROS 2 camera is the default. For a local webcam, run:
-    python human_det.py --camera-source webcam
+The computer's local webcam is the default. Robot ROS 2 camera support can be
+selected later with --camera-source ros.
 
   * Recognized staff  -> "Hello, {name}!"
   * Unrecognized face -> "Welcome"

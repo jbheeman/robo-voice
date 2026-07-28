@@ -1,70 +1,68 @@
 # Robot camera setup
 
-`human_det.py` now reads the robot's RealSense color stream through ROS 2 by
-default. It does not try to open `/dev/video0`.
+`human_det.py` reads the computer's local webcam through OpenCV by default.
+Robot ROS 2 support remains available for later, but it is not selected unless
+`--camera-source ros` is passed explicitly.
 
-The data path is:
+When the program runs inside WSL, the local-camera data path is:
 
 ```text
-robot RealSense -> ROS 2 Image topic -> CvBridge -> OpenCV frame
-                 -> YOLO and staff recognition
+Windows camera -> usbipd -> WSL /dev/video0 -> OpenCV
+               -> YOLO and staff recognition
 ```
 
-Only the color stream is needed for human and face recognition. The depth
-stream documented in `HOW_TO_ACCESS_CAMERA.txt` is not used by this program.
+## 1. Attach the Windows camera to WSL
 
-## 1. Verify the robot camera stream
+Open **PowerShell as Administrator**. The `usbipd` program is installed at:
 
-On a computer connected to the robot's network:
+```text
+C:\Program Files\usbipd-win\usbipd.exe
+```
+
+List the USB devices:
+
+```powershell
+& "C:\Program Files\usbipd-win\usbipd.exe" list
+```
+
+On this computer the built-in camera is BUSID `2-1`. Share it:
+
+```powershell
+& "C:\Program Files\usbipd-win\usbipd.exe" bind --busid 2-1
+```
+
+Then attach it to WSL:
+
+```powershell
+& "C:\Program Files\usbipd-win\usbipd.exe" attach --wsl --busid 2-1
+```
+
+Close Windows Camera, Zoom, Teams, and other programs that may be using the
+camera before attaching it.
+
+Back in the WSL terminal, verify that the device exists:
 
 ```bash
-source /opt/ros/jazzy/setup.bash
-ros2 topic info /camera/camera/color/image_raw
-ros2 topic hz /camera/camera/color/image_raw
+ls -l /dev/video*
 ```
 
-The topic must report at least one publisher and a changing frame rate.
+## 2. Activate the existing vision environment
 
-If the robot camera driver is running locally and the topic is absent, start
-the standard RealSense ROS driver:
+From the workspace root:
 
 ```bash
-ros2 launch realsense2_camera rs_launch.py
+cd "/root/git/UCSC AI SUMMER CAMP"
+source venv/bin/activate
 ```
 
-If the driver runs on another computer, both computers must be on the same
-network and use compatible ROS domain and DDS settings.
+This environment already contains OpenCV, Ultralytics, InsightFace, ONNX
+Runtime, Joblib, NumPy, and pyttsx3.
 
-## 2. Use ROS's Python version
-
-ROS Jazzy on the robot computer uses Python 3.12. Do not run the detector from
-a Python 3.13 Conda environment.
-
-Source ROS before activating the Python environment:
+Test whether OpenCV can open the camera:
 
 ```bash
-conda deactivate
-source /opt/ros/jazzy/setup.bash
-cd ~/robo-voice
-source ros_venv/bin/activate
+python -c "import cv2; c=cv2.VideoCapture(0); print('Camera opened:', c.isOpened()); c.release()"
 ```
-
-Verify the important imports:
-
-```bash
-python -c "import rclpy, cv2, cv_bridge; print('camera imports OK')"
-```
-
-If this reports that a module built with NumPy 1.x cannot run with NumPy 2.x,
-the environment needs a NumPy version below 2:
-
-```bash
-python -m pip install --force-reinstall "numpy<2"
-```
-
-The detector also requires the packages listed in the repository's main
-`README.md`, including Ultralytics, InsightFace, ONNX Runtime, Joblib, and
-pyttsx3.
 
 ## 3. Run the detector
 
@@ -72,7 +70,7 @@ Run from the computer-vision directory so its model, encodings, and faculty
 image paths resolve correctly:
 
 ```bash
-cd ~/robo-voice/belt_v3/comp_vision
+cd "/root/git/UCSC AI SUMMER CAMP/robo-voice/belt_v3/comp_vision"
 python human_det.py
 ```
 
@@ -84,26 +82,20 @@ python human_det.py --no-display
 
 Stop a headless run with `Ctrl+C`.
 
-The expected startup messages are:
+The expected camera message is similar to:
 
 ```text
-[INFO] Waiting for camera frames from ROS 2 topic /camera/camera/color/image_raw...
-[INFO] Camera connected: ROS 2 topic /camera/camera/color/image_raw (1280x720).
+[INFO] Waiting for camera frames from local webcam index 0...
+[INFO] Camera connected: local webcam index 0 (1280x720).
 ```
 
-## Other camera inputs
+## Robot camera later
 
-Use a different ROS image topic:
+Robot support must be requested explicitly:
 
 ```bash
-python human_det.py --camera-topic /another/color/image_raw
+source /opt/ros/jazzy/setup.bash
+python human_det.py \
+  --camera-source ros \
+  --camera-topic /camera/camera/color/image_raw
 ```
-
-Use a local webcam instead of the robot:
-
-```bash
-python human_det.py --camera-source webcam --camera-index 0
-```
-
-If the expected ROS topic has no publisher, the program waits 15 seconds and
-then prints the image topics that are actually available.

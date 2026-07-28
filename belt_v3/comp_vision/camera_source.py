@@ -9,7 +9,7 @@ import argparse
 import time
 
 
-DEFAULT_CAMERA_SOURCE = "ros"
+DEFAULT_CAMERA_SOURCE = "webcam"
 DEFAULT_CAMERA_INDEX = 0
 DEFAULT_FRAME_WIDTH = 1280
 DEFAULT_FRAME_HEIGHT = 720
@@ -214,7 +214,7 @@ def parse_camera_args():
         "--camera-source",
         choices=("ros", "webcam"),
         default=DEFAULT_CAMERA_SOURCE,
-        help="Frame source to use (default: ros).",
+        help="Frame source to use (default: webcam).",
     )
     parser.add_argument(
         "--camera-topic",
