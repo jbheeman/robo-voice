@@ -7,44 +7,24 @@ import os
 from deepface import DeepFace
 
 names = {
-  0: "Luca De Alfaro",
-  1: "Pranav Anand",
-  2: "Manel Camps",
-  3: "Ashesh Kumar Chattopadhyay",
-  4: "Jason Eshraghian",
-  5: "Daniel J. Fremont",
-  6: "Jeffrey M Flanigan",
-  7: "Leilani H Gilpin",
-  8: "David Haussler",
-  9: "Minghui Hu",
-  10: "Tae Myung Huh",
-  11: "Ian Lane",
-  12: "Bing Liu",
-  13: "Alexander Ioannidis",
-  14: "Nilah Ioannidis",
-  15: "Heiner H Litz",
-  16: "Razvan V Marinescu",
-  17: "Jennifer A Parker",
-  18: "Jose Renau",
-  19: "Magy Seif El-Nasr",
-  20: "Sagnik Nath",
-  21: "Michael Tassio",
-  22: "Chenguang Wang",
-  23: "Xiao Wang",
-  24: "Cihang Xie",
-  25: "Hao Yue",
-  26: "Yi Zhang",
-  27: "Yuyin Zhou",
+  0: "Bianca",
+  1: "Ethan",
+  2: "Hao",
+  3: "Jason",
+  4: "Jesh",
+  5: "Lionel",
+  6: "Michelle",
+  7: "Tina",
+  8: "Yi",
 }
 
-# Folder containing one subfolder per person
 FACULTY_IMAGES_DIR = "faculty_images2"
 ENCODINGS_PATH = "encodings.joblib"
 MODEL_NAME = "Facenet"
 
 DETECTOR_BACKEND = "retinaface"
 
-MATCH_THRESHOLD = 0.40
+MATCH_THRESHOLD = 0.60
 
 VALID_EXTENSIONS = (".jpg", ".jpeg", ".png")
 
@@ -56,18 +36,12 @@ def _cosine_distance(a, b):
 
 
 def _folder_name_for(name):
-    # "Jose Renau" -> "Jose_Renau" (matches the extracted zip's folder names)
     return name.replace(" ", "_")
 
 
 def initEncodings():
-    """
-    Builds one embedding per training image (not per person) and stores them
-    grouped by person index, so each person can have a variable number of
-    reference photos (2, 3, or more).
-    """
     print("[INFO] Building faculty encodings...")
-    encodings = {}  # person_index -> list of embeddings
+    encodings = {} 
 
     for i, name in names.items():
         person_dir = pathlib.Path(FACULTY_IMAGES_DIR) / _folder_name_for(name)
@@ -130,7 +104,6 @@ def getPeople(frame):
         return frame_names, recognized_locations
 
     for face in faces:
-        # Ignore weak detections
         if face.get("face_confidence", 1.0) < 0.6:
             continue
 
@@ -139,9 +112,6 @@ def getPeople(frame):
         best_index = None
         best_distance = None
 
-        # Compare against every stored embedding for every person, and keep
-        # whichever single reference photo is closest (nearest-neighbor 
-        # matching across all training images)
         for i, known_embeddings in encodings.items():
             for known_embedding in known_embeddings:
                 distance = _cosine_distance(embedding, known_embedding)
