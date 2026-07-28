@@ -1,23 +1,25 @@
 import cv2
 import flet as ft
 import base64
+import sys
 from ultralytics import YOLO
-import pyttsx3
 import time
 import threading
+from pathlib import Path
+
+BELT_V3_DIRECTORY = Path(__file__).resolve().parents[1]
+if str(BELT_V3_DIRECTORY) not in sys.path:
+    sys.path.insert(0, str(BELT_V3_DIRECTORY))
+
+from speech.belt_v3_qwen_tts import DEFAULT_VOICE
+from speech.belt_v3_speech_handle import speech_handle
 
 model = YOLO("yolov8n.pt")
 
 def speak_phrase(text):
     def _speak():
         try:
-            # Re-initializing locally guarantees the audio doesn't fail
-            local_engine = pyttsx3.init()
-            local_engine.setProperty('rate', 150) #Moderate Speaking Pace
-            local_engine.say(text)
-            local_engine.runAndWait()
-            
-            del local_engine
+            speech_handle(text, DEFAULT_VOICE)
         except Exception as tts_err:
             print(f"[TTS ERROR] Failed to output audio: {tts_err}")
     

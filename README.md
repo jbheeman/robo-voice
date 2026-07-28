@@ -14,7 +14,7 @@ python -m pip install -U sentence-transformers datasets accelerate
 
 cv:
 pip install insightface onnxruntime opencv-python joblib numpy
-pip install pyttsx3 ultralytics
+pip install ultralytics
 
 
 connect to tp link
@@ -32,9 +32,6 @@ source /opt/ros/jazzy/setup.bash
 
 cd belt_v3
 
-test speaking:
-cd ~
-python3.12 test_speak.py "hello"
-
-maybe?
-source ~/unitree_ros2/setup.sh
+test Qwen Aiden on the robot:
+python -m speech.belt_v3_speech_handle \
+  "This is BELT testing the Qwen Aiden voice."

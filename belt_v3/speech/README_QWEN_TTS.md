@@ -21,12 +21,26 @@ Select the voice with `VOICE` in `belt_v3_main.py`. Available voices are
 `Vivian`, `Serena`, `Uncle_Fu`, `Dylan`, `Eric`, `Ryan`, `Aiden`,
 `Ono_Anna`, and `Sohee`.
 
+BELT currently locks its default voice to `Aiden`. On startup, the terminal
+prints the exact model, speaker, language, and generator source file. Before
+each robot publication it also prints a generation record identifying
+`speaker=Aiden`.
+
+The most recently generated Aiden recording remains available for diagnosis:
+
+```text
+/tmp/belt_v3_generated_audio/last_qwen_aiden.wav
+```
+
+Playing that file locally lets you distinguish the generated Qwen voice from
+anything else speaking on the computer or robot.
+
 ## ROS and robot setup
 
-Before running BELT, source the Unitree ROS environment on the computer:
+Before running BELT, source ROS 2 Jazzy on the computer:
 
 ```bash
-source /opt/unitree_ros2/setup.sh
+source /opt/ros/jazzy/setup.bash
 ```
 
 The teacher-provided `stream_audio_bridge.py` must be running on the robot. It
@@ -39,3 +53,14 @@ service. Both machines must use the same `ROS_DOMAIN_ID` and
 ```bash
 python3 -m speech.publish_wav /path/to/audio.wav
 ```
+
+To test the complete Aiden generation and robot-publication path without
+starting the conversation loop:
+
+```bash
+python3 -m speech.belt_v3_speech_handle \
+  "This is BELT testing the Qwen Aiden voice."
+```
+
+Both `belt_v3_main.py` and the computer-vision greeting programs use this same
+speech handler. They do not use the operating system's `pyttsx3` voice.

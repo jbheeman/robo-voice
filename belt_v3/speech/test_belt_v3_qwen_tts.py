@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 import sys
+import tempfile
 import unittest
+from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import Mock, patch
 
@@ -21,6 +23,10 @@ class QwenVoiceTests(unittest.TestCase):
 
     def test_synthesis_uses_selected_voice_and_writes_wav(self) -> None:
         model = Mock()
+        model.get_supported_speakers.return_value = [
+            voice.casefold()
+            for voice in qwen_tts.SUPPORTED_VOICES
+        ]
         model.generate_custom_voice.return_value = ([b"waveform"], 24000)
 
         def write_audio(path, waveform, sample_rate) -> None:
@@ -30,28 +36,55 @@ class QwenVoiceTests(unittest.TestCase):
 
         fake_soundfile = SimpleNamespace(write=write_audio)
 
-        with (
-            patch.object(qwen_tts, "_qwen_model", model),
-            patch.dict(sys.modules, {"soundfile": fake_soundfile}),
-        ):
-            audio_path = qwen_tts.synthesize_speech_file(
-                "Hello from BELT",
-                "aiden",
-            )
+        with tempfile.TemporaryDirectory() as temp_directory:
+            generated_directory = Path(temp_directory)
+            with (
+                patch.object(qwen_tts, "_qwen_model", model),
+                patch.object(
+                    qwen_tts,
+                    "GENERATED_AUDIO_DIRECTORY",
+                    generated_directory,
+                ),
+                patch.dict(sys.modules, {"soundfile": fake_soundfile}),
+            ):
+                audio_path = qwen_tts.synthesize_speech_file(
+                    "Hello from BELT",
+                    "aiden",
+                )
+                diagnostic_audio = qwen_tts.last_generated_audio_path(
+                    "Aiden"
+                )
 
-        try:
             self.assertEqual(
                 audio_path.read_bytes(),
                 b"RIFF generated wav",
             )
+            self.assertEqual(
+                diagnostic_audio.read_bytes(),
+                b"RIFF generated wav",
+            )
+            self.assertIn("aiden", audio_path.name)
             model.generate_custom_voice.assert_called_once_with(
                 text="Hello from BELT",
                 language="English",
                 speaker="Aiden",
                 instruct="",
             )
-        finally:
-            audio_path.unlink(missing_ok=True)
+
+    def test_loaded_model_must_report_aiden_support(self) -> None:
+        model = Mock()
+        model.get_supported_speakers.return_value = ["ryan"]
+
+        with self.assertRaisesRegex(
+            RuntimeError,
+            "does not support requested speaker 'Aiden'",
+        ):
+            qwen_tts._verify_model_supports_voice(model, "Aiden")
+
+    def test_configuration_identifies_exact_model_and_voice(self) -> None:
+        summary = qwen_tts.tts_configuration_summary()
+        self.assertIn(qwen_tts.QWEN_TTS_MODEL_ID, summary)
+        self.assertIn("speaker=Aiden", summary)
 
 
 if __name__ == "__main__":

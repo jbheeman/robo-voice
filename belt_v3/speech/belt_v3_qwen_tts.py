@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import importlib.util
+import shutil
 import tempfile
 import threading
 import uuid
@@ -11,6 +12,7 @@ from typing import Any
 
 
 QWEN_TTS_MODEL_ID = "Qwen/Qwen3-TTS-12Hz-0.6B-CustomVoice"
+DEFAULT_VOICE = "Aiden"
 SUPPORTED_VOICES = (
     "Vivian",
     "Serena",
@@ -30,6 +32,18 @@ GENERATED_AUDIO_DIRECTORY = (
 
 _model_lock = threading.RLock()
 _qwen_model: Any | None = None
+
+
+def tts_configuration_summary(voice: str = DEFAULT_VOICE) -> str:
+    """Describe the exact model and speaker BELT is configured to use."""
+    canonical_voice = normalize_voice(voice)
+    return (
+        "[TTS CONFIG] "
+        f"model={QWEN_TTS_MODEL_ID} "
+        f"speaker={canonical_voice} "
+        f"language={DEFAULT_LANGUAGE} "
+        f"generator={Path(__file__).resolve()}"
+    )
 
 
 def normalize_voice(voice: str) -> str:
@@ -86,9 +100,38 @@ def _load_qwen_model() -> Any:
         return _qwen_model
 
 
+def _verify_model_supports_voice(model: Any, voice: str) -> None:
+    """Fail rather than silently generate with an unverified speaker."""
+    supported_speakers = model.get_supported_speakers()
+    if supported_speakers is None:
+        raise RuntimeError(
+            f"{QWEN_TTS_MODEL_ID} did not report its supported speakers; "
+            f"cannot verify requested speaker {voice!r}."
+        )
+
+    supported = {
+        str(speaker).strip().casefold()
+        for speaker in supported_speakers
+    }
+    if voice.casefold() not in supported:
+        raise RuntimeError(
+            f"Loaded model does not support requested speaker {voice!r}. "
+            f"Model reported: {', '.join(sorted(supported))}"
+        )
+
+
+def last_generated_audio_path(voice: str = DEFAULT_VOICE) -> Path:
+    """Return the persistent diagnostic copy for a generated voice."""
+    canonical_voice = normalize_voice(voice)
+    return (
+        GENERATED_AUDIO_DIRECTORY
+        / f"last_qwen_{canonical_voice.casefold()}.wav"
+    )
+
+
 def synthesize_speech_file(
     text: str,
-    voice: str,
+    voice: str = DEFAULT_VOICE,
 ) -> Path:
     """Generate one WAV file and return its local path."""
     if not isinstance(text, str):
@@ -109,6 +152,13 @@ def synthesize_speech_file(
 
     with _model_lock:
         model = _load_qwen_model()
+        _verify_model_supports_voice(model, canonical_voice)
+        print(
+            "[TTS GENERATE] "
+            f"model={QWEN_TTS_MODEL_ID} "
+            f"speaker={canonical_voice} "
+            f"language={DEFAULT_LANGUAGE}"
+        )
         wavs, sample_rate = model.generate_custom_voice(
             text=text,
             language=DEFAULT_LANGUAGE,
@@ -122,7 +172,18 @@ def synthesize_speech_file(
     )
     audio_path = (
         GENERATED_AUDIO_DIRECTORY
-        / f"belt_response_{uuid.uuid4().hex}.wav"
+        / (
+            f"belt_response_{canonical_voice.casefold()}_"
+            f"{uuid.uuid4().hex}.wav"
+        )
     )
     sf.write(audio_path, wavs[0], sample_rate)
+    diagnostic_audio_path = last_generated_audio_path(canonical_voice)
+    shutil.copyfile(audio_path, diagnostic_audio_path)
+    print(
+        "[TTS GENERATED] "
+        f"speaker={canonical_voice} "
+        f"sample_rate={sample_rate} "
+        f"diagnostic_copy={diagnostic_audio_path}"
+    )
     return audio_path

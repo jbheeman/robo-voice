@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import sys
 import time
 from pathlib import Path
@@ -27,7 +28,7 @@ def _load_ros_types() -> tuple[Any, Any, Any, Any, Any, Any]:
     except ImportError as error:
         raise RuntimeError(
             "ROS 2 Python packages are required to publish robot audio. "
-            "Source /opt/unitree_ros2/setup.sh before starting BELT."
+            "Source /opt/ros/jazzy/setup.bash before starting BELT."
         ) from error
 
     return (
@@ -49,6 +50,7 @@ def publish_wav(
     data = audio_path.read_bytes()
     if not data:
         raise ValueError(f"WAV file is empty: {audio_path}")
+    audio_sha256 = hashlib.sha256(data).hexdigest()
 
     (
         rclpy,
@@ -85,7 +87,8 @@ def publish_wav(
         message.data = list(data)
         publisher.publish(message)
         node.get_logger().info(
-            f"Published {len(data)} bytes from {audio_path} to {topic}"
+            f"Published {len(data)} bytes from {audio_path} to {topic} "
+            f"(sha256={audio_sha256})"
         )
 
         # Give the message time to leave before destroying the publisher.

@@ -16,9 +16,8 @@ Design notes:
   * Greetings are driven ONLY by fresh recognition results. "Welcome" fires on
     a detected *face* that matched nobody -- not merely on a YOLO person box --
     so a person's back or an arm in frame won't trigger it
-  * All speech goes through one worker thread + queue. Spawning a pyttsx3
-    engine per utterance (the old approach) deadlocks or drops audio when two
-    greetings overlap
+  * All greetings go through one worker thread + queue and use the same Qwen
+    Aiden -> WAV -> robot publisher path as belt_v3_main.py
 
 Press 'q' to quit, 'd' to toggle debug distances, 'r' to reset greeting state.
 Use --no-display when running over SSH.
@@ -26,12 +25,20 @@ Use --no-display when running over SSH.
 
 import os
 import queue
+import sys
 import threading
 import time
+from pathlib import Path
 
 import cv2
-import pyttsx3
 from ultralytics import YOLO
+
+# human_det.py is also run directly from this directory. Add belt_v3 to the
+# import path so the shared speech package is used instead of a local TTS
+# engine.
+BELT_V3_DIRECTORY = Path(__file__).resolve().parents[1]
+if str(BELT_V3_DIRECTORY) not in sys.path:
+    sys.path.insert(0, str(BELT_V3_DIRECTORY))
 
 from camera_source import (
     FRAME_TIMEOUT,
@@ -39,6 +46,11 @@ from camera_source import (
     create_camera_source,
     parse_camera_args,
 )
+from speech.belt_v3_qwen_tts import (
+    DEFAULT_VOICE,
+    tts_configuration_summary,
+)
+from speech.belt_v3_speech_handle import speech_handle
 from staff_recognition import KNOWN_NAMES, detect_faces
 
 
@@ -73,20 +85,15 @@ COLOR_UNKNOWN = (0, 165, 255)
 
 
 class Speaker:
-    def __init__(self, rate=165):
+    def __init__(self, voice=DEFAULT_VOICE):
         self._queue = queue.Queue()
-        self._rate = rate
+        self._voice = voice
         self._stop = threading.Event()
         self._thread = threading.Thread(target=self._run, daemon=True)
         self._thread.start()
 
     def _run(self):
-        try:
-            engine = pyttsx3.init()
-            engine.setProperty("rate", self._rate)
-        except Exception as exc:
-            print(f"[TTS ERROR] Could not initialize speech engine: {exc}")
-            return
+        print(tts_configuration_summary(self._voice))
 
         while not self._stop.is_set():
             try:
@@ -96,17 +103,11 @@ class Speaker:
             if text is None:
                 break
             try:
-                engine.say(text)
-                engine.runAndWait()
+                speech_handle(text, self._voice)
             except Exception as exc:
                 print(f"[TTS ERROR] {exc}")
             finally:
                 self._queue.task_done()
-
-        try:
-            engine.stop()
-        except Exception:
-            pass
 
     def say(self, text):
         # Don't let a backlog build up if recognition goes haywire.

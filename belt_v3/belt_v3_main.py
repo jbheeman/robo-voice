@@ -1,6 +1,7 @@
 import time
 from movement.belt_v3_simple_action_handle import simple_action_handle
 from speech.belt_v3_speech_handle import speech_handle, testing_speech_handle
+from speech.belt_v3_qwen_tts import DEFAULT_VOICE, tts_configuration_summary
 from navigation.belt_v3_navigation_handle import navigation_handle
 from belt_v3_api import ConversationMessage, remember_conversation_turn
 from belt_v3_helper import compose_response
@@ -11,7 +12,7 @@ from launch_streamlit import start_streamlit, stop_streamlit
 DEBUG = True
 USING_ROBOT = True
 LAUNCH_STREAMLIT = False
-VOICE = "Aiden"
+VOICE = DEFAULT_VOICE
 
 PROGRAM_START_TIME = time.perf_counter() if DEBUG else 0.0
 
@@ -70,6 +71,7 @@ def main():
         if DEBUG:
             startup_time = time.perf_counter() - PROGRAM_START_TIME
             print(f"Done starting up ({startup_time:.3f} seconds)")
+        print(tts_configuration_summary(VOICE))
 
         while True:
             if USING_ROBOT == False:

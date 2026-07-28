@@ -55,8 +55,13 @@ cd "/root/git/UCSC AI SUMMER CAMP"
 source venv/bin/activate
 ```
 
-This environment already contains OpenCV, Ultralytics, InsightFace, ONNX
-Runtime, Joblib, NumPy, and pyttsx3.
+This environment must contain OpenCV, Ultralytics, InsightFace, ONNX Runtime,
+Joblib, NumPy, and the packages in `belt_v3/speech/requirements-qwen-tts.txt`.
+Source ROS 2 before running so greetings can be sent to the robot:
+
+```bash
+source /opt/ros/jazzy/setup.bash
+```
 
 Test whether OpenCV can open the camera:
 
