@@ -5,8 +5,10 @@ def nav(room_num):
     out.append("First, exit through the door closest to the building entrance.")
     if room_num in [2004]:
         return format(out)
-    if room_num in [2005, 2007]:
+    if room_num in [0, 2005, 2007]:
         out.append("Go forward.")
+        if room_num in [0]:
+            return format(out)
         out.append("Turn right.")
         out.append("Go forward.")
         if room_num in [2005]:
