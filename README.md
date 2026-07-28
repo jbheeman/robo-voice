@@ -22,3 +22,5 @@ conda deactivate
 cd robo-voice
 source ros_venv/bin/activate
 
+maybe?
+source ~/unitree_ros2/setup.sh

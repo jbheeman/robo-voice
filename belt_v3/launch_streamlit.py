@@ -18,10 +18,10 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
-from speech.belt_v3_audio_protocol import AUDIO_FILE_TOPIC
+from speech.publish_wav import DEFAULT_TOPIC
 
 INPUT_TOPIC = "/audio_msg_bridge"
-OUTPUT_TOPIC = AUDIO_FILE_TOPIC
+OUTPUT_TOPIC = DEFAULT_TOPIC
 TRANSCRIPT_SETTLE_SECONDS = 0.8
 REPEATED_UTTERANCE_GAP_SECONDS = 1.5
 MAX_LOG_ENTRIES = 500
@@ -68,7 +68,7 @@ class RobotAudioLog:
                 QoSProfile,
                 ReliabilityPolicy,
             )
-            from std_msgs.msg import String
+            from std_msgs.msg import String, UInt8MultiArray
         except ImportError as error:
             self._set_error(
                 "ROS 2 Python packages are unavailable. Source "
@@ -104,10 +104,10 @@ class RobotAudioLog:
                     input_qos,
                 ),
                 node.create_subscription(
-                    String,
+                    UInt8MultiArray,
                     OUTPUT_TOPIC,
                     self._output_callback,
-                    10,
+                    input_qos,
                 ),
             ]
 
@@ -216,29 +216,12 @@ class RobotAudioLog:
         )
 
     def _output_callback(self, message: Any) -> None:
-        try:
-            payload = json.loads(message.data)
-        except (json.JSONDecodeError, TypeError):
-            return
-
-        if not isinstance(payload, dict):
-            return
-
-        text = payload.get("text")
-        voice = payload.get("voice")
-        if not isinstance(text, str) or not text.strip():
-            return
-
-        details = (
-            f"voice={voice}"
-            if isinstance(voice, str) and voice
-            else ""
-        )
+        byte_count = len(message.data)
         self._append_entry(
             direction="Output",
-            text=text.strip(),
+            text="WAV audio",
             topic=OUTPUT_TOPIC,
-            details=details,
+            details=f"{byte_count} bytes",
         )
 
     def _append_entry(

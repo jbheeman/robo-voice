@@ -9,7 +9,7 @@ from launch_streamlit import start_streamlit, stop_streamlit
 
 #hyperparams? idk
 DEBUG = True
-USING_ROBOT = True
+USING_ROBOT = False
 LAUNCH_STREAMLIT = False
 VOICE = "Aiden"
 
@@ -72,7 +72,7 @@ def main():
             print(f"Done starting up ({startup_time:.3f} seconds)")
 
         while True:
-            if USING_ROBOT:
+            if USING_ROBOT == False:
                 text_input = terminal_get_input()
             else:
                 text_input = get_input()

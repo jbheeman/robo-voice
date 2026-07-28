@@ -2,8 +2,8 @@
 
 BELT generates speech with
 `Qwen/Qwen3-TTS-12Hz-0.6B-CustomVoice` on the computer running
-`belt_v3_main.py`. It sends the generated WAV and its text/voice metadata to
-the robot over the ROS 2 topic `/belt/audio_file`.
+`belt_v3_main.py`. It sends the complete generated WAV file as a
+`std_msgs/msg/UInt8MultiArray` message on `/g1/audio/play`.
 
 ## Main-computer setup
 
@@ -21,18 +21,21 @@ Select the voice with `VOICE` in `belt_v3_main.py`. Available voices are
 `Vivian`, `Serena`, `Uncle_Fu`, `Dylan`, `Eric`, `Ryan`, `Aiden`,
 `Ono_Anna`, and `Sohee`.
 
-## Robot setup
+## ROS and robot setup
 
-The robot needs ROS 2, `std_msgs`, and ALSA's `aplay`. From the `belt_v3`
-directory, source ROS and run:
+Before running BELT, source the Unitree ROS environment on the computer:
 
 ```bash
-source /opt/ros/jazzy/setup.bash
-python3 -m speech.belt_v3_robot_audio_player
+source /opt/unitree_ros2/setup.sh
 ```
 
-Start the robot audio player before `belt_v3_main.py`. Both machines must use
-the same `ROS_DOMAIN_ID` and be able to discover each other over ROS 2.
+The teacher-provided `stream_audio_bridge.py` must be running on the robot. It
+subscribes to `/g1/audio/play` and forwards each WAV to the Unitree audio
+service. Both machines must use the same `ROS_DOMAIN_ID` and
+`CYCLONEDDS_URI`.
 
-The player stops the current `aplay` process when newer BELT audio arrives, so
-an old response does not have to finish before a new one starts.
+`speech/publish_wav.py` can also publish an existing WAV manually:
+
+```bash
+python3 -m speech.publish_wav /path/to/audio.wav
+```

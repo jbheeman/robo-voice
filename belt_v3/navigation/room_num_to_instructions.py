@@ -71,3 +71,6 @@ def format(out):
 # for _ in range(10):
 #     room = random.choice(rooms)
 #     print(room, nav(room))
+
+# room = 2117
+# print(room, nav(room))

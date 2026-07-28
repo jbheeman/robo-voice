@@ -1,69 +1,17 @@
-"""Tests for the ROS 2 speech publisher that do not require robot hardware."""
+"""Tests for Qwen speech generation and robot WAV publishing."""
 
 from __future__ import annotations
 
-import base64
-import json
 import tempfile
 import unittest
 from pathlib import Path
-from unittest.mock import patch
+from unittest.mock import call, patch
 
 from speech import belt_v3_speech_handle as speech
 
 
-class FakeContext:
-    def __init__(self) -> None:
-        self.running = True
-
-    def ok(self) -> bool:
-        return self.running
-
-    def shutdown(self) -> None:
-        self.running = False
-
-
-class FakeNode:
-    def __init__(self) -> None:
-        self.destroyed = False
-
-    def destroy_node(self) -> None:
-        self.destroyed = True
-
-
-class FakePublisher:
-    def __init__(self, subscription_count: int = 1) -> None:
-        self.subscription_count = subscription_count
-        self.messages: list[FakeString] = []
-
-    def get_subscription_count(self) -> int:
-        return self.subscription_count
-
-    def publish(self, message: "FakeString") -> None:
-        self.messages.append(message)
-
-
-class FakeString:
-    def __init__(self) -> None:
-        self.data = ""
-
-
 class SpeechHandleTests(unittest.TestCase):
-    def setUp(self) -> None:
-        speech._close_ros_resources()
-
-    def tearDown(self) -> None:
-        speech._close_ros_resources()
-
-    @staticmethod
-    def resources(
-        publisher: FakePublisher,
-    ) -> tuple[FakeContext, FakeNode, FakePublisher, type[FakeString]]:
-        return FakeContext(), FakeNode(), publisher, FakeString
-
-    def test_publishes_stripped_text_and_reuses_publisher(self) -> None:
-        publisher = FakePublisher()
-
+    def test_synthesizes_publishes_and_removes_each_wav(self) -> None:
         with tempfile.TemporaryDirectory() as temp_directory:
             first_audio = Path(temp_directory) / "first.wav"
             second_audio = Path(temp_directory) / "second.wav"
@@ -73,56 +21,41 @@ class SpeechHandleTests(unittest.TestCase):
             with (
                 patch.object(
                     speech,
-                    "_create_ros_resources",
-                    return_value=self.resources(publisher),
-                ) as create_resources,
-                patch.object(
-                    speech,
                     "synthesize_speech_file",
                     side_effect=[first_audio, second_audio],
                 ) as synthesize,
-                patch.object(speech.time, "sleep"),
+                patch.object(
+                    speech,
+                    "publish_wav",
+                    side_effect=[len(b"first wav"), len(b"second wav")],
+                ) as publish,
             ):
                 speech.speech_handle("  Hello, robot!  ", "Aiden")
                 speech.speech_handle("Second response", "Ryan")
 
-        payloads = [
-            json.loads(message.data)
-            for message in publisher.messages
-        ]
+            self.assertEqual(
+                synthesize.call_args_list,
+                [
+                    call("Hello, robot!", "Aiden"),
+                    call("Second response", "Ryan"),
+                ],
+            )
+            self.assertEqual(
+                publish.call_args_list,
+                [call(first_audio), call(second_audio)],
+            )
+            self.assertFalse(first_audio.exists())
+            self.assertFalse(second_audio.exists())
 
-        self.assertEqual(
-            [payload["text"] for payload in payloads],
-            ["Hello, robot!", "Second response"],
-        )
-        self.assertEqual(
-            [payload["voice"] for payload in payloads],
-            ["Aiden", "Ryan"],
-        )
-        self.assertEqual(
-            [
-                base64.b64decode(payload["audio"])
-                for payload in payloads
-            ],
-            [b"first wav", b"second wav"],
-        )
-        self.assertEqual(
-            synthesize.call_args_list[0].args,
-            ("Hello, robot!", "Aiden"),
-        )
-        self.assertEqual(
-            synthesize.call_args_list[1].args,
-            ("Second response", "Ryan"),
-        )
-        create_resources.assert_called_once_with()
-        self.assertFalse(first_audio.exists())
-        self.assertFalse(second_audio.exists())
-
-    def test_empty_text_does_not_create_ros_resources(self) -> None:
-        with patch.object(speech, "_create_ros_resources") as create_resources:
+    def test_empty_text_does_not_generate_or_publish_audio(self) -> None:
+        with (
+            patch.object(speech, "synthesize_speech_file") as synthesize,
+            patch.object(speech, "publish_wav") as publish,
+        ):
             speech.speech_handle("   ", "Aiden")
 
-        create_resources.assert_not_called()
+        synthesize.assert_not_called()
+        publish.assert_not_called()
 
     def test_non_string_text_is_rejected(self) -> None:
         with self.assertRaisesRegex(TypeError, "must be a string"):
@@ -132,24 +65,27 @@ class SpeechHandleTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "Unsupported Qwen voice"):
             speech.speech_handle("Hello", "Unknown")
 
-    def test_missing_audio_subscriber_raises_clear_error(self) -> None:
-        publisher = FakePublisher(subscription_count=0)
+    def test_generated_wav_is_removed_when_publish_fails(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_directory:
+            audio_path = Path(temp_directory) / "response.wav"
+            audio_path.write_bytes(b"wav")
 
-        with (
-            patch.object(
-                speech,
-                "_create_ros_resources",
-                return_value=self.resources(publisher),
-            ),
-            patch.object(speech, "SUBSCRIBER_DISCOVERY_TIMEOUT_SECONDS", 0.0),
-        ):
-            with self.assertRaisesRegex(
-                RuntimeError,
-                "No robot audio subscriber",
+            with (
+                patch.object(
+                    speech,
+                    "synthesize_speech_file",
+                    return_value=audio_path,
+                ),
+                patch.object(
+                    speech,
+                    "publish_wav",
+                    side_effect=RuntimeError("ROS unavailable"),
+                ),
             ):
-                speech.speech_handle("Can you hear me?", "Aiden")
+                with self.assertRaisesRegex(RuntimeError, "ROS unavailable"):
+                    speech.speech_handle("Can you hear me?", "Aiden")
 
-        self.assertEqual(publisher.messages, [])
+            self.assertFalse(audio_path.exists())
 
 
 if __name__ == "__main__":
