@@ -1,7 +1,6 @@
 """
-human_det.py
-------------
-BELT greeter: YOLO watches for people, DeepFace identifies them, TTS greets.
+
+BELT greeter: YOLO watches for people, DeepFace identifies them, TTS greets
 
   * Recognized staff  -> "Hello, {name}!"
   * Unrecognized face -> "Welcome"
@@ -10,13 +9,13 @@ Design notes:
   * YOLO runs every frame (cheap). Face recognition runs at most once every
     RECOGNITION_INTERVAL seconds and only when YOLO sees a person, so the
     video feed stays smooth. Between passes the last known boxes are drawn,
-    so the overlay still looks live.
+    so the overlay still looks live
   * Greetings are driven ONLY by fresh recognition results. "Welcome" fires on
     a detected *face* that matched nobody -- not merely on a YOLO person box --
-    so a person's back or an arm in frame won't trigger it.
+    so a person's back or an arm in frame won't trigger it
   * All speech goes through one worker thread + queue. Spawning a pyttsx3
     engine per utterance (the old approach) deadlocks or drops audio when two
-    greetings overlap.
+    greetings overlap
 
 Press 'q' to quit, 'd' to toggle debug distances, 'r' to reset greeting state.
 """
@@ -31,9 +30,6 @@ from ultralytics import YOLO
 
 from staff_recognition import KNOWN_NAMES, detect_faces
 
-# --------------------------------------------------------------------------
-# Configuration
-# --------------------------------------------------------------------------
 
 CAMERA_INDEX = 0
 FRAME_WIDTH, FRAME_HEIGHT = 1280, 720
@@ -45,9 +41,7 @@ PERSON_CLASS_ID = 0
 GENERIC_GREETING = "Welcome"
 STAFF_GREETING_TEMPLATE = "Hello, {name}!"
 
-# Run face recognition at most this often (seconds). Lower = snappier
-# greetings, higher = smoother video. InsightFace on CPU takes roughly
-# 60-120ms per pass on Apple Silicon, so 0.25 is comfortable.
+
 RECOGNITION_INTERVAL = 0.25
 
 # How long a recognition result stays on screen before it is considered stale.
@@ -66,9 +60,6 @@ COLOR_KNOWN = (0, 200, 0)
 COLOR_UNKNOWN = (0, 165, 255)
 
 
-# --------------------------------------------------------------------------
-# Text to speech: one engine, one thread, one queue
-# --------------------------------------------------------------------------
 
 class Speaker:
     def __init__(self, rate=165):
@@ -116,9 +107,7 @@ class Speaker:
         self._queue.put(None)
 
 
-# --------------------------------------------------------------------------
-# Greeting state machine
-# --------------------------------------------------------------------------
+
 
 class GreetingTracker:
     """
@@ -157,9 +146,7 @@ class GreetingTracker:
         self.present.clear()
 
 
-# --------------------------------------------------------------------------
-# Drawing
-# --------------------------------------------------------------------------
+
 
 def draw_faces(frame, faces, show_debug):
     for face in faces:
@@ -193,9 +180,7 @@ def draw_hud(frame, fps, person_count, stale):
     return frame
 
 
-# --------------------------------------------------------------------------
-# Main loop
-# --------------------------------------------------------------------------
+
 
 def main():
     print(f"[INFO] Enrolled staff ({len(KNOWN_NAMES)}): {', '.join(KNOWN_NAMES) or 'none'}")
@@ -280,7 +265,7 @@ def main():
             staff.expire(now)
             visitors.expire(now)
 
-            # ---- 4. HUD + input ------------------------------------------
+            
             fps_frames += 1
             if now - fps_since >= 0.5:
                 fps = fps_frames / (now - fps_since)
