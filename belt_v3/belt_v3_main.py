@@ -1,7 +1,11 @@
 import time
 from movement.belt_v3_simple_action_handle import simple_action_handle
 from speech.belt_v3_speech_handle import speech_handle, testing_speech_handle
-from speech.belt_v3_qwen_tts import DEFAULT_VOICE, tts_configuration_summary
+from speech.belt_v3_qwen_tts import (
+    DEFAULT_VOICE,
+    preload_qwen_model,
+    tts_configuration_summary,
+)
 from navigation.belt_v3_navigation_handle import navigation_handle
 from belt_v3_api import ConversationMessage, remember_conversation_turn
 from belt_v3_helper import compose_response
@@ -72,6 +76,8 @@ def main():
             startup_time = time.perf_counter() - PROGRAM_START_TIME
             print(f"Done starting up ({startup_time:.3f} seconds)")
         print(tts_configuration_summary(VOICE))
+        if USING_ROBOT:
+            preload_qwen_model(VOICE)
 
         while True:
             if USING_ROBOT == False:

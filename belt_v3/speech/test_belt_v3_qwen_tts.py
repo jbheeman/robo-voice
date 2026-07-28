@@ -81,10 +81,29 @@ class QwenVoiceTests(unittest.TestCase):
         ):
             qwen_tts._verify_model_supports_voice(model, "Aiden")
 
+    def test_preload_loads_and_validates_model(self) -> None:
+        model = Mock()
+
+        with (
+            patch.object(
+                qwen_tts,
+                "_load_qwen_model",
+                return_value=model,
+            ) as load_model,
+            patch.object(
+                qwen_tts,
+                "_verify_model_supports_voice",
+            ) as verify_voice,
+        ):
+            qwen_tts.preload_qwen_model(" aiden ")
+
+        load_model.assert_called_once_with()
+        verify_voice.assert_called_once_with(model, "Aiden")
+
     def test_configuration_identifies_exact_model_and_voice(self) -> None:
         summary = qwen_tts.tts_configuration_summary()
         self.assertIn(qwen_tts.QWEN_TTS_MODEL_ID, summary)
-        self.assertIn("speaker=Aiden", summary)
+        self.assertIn(f"speaker={qwen_tts.DEFAULT_VOICE}", summary)
 
 
 if __name__ == "__main__":

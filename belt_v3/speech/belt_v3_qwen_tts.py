@@ -6,6 +6,7 @@ import importlib.util
 import shutil
 import tempfile
 import threading
+import time
 import uuid
 from pathlib import Path
 from typing import Any
@@ -118,6 +119,29 @@ def _verify_model_supports_voice(model: Any, voice: str) -> None:
             f"Loaded model does not support requested speaker {voice!r}. "
             f"Model reported: {', '.join(sorted(supported))}"
         )
+
+
+def preload_qwen_model(voice: str = DEFAULT_VOICE) -> None:
+    """Load and validate Qwen once so later speech can reuse it."""
+    canonical_voice = normalize_voice(voice)
+    load_start = time.perf_counter()
+    print(
+        "[TTS PRELOAD] "
+        f"model={QWEN_TTS_MODEL_ID} "
+        f"speaker={canonical_voice}"
+    )
+
+    with _model_lock:
+        model = _load_qwen_model()
+        _verify_model_supports_voice(model, canonical_voice)
+
+    load_time = time.perf_counter() - load_start
+    print(
+        "[TTS READY] "
+        f"model={QWEN_TTS_MODEL_ID} "
+        f"speaker={canonical_voice} "
+        f"load_time={load_time:.3f}s"
+    )
 
 
 def last_generated_audio_path(voice: str = DEFAULT_VOICE) -> Path:

@@ -17,6 +17,12 @@ The model weights download automatically the first time Qwen TTS loads and
 remain in the Hugging Face cache. CUDA is strongly recommended. CPU fallback
 is supported by the integration but can be too slow for interactive speech.
 
+`belt_v3_main.py` preloads Qwen before accepting the first input. Wait for
+`[TTS READY]` in the terminal; the model then remains in memory and is reused
+for every response until BELT exits. The standalone
+`python3 -m speech.belt_v3_speech_handle` command is a one-shot process, so a
+new invocation of that command must load the model again.
+
 Select the voice with `VOICE` in `belt_v3_main.py`. Available voices are
 `Vivian`, `Serena`, `Uncle_Fu`, `Dylan`, `Eric`, `Ryan`, `Aiden`,
 `Ono_Anna`, and `Sohee`.
