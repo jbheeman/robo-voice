@@ -9,7 +9,7 @@ from launch_streamlit import start_streamlit, stop_streamlit
 
 #hyperparams? idk
 DEBUG = True
-USING_ROBOT = False
+USING_ROBOT = True
 LAUNCH_STREAMLIT = False
 VOICE = "Aiden"
 
