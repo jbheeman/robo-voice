@@ -1,29 +1,26 @@
 """
 staff_recognition.py
 --------------------
-Face enrollment + recognition for the BELT greeter.
+Face enrollment + recognition for the BELT greeter
 
-Backend: InsightFace (RetinaFace detector + ArcFace w600k_r50) on onnxruntime.
-No TensorFlow, no Keras. Installs on any Python 3.9-3.13, runs fast on CPU.
+Backend: InsightFace installs on any Python 3.9-3.13, runs fast on CPU
 
 Setup:
     pip install insightface onnxruntime opencv-python joblib numpy
     # if insightface fails to build:  pip install cython numpy  first
 
-The model pack (~275 MB) downloads automatically on first run to
-~/.insightface/models/. That first run needs a network connection.
 
 Key ideas:
   * People are discovered by scanning FACULTY_IMAGES_DIR -- one subfolder per
-    person. Adding someone new = adding a folder. No code edits.
+    person. Adding someone new = adding a folder. No code edits
   * Each person is reduced to a single L2-normalized *centroid* embedding
     (plus their individual embeddings for a secondary check). Centroids are
-    far more stable than nearest-single-image matching.
+    far more stable than nearest-single-image matching
   * A match must (a) beat an absolute distance threshold and (b) beat the
     runner-up person by a margin. The margin is what stops strangers from
-    getting greeted as whoever they happen to resemble most.
+    getting greeted as whoever they happen to resemble most
   * The encoding cache auto-invalidates when the image folder or the model
-    config changes -- no more stale encodings.joblib.
+    config changes -- no more stale encodings.joblib
 
 CLI:
     python staff_recognition.py --rebuild        # force re-enrollment
@@ -43,66 +40,47 @@ import joblib
 import numpy as np
 from insightface.app import FaceAnalysis
 
-# --------------------------------------------------------------------------
-# Configuration
-# --------------------------------------------------------------------------
 
 FACULTY_IMAGES_DIR = "faculty_images2"
 ENCODINGS_PATH = "encodings.joblib"
 
-# "buffalo_l" = RetinaFace-10G detector + ArcFace w600k_r50 (512-d).
-# "buffalo_s" is ~4x faster and noticeably less accurate -- only worth it if
-# the video feed is still choppy after tuning RECOGNITION_INTERVAL.
+
 MODEL_PACK = "buffalo_l"
 
-# CoreMLExecutionProvider can be faster on Apple Silicon but is inconsistent
-# with these ONNX graphs. Start on CPU; it is already quick.
+
 PROVIDERS = ["CPUExecutionProvider"]
 
-# Detector input size. Bigger = detects smaller/further faces, slower.
+# Detector input size. Bigger = detects smaller/further faces, slower
 DET_SIZE = (640, 640)
 DET_THRESHOLD = 0.5
 
-# --- Matching -------------------------------------------------------------
-# Distances below are COSINE DISTANCE (1 - cosine similarity) on ArcFace's
-# L2-normalized embeddings. For reference: 0.60 distance == 0.40 similarity.
-#
-#   Lower MATCH_THRESHOLD  -> stricter, more "Welcome", fewer wrong names.
-#   Higher MATCH_THRESHOLD -> looser, more names, more strangers misnamed.
-#
-# Run --audit after enrolling; it prints the real distances for your photos.
 MATCH_THRESHOLD = 0.60
 
-# The best candidate must be at least this much closer than the runner-up.
-# Raise it if two staff members get confused for each other.
+# The best candidate must be at least this much closer than the runner-up
+# Raise it if two staff members get confused for each other
 MATCH_MARGIN = 0.05
 
-# Minimum detector confidence for a face to be considered at all.
+# Minimum detector confidence for a face to be considered at all
 MIN_FACE_CONFIDENCE = 0.60
 
 # Faces smaller than this (pixels, on the long side) are too low-res to
-# identify reliably -- treated as "present but unknown" rather than matched.
+# identify reliably -- treated as "present but unknown" rather than matched
 MIN_FACE_SIZE = 50
 
 # Enrollment images further than this from their own person's centroid are
-# treated as mislabeled / bad crops and dropped.
+# treated as mislabeled / bad crops and dropped
 OUTLIER_DISTANCE = 0.85
 
 VALID_EXTENSIONS = (".jpg", ".jpeg", ".png", ".bmp", ".webp")
 
-# Cache format version -- bump to force everyone to re-enroll.
 CACHE_VERSION = 4
 
 
-# --------------------------------------------------------------------------
-# Model (loaded once, lazily)
-# --------------------------------------------------------------------------
 
 _APP = None
 
 
 def get_app():
-    """Load the InsightFace model pack once and reuse it."""
     global _APP
     if _APP is None:
         print(f"[INFO] Loading InsightFace '{MODEL_PACK}' (first run downloads ~275MB)...")
@@ -111,16 +89,12 @@ def get_app():
             providers=PROVIDERS,
             allowed_modules=["detection", "recognition"],
         )
-        # ctx_id=-1 forces CPU.
         app.prepare(ctx_id=-1, det_size=DET_SIZE, det_thresh=DET_THRESHOLD)
         _APP = app
         print("[INFO] Model ready.")
     return _APP
 
 
-# --------------------------------------------------------------------------
-# Vector helpers
-# --------------------------------------------------------------------------
 
 def _l2_normalize(vec):
     vec = np.asarray(vec, dtype=np.float32)
@@ -152,15 +126,8 @@ def _imread(path):
         return None
 
 
-# --------------------------------------------------------------------------
-# Discovering people from the folder tree
-# --------------------------------------------------------------------------
-
 def _resolve_root(root):
-    """
-    Tolerate the common zip layout where faculty_images2/ contains a single
-    nested faculty_images2/ folder holding the real per-person directories.
-    """
+    
     root = pathlib.Path(root)
     if not root.is_dir():
         return root
@@ -181,10 +148,10 @@ def _resolve_root(root):
 
 
 def discover_people(root=FACULTY_IMAGES_DIR):
-    """
-    Returns {display_name: [image Path, ...]} for every subfolder that has at
-    least one usable image.
-    """
+    
+    # Returns {display_name: [image Path, ...]} for every subfolder that has at
+    # least one usable image
+    
     root = _resolve_root(root)
     people = {}
 
@@ -212,10 +179,6 @@ def discover_people(root=FACULTY_IMAGES_DIR):
 
 
 def _fingerprint(people):
-    """
-    Hash of (model config, every image path + size + mtime). Any change to the
-    gallery or the config invalidates the cache.
-    """
     h = hashlib.sha256()
     h.update(f"v{CACHE_VERSION}|{MODEL_PACK}|{DET_SIZE}|{DET_THRESHOLD}".encode())
     for name in sorted(people):
@@ -229,21 +192,13 @@ def _fingerprint(people):
     return h.hexdigest()
 
 
-# --------------------------------------------------------------------------
-# Enrollment
-# --------------------------------------------------------------------------
-
 def _face_area(face):
     x1, y1, x2, y2 = face.bbox
     return max(0.0, x2 - x1) * max(0.0, y2 - y1)
 
 
 def _embed_enrollment_image(path):
-    """
-    Returns a normalized embedding for the largest confident face in the
-    image, or None. Enrollment is strict on purpose: a bad crop silently
-    poisons the person's centroid and degrades every future match.
-    """
+    
     image = _imread(path)
     if image is None:
         print(f"[WARN] Could not read {path.name}")
@@ -260,7 +215,7 @@ def _embed_enrollment_image(path):
         print(f"[WARN] No face detected in {path.name}")
         return None
 
-    # Prefer the biggest face -- enrollment photos often include bystanders.
+    # Prefer the biggest face
     best = max(faces, key=_face_area)
     if len(faces) > 1:
         print(f"[WARN] {len(faces)} faces in {path.name}; using the largest one")
@@ -292,7 +247,7 @@ def build_encodings(root=FACULTY_IMAGES_DIR, save_path=ENCODINGS_PATH):
         embeddings = np.vstack(embeddings)
         centroid = _l2_normalize(embeddings.mean(axis=0))
 
-        # Drop outliers (wrong person in the folder, heavy occlusion, etc.)
+        # Drop outliers 
         if len(embeddings) >= 3:
             dists = np.array([_cosine_distance(centroid, e) for e in embeddings])
             keep = dists <= OUTLIER_DISTANCE
@@ -366,28 +321,19 @@ def load_encodings(root=FACULTY_IMAGES_DIR, path=ENCODINGS_PATH, force_rebuild=F
     return payload
 
 
-# --------------------------------------------------------------------------
-# Live recognition
-# --------------------------------------------------------------------------
 
 _ENCODINGS = load_encodings(force_rebuild="--rebuild" in sys.argv)
 GALLERY = _ENCODINGS["gallery"]
 KNOWN_NAMES = sorted(GALLERY)
 
-# Stack every centroid once so live matching is a single matrix multiply.
 _CENTROIDS = np.vstack([GALLERY[n]["centroid"] for n in KNOWN_NAMES]) if KNOWN_NAMES else None
 
 
 def _identify(embedding):
-    """
-    Compare one normalized embedding against every enrolled person.
-    Returns (name_or_None, best_distance, margin).
-    """
+   
     if _CENTROIDS is None:
         return None, 1.0, 0.0
 
-    # Distance to each person's centroid, plus their single closest photo as a
-    # safety net for people whose photos vary a lot (glasses on/off, lighting).
     centroid_d = 1.0 - _CENTROIDS @ embedding
     best_shot_d = np.array([
         float(np.min(1.0 - GALLERY[n]["embeddings"] @ embedding)) for n in KNOWN_NAMES
@@ -406,18 +352,7 @@ def _identify(embedding):
 
 
 def detect_faces(frame, verbose=False):
-    """
-    Analyze one BGR frame.
-
-    Returns a list of dicts, one per detected face:
-        {
-          "name": str | None,      # None => present but not recognized
-          "distance": float,
-          "margin": float,
-          "box": (top, right, bottom, left),
-          "confidence": float,     # detector confidence
-        }
-    """
+    
     results = []
 
     try:
@@ -439,7 +374,7 @@ def detect_faces(frame, verbose=False):
         right, bottom = min(width, x2), min(height, y2)
         if (right - left) < MIN_FACE_SIZE or (bottom - top) < MIN_FACE_SIZE:
             # Too far away to identify -- report as an unknown face so the
-            # greeter still says "Welcome" instead of guessing a name.
+            # greeter still says "Welcome" instead of guessing a name
             results.append({
                 "name": None, "distance": 1.0, "margin": 0.0,
                 "box": (top, right, bottom, left), "confidence": confidence,
@@ -465,25 +400,14 @@ def detect_faces(frame, verbose=False):
 
 
 def getPeople(frame):
-    """
-    Backwards-compatible helper: returns (names, locations) for recognized
-    faces only. New code should call detect_faces() so it can also see
-    unrecognized faces.
-    """
+
     faces = [f for f in detect_faces(frame) if f["name"]]
     return [f["name"] for f in faces], [list(f["box"]) for f in faces]
 
 
-# --------------------------------------------------------------------------
-# CLI
-# --------------------------------------------------------------------------
 
 def _audit():
-    """
-    Leave-one-out check: hold out each enrollment photo, rebuild that person's
-    centroid without it, and see whether it still matches the right person.
-    This is the honest measure of whether your photo set works.
-    """
+
     print("\n=== Leave-one-out audit ===")
     total = correct = confident = 0
     same_person, diff_person = [], []
@@ -550,8 +474,7 @@ def main():
     parser.add_argument("--audit", action="store_true", help="leave-one-out accuracy check")
     args = parser.parse_args()
 
-    # --rebuild is honored at import time (see load_encodings above), so by the
-    # time we get here the gallery is already freshly built.
+    
     if args.list or args.rebuild or not any([args.test, args.audit]):
         print(f"\nEnrolled ({len(GALLERY)}) using {MODEL_PACK}, threshold {MATCH_THRESHOLD}:")
         for name in KNOWN_NAMES:
