@@ -1,6 +1,9 @@
 """
 
-BELT greeter: YOLO watches for people, DeepFace identifies them, TTS greets
+BELT greeter: YOLO watches for people, DeepFace identifies them, TTS greets.
+
+The robot's ROS 2 camera is the default. For a local webcam, run:
+    python human_det.py --camera-source webcam
 
   * Recognized staff  -> "Hello, {name}!"
   * Unrecognized face -> "Welcome"
@@ -18,8 +21,10 @@ Design notes:
     greetings overlap
 
 Press 'q' to quit, 'd' to toggle debug distances, 'r' to reset greeting state.
+Use --no-display when running over SSH.
 """
 
+import os
 import queue
 import threading
 import time
@@ -28,6 +33,12 @@ import cv2
 import pyttsx3
 from ultralytics import YOLO
 
+from camera_source import (
+    FRAME_TIMEOUT,
+    CameraSourceError,
+    create_camera_source,
+    parse_camera_args,
+)
 from staff_recognition import KNOWN_NAMES, detect_faces
 
 
@@ -183,36 +194,76 @@ def draw_hud(frame, fps, person_count, stale):
 
 
 def main():
+    args = parse_camera_args()
+    display_enabled = not args.no_display
+    if (
+        display_enabled
+        and os.name != "nt"
+        and not os.environ.get("DISPLAY")
+        and not os.environ.get("WAYLAND_DISPLAY")
+    ):
+        display_enabled = False
+        print(
+            "[WARN] No graphical display was detected. Running without the "
+            "video window; press Ctrl+C to quit."
+        )
+
     print(f"[INFO] Enrolled staff ({len(KNOWN_NAMES)}): {', '.join(KNOWN_NAMES) or 'none'}")
     if not KNOWN_NAMES:
         print("[WARN] Nobody is enrolled -- everyone will get the generic greeting.")
 
-    model = YOLO(YOLO_MODEL)
-
-    cap = cv2.VideoCapture(CAMERA_INDEX)
-    cap.set(cv2.CAP_PROP_FRAME_WIDTH, FRAME_WIDTH)
-    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, FRAME_HEIGHT)
-    if not cap.isOpened():
-        print("[ERROR] Could not open camera.")
+    try:
+        camera = create_camera_source(args)
+    except CameraSourceError as exc:
+        print(f"[ERROR] {exc}")
         return
 
-    speaker = Speaker()
-    staff = GreetingTracker()
-    visitors = GreetingTracker()
-
-    cached_faces = []
-    last_recognition_at = 0.0
-    last_result_at = 0.0
-    show_debug = False
-    fps, fps_frames, fps_since = 0.0, 0, time.time()
-
-    print("[INFO] Streaming. Press 'q' in the video window to quit.")
+    speaker = None
 
     try:
+        print(f"[INFO] Waiting for camera frames from {camera.description}...")
+        ok, first_frame = camera.read(timeout=args.camera_startup_timeout)
+        if not ok:
+            print(
+                "[ERROR] No camera frame arrived within "
+                f"{args.camera_startup_timeout:g} seconds."
+            )
+            print(f"[HINT] {camera.failure_hint()}")
+            return
+
+        print(
+            f"[INFO] Camera connected: {camera.description} "
+            f"({first_frame.shape[1]}x{first_frame.shape[0]})."
+        )
+        print(f"[INFO] Loading detection model {YOLO_MODEL}...")
+        model = YOLO(YOLO_MODEL)
+
+        speaker = Speaker()
+        staff = GreetingTracker()
+        visitors = GreetingTracker()
+
+        cached_faces = []
+        last_recognition_at = 0.0
+        last_result_at = 0.0
+        show_debug = False
+        fps, fps_frames, fps_since = 0.0, 0, time.time()
+        pending_frame = first_frame
+
+        if display_enabled:
+            print("[INFO] Streaming. Press 'q' in the video window to quit.")
+        else:
+            print("[INFO] Streaming without a video window. Press Ctrl+C to quit.")
+
         while True:
-            ok, frame = cap.read()
+            if pending_frame is not None:
+                frame = pending_frame
+                pending_frame = None
+                ok = True
+            else:
+                ok, frame = camera.read(timeout=FRAME_TIMEOUT)
+
             if not ok:
-                print("[WARN] Dropped frame from camera.")
+                print(f"[WARN] Camera frame timed out. {camera.failure_hint()}")
                 continue
 
             now = time.time()
@@ -272,18 +323,19 @@ def main():
                 fps_frames, fps_since = 0, now
 
             display = draw_hud(display, fps, person_count, human_detected and not cached_faces)
-            cv2.imshow("BELT", display)
+            if display_enabled:
+                cv2.imshow("BELT", display)
 
-            key = cv2.waitKey(1) & 0xFF
-            if key == ord("q"):
-                break
-            if key == ord("d"):
-                show_debug = not show_debug
-                print(f"[INFO] Debug overlay {'on' if show_debug else 'off'}")
-            if key == ord("r"):
-                staff.reset()
-                visitors.reset()
-                print("[INFO] Greeting state reset.")
+                key = cv2.waitKey(1) & 0xFF
+                if key == ord("q"):
+                    break
+                if key == ord("d"):
+                    show_debug = not show_debug
+                    print(f"[INFO] Debug overlay {'on' if show_debug else 'off'}")
+                if key == ord("r"):
+                    staff.reset()
+                    visitors.reset()
+                    print("[INFO] Greeting state reset.")
 
     except KeyboardInterrupt:
         print("\n[INFO] Interrupted.")
@@ -293,8 +345,9 @@ def main():
         traceback.print_exc()
     finally:
         print("[INFO] Releasing camera...")
-        speaker.shutdown()
-        cap.release()
+        if speaker is not None:
+            speaker.shutdown()
+        camera.release()
         cv2.destroyAllWindows()
 
 

@@ -26,6 +26,10 @@ run these commands:
 conda deactivate
 cd robo-voice
 source ros_venv/bin/activate
+
+(for voice?)
+source /opt/ros/jazzy/setup.bash
+
 cd belt_v3
 
 test speaking:
