@@ -17,6 +17,7 @@ if __package__ in (None, ""):
         DEFAULT_VOICE,
         SUPPORTED_VOICES,
         normalize_voice,
+        preload_qwen_model,
         tts_configuration_summary,
     )
     from speech.belt_v3_speech_handle import (  # type: ignore[import-not-found]
@@ -27,22 +28,25 @@ else:
         DEFAULT_VOICE,
         SUPPORTED_VOICES,
         normalize_voice,
+        preload_qwen_model,
         tts_configuration_summary,
     )
     from .belt_v3_speech_handle import speech_handle
 
 
-def prompt_for_text() -> str:
-    """Prompt until the user enters some text to speak."""
+def prompt_for_text() -> str | None:
+    """Prompt for text, returning None when the user wants to quit."""
     while True:
-        text = input("Text for the robot to speak: ").strip()
+        text = input("Text for the robot to speak (or 'quit'): ").strip()
+        if text.casefold() == "quit":
+            return None
         if text:
             return text
         print("Please enter at least one character.")
 
 
-def prompt_for_voice() -> str:
-    """Display the supported voices and return the selected voice."""
+def prompt_for_voice() -> str | None:
+    """Display the voices, returning None when the user wants to quit."""
     print("\nAvailable voices:")
     for number, voice in enumerate(SUPPORTED_VOICES, start=1):
         default_label = " (default)" if voice == DEFAULT_VOICE else ""
@@ -50,8 +54,11 @@ def prompt_for_voice() -> str:
 
     while True:
         selection = input(
-            f"Select a voice [1-{len(SUPPORTED_VOICES)} or name]: "
+            f"Select a voice [1-{len(SUPPORTED_VOICES)}, name, or 'quit']: "
         ).strip()
+
+        if selection.casefold() == "quit":
+            return None
 
         if selection.isdigit():
             voice_number = int(selection)
@@ -92,21 +99,45 @@ def build_parser() -> argparse.ArgumentParser:
 def main(argv: Sequence[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
 
-    text = args.text.strip() if args.text is not None else prompt_for_text()
-    if not text:
+    initial_text = args.text.strip() if args.text is not None else None
+    if args.text is not None and not initial_text:
         print("Error: text cannot be empty.", file=sys.stderr)
         return 2
 
-    voice = args.voice if args.voice is not None else prompt_for_voice()
-
-    print(f"\nPlaying {voice} on the robot...")
-    print(tts_configuration_summary(voice))
+    preload_voice = args.voice if args.voice is not None else DEFAULT_VOICE
+    print("Loading the Qwen TTS model. This may take a moment...")
+    print(tts_configuration_summary(preload_voice))
     try:
-        speech_handle(text, voice)
+        preload_qwen_model(preload_voice)
     except RuntimeError as error:
         print(f"Error: {error}", file=sys.stderr)
         return 1
 
+    print("\nModel loaded. It will be reused for every voice test.")
+    while True:
+        if initial_text is not None:
+            text = initial_text
+            initial_text = None
+        else:
+            text = prompt_for_text()
+
+        if text is None:
+            break
+
+        voice = args.voice if args.voice is not None else prompt_for_voice()
+        if voice is None:
+            break
+
+        print(f"\nPlaying {voice} on the robot...")
+        print(tts_configuration_summary(voice))
+        try:
+            speech_handle(text, voice)
+        except RuntimeError as error:
+            print(f"Error: {error}", file=sys.stderr)
+
+        print()
+
+    print("Voice tester stopped.")
     return 0
 
 
