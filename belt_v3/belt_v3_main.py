@@ -188,6 +188,10 @@ def main():
                 processing_started_at = time.perf_counter()
                 cv_state = get_optional_cv_state(timing_metrics)
 
+            if DEBUG:
+                print("[CV_STATE]", flush=True)
+                print(cv_state, flush=True)
+
             # One LLM call returns speech, navigation, and simple actions.
             if USING_ROBOT == False:
                 processing_started_at = time.perf_counter()
