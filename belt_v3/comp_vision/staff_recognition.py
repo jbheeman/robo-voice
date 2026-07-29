@@ -41,8 +41,9 @@ import numpy as np
 from insightface.app import FaceAnalysis
 
 
-FACULTY_IMAGES_DIR = "faculty_images2"
-ENCODINGS_PATH = "encodings.joblib"
+MODULE_DIRECTORY = pathlib.Path(__file__).resolve().parent
+FACULTY_IMAGES_DIR = MODULE_DIRECTORY / "faculty_images2"
+ENCODINGS_PATH = MODULE_DIRECTORY / "encodings.joblib"
 
 
 MODEL_PACK = "buffalo_l"
@@ -185,10 +186,20 @@ def _fingerprint(people):
         h.update(name.encode())
         for path in people[name]:
             try:
+                fingerprint_path = path.resolve().relative_to(
+                    MODULE_DIRECTORY
+                ).as_posix()
+            except ValueError:
+                fingerprint_path = str(path)
+            try:
                 st = path.stat()
-                h.update(f"{path}|{st.st_size}|{int(st.st_mtime)}".encode())
+                fingerprint = (
+                    f"{fingerprint_path}|{st.st_size}|"
+                    f"{int(st.st_mtime)}"
+                )
+                h.update(fingerprint.encode())
             except OSError:
-                h.update(str(path).encode())
+                h.update(fingerprint_path.encode())
     return h.hexdigest()
 
 

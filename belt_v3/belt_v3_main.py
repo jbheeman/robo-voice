@@ -11,6 +11,7 @@ from belt_v3_api import ConversationMessage, remember_conversation_turn
 from belt_v3_helper import compose_response
 from belt_v3_input import get_input, terminal_get_input
 from launch_streamlit import start_streamlit, stop_streamlit
+from comp_vision.belt_v3_cv import close_cv, get_cv_state
 
 #hyperparams? idk
 DEBUG = True
@@ -27,6 +28,7 @@ conversation: list[ConversationMessage] = []
 def generate_response(
     text_input: str,
     conversation: list[ConversationMessage],
+    cv_state: dict | None = None,
 ):
     if DEBUG:
         request_start = time.perf_counter()
@@ -34,6 +36,7 @@ def generate_response(
     output, rag_context = compose_response(
         text_input,
         conversation,
+        vision_context=cv_state,
         debug=DEBUG,
     )  # Python dictionary
     
@@ -82,13 +85,16 @@ def main():
         while True:
             if USING_ROBOT == False:
                 text_input = terminal_get_input()
+                cv_state = None
             else:
                 text_input = get_input()
+                cv_state = get_cv_state()
 
             # One LLM call returns speech, navigation, and simple actions.
             response_output = generate_response(
                 text_input,
                 conversation,
+                cv_state=cv_state,
             )
 
             # Store the real user input and the response BELT will speak.
@@ -103,6 +109,7 @@ def main():
     except KeyboardInterrupt:
         print("\nBELT stopped.")
     finally:
+        close_cv()
         stop_streamlit(dashboard_process)
 
 
