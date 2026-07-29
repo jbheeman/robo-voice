@@ -13,7 +13,7 @@ from speech.belt_v3_qwen_tts import (
 )
 from navigation.belt_v3_navigation_handle import navigation_handle
 from belt_v3_api import ConversationMessage, remember_conversation_turn
-from belt_v3_helper import compose_response
+from belt_v3_helper import compose_response, prepare_vision_context_for_llm
 from belt_v3_input import get_input, terminal_get_input
 from launch_streamlit import start_streamlit, stop_streamlit
 from comp_vision.belt_v3_cv import close_cv, get_cv_state
@@ -190,7 +190,10 @@ def main():
 
             if DEBUG:
                 print("[CV_STATE]", flush=True)
-                print(cv_state, flush=True)
+                print(
+                    prepare_vision_context_for_llm(cv_state),
+                    flush=True,
+                )
 
             # One LLM call returns speech, navigation, and simple actions.
             if USING_ROBOT == False:

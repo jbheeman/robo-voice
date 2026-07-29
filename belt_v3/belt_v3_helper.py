@@ -10,6 +10,8 @@ from navigation.belt_v3_valid_navigation import VALID_LOCATIONS
 
 RAG_TOP_K = 3
 RAG_MIN_SCORE = 0.30
+CV_LLM_MIN_CONFIDENCE = 0.70
+UNKNOWN_PERSON_NAME = "Visitor"
 
 
 def safely_parse_json_to_python_dict(input_data: Any) -> dict | None:
@@ -80,6 +82,70 @@ def safely_parse_json_to_python_dict(input_data: Any) -> dict | None:
     return None
 
 
+def prepare_vision_context_for_llm(
+    vision_context: Mapping[str, Any] | None,
+) -> dict[str, Any] | None:
+    """Filter and sort camera data before including it in the LLM prompt."""
+    if vision_context is None:
+        return None
+
+    prepared_context = dict(vision_context)
+    filtered_objects: list[dict[str, Any]] = []
+
+    raw_objects = vision_context.get("objects")
+    if isinstance(raw_objects, list):
+        for raw_object in raw_objects:
+            if not isinstance(raw_object, Mapping):
+                continue
+
+            confidence = raw_object.get("highest_confidence")
+            if (
+                isinstance(confidence, bool)
+                or not isinstance(confidence, (int, float))
+                or confidence <= CV_LLM_MIN_CONFIDENCE
+            ):
+                continue
+
+            filtered_objects.append(dict(raw_object))
+
+    filtered_objects.sort(
+        key=lambda item: item["highest_confidence"],
+        reverse=True,
+    )
+    prepared_context["objects"] = filtered_objects
+
+    known_people: list[str] = []
+    raw_known_people = vision_context.get("known_people")
+    if isinstance(raw_known_people, list):
+        for raw_name in raw_known_people:
+            if not isinstance(raw_name, str):
+                continue
+            name = raw_name.strip()
+            if name and name not in known_people:
+                known_people.append(name)
+
+    raw_unknown_count = vision_context.get("unknown_face_count", 0)
+    unknown_face_count = (
+        raw_unknown_count
+        if isinstance(raw_unknown_count, int)
+        and not isinstance(raw_unknown_count, bool)
+        and raw_unknown_count > 0
+        else 0
+    )
+
+    prepared_context["known_people"] = known_people
+    prepared_context["unknown_face_count"] = unknown_face_count
+    prepared_context["people_names"] = (
+        known_people
+        + [UNKNOWN_PERSON_NAME] * unknown_face_count
+    )
+    prepared_context["object_confidence_threshold"] = (
+        f"> {CV_LLM_MIN_CONFIDENCE:.0%}"
+    )
+
+    return prepared_context
+
+
 
 def build_response_prompt(
     user_text: str,
@@ -133,6 +199,18 @@ Rules:
 - Do not mention the vision snapshot or camera status when it is irrelevant.
 - Object labels and face matches are estimates; do not claim more than the
   snapshot supports.
+- The snapshot's objects are sorted by confidence and only include detections
+  whose highest YOLO confidence is greater than 70 percent.
+- Use "people_names" for recognized names and call entries named "Visitor"
+  visitors rather than guessing their identities.
+- If "people_names" contains any recognized name other than "Visitor",
+  "speech" must begin with a brief greeting that includes every recognized
+  name. For example, begin with "Hi Ethan," or "Hello Ethan and Tina," before
+  answering the user.
+- If "people_names" contains only "Visitor", begin "speech" with a generic
+  "Hi" or "Hello", but never address someone using the word "Visitor".
+- Do not announce that a person was detected or recognized unless the user
+  specifically asks what BELT sees.
 - Keep "speech" short, natural, and consistent with the extracted commands.
 - A separate action handler performs the movements.
 - A separate navigation handler speaks the full directions.
@@ -144,7 +222,6 @@ Rules:
 - If both actions and navigation are requested, acknowledge both briefly.
 - Tell the user that it can only give directions, for actual navigation connect to BELT App
 - Return no Markdown or text outside the JSON object.
-- If the computer vision input shows people's names, address their names.
 """.strip()
 
 
@@ -288,10 +365,13 @@ def compose_response(
     llm_response_started_at = time.perf_counter()
     prompt_started_at = time.perf_counter()
 
+    prepared_vision_context = prepare_vision_context_for_llm(
+        vision_context
+    )
     prompt = build_response_prompt(
         user_text,
         rag_context,
-        vision_context,
+        prepared_vision_context,
     )
     prompt_time = time.perf_counter() - prompt_started_at
 
