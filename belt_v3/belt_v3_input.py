@@ -179,7 +179,8 @@ class AudioInput:
 
             self._wake_word_expires_at = 0.0
             print(
-                f'Ignored transcript without wake word "{WAKE_WORD}".',
+                f'Ignored transcript without wake word "{WAKE_WORD}": '
+                f"{transcript!r}",
                 flush=True,
             )
 

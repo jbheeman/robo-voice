@@ -44,6 +44,29 @@ class AudioInputWakeWordTests(unittest.TestCase):
 
         self.assertEqual(result, "tell me a joke")
 
+    def test_ignored_message_prints_received_transcript(self) -> None:
+        audio_input = _audio_input_with("built tell me a joke")
+        output = io.StringIO()
+        spin_count = 0
+
+        def stop_after_ignored_message(_node, timeout_sec: float) -> None:
+            nonlocal spin_count
+            del timeout_sec
+            spin_count += 1
+            if spin_count > 1:
+                raise KeyboardInterrupt
+
+        with contextlib.redirect_stdout(output):
+            with self.assertRaises(KeyboardInterrupt):
+                audio_input._rclpy.spin_once = stop_after_ignored_message
+                audio_input.get_input(require_wake_word=True)
+
+        self.assertIn(
+            'Ignored transcript without wake word "BELT": '
+            "'built tell me a joke'",
+            output.getvalue(),
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
