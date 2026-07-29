@@ -195,26 +195,40 @@ def main():
                     flush=True,
                 )
 
-            # One LLM call returns speech, navigation, and simple actions.
-            if USING_ROBOT == False:
-                processing_started_at = time.perf_counter()
-
-            response_output = generate_response(
+            stream_response, rag_context = compose_response_stream(
                 text_input,
                 conversation,
-                cv_state=cv_state,
+                debug=DEBUG,
+                vision_context=cv_state,
                 timing_metrics=timing_metrics,
             )
 
-            # Store the real user input and the response BELT will speak.
-            remember_conversation_turn(
-                conversation,
-                text_input,
-                response_output["speech"],
-            )
+            full_response_text = ""
+            llm_started_at = time.perf_counter()
 
-            #execute modules based on request
-            execute_modules(response_output, timing_metrics)
+            if stream_response is not None:
+                for chunk in stream_response:
+                    content = chunk.choices[0].delta.content if hasattr(chunk, "choices") else None
+                    if content:
+                        full_response_text += content
+                    # Stream directly to audio / TTS buffer here:
+                    # speech_handle_stream(content)
+
+                timing_metrics["llm_response"] = time.perf_counter() - llm_started_at
+
+                validated_response = _validated_llm_response(full_response_text)
+
+                if validated_response["simple_action"]["requested"]:
+                    simple_action_handle(validated_response["simple_action"]["actions"])
+
+                if validated_response["navigation"]["requested"]:
+                    navigation_handle(validated_response["navigation"]["locations"])
+
+                remember_conversation_turn(
+                    conversation,
+                    text_input,
+                    validated_response["speech"],
+                )
             print_timing(
                 "Turn processing after input",
                 processing_started_at,
