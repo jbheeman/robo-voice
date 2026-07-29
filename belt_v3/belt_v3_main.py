@@ -104,36 +104,6 @@ def generate_response(
     return output
 
 
-def execute_modules(
-    response_output: dict,
-    timing_metrics: dict[str, float],
-):
-    execution_started_at = time.perf_counter()
-    speech_started_at = time.perf_counter()
-
-    if USING_ROBOT:
-        speech_handle(response_output["speech"], VOICE)
-    else:
-        testing_speech_handle(response_output["speech"], VOICE)
-
-    timing_metrics["output_audio"] = (
-        time.perf_counter() - speech_started_at
-    )
-    print_timing("Speech output", speech_started_at)
-
-    if response_output["simple_action"]["requested"]:
-        action_started_at = time.perf_counter()
-        simple_action_handle(response_output["simple_action"]["actions"])
-        print_timing("Simple actions", action_started_at)
-
-    if response_output["navigation"]["requested"]:
-        navigation_started_at = time.perf_counter()
-        navigation_handle(response_output["navigation"]["locations"])
-        print_timing("Navigation", navigation_started_at)
-
-    print_timing("Module execution total", execution_started_at)
-
-
 def main():
     dashboard_process = None
 
