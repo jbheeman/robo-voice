@@ -19,11 +19,12 @@ from launch_streamlit import start_streamlit, stop_streamlit
 from comp_vision.belt_v3_cv import close_cv, get_cv_state
 
 #hyperparams? idk
-USING_ROBOT = True
+USING_ROBOT = False
 LAUNCH_STREAMLIT = False
 VOICE = "Uncle_Fu"
+BELT_WAKE_WORD = False
 
-# Holds the latest 10 user inputs and BELT's corresponding speech responses.
+# Holds the latest 4 user inputs and BELT's corresponding speech responses.
 conversation: list[ConversationMessage] = []
 
 
@@ -149,7 +150,9 @@ def main():
                 )
                 print_timing("Terminal input wait", input_started_at)
             else:
-                text_input = get_input()
+                text_input = get_input(
+                    require_wake_word=BELT_WAKE_WORD,
+                )
                 timing_metrics["input_handle"] = (
                     time.perf_counter() - input_started_at
                 )

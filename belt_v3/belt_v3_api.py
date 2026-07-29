@@ -29,7 +29,7 @@ load_dotenv()
 
 DEEPSEEK_BASE_URL = "https://api.deepseek.com"
 MODEL_NAME = "deepseek-v4-flash"
-MAX_CONVERSATION_USER_INPUTS = 10
+MAX_CONVERSATION_USER_INPUTS = 4
 
 ConversationMessage = Dict[str, str]
 
@@ -104,7 +104,7 @@ def normalize_conversation(
     conversation: Optional[Sequence[Mapping[str, str]]],
 ) -> List[ConversationMessage]:
     """
-    Returns the latest 10 user turns and their assistant responses.
+    Returns the latest 4 user turns and their assistant responses.
 
     Conversation memory is supplied by the robot's main loop so internal
     detector and composer prompts never get mistaken for user history.
@@ -157,7 +157,7 @@ def remember_conversation_turn(
     user_input: str,
     assistant_response: str,
 ) -> None:
-    """Store a completed user/assistant turn and retain the latest 10."""
+    """Store a completed user/assistant turn and retain the latest 4."""
     user_input = user_input.strip()
     assistant_response = assistant_response.strip()
 
@@ -208,7 +208,14 @@ def call_llm(
 ):
     """
     Sends instructions or user text to the DeepSeek model.
-    Supports both synchronous responses (stream=False) and streaming response generators (stream=True).
+
+    The function includes:
+    - BELT's system prompt
+    - The latest 10 user turns and BELT speech responses from ``conversation``
+    - The current input
+
+    If successful, it returns the LLM's text response.
+    If the request fails, it prints an error and returns None.
     """
     input_text = input_text.strip()
     if not input_text:

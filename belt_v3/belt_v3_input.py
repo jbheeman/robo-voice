@@ -112,12 +112,18 @@ class AudioInput:
         if payload.get("is_final") is True:
             self._pending_is_final = True
 
-    def get_input(self) -> str:
+    def get_input(self, require_wake_word: bool = True) -> str:
         """Block until one complete spoken utterance is available."""
-        print(
-            f'Listening on {AUDIO_INPUT_TOPIC}. Say "{WAKE_WORD}" first...',
-            flush=True,
-        )
+        if require_wake_word:
+            listening_message = (
+                f'Listening on {AUDIO_INPUT_TOPIC}. '
+                f'Say "{WAKE_WORD}" first...'
+            )
+        else:
+            listening_message = (
+                f"Listening on {AUDIO_INPUT_TOPIC}. Wake word disabled..."
+            )
+        print(listening_message, flush=True)
 
         while self._rclpy.ok():
             self._rclpy.spin_once(
@@ -141,6 +147,11 @@ class AudioInput:
             transcript = self._pending_text
             self._pending_text = None
             self._pending_is_final = False
+
+            if not require_wake_word:
+                self._wake_word_expires_at = 0.0
+                print(f"> {transcript}", flush=True)
+                return transcript
 
             now = time.monotonic()
             command = extract_wake_word_command(transcript)
@@ -200,9 +211,11 @@ def _close_audio_input() -> None:
         _audio_input = None
 
 
-def get_input() -> str:
+def get_input(require_wake_word: bool = True) -> str:
     """Return the next English transcript received from the robot."""
-    return _get_audio_input().get_input()
+    return _get_audio_input().get_input(
+        require_wake_word=require_wake_word,
+    )
 
 
 atexit.register(_close_audio_input)
@@ -226,4 +239,3 @@ def terminal_get_input():
 
 if __name__ == "__main__":
     main()
-
