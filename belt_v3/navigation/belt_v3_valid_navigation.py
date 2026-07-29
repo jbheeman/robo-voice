@@ -1,4 +1,5 @@
 VALID_LOCATIONS = [
+    "0",
     "2004",
     "2005",
     "2007",
@@ -62,11 +63,13 @@ VALID_LOCATIONS = [
     "SIP - Compost Facility Level Survey and Policy Efficacy Evaluation",
     "IT",
     "GUII Lab",
-    "Circulation"
+    "Circulation",
+    "Entrance",
+    "Exit"
 ]
 
 room_numbers = [
-    2004, 2005, 2007, 2013, 2015, 2017, 2019,
+    0, 2004, 2005, 2007, 2013, 2015, 2017, 2019,
     2110, 2115, 2117, 2119, 2125, 2130, 2135,
     2145, 2150, 2155, 2165, 2175, 2204, 2205,
     2206, 2210, 2215, 2220, 2221, 2225, 2227,
@@ -75,6 +78,8 @@ room_numbers = [
 
 
 room_name_to_number = {
+    "Entrance": 0,
+    "Exit": 0,
     "CONFERENCE ROOM": 2004,
     "UNIVERSITY EXTENSION SERVICE CENTER": 2005,
     "OPEN COMPUTER LAB": 2007,
