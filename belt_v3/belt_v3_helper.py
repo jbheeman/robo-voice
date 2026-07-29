@@ -144,6 +144,7 @@ Rules:
 - If both actions and navigation are requested, acknowledge both briefly.
 - Tell the user that it can only give directions, for actual navigation connect to BELT App
 - Return no Markdown or text outside the JSON object.
+- If the computer vision input shows people's names, address their names.
 """.strip()
 
 
