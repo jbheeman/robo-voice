@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import atexit
 import json
+import re
 import time
 from typing import Any
 
@@ -11,8 +12,23 @@ from typing import Any
 AUDIO_INPUT_TOPIC = "/audio_msg_bridge"
 TRANSCRIPT_SETTLE_SECONDS = 0.8
 SPIN_TIMEOUT_SECONDS = 0.1
+WAKE_WORD = "BELT"
+WAKE_WORD_FOLLOWUP_SECONDS = 5.0
+WAKE_WORD_PATTERN = re.compile(
+    rf"^\s*(?:(?:hey|okay)\s+)?{re.escape(WAKE_WORD)}"
+    r"(?=$|[\s,.:;!?-])[\s,.:;!?-]*",
+    re.IGNORECASE,
+)
 
 _audio_input: AudioInput | None = None
+
+
+def extract_wake_word_command(transcript: str) -> str | None:
+    """Return text after the leading wake phrase, or None if it is absent."""
+    match = WAKE_WORD_PATTERN.match(transcript)
+    if match is None:
+        return None
+    return transcript[match.end():].strip()
 
 
 class AudioInput:
@@ -44,6 +60,7 @@ class AudioInput:
         self._pending_text: str | None = None
         self._pending_changed_at = 0.0
         self._pending_is_final = False
+        self._wake_word_expires_at = 0.0
 
         # The robot's DDS-to-ROS relay publishes with BEST_EFFORT reliability.
         # A RELIABLE subscriber is incompatible and would receive no audio.
@@ -97,7 +114,10 @@ class AudioInput:
 
     def get_input(self) -> str:
         """Block until one complete spoken utterance is available."""
-        print(f"Listening for speech on {AUDIO_INPUT_TOPIC}...", flush=True)
+        print(
+            f'Listening on {AUDIO_INPUT_TOPIC}. Say "{WAKE_WORD}" first...',
+            flush=True,
+        )
 
         while self._rclpy.ok():
             self._rclpy.spin_once(
@@ -122,8 +142,35 @@ class AudioInput:
             self._pending_text = None
             self._pending_is_final = False
 
-            print(f"> {transcript}", flush=True)
-            return transcript
+            now = time.monotonic()
+            command = extract_wake_word_command(transcript)
+
+            if command is not None:
+                if command:
+                    self._wake_word_expires_at = 0.0
+                    print(f"> {command}", flush=True)
+                    return command
+
+                self._wake_word_expires_at = (
+                    now + WAKE_WORD_FOLLOWUP_SECONDS
+                )
+                print(
+                    f'Wake word heard. Listening for a command for '
+                    f"{WAKE_WORD_FOLLOWUP_SECONDS:g} seconds...",
+                    flush=True,
+                )
+                continue
+
+            if now <= self._wake_word_expires_at:
+                self._wake_word_expires_at = 0.0
+                print(f"> {transcript}", flush=True)
+                return transcript
+
+            self._wake_word_expires_at = 0.0
+            print(
+                f'Ignored transcript without wake word "{WAKE_WORD}".',
+                flush=True,
+            )
 
         raise RuntimeError("ROS 2 shut down while waiting for audio input.")
 
@@ -179,5 +226,4 @@ def terminal_get_input():
 
 if __name__ == "__main__":
     main()
-
 
