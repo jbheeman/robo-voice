@@ -204,100 +204,59 @@ def call_llm(
     input_text: str,
     conversation: Optional[Sequence[Mapping[str, str]]] = None,
     debug: bool = False,
-) -> Optional[str]:
+    stream: bool = False,
+):
     """
     Sends instructions or user text to the DeepSeek model.
-
-    The function includes:
-    - BELT's system prompt
-    - The latest 10 user turns and BELT speech responses from ``conversation``
-    - The current input
-
-    If successful, it returns the LLM's text response.
-    If the request fails, it prints an error and returns None.
+    Supports both synchronous responses (stream=False) and streaming response generators (stream=True).
     """
-
     input_text = input_text.strip()
-
     if not input_text:
         print("BELT API: Input text cannot be empty.")
         return None
 
-    current_user_message = {
-        "role": "user",
-        "content": input_text,
-    }
-
+    current_user_message = {"role": "user", "content": input_text}
     recent_messages = normalize_conversation(conversation)
     messages = [
-        {
-            "role": "system",
-            "content": BELT_SYSTEM_PROMPT,
-        },
+        {"role": "system", "content": BELT_SYSTEM_PROMPT},
         *recent_messages,
         current_user_message,
     ]
 
     try:
-        response = LLM_CLIENT.chat.completions.create(
-            model=MODEL_NAME,
-            messages=messages,
-            stream=False,
-        )
-
-        choice = response.choices[0]
-        output_text = choice.message.content
-
-        if debug:
-            print(f"Raw LLM response: {output_text!r}")
-
-        if output_text is None:
-            print("BELT API: The model returned an empty response.")
-            return None
-
-        output_text = output_text.strip()
-        return output_text
+        if stream:
+            # Returns a generator object to yield chunks dynamically
+            return LLM_CLIENT.chat.completions.create(
+                model=MODEL_NAME,
+                messages=messages,
+                stream=True,
+            )
+        else:
+            response = LLM_CLIENT.chat.completions.create(
+                model=MODEL_NAME,
+                messages=messages,
+                stream=False,
+            )
+            choice = response.choices[0]
+            output_text = choice.message.content
+            if debug:
+                print(f"Raw LLM response: {output_text!r}")
+            if output_text is None:
+                print("BELT API: The model returned an empty response.")
+                return None
+            return output_text.strip()
 
     except AuthenticationError:
-        print(
-            "BELT API: DeepSeek rejected the API key. "
-            "Check DEEPSEEK_API_KEY in your .env file."
-        )
-
+        print("BELT API: DeepSeek rejected the API key.")
     except RateLimitError:
-        print(
-            "BELT API: Too many requests were sent. "
-            "Please try again shortly."
-        )
-
+        print("BELT API: Too many requests were sent. Please try again shortly.")
     except APIConnectionError:
-        print(
-            "BELT API: Could not connect to DeepSeek. "
-            "Check your internet connection."
-        )
-
+        print("BELT API: Could not connect to DeepSeek.")
     except APIStatusError as error:
-        if error.status_code == 402:
-            print(
-                "BELT API: The DeepSeek account does not have "
-                "enough available balance."
-            )
-
-        elif error.status_code in {500, 502, 503, 504}:
-            print(
-                "BELT API: DeepSeek's server is currently "
-                "having problems."
-            )
-
-        else:
-            print(
-                f"BELT API: DeepSeek returned HTTP "
-                f"{error.status_code}: {error}"
-            )
-
+        print(f"BELT API: DeepSeek returned HTTP {error.status_code}: {error}")
     except Exception as error:
         print(f"BELT API: Unexpected error: {error}")
-
+    
     return None
 
 
