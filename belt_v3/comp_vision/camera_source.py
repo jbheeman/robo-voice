@@ -22,6 +22,72 @@ class CameraSourceError(RuntimeError):
     """Raised when a requested camera source cannot be initialized."""
 
 
+def _ros_image_to_bgr(message, numpy):
+    """Convert common ROS color encodings without the compiled cv_bridge."""
+    encoding = str(message.encoding).lower()
+    channels_by_encoding = {
+        "bgr8": 3,
+        "rgb8": 3,
+        "bgra8": 4,
+        "rgba8": 4,
+        "mono8": 1,
+        "8uc1": 1,
+        "8uc3": 3,
+        "8uc4": 4,
+    }
+    channels = channels_by_encoding.get(encoding)
+    if channels is None:
+        raise ValueError(
+            f"Unsupported ROS image encoding {message.encoding!r}. "
+            "Expected bgr8, rgb8, bgra8, rgba8, or mono8."
+        )
+
+    height = int(message.height)
+    width = int(message.width)
+    expected_row_bytes = width * channels
+    row_bytes = int(message.step) or expected_row_bytes
+
+    if height <= 0 or width <= 0:
+        raise ValueError(
+            f"Invalid ROS image dimensions: {width}x{height}."
+        )
+    if row_bytes < expected_row_bytes:
+        raise ValueError(
+            f"ROS image step {row_bytes} is smaller than the expected "
+            f"{expected_row_bytes} bytes."
+        )
+
+    try:
+        raw = numpy.frombuffer(message.data, dtype=numpy.uint8)
+    except TypeError:
+        raw = numpy.asarray(message.data, dtype=numpy.uint8)
+
+    required_bytes = height * row_bytes
+    if raw.size < required_bytes:
+        raise ValueError(
+            f"ROS image contains {raw.size} bytes; "
+            f"{required_bytes} are required."
+        )
+
+    pixels = (
+        raw[:required_bytes]
+        .reshape(height, row_bytes)[:, :expected_row_bytes]
+        .reshape(height, width, channels)
+    )
+
+    if encoding == "rgb8":
+        return pixels[:, :, ::-1].copy()
+    if encoding == "rgba8":
+        return pixels[:, :, [2, 1, 0]].copy()
+    if encoding in {"bgra8", "8uc4"}:
+        return pixels[:, :, :3].copy()
+    if encoding in {"mono8", "8uc1"}:
+        return numpy.repeat(pixels, 3, axis=2)
+
+    # bgr8 and generic 8UC3 data are already in OpenCV's channel order.
+    return pixels.copy()
+
+
 class WebcamCameraSource:
     """Read frames from a webcam exposed as a local OpenCV device."""
 
@@ -73,8 +139,8 @@ class RosCameraSource:
 
     def __init__(self, topic):
         try:
+            import numpy
             import rclpy
-            from cv_bridge import CvBridge
             from rclpy.context import Context
             from rclpy.executors import SingleThreadedExecutor
             from rclpy.qos import qos_profile_sensor_data
@@ -83,11 +149,12 @@ class RosCameraSource:
             raise CameraSourceError(
                 "ROS camera support is unavailable. Source the ROS 2 "
                 "environment before running this script, for example: "
-                "source /opt/ros/jazzy/setup.bash. The rclpy, cv_bridge, and "
-                "sensor_msgs packages must be installed."
+                "source /opt/ros/jazzy/setup.bash. The rclpy, sensor_msgs, "
+                "and NumPy packages must be installed."
             ) from exc
 
         self.topic = topic
+        self._numpy = numpy
         self._context = Context()
         self._node = None
         self._executor = None
@@ -103,7 +170,6 @@ class RosCameraSource:
             )
             self._executor = SingleThreadedExecutor(context=self._context)
             self._executor.add_node(self._node)
-            self._bridge = CvBridge()
             self._subscription = self._node.create_subscription(
                 Image,
                 topic,
@@ -122,10 +188,10 @@ class RosCameraSource:
 
     def _image_callback(self, message):
         try:
-            self._latest_frame = self._bridge.imgmsg_to_cv2(
+            self._latest_frame = _ros_image_to_bgr(
                 message,
-                desired_encoding="bgr8",
-            ).copy()
+                self._numpy,
+            )
             self._conversion_error = None
         except Exception as exc:
             self._conversion_error = str(exc)
@@ -149,7 +215,7 @@ class RosCameraSource:
     def failure_hint(self):
         if self._conversion_error:
             return (
-                "A camera message arrived, but CvBridge could not convert it: "
+                "A camera message arrived, but it could not be converted: "
                 f"{self._conversion_error}"
             )
 

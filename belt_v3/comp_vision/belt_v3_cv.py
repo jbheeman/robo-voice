@@ -5,7 +5,10 @@ from __future__ import annotations
 import atexit
 import contextlib
 import io
+import multiprocessing
 import os
+import signal
+import time
 from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
@@ -16,9 +19,13 @@ DEFAULT_CONFIDENCE = 0.35
 DEFAULT_MAX_OBJECTS = 10
 FIRST_SCAN_TIMEOUT_SECONDS = 5.0
 SCAN_TIMEOUT_SECONDS = 2.0
+WORKER_RESPONSE_TIMEOUT_SECONDS = 30.0
+WORKER_SHUTDOWN_TIMEOUT_SECONDS = 3.0
 MODEL_PATH = Path(__file__).with_name("yolov8n.pt")
 
-_cv_input: CVInput | None = None
+_cv_process: Any = None
+_cv_connection: Any = None
+_cv_disabled_reason: str | None = None
 
 
 def _import_yolo():
@@ -34,8 +41,9 @@ def _import_yolo():
         details = import_stderr.getvalue()
         if "compiled using NumPy 1.x" in details:
             raise RuntimeError(
-                "CV dependencies are incompatible with NumPy 2.x. "
-                "Install 'numpy<2' in the robot environment."
+                "A CV dependency is binary-incompatible with the installed "
+                "NumPy version. Reinstall the failing dependency in the "
+                "robot environment."
             ) from error
         raise
 
@@ -101,8 +109,8 @@ class CVInput:
             details = face_import_stderr.getvalue()
             if "compiled using NumPy 1.x" in details:
                 self._face_detector_error = (
-                    "Face-recognition dependencies are incompatible with "
-                    "NumPy 2.x; install 'numpy<2'."
+                    "A face-recognition dependency is binary-incompatible "
+                    "with the installed NumPy version."
                 )
             else:
                 self._face_detector_error = str(error)
@@ -226,20 +234,149 @@ def _unavailable_state(error: BaseException) -> None:
     return None
 
 
-def get_cv_state() -> dict[str, Any] | None:
-    """Return one vision snapshot, or ``None`` if CV is unavailable."""
-    global _cv_input
+def _cv_worker_main(connection) -> None:
+    """Own all native CV libraries inside a crash-isolated process."""
+    cv_input = None
 
     try:
-        if _cv_input is None:
-            _cv_input = CVInput()
-        state = _cv_input.get_state()
+        cv_input = CVInput()
 
-        if state.get("available") is not True:
-            error = state.get("error", "Unknown computer-vision error.")
-            return _unavailable_state(RuntimeError(str(error)))
+        while True:
+            try:
+                command = connection.recv()
+            except EOFError:
+                break
 
-        return state
+            if command == "close":
+                break
+            if command != "scan":
+                connection.send((
+                    "error",
+                    f"Unknown CV worker command: {command!r}",
+                ))
+                continue
+
+            try:
+                connection.send(("state", cv_input.get_state()))
+            except KeyboardInterrupt:
+                raise
+            except BaseException as error:
+                connection.send((
+                    "error",
+                    f"{type(error).__name__}: {error}",
+                ))
+    except KeyboardInterrupt:
+        pass
+    except BaseException as error:
+        try:
+            connection.send((
+                "error",
+                f"{type(error).__name__}: {error}",
+            ))
+        except BaseException:
+            pass
+    finally:
+        if cv_input is not None:
+            try:
+                cv_input.close()
+            except BaseException:
+                pass
+        try:
+            connection.close()
+        except BaseException:
+            pass
+
+
+def _start_cv_worker() -> None:
+    global _cv_connection, _cv_process
+
+    context = multiprocessing.get_context("spawn")
+    parent_connection, child_connection = context.Pipe()
+    process = context.Process(
+        target=_cv_worker_main,
+        args=(child_connection,),
+        name="belt_cv_worker",
+        daemon=True,
+    )
+
+    try:
+        process.start()
+    except BaseException:
+        parent_connection.close()
+        child_connection.close()
+        raise
+
+    child_connection.close()
+    _cv_connection = parent_connection
+    _cv_process = process
+
+
+def _worker_exit_reason() -> str:
+    exit_code = getattr(_cv_process, "exitcode", None)
+
+    if isinstance(exit_code, int) and exit_code < 0:
+        signal_number = -exit_code
+        try:
+            signal_name = signal.Signals(signal_number).name
+        except ValueError:
+            signal_name = f"signal {signal_number}"
+        return f"CV worker crashed with {signal_name}."
+
+    if exit_code is None:
+        return "CV worker stopped responding."
+    return f"CV worker exited with code {exit_code}."
+
+
+def _disable_cv(reason: str) -> None:
+    global _cv_disabled_reason
+
+    _cv_disabled_reason = reason
+    close_cv()
+    return _unavailable_state(RuntimeError(reason))
+
+
+def get_cv_state() -> dict[str, Any] | None:
+    """Request one snapshot from the crash-isolated CV worker."""
+    if _cv_disabled_reason is not None:
+        return _unavailable_state(RuntimeError(_cv_disabled_reason))
+
+    try:
+        if _cv_process is None:
+            _start_cv_worker()
+        elif not _cv_process.is_alive():
+            return _disable_cv(_worker_exit_reason())
+
+        _cv_connection.send("scan")
+        deadline = time.monotonic() + WORKER_RESPONSE_TIMEOUT_SECONDS
+
+        while time.monotonic() < deadline:
+            if _cv_connection.poll(0.1):
+                try:
+                    response_type, payload = _cv_connection.recv()
+                except EOFError:
+                    return _disable_cv(_worker_exit_reason())
+
+                if response_type == "error":
+                    return _unavailable_state(RuntimeError(str(payload)))
+                if response_type != "state" or not isinstance(payload, dict):
+                    return _disable_cv(
+                        "CV worker returned an invalid response."
+                    )
+                if payload.get("available") is not True:
+                    error = payload.get(
+                        "error",
+                        "Unknown computer-vision error.",
+                    )
+                    return _unavailable_state(RuntimeError(str(error)))
+
+                return payload
+
+            if not _cv_process.is_alive():
+                return _disable_cv(_worker_exit_reason())
+
+        return _disable_cv(
+            "CV worker timed out; continuing without computer vision."
+        )
     except KeyboardInterrupt:
         raise
     except BaseException as error:
@@ -247,18 +384,32 @@ def get_cv_state() -> dict[str, Any] | None:
 
 
 def close_cv() -> None:
-    """Release the shared camera connection."""
-    global _cv_input
+    """Stop the isolated CV worker and release its camera."""
+    global _cv_connection, _cv_process
 
-    if _cv_input is not None:
+    connection = _cv_connection
+    process = _cv_process
+    _cv_connection = None
+    _cv_process = None
+
+    if connection is not None:
         try:
-            _cv_input.close()
-        except KeyboardInterrupt:
-            raise
-        except BaseException as error:
-            print(f"[CV ERROR] Could not close CV cleanly: {error}", flush=True)
-        finally:
-            _cv_input = None
+            if process is not None and process.is_alive():
+                connection.send("close")
+        except BaseException:
+            pass
+
+    if process is not None:
+        process.join(timeout=WORKER_SHUTDOWN_TIMEOUT_SECONDS)
+        if process.is_alive():
+            process.terminate()
+            process.join(timeout=WORKER_SHUTDOWN_TIMEOUT_SECONDS)
+
+    if connection is not None:
+        try:
+            connection.close()
+        except BaseException:
+            pass
 
 
 atexit.register(close_cv)
