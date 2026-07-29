@@ -12,6 +12,8 @@ from typing import Any
 
 DEFAULT_CONFIDENCE = 0.35
 DEFAULT_MAX_OBJECTS = 10
+FIRST_SCAN_TIMEOUT_SECONDS = 5.0
+SCAN_TIMEOUT_SECONDS = 2.0
 MODEL_PATH = Path(__file__).with_name("yolov8n.pt")
 
 _cv_input: CVInput | None = None
@@ -77,7 +79,11 @@ class CVInput:
 
     def get_state(self) -> dict[str, Any]:
         """Capture and analyze the next available camera frame."""
-        timeout = 15.0 if self._first_scan else 2.0
+        timeout = (
+            FIRST_SCAN_TIMEOUT_SECONDS
+            if self._first_scan
+            else SCAN_TIMEOUT_SECONDS
+        )
         print("[CV] Scanning the camera...", flush=True)
 
         ok, frame = self._camera.read(timeout=timeout)
@@ -180,22 +186,26 @@ class CVInput:
         self._camera.release()
 
 
-def _unavailable_state(error: Exception) -> dict[str, Any]:
+def _unavailable_state(error: Exception) -> None:
     print(f"[CV ERROR] {error}", flush=True)
-    return {
-        "available": False,
-        "error": str(error),
-    }
+    print("CV state is not working, cv_state=None", flush=True)
+    return None
 
 
-def get_cv_state() -> dict[str, Any]:
-    """Return one fresh vision snapshot without stopping the conversation."""
+def get_cv_state() -> dict[str, Any] | None:
+    """Return one vision snapshot, or ``None`` if CV is unavailable."""
     global _cv_input
 
     try:
         if _cv_input is None:
             _cv_input = CVInput()
-        return _cv_input.get_state()
+        state = _cv_input.get_state()
+
+        if state.get("available") is not True:
+            error = state.get("error", "Unknown computer-vision error.")
+            return _unavailable_state(RuntimeError(str(error)))
+
+        return state
     except Exception as error:
         return _unavailable_state(error)
 

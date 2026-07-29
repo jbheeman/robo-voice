@@ -2,7 +2,6 @@ import time
 from movement.belt_v3_simple_action_handle import simple_action_handle
 from speech.belt_v3_speech_handle import speech_handle, testing_speech_handle
 from speech.belt_v3_qwen_tts import (
-    DEFAULT_VOICE,
     preload_qwen_model,
     tts_configuration_summary,
 )
@@ -17,7 +16,7 @@ from comp_vision.belt_v3_cv import close_cv, get_cv_state
 DEBUG = True
 USING_ROBOT = True
 LAUNCH_STREAMLIT = False
-VOICE = DEFAULT_VOICE
+VOICE = "Uncle_Fu"
 
 PROGRAM_START_TIME = time.perf_counter() if DEBUG else 0.0
 
