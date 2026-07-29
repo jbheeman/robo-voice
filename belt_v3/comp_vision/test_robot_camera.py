@@ -2,7 +2,8 @@
 
 This is a small camera-connection test, not the full greeting program. It
 subscribes to the robot's ROS 2 color-image topic, runs YOLO object detection,
-and prints object labels with confidence percentages.
+uses the greeter's face recognition to identify enrolled people, and reports
+everyone else as ``Visitor``.
 
 Run:
     source /opt/ros/jazzy/setup.bash
@@ -24,12 +25,16 @@ from camera_source import (
     CameraSourceError,
     RosCameraSource,
 )
+from human_det import PERSON_CLASS_ID
+from staff_recognition import KNOWN_NAMES, detect_faces
 
 
 MODEL_PATH = Path(__file__).with_name("yolov8n.pt")
 DEFAULT_INTERVAL = 1.0
 DEFAULT_CONFIDENCE = 0.35
 DEFAULT_MAX_OBJECTS = 10
+PERSON_LABEL = "person"
+VISITOR_LABEL = "Visitor"
 
 
 def parse_args():
@@ -81,7 +86,7 @@ def validate_args(args):
 
 
 def collect_detections(result, class_names, max_objects):
-    """Return the strongest YOLO detections as ``(label, confidence)`` pairs."""
+    """Return YOLO detections, prioritizing people in the limited report."""
     detections = []
     if result.boxes is None:
         return detections
@@ -89,22 +94,77 @@ def collect_detections(result, class_names, max_objects):
     for box in result.boxes:
         class_id = int(box.cls[0])
         confidence = float(box.conf[0])
-        detections.append((class_names[class_id], confidence))
+        label = str(class_names[class_id])
+        detections.append((label, confidence))
 
-    detections.sort(key=lambda item: item[1], reverse=True)
+    detections.sort(
+        key=lambda item: (
+            item[0].casefold() != PERSON_LABEL,
+            -item[1],
+        )
+    )
     return detections[:max_objects]
 
 
-def format_report(detections):
-    timestamp = time.strftime("%H:%M:%S")
-    if not detections:
-        return f"[{timestamp}] No recognized objects."
+def identify_people(frame, person_count):
+    """Return one enrolled name or ``Visitor`` for each detected person."""
+    if person_count == 0:
+        return []
 
-    objects = ", ".join(
-        f"{label} {confidence * 100:.1f}%"
+    faces = detect_faces(frame)
+    identities = [
+        str(face["name"]).strip()
+        if face.get("name")
+        else VISITOR_LABEL
+        for face in faces
+    ]
+
+    # YOLO can see a person whose face is turned away, obscured, or too small
+    # for face recognition. Such a person is still present but is not known.
+    if len(identities) < person_count:
+        identities.extend(
+            [VISITOR_LABEL] * (person_count - len(identities))
+        )
+
+    return identities[:person_count]
+
+
+def format_report(detections, identities=None):
+    timestamp = time.strftime("%H:%M:%S")
+    people = [
+        confidence
         for label, confidence in detections
+        if label.casefold() == PERSON_LABEL
+    ]
+    objects = [
+        (label, confidence)
+        for label, confidence in detections
+        if label.casefold() != PERSON_LABEL
+    ]
+
+    if identities is None:
+        identities = [VISITOR_LABEL] * len(people)
+
+    people_report = f"People detected: {len(people)}"
+    if people:
+        confidence_report = ", ".join(
+            f"{confidence * 100:.1f}%"
+            for confidence in people
+        )
+        identity_report = ", ".join(identities)
+        people_report += (
+            f" [{identity_report}] "
+            f"(YOLO confidence: {confidence_report})"
+        )
+
+    object_report = ", ".join(
+        f"{label} {confidence * 100:.1f}%"
+        for label, confidence in objects
     )
-    return f"[{timestamp}] {objects}"
+    if not object_report:
+        object_report = "none"
+
+    return f"[{timestamp}] {people_report} | Other objects: {object_report}"
 
 
 def main():
@@ -130,6 +190,14 @@ def main():
             f"Reporting every {args.interval:g} second(s). Press Ctrl+C to stop."
         )
         model = YOLO(str(MODEL_PATH))
+        if str(model.names[PERSON_CLASS_ID]).casefold() != PERSON_LABEL:
+            raise SystemExit(
+                "Detection model error: the configured person class does "
+                "not map to the YOLO 'person' label."
+            )
+
+        enrolled_names = ", ".join(KNOWN_NAMES) or "none"
+        print(f"Enrolled people: {enrolled_names}")
 
         while True:
             report_started = time.monotonic()
@@ -143,7 +211,15 @@ def main():
                 model.names,
                 args.max_objects,
             )
-            print(format_report(detections), flush=True)
+            person_count = sum(
+                label.casefold() == PERSON_LABEL
+                for label, _ in detections
+            )
+            identities = identify_people(frame, person_count)
+            print(
+                format_report(detections, identities),
+                flush=True,
+            )
 
             elapsed = time.monotonic() - report_started
             time.sleep(max(0.0, args.interval - elapsed))
