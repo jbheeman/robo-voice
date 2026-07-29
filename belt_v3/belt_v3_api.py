@@ -211,7 +211,7 @@ def call_llm(
 
     The function includes:
     - BELT's system prompt
-    - The latest 10 user turns and BELT speech responses from ``conversation``
+    - The latest 4 user turns and BELT speech responses from ``conversation``
     - The current input
 
     If successful, it returns the LLM's text response.
