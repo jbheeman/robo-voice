@@ -9,6 +9,9 @@ from collections.abc import Sequence
 from pathlib import Path
 
 
+SAY_ALL_COMMAND = "say all"
+
+
 # Support both `python3 -m speech.test_voice` and
 # `python3 speech/test_voice.py` from the belt_v3 directory.
 if __package__ in (None, ""):
@@ -37,7 +40,10 @@ else:
 def prompt_for_text() -> str | None:
     """Prompt for text, returning None when the user wants to quit."""
     while True:
-        text = input("Text for the robot to speak (or 'quit'): ").strip()
+        text = input(
+            "Text for the robot to speak "
+            "('say all' for every voice, or 'quit'): "
+        ).strip()
         if text.casefold() == "quit":
             return None
         if text:
@@ -72,6 +78,31 @@ def prompt_for_voice() -> str | None:
                 "Invalid selection. Enter a number from the list "
                 "or a voice name."
             )
+
+
+def say_all() -> None:
+    """Play the requested introduction with every supported voice."""
+    print(f"\nTesting all {len(SUPPORTED_VOICES)} voices...")
+
+    for number, voice in enumerate(SUPPORTED_VOICES, start=1):
+        spoken_voice = voice.replace("_", " ")
+        text = (
+            f"Hi my name is {spoken_voice}, and I really like cows. "
+            "I'm at the UCSC campus right now. "
+            "How may I help you today?"
+        )
+
+        print(
+            f"\n[{number}/{len(SUPPORTED_VOICES)}] "
+            f"Playing {voice} on the robot..."
+        )
+        print(tts_configuration_summary(voice))
+        try:
+            speech_handle(text, voice)
+        except RuntimeError as error:
+            print(f"Error testing {voice}: {error}", file=sys.stderr)
+
+    print("\nFinished testing all voices.")
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -124,6 +155,11 @@ def main(argv: Sequence[str] | None = None) -> int:
         if text is None:
             break
 
+        if text.casefold() == SAY_ALL_COMMAND:
+            say_all()
+            print()
+            continue
+
         voice = args.voice if args.voice is not None else prompt_for_voice()
         if voice is None:
             break
@@ -147,3 +183,11 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         print("\nVoice test cancelled.")
         raise SystemExit(130) from None
+
+
+'''
+Text:
+
+Hi there, my name is Belt, your friendly UCSC receptionist robot. How may I help you today?
+
+'''
