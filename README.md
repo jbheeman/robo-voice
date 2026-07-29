@@ -6,14 +6,14 @@ set up ~1.5 min:
 python -m pip install \
     openai \
     joblib \
-    numpy \
+    "numpy<2" \
     scikit-learn \
     sentence-transformers \
     python-dotenv
 python -m pip install -U sentence-transformers datasets accelerate
 
 cv:
-pip install insightface onnxruntime opencv-python joblib numpy
+pip install insightface onnxruntime opencv-python joblib "numpy<2"
 pip install ultralytics
 
 

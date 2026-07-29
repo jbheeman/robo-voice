@@ -24,6 +24,18 @@ PROGRAM_START_TIME = time.perf_counter() if DEBUG else 0.0
 conversation: list[ConversationMessage] = []
 
 
+def get_optional_cv_state() -> dict | None:
+    """Prevent any optional CV failure from stopping the conversation."""
+    try:
+        return get_cv_state()
+    except KeyboardInterrupt:
+        raise
+    except BaseException as error:
+        print(f"[CV ERROR] {error}", flush=True)
+        print("CV state is not working, cv_state=None", flush=True)
+        return None
+
+
 def generate_response(
     text_input: str,
     conversation: list[ConversationMessage],
@@ -87,7 +99,7 @@ def main():
                 cv_state = None
             else:
                 text_input = get_input()
-                cv_state = get_cv_state()
+                cv_state = get_optional_cv_state()
 
             # One LLM call returns speech, navigation, and simple actions.
             response_output = generate_response(

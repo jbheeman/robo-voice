@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import atexit
+import contextlib
+import io
 import os
 from collections import defaultdict
 from datetime import datetime, timezone
@@ -17,6 +19,27 @@ SCAN_TIMEOUT_SECONDS = 2.0
 MODEL_PATH = Path(__file__).with_name("yolov8n.pt")
 
 _cv_input: CVInput | None = None
+
+
+def _import_yolo():
+    """Import Ultralytics without letting binary-import noise flood stderr."""
+    import_stderr = io.StringIO()
+
+    try:
+        with contextlib.redirect_stderr(import_stderr):
+            from ultralytics import YOLO
+    except KeyboardInterrupt:
+        raise
+    except BaseException as error:
+        details = import_stderr.getvalue()
+        if "compiled using NumPy 1.x" in details:
+            raise RuntimeError(
+                "CV dependencies are incompatible with NumPy 2.x. "
+                "Install 'numpy<2' in the robot environment."
+            ) from error
+        raise
+
+    return YOLO
 
 
 def _position_for_box(box: Any, frame_width: int) -> str:
@@ -36,7 +59,7 @@ class CVInput:
     """Keep the camera and models open, but scan only when requested."""
 
     def __init__(self) -> None:
-        from ultralytics import YOLO
+        YOLO = _import_yolo()
 
         from .camera_source import (
             DEFAULT_ROS_COLOR_TOPIC,
@@ -64,14 +87,25 @@ class CVInput:
         self._face_detector = None
         self._face_detector_error: str | None = None
 
-        try:
-            from .staff_recognition import detect_faces
+        face_import_stderr = io.StringIO()
 
+        try:
+            with contextlib.redirect_stderr(face_import_stderr):
+                from .staff_recognition import detect_faces
             self._face_detector = detect_faces
-        except Exception as error:
+        except KeyboardInterrupt:
+            raise
+        except BaseException as error:
             # Object detection is still useful if optional face-recognition
             # dependencies or enrollment data are unavailable.
-            self._face_detector_error = str(error)
+            details = face_import_stderr.getvalue()
+            if "compiled using NumPy 1.x" in details:
+                self._face_detector_error = (
+                    "Face-recognition dependencies are incompatible with "
+                    "NumPy 2.x; install 'numpy<2'."
+                )
+            else:
+                self._face_detector_error = str(error)
             print(
                 "[CV WARN] Face recognition is unavailable; "
                 "object detection will still run."
@@ -186,7 +220,7 @@ class CVInput:
         self._camera.release()
 
 
-def _unavailable_state(error: Exception) -> None:
+def _unavailable_state(error: BaseException) -> None:
     print(f"[CV ERROR] {error}", flush=True)
     print("CV state is not working, cv_state=None", flush=True)
     return None
@@ -206,7 +240,9 @@ def get_cv_state() -> dict[str, Any] | None:
             return _unavailable_state(RuntimeError(str(error)))
 
         return state
-    except Exception as error:
+    except KeyboardInterrupt:
+        raise
+    except BaseException as error:
         return _unavailable_state(error)
 
 
@@ -215,8 +251,14 @@ def close_cv() -> None:
     global _cv_input
 
     if _cv_input is not None:
-        _cv_input.close()
-        _cv_input = None
+        try:
+            _cv_input.close()
+        except KeyboardInterrupt:
+            raise
+        except BaseException as error:
+            print(f"[CV ERROR] Could not close CV cleanly: {error}", flush=True)
+        finally:
+            _cv_input = None
 
 
 atexit.register(close_cv)
