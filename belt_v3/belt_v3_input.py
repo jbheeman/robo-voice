@@ -15,8 +15,7 @@ SPIN_TIMEOUT_SECONDS = 0.1
 WAKE_WORD = "BELT"
 WAKE_WORD_FOLLOWUP_SECONDS = 5.0
 WAKE_WORD_PATTERN = re.compile(
-    rf"^\s*(?:(?:hey|okay)\s+)?{re.escape(WAKE_WORD)}"
-    r"(?=$|[\s,.:;!?-])[\s,.:;!?-]*",
+    rf"(?<!\w){re.escape(WAKE_WORD)}(?!\w)",
     re.IGNORECASE,
 )
 
@@ -24,11 +23,19 @@ _audio_input: AudioInput | None = None
 
 
 def extract_wake_word_command(transcript: str) -> str | None:
-    """Return text after the leading wake phrase, or None if it is absent."""
-    match = WAKE_WORD_PATTERN.match(transcript)
+    """Return speech around the standalone wake word, or None if absent."""
+    match = WAKE_WORD_PATTERN.search(transcript)
     if match is None:
         return None
-    return transcript[match.end():].strip()
+
+    before_wake_word = transcript[:match.start()].rstrip(" \t,.:;!?-")
+    after_wake_word = transcript[match.end():].lstrip(" \t,.:;!?-")
+    command = " ".join(
+        part
+        for part in (before_wake_word, after_wake_word)
+        if part
+    ).strip()
+    return command or transcript.strip()
 
 
 class AudioInput:
