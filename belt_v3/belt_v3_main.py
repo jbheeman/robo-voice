@@ -22,7 +22,7 @@ from comp_vision.belt_v3_cv import close_cv, get_cv_state
 USING_ROBOT = True
 LAUNCH_STREAMLIT = False
 VOICE = "Vivian"
-BELT_WAKE_WORD = False
+BELT_WAKE_WORD = True
 
 # Holds the latest 4 user inputs and BELT's corresponding speech responses.
 conversation: list[ConversationMessage] = []
