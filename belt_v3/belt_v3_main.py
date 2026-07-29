@@ -18,7 +18,7 @@ from belt_v3_input import get_input, terminal_get_input
 from launch_streamlit import start_streamlit, stop_streamlit
 from comp_vision.belt_v3_cv import close_cv, get_cv_state
 
-#hyperparams? idk
+# Runtime configuration
 USING_ROBOT = True
 LAUNCH_STREAMLIT = False
 VOICE = "Vivian"
@@ -85,27 +85,55 @@ def generate_response(
     conversation: list[ConversationMessage],
     cv_state: dict | None = None,
     timing_metrics: dict[str, float] | None = None,
-):
+) -> dict:
     request_started_at = time.perf_counter()
 
-    output, rag_context = compose_response(
+    output, _rag_context = compose_response(
         text_input,
         conversation,
         vision_context=cv_state,
         debug=DEBUG,
         timing_metrics=timing_metrics,
-    )  # Python dictionary
-    
+    )
+
     print_timing("Response generation total", request_started_at)
-    #     print("Rag context:")
-    #     print(rag_context)
-    #     print("Structured response output:")
-    #     print(output)
-    
     return output
 
 
-def main():
+def execute_modules(
+    response_output: dict,
+    timing_metrics: dict[str, float],
+) -> None:
+    """Speak the response and perform its validated robot commands."""
+    execution_started_at = time.perf_counter()
+    speech_started_at = time.perf_counter()
+
+    if USING_ROBOT:
+        speech_handle(response_output["speech"], VOICE)
+    else:
+        testing_speech_handle(response_output["speech"], VOICE)
+
+    timing_metrics["output_audio"] = (
+        time.perf_counter() - speech_started_at
+    )
+    print_timing("Speech output", speech_started_at)
+
+    simple_action = response_output["simple_action"]
+    if simple_action["requested"]:
+        action_started_at = time.perf_counter()
+        simple_action_handle(simple_action["actions"])
+        print_timing("Simple actions", action_started_at)
+
+    navigation = response_output["navigation"]
+    if navigation["requested"]:
+        navigation_started_at = time.perf_counter()
+        navigation_handle(navigation["locations"])
+        print_timing("Navigation", navigation_started_at)
+
+    print_timing("Module execution total", execution_started_at)
+
+
+def main() -> None:
     dashboard_process = None
 
     if LAUNCH_STREAMLIT:
@@ -142,23 +170,22 @@ def main():
             turn_started_at = time.perf_counter()
             input_started_at = time.perf_counter()
 
-            if USING_ROBOT == False:
+            if not USING_ROBOT:
                 text_input = terminal_get_input()
                 cv_state = None
-                timing_metrics["input_handle"] = (
-                    time.perf_counter() - input_started_at
-                )
-                print_timing("Terminal input wait", input_started_at)
             else:
                 text_input = get_input(
                     require_wake_word=BELT_WAKE_WORD,
                 )
-                timing_metrics["input_handle"] = (
-                    time.perf_counter() - input_started_at
-                )
-                print_timing("Audio input wait", input_started_at)
 
-                processing_started_at = time.perf_counter()
+            timing_metrics["input_handle"] = (
+                time.perf_counter() - input_started_at
+            )
+            input_source = "Audio" if USING_ROBOT else "Terminal"
+            print_timing(f"{input_source} input wait", input_started_at)
+
+            processing_started_at = time.perf_counter()
+            if USING_ROBOT:
                 cv_state = get_optional_cv_state(timing_metrics)
 
             if DEBUG:
@@ -168,40 +195,20 @@ def main():
                     flush=True,
                 )
 
-            stream_response, rag_context = compose_response_stream(
+            response_output = generate_response(
                 text_input,
                 conversation,
-                debug=DEBUG,
-                vision_context=cv_state,
+                cv_state=cv_state,
                 timing_metrics=timing_metrics,
             )
 
-            full_response_text = ""
-            llm_started_at = time.perf_counter()
+            execute_modules(response_output, timing_metrics)
+            remember_conversation_turn(
+                conversation,
+                text_input,
+                response_output["speech"],
+            )
 
-            if stream_response is not None:
-                for chunk in stream_response:
-                    content = chunk.choices[0].delta.content if hasattr(chunk, "choices") else None
-                    if content:
-                        full_response_text += content
-                    # Stream directly to audio / TTS buffer here:
-                    # speech_handle_stream(content)
-
-                timing_metrics["llm_response"] = time.perf_counter() - llm_started_at
-
-                validated_response = _validated_llm_response(full_response_text)
-
-                if validated_response["simple_action"]["requested"]:
-                    simple_action_handle(validated_response["simple_action"]["actions"])
-
-                if validated_response["navigation"]["requested"]:
-                    navigation_handle(validated_response["navigation"]["locations"])
-
-                remember_conversation_turn(
-                    conversation,
-                    text_input,
-                    validated_response["speech"],
-                )
             print_timing(
                 "Turn processing after input",
                 processing_started_at,

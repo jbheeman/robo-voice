@@ -14,6 +14,11 @@ CV_LLM_MIN_CONFIDENCE = 0.70
 UNKNOWN_PERSON_NAME = "Visitor"
 
 
+def _highest_object_confidence(item: Mapping[str, Any]) -> float:
+    """Return the confidence used to order prepared vision objects."""
+    return float(item["highest_confidence"])
+
+
 def safely_parse_json_to_python_dict(input_data: Any) -> dict | None:
     """
     Converts an LLM response into a Python dictionary.
@@ -109,7 +114,7 @@ def prepare_vision_context_for_llm(
             filtered_objects.append(dict(raw_object))
 
     filtered_objects.sort(
-        key=lambda item: item["highest_confidence"],
+        key=_highest_object_confidence,
         reverse=True,
     )
     prepared_context["objects"] = filtered_objects
@@ -412,37 +417,3 @@ def compose_response(
         )
 
     return validated_response, rag_context
-
-
-def compose_response_stream(
-    user_text: str,
-    conversation: Sequence[Mapping[str, str]],
-    debug: bool = False,
-    vision_context: Mapping[str, Any] | None = None,
-    timing_metrics: dict[str, float] | None = None,
-):
-    """
-    Handles RAG retrieval and vision context preparation, then calls the LLM in streaming mode.
-    Returns:
-        (stream_response, rag_context) tuple
-    """
-    compose_started_at = time.perf_counter()
-
-    # 1. RAG Context Retrieval
-    rag_started_at = time.perf_counter()
-    rag_results = rag_search(user_text, top_k=RAG_TOP_K)
-    rag_context = _relevant_rag_context(rag_results)
-    if timing_metrics is not None:
-        timing_metrics["rag"] = time.perf_counter() - rag_started_at
-
-    if not rag_context:
-        rag_context = "No relevant document information found."
-
-    # 2. Vision Context & Prompt Construction
-    prepared_vision_context = prepare_vision_context_for_llm(vision_context)
-    prompt = build_response_prompt(user_text, rag_context, prepared_vision_context)
-
-    # 3. Request LLM Stream
-    stream_response = call_llm(prompt, conversation=conversation, debug=debug, stream=True)
-
-    return stream_response, rag_context

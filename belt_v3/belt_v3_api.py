@@ -204,7 +204,6 @@ def call_llm(
     input_text: str,
     conversation: Optional[Sequence[Mapping[str, str]]] = None,
     debug: bool = False,
-    stream: bool = False,
 ):
     """
     Sends instructions or user text to the DeepSeek model.
@@ -231,27 +230,18 @@ def call_llm(
     ]
 
     try:
-        if stream:
-            # Returns a generator object to yield chunks dynamically
-            return LLM_CLIENT.chat.completions.create(
-                model=MODEL_NAME,
-                messages=messages,
-                stream=True,
-            )
-        else:
-            response = LLM_CLIENT.chat.completions.create(
-                model=MODEL_NAME,
-                messages=messages,
-                stream=False,
-            )
-            choice = response.choices[0]
-            output_text = choice.message.content
-            if debug:
-                print(f"Raw LLM response: {output_text!r}")
-            if output_text is None:
-                print("BELT API: The model returned an empty response.")
-                return None
-            return output_text.strip()
+        response = LLM_CLIENT.chat.completions.create(
+            model=MODEL_NAME,
+            messages=messages,
+        )
+        choice = response.choices[0]
+        output_text = choice.message.content
+        if debug:
+            print(f"Raw LLM response: {output_text!r}")
+        if output_text is None:
+            print("BELT API: The model returned an empty response.")
+            return None
+        return output_text.strip()
 
     except AuthenticationError:
         print("BELT API: DeepSeek rejected the API key.")
