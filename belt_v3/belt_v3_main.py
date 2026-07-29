@@ -1,6 +1,9 @@
+import os
 import time
 
 PROGRAM_START_TIME = time.perf_counter()
+DEBUG = True
+os.environ["BELT_DEBUG"] = "1" if DEBUG else "0"
 
 from movement.belt_v3_simple_action_handle import simple_action_handle
 from speech.belt_v3_speech_handle import speech_handle, testing_speech_handle
@@ -16,7 +19,6 @@ from launch_streamlit import start_streamlit, stop_streamlit
 from comp_vision.belt_v3_cv import close_cv, get_cv_state
 
 #hyperparams? idk
-DEBUG = True
 USING_ROBOT = True
 LAUNCH_STREAMLIT = False
 VOICE = "Uncle_Fu"
@@ -31,7 +33,36 @@ def print_timing(label: str, started_at: float) -> None:
         print(f"[TIMING] {label}: {elapsed:.3f}s", flush=True)
 
 
-def get_optional_cv_state() -> dict | None:
+def print_timing_summary(timings: dict[str, float]) -> None:
+    if not DEBUG:
+        return
+
+    measured_total = sum(
+        timings.get(name, 0.0)
+        for name in (
+            "input_handle",
+            "cv",
+            "rag",
+            "llm_response",
+            "output_audio",
+        )
+    )
+    print(
+        "[TIMING SUMMARY] "
+        f"input_handle={timings.get('input_handle', 0.0):.3f}s | "
+        f"cv={timings.get('cv', 0.0):.3f}s | "
+        f"rag={timings.get('rag', 0.0):.3f}s | "
+        f"llm_response={timings.get('llm_response', 0.0):.3f}s | "
+        f"output_audio={timings.get('output_audio', 0.0):.3f}s | "
+        f"measured_total={measured_total:.3f}s | "
+        f"turn_total={timings.get('turn_total', 0.0):.3f}s",
+        flush=True,
+    )
+
+
+def get_optional_cv_state(
+    timing_metrics: dict[str, float],
+) -> dict | None:
     """Prevent any optional CV failure from stopping the conversation."""
     cv_started_at = time.perf_counter()
 
@@ -44,6 +75,7 @@ def get_optional_cv_state() -> dict | None:
         print("CV state is not working, cv_state=None", flush=True)
         return None
     finally:
+        timing_metrics["cv"] = time.perf_counter() - cv_started_at
         print_timing("CV request total", cv_started_at)
 
 
@@ -51,6 +83,7 @@ def generate_response(
     text_input: str,
     conversation: list[ConversationMessage],
     cv_state: dict | None = None,
+    timing_metrics: dict[str, float] | None = None,
 ):
     request_started_at = time.perf_counter()
 
@@ -59,6 +92,7 @@ def generate_response(
         conversation,
         vision_context=cv_state,
         debug=DEBUG,
+        timing_metrics=timing_metrics,
     )  # Python dictionary
     
     print_timing("Response generation total", request_started_at)
@@ -70,7 +104,10 @@ def generate_response(
     return output
 
 
-def execute_modules(response_output: dict):
+def execute_modules(
+    response_output: dict,
+    timing_metrics: dict[str, float],
+):
     execution_started_at = time.perf_counter()
     speech_started_at = time.perf_counter()
 
@@ -79,6 +116,9 @@ def execute_modules(response_output: dict):
     else:
         testing_speech_handle(response_output["speech"], VOICE)
 
+    timing_metrics["output_audio"] = (
+        time.perf_counter() - speech_started_at
+    )
     print_timing("Speech output", speech_started_at)
 
     if response_output["simple_action"]["requested"]:
@@ -120,19 +160,33 @@ def main():
         )
 
         while True:
+            timing_metrics = {
+                "input_handle": 0.0,
+                "cv": 0.0,
+                "rag": 0.0,
+                "llm_response": 0.0,
+                "output_audio": 0.0,
+                "turn_total": 0.0,
+            }
             turn_started_at = time.perf_counter()
             input_started_at = time.perf_counter()
 
             if USING_ROBOT == False:
                 text_input = terminal_get_input()
                 cv_state = None
+                timing_metrics["input_handle"] = (
+                    time.perf_counter() - input_started_at
+                )
                 print_timing("Terminal input wait", input_started_at)
             else:
                 text_input = get_input()
+                timing_metrics["input_handle"] = (
+                    time.perf_counter() - input_started_at
+                )
                 print_timing("Audio input wait", input_started_at)
 
                 processing_started_at = time.perf_counter()
-                cv_state = get_optional_cv_state()
+                cv_state = get_optional_cv_state(timing_metrics)
 
             # One LLM call returns speech, navigation, and simple actions.
             if USING_ROBOT == False:
@@ -142,6 +196,7 @@ def main():
                 text_input,
                 conversation,
                 cv_state=cv_state,
+                timing_metrics=timing_metrics,
             )
 
             # Store the real user input and the response BELT will speak.
@@ -152,7 +207,7 @@ def main():
             )
 
             #execute modules based on request
-            execute_modules(response_output)
+            execute_modules(response_output, timing_metrics)
             print_timing(
                 "Turn processing after input",
                 processing_started_at,
@@ -161,6 +216,10 @@ def main():
                 "Complete turn including input wait",
                 turn_started_at,
             )
+            timing_metrics["turn_total"] = (
+                time.perf_counter() - turn_started_at
+            )
+            print_timing_summary(timing_metrics)
     except KeyboardInterrupt:
         print("\nBELT stopped.")
     finally:

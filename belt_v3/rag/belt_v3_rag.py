@@ -6,16 +6,18 @@ import json
 import os
 from pathlib import Path
 
+RAG_DEBUG = os.getenv("BELT_DEBUG", "0") == "1"
 RAG_DEPENDENCIES_STARTED_AT = time.perf_counter()
 
 import numpy as np
 from sentence_transformers import SentenceTransformer
 
-print(
-    "[TIMING] RAG dependency imports: "
-    f"{time.perf_counter() - RAG_DEPENDENCIES_STARTED_AT:.3f}s",
-    flush=True,
-)
+if RAG_DEBUG:
+    print(
+        "[TIMING] RAG dependency imports: "
+        f"{time.perf_counter() - RAG_DEPENDENCIES_STARTED_AT:.3f}s",
+        flush=True,
+    )
 
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -60,13 +62,15 @@ try:
         device=RAG_DEVICE,
     )
 finally:
-    print(
-        "[TIMING] RAG SentenceTransformer model load: "
-        f"{time.perf_counter() - RAG_MODEL_STARTED_AT:.3f}s",
-        flush=True,
-    )
+    if RAG_DEBUG:
+        print(
+            "[TIMING] RAG SentenceTransformer model load: "
+            f"{time.perf_counter() - RAG_MODEL_STARTED_AT:.3f}s",
+            flush=True,
+        )
 
-print(f"[RAG] SentenceTransformer device: {RAG_DEVICE}", flush=True)
+if RAG_DEBUG:
+    print(f"[RAG] SentenceTransformer device: {RAG_DEVICE}", flush=True)
 
 RAG_DATA_STARTED_AT = time.perf_counter()
 with CHUNKS_FILE.open("r", encoding="utf-8") as file:
@@ -75,11 +79,12 @@ with CHUNKS_FILE.open("r", encoding="utf-8") as file:
 document_embeddings = np.load(
     EMBEDDINGS_FILE
 )
-print(
-    "[TIMING] RAG chunks and embeddings load: "
-    f"{time.perf_counter() - RAG_DATA_STARTED_AT:.3f}s",
-    flush=True,
-)
+if RAG_DEBUG:
+    print(
+        "[TIMING] RAG chunks and embeddings load: "
+        f"{time.perf_counter() - RAG_DATA_STARTED_AT:.3f}s",
+        flush=True,
+    )
 
 
 if len(document_chunks) != len(document_embeddings):
@@ -104,11 +109,12 @@ if document_embeddings.shape[1] != expected_dimension:
         f"Saved embedding dimension: {document_embeddings.shape[1]}"
     )
 
-print(
-    "[TIMING] RAG module initialization total: "
-    f"{time.perf_counter() - RAG_MODULE_STARTED_AT:.3f}s",
-    flush=True,
-)
+if RAG_DEBUG:
+    print(
+        "[TIMING] RAG module initialization total: "
+        f"{time.perf_counter() - RAG_MODULE_STARTED_AT:.3f}s",
+        flush=True,
+    )
 
 
 def rag_search(

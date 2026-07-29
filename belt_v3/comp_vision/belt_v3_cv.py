@@ -26,6 +26,7 @@ WORKER_RESPONSE_TIMEOUT_SECONDS = 30.0
 WORKER_SHUTDOWN_TIMEOUT_SECONDS = 3.0
 MODEL_PATH = Path(__file__).with_name("yolov8n.pt")
 BELT_V3_DIRECTORY = Path(__file__).resolve().parents[1]
+CV_DEBUG = os.getenv("BELT_DEBUG", "0") == "1"
 
 _cv_process: Any = None
 _cv_connection: Any = None
@@ -33,6 +34,9 @@ _cv_disabled_reason: str | None = None
 
 
 def _print_timing(label: str, started_at: float) -> None:
+    if not CV_DEBUG:
+        return
+
     elapsed = time.perf_counter() - started_at
     print(f"[TIMING] {label}: {elapsed:.3f}s", flush=True)
 

@@ -266,54 +266,60 @@ def compose_response(
     conversation: Sequence[Mapping[str, str]],
     debug: bool = False,
     vision_context: Mapping[str, Any] | None = None,
+    timing_metrics: dict[str, float] | None = None,
 ):
     compose_started_at = time.perf_counter()
-
-    if debug:
-        rag_started_at = time.perf_counter()
+    rag_started_at = time.perf_counter()
 
     rag_results = rag_search(user_text, top_k=RAG_TOP_K)
     rag_context = _relevant_rag_context(rag_results)
+    rag_time = time.perf_counter() - rag_started_at
+
+    if timing_metrics is not None:
+        timing_metrics["rag"] = rag_time
 
     if debug:
-        rag_time = time.perf_counter() - rag_started_at
         print(f"[TIMING] RAG search: {rag_time:.3f}s", flush=True)
 
     if not rag_context:
         rag_context = "No relevant document information found."
 
-    if debug:
-        prompt_started_at = time.perf_counter()
+    llm_response_started_at = time.perf_counter()
+    prompt_started_at = time.perf_counter()
 
     prompt = build_response_prompt(
         user_text,
         rag_context,
         vision_context,
     )
+    prompt_time = time.perf_counter() - prompt_started_at
 
     if debug:
-        prompt_time = time.perf_counter() - prompt_started_at
         print(
             f"[TIMING] LLM prompt construction: {prompt_time:.3f}s",
             flush=True,
         )
-        llm_started_at = time.perf_counter()
 
+    llm_started_at = time.perf_counter()
     llm_response = call_llm(
         prompt,
         conversation=conversation,
         debug=debug,
     )
+    llm_time = time.perf_counter() - llm_started_at
 
     if debug:
-        llm_time = time.perf_counter() - llm_started_at
         print(f"[TIMING] LLM API request: {llm_time:.3f}s", flush=True)
-        validation_started_at = time.perf_counter()
 
+    validation_started_at = time.perf_counter()
     validated_response = _validated_llm_response(llm_response)
+    validation_time = time.perf_counter() - validation_started_at
+    llm_response_time = time.perf_counter() - llm_response_started_at
+
+    if timing_metrics is not None:
+        timing_metrics["llm_response"] = llm_response_time
 
     if debug:
-        validation_time = time.perf_counter() - validation_started_at
         compose_time = time.perf_counter() - compose_started_at
         print(
             f"[TIMING] LLM response validation: {validation_time:.3f}s",
