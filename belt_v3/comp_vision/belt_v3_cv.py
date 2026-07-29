@@ -8,9 +8,12 @@ import io
 import multiprocessing
 import os
 import signal
+import subprocess
+import sys
 import time
 from collections import defaultdict
 from datetime import datetime, timezone
+from multiprocessing.connection import Connection
 from pathlib import Path
 from typing import Any
 
@@ -22,10 +25,16 @@ SCAN_TIMEOUT_SECONDS = 2.0
 WORKER_RESPONSE_TIMEOUT_SECONDS = 30.0
 WORKER_SHUTDOWN_TIMEOUT_SECONDS = 3.0
 MODEL_PATH = Path(__file__).with_name("yolov8n.pt")
+BELT_V3_DIRECTORY = Path(__file__).resolve().parents[1]
 
 _cv_process: Any = None
 _cv_connection: Any = None
 _cv_disabled_reason: str | None = None
+
+
+def _print_timing(label: str, started_at: float) -> None:
+    elapsed = time.perf_counter() - started_at
+    print(f"[TIMING] {label}: {elapsed:.3f}s", flush=True)
 
 
 def _import_yolo():
@@ -67,7 +76,11 @@ class CVInput:
     """Keep the camera and models open, but scan only when requested."""
 
     def __init__(self) -> None:
+        startup_started_at = time.perf_counter()
+
+        yolo_import_started_at = time.perf_counter()
         YOLO = _import_yolo()
+        _print_timing("CV Ultralytics import", yolo_import_started_at)
 
         from .camera_source import (
             DEFAULT_ROS_COLOR_TOPIC,
@@ -80,22 +93,27 @@ class CVInput:
             DEFAULT_ROS_COLOR_TOPIC,
         )
 
+        camera_started_at = time.perf_counter()
         try:
             self._camera = RosCameraSource(camera_topic)
         except CameraSourceError:
             raise
+        _print_timing("CV ROS camera connection", camera_started_at)
 
+        model_started_at = time.perf_counter()
         try:
             self._model = YOLO(str(MODEL_PATH))
         except Exception:
             self._camera.release()
             raise
+        _print_timing("CV YOLO model load", model_started_at)
 
         self._first_scan = True
         self._face_detector = None
         self._face_detector_error: str | None = None
 
         face_import_stderr = io.StringIO()
+        face_setup_started_at = time.perf_counter()
 
         try:
             with contextlib.redirect_stderr(face_import_stderr):
@@ -119,8 +137,15 @@ class CVInput:
                 "object detection will still run."
             )
 
+        _print_timing(
+            "CV face-recognition setup",
+            face_setup_started_at,
+        )
+        _print_timing("CV worker initialization total", startup_started_at)
+
     def get_state(self) -> dict[str, Any]:
         """Capture and analyze the next available camera frame."""
+        scan_started_at = time.perf_counter()
         timeout = (
             FIRST_SCAN_TIMEOUT_SECONDS
             if self._first_scan
@@ -128,20 +153,25 @@ class CVInput:
         )
         print("[CV] Scanning the camera...", flush=True)
 
+        camera_read_started_at = time.perf_counter()
         ok, frame = self._camera.read(timeout=timeout)
+        _print_timing("CV camera frame acquisition", camera_read_started_at)
         self._first_scan = False
 
         if not ok:
+            _print_timing("CV scan total", scan_started_at)
             return {
                 "available": False,
                 "error": self._camera.failure_hint(),
             }
 
+        yolo_started_at = time.perf_counter()
         results = self._model.predict(
             frame,
             conf=DEFAULT_CONFIDENCE,
             verbose=False,
         )
+        _print_timing("CV YOLO inference", yolo_started_at)
 
         grouped_objects: dict[str, dict[str, Any]] = defaultdict(
             lambda: {
@@ -190,7 +220,9 @@ class CVInput:
         known_people: list[str] = []
         unknown_face_count = 0
         if self._face_detector is not None:
+            face_started_at = time.perf_counter()
             faces = self._face_detector(frame)
+            _print_timing("CV face recognition", face_started_at)
             known_people = list(
                 dict.fromkeys(
                     face["name"]
@@ -222,6 +254,7 @@ class CVInput:
             f"{unknown_face_count} unknown face(s).",
             flush=True,
         )
+        _print_timing("CV scan total", scan_started_at)
         return state
 
     def close(self) -> None:
@@ -290,17 +323,21 @@ def _cv_worker_main(connection) -> None:
 def _start_cv_worker() -> None:
     global _cv_connection, _cv_process
 
-    context = multiprocessing.get_context("spawn")
-    parent_connection, child_connection = context.Pipe()
-    process = context.Process(
-        target=_cv_worker_main,
-        args=(child_connection,),
-        name="belt_cv_worker",
-        daemon=True,
-    )
+    parent_connection, child_connection = multiprocessing.Pipe()
+    worker_fd = child_connection.fileno()
 
     try:
-        process.start()
+        process = subprocess.Popen(
+            [
+                sys.executable,
+                "-m",
+                "comp_vision.belt_v3_cv",
+                "--worker-fd",
+                str(worker_fd),
+            ],
+            cwd=str(BELT_V3_DIRECTORY),
+            pass_fds=(worker_fd,),
+        )
     except BaseException:
         parent_connection.close()
         child_connection.close()
@@ -312,7 +349,11 @@ def _start_cv_worker() -> None:
 
 
 def _worker_exit_reason() -> str:
-    exit_code = getattr(_cv_process, "exitcode", None)
+    exit_code = (
+        _cv_process.poll()
+        if _cv_process is not None
+        else None
+    )
 
     if isinstance(exit_code, int) and exit_code < 0:
         signal_number = -exit_code
@@ -343,7 +384,7 @@ def get_cv_state() -> dict[str, Any] | None:
     try:
         if _cv_process is None:
             _start_cv_worker()
-        elif not _cv_process.is_alive():
+        elif _cv_process.poll() is not None:
             return _disable_cv(_worker_exit_reason())
 
         _cv_connection.send("scan")
@@ -371,7 +412,7 @@ def get_cv_state() -> dict[str, Any] | None:
 
                 return payload
 
-            if not _cv_process.is_alive():
+            if _cv_process.poll() is not None:
                 return _disable_cv(_worker_exit_reason())
 
         return _disable_cv(
@@ -394,16 +435,21 @@ def close_cv() -> None:
 
     if connection is not None:
         try:
-            if process is not None and process.is_alive():
+            if process is not None and process.poll() is None:
                 connection.send("close")
         except BaseException:
             pass
 
     if process is not None:
-        process.join(timeout=WORKER_SHUTDOWN_TIMEOUT_SECONDS)
-        if process.is_alive():
+        try:
+            process.wait(timeout=WORKER_SHUTDOWN_TIMEOUT_SECONDS)
+        except subprocess.TimeoutExpired:
             process.terminate()
-            process.join(timeout=WORKER_SHUTDOWN_TIMEOUT_SECONDS)
+            try:
+                process.wait(timeout=WORKER_SHUTDOWN_TIMEOUT_SECONDS)
+            except subprocess.TimeoutExpired:
+                process.kill()
+                process.wait()
 
     if connection is not None:
         try:
@@ -413,3 +459,13 @@ def close_cv() -> None:
 
 
 atexit.register(close_cv)
+
+
+if __name__ == "__main__":
+    if len(sys.argv) != 3 or sys.argv[1] != "--worker-fd":
+        raise SystemExit(
+            "This module is an internal CV worker; run belt_v3_main.py."
+        )
+
+    worker_connection = Connection(int(sys.argv[2]))
+    _cv_worker_main(worker_connection)

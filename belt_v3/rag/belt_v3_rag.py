@@ -1,8 +1,21 @@
+import time
+
+RAG_MODULE_STARTED_AT = time.perf_counter()
+
 import json
+import os
 from pathlib import Path
+
+RAG_DEPENDENCIES_STARTED_AT = time.perf_counter()
 
 import numpy as np
 from sentence_transformers import SentenceTransformer
+
+print(
+    "[TIMING] RAG dependency imports: "
+    f"{time.perf_counter() - RAG_DEPENDENCIES_STARTED_AT:.3f}s",
+    flush=True,
+)
 
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -18,6 +31,7 @@ MODEL_PATH = (
     / "ucsc_rag_embedder_training"
     / "ucsc_minilm_finetuned"
 )
+RAG_DEVICE = os.getenv("BELT_RAG_DEVICE", "cpu").strip() or "cpu"
 
 
 if not MODEL_PATH.exists():
@@ -37,16 +51,34 @@ if not EMBEDDINGS_FILE.exists():
     )
 
 
-model = SentenceTransformer(
-    str(MODEL_PATH),
-    local_files_only=True
-)
+RAG_MODEL_STARTED_AT = time.perf_counter()
 
+try:
+    model = SentenceTransformer(
+        str(MODEL_PATH),
+        local_files_only=True,
+        device=RAG_DEVICE,
+    )
+finally:
+    print(
+        "[TIMING] RAG SentenceTransformer model load: "
+        f"{time.perf_counter() - RAG_MODEL_STARTED_AT:.3f}s",
+        flush=True,
+    )
+
+print(f"[RAG] SentenceTransformer device: {RAG_DEVICE}", flush=True)
+
+RAG_DATA_STARTED_AT = time.perf_counter()
 with CHUNKS_FILE.open("r", encoding="utf-8") as file:
     document_chunks = json.load(file)
 
 document_embeddings = np.load(
     EMBEDDINGS_FILE
+)
+print(
+    "[TIMING] RAG chunks and embeddings load: "
+    f"{time.perf_counter() - RAG_DATA_STARTED_AT:.3f}s",
+    flush=True,
 )
 
 
@@ -71,6 +103,13 @@ if document_embeddings.shape[1] != expected_dimension:
         f"Model dimension: {expected_dimension}\n"
         f"Saved embedding dimension: {document_embeddings.shape[1]}"
     )
+
+print(
+    "[TIMING] RAG module initialization total: "
+    f"{time.perf_counter() - RAG_MODULE_STARTED_AT:.3f}s",
+    flush=True,
+)
+
 
 def rag_search(
     text: str,

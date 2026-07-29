@@ -1,4 +1,7 @@
 import time
+
+PROGRAM_START_TIME = time.perf_counter()
+
 from movement.belt_v3_simple_action_handle import simple_action_handle
 from speech.belt_v3_speech_handle import speech_handle, testing_speech_handle
 from speech.belt_v3_qwen_tts import (
@@ -18,14 +21,20 @@ USING_ROBOT = True
 LAUNCH_STREAMLIT = False
 VOICE = "Uncle_Fu"
 
-PROGRAM_START_TIME = time.perf_counter() if DEBUG else 0.0
-
 # Holds the latest 10 user inputs and BELT's corresponding speech responses.
 conversation: list[ConversationMessage] = []
 
 
+def print_timing(label: str, started_at: float) -> None:
+    if DEBUG:
+        elapsed = time.perf_counter() - started_at
+        print(f"[TIMING] {label}: {elapsed:.3f}s", flush=True)
+
+
 def get_optional_cv_state() -> dict | None:
     """Prevent any optional CV failure from stopping the conversation."""
+    cv_started_at = time.perf_counter()
+
     try:
         return get_cv_state()
     except KeyboardInterrupt:
@@ -34,6 +43,8 @@ def get_optional_cv_state() -> dict | None:
         print(f"[CV ERROR] {error}", flush=True)
         print("CV state is not working, cv_state=None", flush=True)
         return None
+    finally:
+        print_timing("CV request total", cv_started_at)
 
 
 def generate_response(
@@ -41,8 +52,7 @@ def generate_response(
     conversation: list[ConversationMessage],
     cv_state: dict | None = None,
 ):
-    if DEBUG:
-        request_start = time.perf_counter()
+    request_started_at = time.perf_counter()
 
     output, rag_context = compose_response(
         text_input,
@@ -51,9 +61,7 @@ def generate_response(
         debug=DEBUG,
     )  # Python dictionary
     
-    if DEBUG:
-        total_time = time.perf_counter() - request_start
-        print(f"Total response time ({total_time:.3f} seconds)")
+    print_timing("Response generation total", request_started_at)
     #     print("Rag context:")
     #     print(rag_context)
     #     print("Structured response output:")
@@ -63,45 +71,73 @@ def generate_response(
 
 
 def execute_modules(response_output: dict):
+    execution_started_at = time.perf_counter()
+    speech_started_at = time.perf_counter()
+
     if USING_ROBOT:
         speech_handle(response_output["speech"], VOICE)
     else:
         testing_speech_handle(response_output["speech"], VOICE)
-        
+
+    print_timing("Speech output", speech_started_at)
+
     if response_output["simple_action"]["requested"]:
+        action_started_at = time.perf_counter()
         simple_action_handle(response_output["simple_action"]["actions"])
-        
+        print_timing("Simple actions", action_started_at)
+
     if response_output["navigation"]["requested"]:
+        navigation_started_at = time.perf_counter()
         navigation_handle(response_output["navigation"]["locations"])
+        print_timing("Navigation", navigation_started_at)
+
+    print_timing("Module execution total", execution_started_at)
 
 
 def main():
     dashboard_process = None
 
     if LAUNCH_STREAMLIT:
+        dashboard_started_at = time.perf_counter()
         try:
             dashboard_process = start_streamlit()
+            print_timing("Streamlit dashboard startup", dashboard_started_at)
         except RuntimeError as error:
             print(f"BELT could not start the audio dashboard: {error}")
             return
 
     try:
-        if DEBUG:
-            startup_time = time.perf_counter() - PROGRAM_START_TIME
-            print(f"Done starting up ({startup_time:.3f} seconds)")
         print(tts_configuration_summary(VOICE))
+
         if USING_ROBOT:
+            qwen_started_at = time.perf_counter()
             preload_qwen_model(VOICE)
+            print_timing("Qwen TTS model preload", qwen_started_at)
+
+        print_timing(
+            "Done starting up, including imports and model loading",
+            PROGRAM_START_TIME,
+        )
 
         while True:
+            turn_started_at = time.perf_counter()
+            input_started_at = time.perf_counter()
+
             if USING_ROBOT == False:
                 text_input = terminal_get_input()
                 cv_state = None
+                print_timing("Terminal input wait", input_started_at)
             else:
                 text_input = get_input()
+                print_timing("Audio input wait", input_started_at)
+
+                processing_started_at = time.perf_counter()
                 cv_state = get_optional_cv_state()
 
             # One LLM call returns speech, navigation, and simple actions.
+            if USING_ROBOT == False:
+                processing_started_at = time.perf_counter()
+
             response_output = generate_response(
                 text_input,
                 conversation,
@@ -117,6 +153,14 @@ def main():
 
             #execute modules based on request
             execute_modules(response_output)
+            print_timing(
+                "Turn processing after input",
+                processing_started_at,
+            )
+            print_timing(
+                "Complete turn including input wait",
+                turn_started_at,
+            )
     except KeyboardInterrupt:
         print("\nBELT stopped.")
     finally:

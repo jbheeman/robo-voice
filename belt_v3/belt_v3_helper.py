@@ -267,18 +267,23 @@ def compose_response(
     debug: bool = False,
     vision_context: Mapping[str, Any] | None = None,
 ):
+    compose_started_at = time.perf_counter()
+
     if debug:
-        rag_start = time.perf_counter()
+        rag_started_at = time.perf_counter()
 
     rag_results = rag_search(user_text, top_k=RAG_TOP_K)
     rag_context = _relevant_rag_context(rag_results)
 
     if debug:
-        rag_time = time.perf_counter() - rag_start
-        print(f"Done Searching RAG ({rag_time:.3f} seconds)")
+        rag_time = time.perf_counter() - rag_started_at
+        print(f"[TIMING] RAG search: {rag_time:.3f}s", flush=True)
 
     if not rag_context:
         rag_context = "No relevant document information found."
+
+    if debug:
+        prompt_started_at = time.perf_counter()
 
     prompt = build_response_prompt(
         user_text,
@@ -287,7 +292,12 @@ def compose_response(
     )
 
     if debug:
-        llm_start = time.perf_counter()
+        prompt_time = time.perf_counter() - prompt_started_at
+        print(
+            f"[TIMING] LLM prompt construction: {prompt_time:.3f}s",
+            flush=True,
+        )
+        llm_started_at = time.perf_counter()
 
     llm_response = call_llm(
         prompt,
@@ -296,7 +306,22 @@ def compose_response(
     )
 
     if debug:
-        llm_time = time.perf_counter() - llm_start
-        print(f"Done Calling Response LLM ({llm_time:.3f} seconds)")
+        llm_time = time.perf_counter() - llm_started_at
+        print(f"[TIMING] LLM API request: {llm_time:.3f}s", flush=True)
+        validation_started_at = time.perf_counter()
 
-    return _validated_llm_response(llm_response), rag_context
+    validated_response = _validated_llm_response(llm_response)
+
+    if debug:
+        validation_time = time.perf_counter() - validation_started_at
+        compose_time = time.perf_counter() - compose_started_at
+        print(
+            f"[TIMING] LLM response validation: {validation_time:.3f}s",
+            flush=True,
+        )
+        print(
+            f"[TIMING] Response construction total: {compose_time:.3f}s",
+            flush=True,
+        )
+
+    return validated_response, rag_context
