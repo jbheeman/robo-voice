@@ -194,7 +194,7 @@ def nav(room_num):
         if room_num in [2206]:
             out.append("Go down the hall until you see your room, which will be on your left.")
             return format(out)
-        out.append("Go down the hall and turn right.")
+        out.append("Go down the hall and turn left.")
         if room_num in [2260]:
             out.append("Go down the hall until you see your room, which will be on your left.")
         elif room_num in [2210, 2220]:
@@ -232,3 +232,6 @@ def format(out):
 # start = random.choice(rooms)
 # end = random.choice(rooms)
 # print(start, end, general_nav(start, end))
+# for _ in range(20):
+#     room = random.choice(rooms)
+#     print(room, nav(room))
