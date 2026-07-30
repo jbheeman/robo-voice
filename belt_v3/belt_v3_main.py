@@ -37,7 +37,7 @@ from launch_streamlit import start_streamlit, stop_streamlit
 from comp_vision.belt_v3_cv import close_cv, get_cv_state
 
 # Runtime configuration
-USING_ROBOT = False
+USING_ROBOT = True
 LAUNCH_STREAMLIT = False
 VOICE = "Vivian"
 BELT_WAKE_WORD = False
