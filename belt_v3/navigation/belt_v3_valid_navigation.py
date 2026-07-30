@@ -104,6 +104,8 @@ room_name_to_number = {
     "SIP - Mentorship": 2221,
     "SIP - CPM-05: Speculative Design of Future AI-Integrated Healthy Eating Creator Ecosystems on Social Media": 2225,
     "Summer Academy on AI - Robotics Lab": 2231,
+    "Robotics Lab": 2231,
+    "Robot Lab": 2231,
     "High School Healthcare Academy & Human Biology": 2235,
     "SIP - Compost Facility Level Survey and Policy Efficacy Evaluation": 2250,
     "IT": 2255,
