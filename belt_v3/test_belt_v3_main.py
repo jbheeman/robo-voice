@@ -23,6 +23,7 @@ class BeltV3MainTests(unittest.TestCase):
         cls.preload_qwen_model = Mock()
         cls.tts_configuration_summary = Mock(return_value="TTS test config")
         cls.navigation_handle = Mock()
+        cls.call_llm = Mock()
         cls.remember_conversation_turn = Mock()
         cls.compose_response = Mock()
         cls.prepare_vision_context_for_llm = Mock(return_value=None)
@@ -52,9 +53,10 @@ class BeltV3MainTests(unittest.TestCase):
                 "navigation.belt_v3_navigation_handle",
                 navigation_handle=cls.navigation_handle,
             ),
-            "belt_v3_api": _stub_module(
-                "belt_v3_api",
+            "belt_v3_new_api": _stub_module(
+                "belt_v3_new_api",
                 ConversationMessage=dict,
+                call_llm=cls.call_llm,
                 remember_conversation_turn=cls.remember_conversation_turn,
             ),
             "belt_v3_helper": _stub_module(
@@ -96,6 +98,7 @@ class BeltV3MainTests(unittest.TestCase):
             self.testing_speech_handle,
             self.preload_qwen_model,
             self.navigation_handle,
+            self.call_llm,
             self.remember_conversation_turn,
             self.compose_response,
             self.prepare_vision_context_for_llm,
@@ -136,6 +139,11 @@ class BeltV3MainTests(unittest.TestCase):
         self.main_module.main()
 
         self.compose_response.assert_called_once()
+        self.assertFalse(self.main_module.USE_DEEPSEEK_API)
+        self.assertIs(
+            self.compose_response.call_args.kwargs["llm_caller"],
+            self.call_llm,
+        )
         self.testing_speech_handle.assert_called_once_with(
             "Hello! To get to 2004, You have arrived!",
             self.main_module.VOICE,
@@ -220,6 +228,7 @@ class BeltV3MainTests(unittest.TestCase):
             "belt_v3_main.py",
             "belt_v3_helper.py",
             "belt_v3_api.py",
+            "belt_v3_new_api.py",
         ):
             source_path = belt_v3_directory / filename
             syntax_tree = ast.parse(source_path.read_text(encoding="utf-8"))

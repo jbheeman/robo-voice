@@ -1,4 +1,4 @@
-from belt_v3_api import call_llm
+from belt_v3_new_api import call_llm
 from belt_v3_helper import safely_parse_json_to_python_dict
 import json
 

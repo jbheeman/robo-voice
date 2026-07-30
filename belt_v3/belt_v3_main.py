@@ -5,6 +5,22 @@ PROGRAM_START_TIME = time.perf_counter()
 DEBUG = True
 os.environ["BELT_DEBUG"] = "1" if DEBUG else "0"
 
+# Choose which language-model backend BELT uses.
+USE_DEEPSEEK_API = False
+
+if USE_DEEPSEEK_API:
+    from belt_v3_api import (
+        ConversationMessage,
+        call_llm,
+        remember_conversation_turn,
+    )
+else:
+    from belt_v3_new_api import (
+        ConversationMessage,
+        call_llm,
+        remember_conversation_turn,
+    )
+
 from movement.belt_v3_simple_action_handle import simple_action_handle
 from speech.belt_v3_speech_handle import speech_handle, testing_speech_handle
 from speech.belt_v3_qwen_tts import (
@@ -12,7 +28,6 @@ from speech.belt_v3_qwen_tts import (
     tts_configuration_summary,
 )
 from navigation.belt_v3_navigation_handle import navigation_handle
-from belt_v3_api import ConversationMessage, remember_conversation_turn
 from belt_v3_helper import compose_response, prepare_vision_context_for_llm
 from belt_v3_input import get_input, terminal_get_input
 from launch_streamlit import start_streamlit, stop_streamlit
@@ -94,6 +109,7 @@ def generate_response(
         vision_context=cv_state,
         debug=DEBUG,
         timing_metrics=timing_metrics,
+        llm_caller=call_llm,
     )
 
     print_timing("Response generation total", request_started_at)

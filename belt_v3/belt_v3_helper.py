@@ -1,9 +1,8 @@
 import json
 import re
 import time
-from typing import Any, Collection, Mapping, Sequence
+from typing import Any, Callable, Collection, Mapping, Sequence
 
-from belt_v3_api import call_llm
 from rag.belt_v3_rag import rag_search
 from movement.belt_v3_valid_movements import VALID_MOVEMENTS
 from navigation.belt_v3_valid_navigation import VALID_LOCATIONS
@@ -12,6 +11,7 @@ RAG_TOP_K = 3
 RAG_MIN_SCORE = 0.30
 CV_LLM_MIN_CONFIDENCE = 0.70
 UNKNOWN_PERSON_NAME = "Visitor"
+LLMCaller = Callable[..., str | None]
 
 
 def _highest_object_confidence(item: Mapping[str, Any]) -> float:
@@ -351,7 +351,15 @@ def compose_response(
     debug: bool = False,
     vision_context: Mapping[str, Any] | None = None,
     timing_metrics: dict[str, float] | None = None,
+    llm_caller: LLMCaller | None = None,
 ):
+    if llm_caller is None:
+        # Keep direct callers working while belt_v3_main explicitly supplies
+        # the backend selected by USE_DEEPSEEK_API.
+        from belt_v3_new_api import call_llm as default_llm_caller
+
+        llm_caller = default_llm_caller
+
     compose_started_at = time.perf_counter()
     rag_started_at = time.perf_counter()
 
@@ -388,7 +396,7 @@ def compose_response(
         )
 
     llm_started_at = time.perf_counter()
-    llm_response = call_llm(
+    llm_response = llm_caller(
         prompt,
         conversation=conversation,
         debug=debug,
