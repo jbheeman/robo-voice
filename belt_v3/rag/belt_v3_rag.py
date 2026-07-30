@@ -202,7 +202,7 @@ if __name__ == "__main__":
 
         results = rag_search(
             text=query,
-            top_k=2
+            top_k=3
         )
 
         for result in results:

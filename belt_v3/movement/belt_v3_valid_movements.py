@@ -17,6 +17,6 @@ VALID_MOVEMENTS = {
 }
 
 CUSTOM_VALID_MOVEMENTS = {
-    "dance": []
+    "dance": [8, 7, 14]
     
 }

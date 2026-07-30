@@ -143,6 +143,35 @@ class BeltV3MainTests(unittest.TestCase):
         self.stop_streamlit.assert_called_once_with(None)
         self.close_cv.assert_called_once_with()
 
+    def test_robot_main_loop_passes_disabled_wake_word_setting(self) -> None:
+        response = {
+            "simple_action": {
+                "requested": False,
+                "actions": [],
+            },
+            "navigation": {
+                "requested": False,
+                "locations": [],
+            },
+            "speech": "Hello!",
+        }
+        self.main_module.USING_ROBOT = True
+        self.main_module.BELT_WAKE_WORD = False
+        self.get_input.side_effect = [
+            "Hello",
+            KeyboardInterrupt,
+        ]
+        self.get_cv_state.return_value = None
+        self.compose_response.return_value = (response, [])
+
+        self.main_module.main()
+
+        self.get_input.assert_any_call(require_wake_word=False)
+        self.speech_handle.assert_called_once_with(
+            "Hello!",
+            self.main_module.VOICE,
+        )
+
     def test_execute_modules_runs_speech_actions_and_navigation(self) -> None:
         self.main_module.USING_ROBOT = True
         response = {
