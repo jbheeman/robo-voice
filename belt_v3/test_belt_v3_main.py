@@ -109,6 +109,8 @@ class BeltV3MainTests(unittest.TestCase):
             dependency.reset_mock()
             dependency.side_effect = None
 
+        self.navigation_handle.return_value = ""
+
     def test_terminal_main_loop_processes_one_complete_response(self) -> None:
         response = {
             "simple_action": {
@@ -116,8 +118,8 @@ class BeltV3MainTests(unittest.TestCase):
                 "actions": [],
             },
             "navigation": {
-                "requested": False,
-                "locations": [],
+                "requested": True,
+                "locations": ["2004"],
             },
             "speech": "Hello!",
         }
@@ -127,18 +129,22 @@ class BeltV3MainTests(unittest.TestCase):
             KeyboardInterrupt,
         ]
         self.compose_response.return_value = (response, [])
+        self.navigation_handle.return_value = (
+            "To get to 2004, You have arrived!"
+        )
 
         self.main_module.main()
 
         self.compose_response.assert_called_once()
         self.testing_speech_handle.assert_called_once_with(
-            "Hello!",
+            "Hello! To get to 2004, You have arrived!",
             self.main_module.VOICE,
         )
+        self.navigation_handle.assert_called_once_with(["2004"])
         self.remember_conversation_turn.assert_called_once_with(
             self.main_module.conversation,
             "Hi, Belt",
-            "Hello!",
+            "Hello! To get to 2004, You have arrived!",
         )
         self.stop_streamlit.assert_called_once_with(None)
         self.close_cv.assert_called_once_with()
@@ -186,15 +192,25 @@ class BeltV3MainTests(unittest.TestCase):
             "speech": "I can help with that.",
         }
         timings = {"output_audio": 0.0}
+        self.navigation_handle.return_value = (
+            "To get to 2110,\nYou have arrived!"
+        )
 
-        self.main_module.execute_modules(response, timings)
+        spoken_response = self.main_module.execute_modules(
+            response,
+            timings,
+        )
 
         self.speech_handle.assert_called_once_with(
-            "I can help with that.",
+            "I can help with that. To get to 2110, You have arrived!",
             self.main_module.VOICE,
         )
         self.simple_action_handle.assert_called_once_with(["wave"])
         self.navigation_handle.assert_called_once_with(["2110"])
+        self.assertEqual(
+            spoken_response,
+            "I can help with that. To get to 2110, You have arrived!",
+        )
         self.assertGreaterEqual(timings["output_audio"], 0.0)
 
     def test_response_pipeline_has_no_anonymous_functions(self) -> None:

@@ -100,18 +100,51 @@ def generate_response(
     return output
 
 
+def combine_spoken_response(
+    speech: str,
+    navigation_directions: str,
+) -> str:
+    """Join the planner response and directions into one natural utterance."""
+    speech = " ".join(speech.split())
+    navigation_directions = " ".join(
+        navigation_directions.split()
+    )
+
+    if not navigation_directions:
+        return speech
+    if not speech:
+        return navigation_directions
+
+    separator = " " if speech.endswith((".", "!", "?")) else ". "
+    return f"{speech}{separator}{navigation_directions}"
+
+
 def execute_modules(
     response_output: dict,
     timing_metrics: dict[str, float],
-) -> None:
-    """Speak the response and perform its validated robot commands."""
+) -> str:
+    """Speak one combined response and perform its validated robot commands."""
     execution_started_at = time.perf_counter()
-    speech_started_at = time.perf_counter()
+    spoken_response = response_output["speech"].strip()
 
+    navigation = response_output["navigation"]
+    if navigation["requested"]:
+        navigation_started_at = time.perf_counter()
+        navigation_directions = navigation_handle(
+            navigation["locations"]
+        )
+        if navigation_directions:
+            spoken_response = combine_spoken_response(
+                spoken_response,
+                navigation_directions,
+            )
+        print_timing("Navigation", navigation_started_at)
+
+    speech_started_at = time.perf_counter()
     if USING_ROBOT:
-        speech_handle(response_output["speech"], VOICE)
+        speech_handle(spoken_response, VOICE)
     else:
-        testing_speech_handle(response_output["speech"], VOICE)
+        testing_speech_handle(spoken_response, VOICE)
 
     timing_metrics["output_audio"] = (
         time.perf_counter() - speech_started_at
@@ -124,13 +157,8 @@ def execute_modules(
         simple_action_handle(simple_action["actions"])
         print_timing("Simple actions", action_started_at)
 
-    navigation = response_output["navigation"]
-    if navigation["requested"]:
-        navigation_started_at = time.perf_counter()
-        navigation_handle(navigation["locations"])
-        print_timing("Navigation", navigation_started_at)
-
     print_timing("Module execution total", execution_started_at)
+    return spoken_response
 
 
 def main() -> None:
@@ -202,11 +230,14 @@ def main() -> None:
                 timing_metrics=timing_metrics,
             )
 
-            execute_modules(response_output, timing_metrics)
+            spoken_response = execute_modules(
+                response_output,
+                timing_metrics,
+            )
             remember_conversation_turn(
                 conversation,
                 text_input,
-                response_output["speech"],
+                spoken_response,
             )
 
             print_timing(

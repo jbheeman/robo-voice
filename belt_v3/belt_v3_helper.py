@@ -218,11 +218,12 @@ Rules:
   specifically asks what BELT sees.
 - Keep "speech" short, natural, and consistent with the extracted commands.
 - A separate action handler performs the movements.
-- A separate navigation handler speaks the full directions.
+- A navigation handler appends the full directions to "speech" before one
+  text-to-speech call.
 - Therefore, for supported navigation requests, only acknowledge the destination
-  and say directions will follow.
+  briefly and do not repeat the directions in "speech".
 - Do not include directions, offer directions, mention that BELT is stationary,
-  or say BELT cannot guide or take the user.
+  say directions will follow, or say BELT cannot guide or take the user.
 - Do not claim that an action or navigation has already happened.
 - If both actions and navigation are requested, acknowledge both briefly.
 - Tell the user that it can only give directions, for actual navigation connect to BELT App
