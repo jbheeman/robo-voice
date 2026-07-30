@@ -150,24 +150,32 @@ def general_format(start, dlist):
 def nav(room_num):
     out = []
     if room_num in [2110, 2130, 2150]:
+        out.append("You have arrived!")
         return format(out)
     out.append("First, exit through the door closest to the building entrance.")
     if room_num in [2004]:
+        out.append("Your room will be on the left.")
         return format(out)
     if room_num in [0, 2005, 2007]:
         out.append("Go forward.")
         if room_num in [0]:
+            out.append("Your destination will be in front of you.")
             return format(out)
         out.append("Turn right.")
         out.append("Go forward.")
         if room_num in [2005]:
             out.append("Turn left.")
+        out.append("Your room will be on the right.")
         return format(out)
     out.append("Turn right.")
     if room_num in [2115, 2117, 2119, 2125, 2135, 2145, 2155, 2165, 2175]:
         out.append("Turn right.")
         if room_num in [2115, 2117, 2119]:
             out.append("Turn left.")
+            if room_num in [2117, 2119]:
+                out.append("Your room will be on the right.")
+            else:
+                out.append("Your room will be on the left.")
         else:
             out.append("Go down the hall until you see your room, which will be on your left.")
         return format(out)
@@ -179,6 +187,7 @@ def nav(room_num):
         return format(out)
     out.append("Go to the end of the hallway.")
     if room_num in [2204]:
+        out.append("You destination will be in front of you.")
         return format(out)
     if room_num in [2206, 2210, 2220, 2240, 2250, 2260]:
         out.append("Turn right.")
@@ -202,6 +211,7 @@ def nav(room_num):
         else:
             out.append("Turn left.")
         out.append("Turn right.")
+        out.append("Your room is in front of you.")
         return format(out)
     if room_num in [2231, 2227]:
         out.append("Go down the hall until you see your room, which will be on your right.")
@@ -214,7 +224,6 @@ def nav(room_num):
     return format(out)
 
 def format(out):
-    out.append("You have arrived!")
     return " ".join(out)
 
 # import random
