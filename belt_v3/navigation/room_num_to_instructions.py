@@ -219,7 +219,7 @@ def nav(room_num):
     elif room_num in [2215, 2221]:
         out.append("Go forward until you see your room, which will be on your right.")
     elif room_num in [2205]:
-        out.append("Turn left.")
+        out.append("Your room will be on your left.")
     else:
         out.append("Go down the hall until you see your room, which will be on your left.")
     return format(out)
