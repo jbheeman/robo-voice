@@ -4,7 +4,7 @@ import sys
 import types
 import unittest
 from pathlib import Path
-from unittest.mock import Mock, patch
+from unittest.mock import Mock, call, patch
 
 
 def _stub_module(name: str, **attributes) -> types.ModuleType:
@@ -37,6 +37,7 @@ class BeltV3MainTests(unittest.TestCase):
         stub_modules = {
             "movement.belt_v3_simple_action_handle": _stub_module(
                 "movement.belt_v3_simple_action_handle",
+                DEFAULT_COOLDOWN_SECONDS=5.0,
                 simple_action_handle=cls.simple_action_handle,
             ),
             "speech.belt_v3_speech_handle": _stub_module(
@@ -116,15 +117,24 @@ class BeltV3MainTests(unittest.TestCase):
 
     def test_terminal_main_loop_processes_one_complete_response(self) -> None:
         response = {
-            "simple_action": {
-                "requested": False,
-                "actions": [],
-            },
-            "navigation": {
-                "requested": True,
-                "locations": ["2004"],
-            },
-            "speech": "Hello!",
+            "output_list": [
+                {
+                    "type": "speech",
+                    "text": "Hello!",
+                },
+                {
+                    "type": "action",
+                    "name": "wave",
+                },
+                {
+                    "type": "speech",
+                    "text": "Here are your directions.",
+                },
+                {
+                    "type": "navigation",
+                    "location": "2004",
+                },
+            ],
         }
         self.main_module.USING_ROBOT = False
         self.terminal_get_input.side_effect = [
@@ -144,30 +154,43 @@ class BeltV3MainTests(unittest.TestCase):
             self.compose_response.call_args.kwargs["llm_caller"],
             self.call_llm,
         )
-        self.testing_speech_handle.assert_called_once_with(
-            "Hello! To get to 2004, You have arrived!",
-            self.main_module.VOICE,
+        self.assertEqual(
+            self.testing_speech_handle.call_args_list,
+            [
+                call(
+                    "Hello!",
+                    self.main_module.VOICE,
+                ),
+                call(
+                    "Here are your directions. "
+                    "To get to 2004, You have arrived!",
+                    self.main_module.VOICE,
+                ),
+            ],
         )
-        self.navigation_handle.assert_called_once_with(["2004"])
+        self.navigation_handle.assert_called_once_with("2004")
+        self.simple_action_handle.assert_not_called()
+        self.speech_handle.assert_not_called()
+        self.preload_qwen_model.assert_not_called()
+        self.get_input.assert_not_called()
+        self.get_cv_state.assert_not_called()
         self.remember_conversation_turn.assert_called_once_with(
             self.main_module.conversation,
             "Hi, Belt",
-            "Hello! To get to 2004, You have arrived!",
+            "Hello! Here are your directions. "
+            "To get to 2004, You have arrived!",
         )
         self.stop_streamlit.assert_called_once_with(None)
-        self.close_cv.assert_called_once_with()
+        self.close_cv.assert_not_called()
 
     def test_robot_main_loop_passes_disabled_wake_word_setting(self) -> None:
         response = {
-            "simple_action": {
-                "requested": False,
-                "actions": [],
-            },
-            "navigation": {
-                "requested": False,
-                "locations": [],
-            },
-            "speech": "Hello!",
+            "output_list": [
+                {
+                    "type": "speech",
+                    "text": "Hello!",
+                },
+            ],
         }
         self.main_module.USING_ROBOT = True
         self.main_module.BELT_WAKE_WORD = False
@@ -188,20 +211,45 @@ class BeltV3MainTests(unittest.TestCase):
 
     def test_execute_modules_runs_speech_actions_and_navigation(self) -> None:
         self.main_module.USING_ROBOT = True
+        execution_order = []
         response = {
-            "simple_action": {
-                "requested": True,
-                "actions": ["wave"],
-            },
-            "navigation": {
-                "requested": True,
-                "locations": ["2110"],
-            },
-            "speech": "I can help with that.",
+            "output_list": [
+                {
+                    "type": "speech",
+                    "text": "I can help with that.",
+                },
+                {
+                    "type": "action",
+                    "name": "wave",
+                },
+                {
+                    "type": "speech",
+                    "text": "Here are your directions.",
+                },
+                {
+                    "type": "navigation",
+                    "location": "2110",
+                },
+            ],
         }
         timings = {"output_audio": 0.0}
-        self.navigation_handle.return_value = (
-            "To get to 2110,\nYou have arrived!"
+        self.speech_handle.side_effect = (
+            lambda text, _voice: execution_order.append(
+                ("speech", text)
+            )
+        )
+        self.simple_action_handle.side_effect = (
+            lambda actions: execution_order.append(
+                ("action", actions)
+            )
+        )
+        self.navigation_handle.side_effect = (
+            lambda location: (
+                execution_order.append(
+                    ("navigation", location)
+                )
+                or "To get to 2110,\nYou have arrived!"
+            )
         )
 
         spoken_response = self.main_module.execute_modules(
@@ -209,17 +257,125 @@ class BeltV3MainTests(unittest.TestCase):
             timings,
         )
 
-        self.speech_handle.assert_called_once_with(
-            "I can help with that. To get to 2110, You have arrived!",
-            self.main_module.VOICE,
+        self.assertEqual(
+            self.speech_handle.call_args_list,
+            [
+                call(
+                    "I can help with that.",
+                    self.main_module.VOICE,
+                ),
+                call(
+                    "Here are your directions. "
+                    "To get to 2110, You have arrived!",
+                    self.main_module.VOICE,
+                ),
+            ],
         )
         self.simple_action_handle.assert_called_once_with(["wave"])
-        self.navigation_handle.assert_called_once_with(["2110"])
+        self.navigation_handle.assert_called_once_with("2110")
+        self.assertEqual(
+            execution_order,
+            [
+                ("speech", "I can help with that."),
+                ("action", ["wave"]),
+                ("navigation", "2110"),
+                (
+                    "speech",
+                    "Here are your directions. "
+                    "To get to 2110, You have arrived!",
+                ),
+            ],
+        )
         self.assertEqual(
             spoken_response,
-            "I can help with that. To get to 2110, You have arrived!",
+            "I can help with that. Here are your directions. "
+            "To get to 2110, You have arrived!",
         )
         self.assertGreaterEqual(timings["output_audio"], 0.0)
+
+    def test_adjacent_actions_receive_a_cooldown(self) -> None:
+        self.main_module.USING_ROBOT = True
+        response = {
+            "output_list": [
+                {
+                    "type": "speech",
+                    "text": "Watch this.",
+                },
+                {
+                    "type": "action",
+                    "name": "wave",
+                },
+                {
+                    "type": "action",
+                    "name": "clap",
+                },
+                {
+                    "type": "speech",
+                    "text": "All done.",
+                },
+            ],
+        }
+        timings = {"output_audio": 0.0}
+
+        with patch("belt_v3_main.time.sleep") as sleep:
+            spoken_response = self.main_module.execute_modules(
+                response,
+                timings,
+            )
+
+        self.assertEqual(
+            self.simple_action_handle.call_args_list,
+            [
+                call(["wave"]),
+                call(["clap"]),
+            ],
+        )
+        sleep.assert_called_once_with(
+            self.main_module.DEFAULT_COOLDOWN_SECONDS
+        )
+        self.assertEqual(spoken_response, "Watch this. All done.")
+
+    def test_terminal_actions_are_simulated_without_robot_calls(self) -> None:
+        self.main_module.USING_ROBOT = False
+        response = {
+            "output_list": [
+                {
+                    "type": "speech",
+                    "text": "Watch this.",
+                },
+                {
+                    "type": "action",
+                    "name": "wave",
+                },
+                {
+                    "type": "action",
+                    "name": "clap",
+                },
+                {
+                    "type": "speech",
+                    "text": "All done.",
+                },
+            ],
+        }
+        timings = {"output_audio": 0.0}
+
+        with patch("belt_v3_main.time.sleep") as sleep:
+            spoken_response = self.main_module.execute_modules(
+                response,
+                timings,
+            )
+
+        self.simple_action_handle.assert_not_called()
+        self.speech_handle.assert_not_called()
+        sleep.assert_not_called()
+        self.assertEqual(
+            self.testing_speech_handle.call_args_list,
+            [
+                call("Watch this.", self.main_module.VOICE),
+                call("All done.", self.main_module.VOICE),
+            ],
+        )
+        self.assertEqual(spoken_response, "Watch this. All done.")
 
     def test_response_pipeline_has_no_anonymous_functions(self) -> None:
         belt_v3_directory = Path(__file__).resolve().parent

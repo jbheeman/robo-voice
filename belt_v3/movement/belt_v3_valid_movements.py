@@ -17,6 +17,19 @@ VALID_MOVEMENTS = {
 }
 
 CUSTOM_VALID_MOVEMENTS = {
-    "dance": [8, 7, 14]
+    "dance": [8, 7, 14, ]
     
 }
+'''
+67
+yawn
+T pose
+gesture low left
+gesture low right
+think right
+think left
+harness
+hands on hip
+cross hands
+slay
+'''

@@ -21,7 +21,10 @@ else:
         remember_conversation_turn,
     )
 
-from movement.belt_v3_simple_action_handle import simple_action_handle
+from movement.belt_v3_simple_action_handle import (
+    DEFAULT_COOLDOWN_SECONDS,
+    simple_action_handle,
+)
 from speech.belt_v3_speech_handle import speech_handle, testing_speech_handle
 from speech.belt_v3_qwen_tts import (
     preload_qwen_model,
@@ -34,12 +37,12 @@ from launch_streamlit import start_streamlit, stop_streamlit
 from comp_vision.belt_v3_cv import close_cv, get_cv_state
 
 # Runtime configuration
-USING_ROBOT = True
+USING_ROBOT = False
 LAUNCH_STREAMLIT = False
 VOICE = "Vivian"
 BELT_WAKE_WORD = False
 
-# Holds the latest 4 user inputs and BELT's corresponding speech responses.
+# Holds the latest 4 user inputs and BELT's complete spoken responses.
 conversation: list[ConversationMessage] = []
 
 
@@ -112,6 +115,12 @@ def generate_response(
         llm_caller=call_llm,
     )
 
+    if DEBUG:
+        print(
+            f"[VALIDATED OUTPUT LIST] {output['output_list']}",
+            flush=True,
+        )
+
     print_timing("Response generation total", request_started_at)
     return output
 
@@ -135,46 +144,100 @@ def combine_spoken_response(
     return f"{speech}{separator}{navigation_directions}"
 
 
+def speak_output(
+    text: str,
+    timing_metrics: dict[str, float],
+) -> None:
+    """Speak one buffered section and accumulate its audio-output time."""
+    speech_started_at = time.perf_counter()
+    if USING_ROBOT:
+        speech_handle(text, VOICE)
+    else:
+        testing_speech_handle(text, VOICE)
+
+    timing_metrics["output_audio"] = (
+        timing_metrics.get("output_audio", 0.0)
+        + time.perf_counter()
+        - speech_started_at
+    )
+    print_timing("Speech output", speech_started_at)
+
+
+def combine_spoken_parts(parts: list[str]) -> str:
+    """Combine adjacent speech and navigation text into one utterance."""
+    combined = ""
+    for part in parts:
+        combined = combine_spoken_response(combined, part)
+    return combined
+
+
 def execute_modules(
     response_output: dict,
     timing_metrics: dict[str, float],
 ) -> str:
-    """Speak one combined response and perform its validated robot commands."""
+    """Execute the validated output list from first event to last."""
     execution_started_at = time.perf_counter()
-    spoken_response = response_output["speech"].strip()
+    pending_spoken_parts: list[str] = []
+    spoken_sections: list[str] = []
+    robot_action_was_executed = False
 
-    navigation = response_output["navigation"]
-    if navigation["requested"]:
-        navigation_started_at = time.perf_counter()
-        navigation_directions = navigation_handle(
-            navigation["locations"]
-        )
-        if navigation_directions:
-            spoken_response = combine_spoken_response(
-                spoken_response,
-                navigation_directions,
+    for index, event in enumerate(
+        response_output["output_list"],
+        start=1,
+    ):
+        event_type = event["type"]
+
+        if event_type == "speech":
+            pending_spoken_parts.append(event["text"])
+            continue
+
+        if event_type == "navigation":
+            navigation_started_at = time.perf_counter()
+            navigation_directions = navigation_handle(
+                event["location"]
             )
-        print_timing("Navigation", navigation_started_at)
+            if navigation_directions:
+                pending_spoken_parts.append(
+                    navigation_directions
+                )
+            print_timing(
+                f"Navigation event {index}",
+                navigation_started_at,
+            )
+            continue
 
-    speech_started_at = time.perf_counter()
-    if USING_ROBOT:
-        speech_handle(spoken_response, VOICE)
-    else:
-        testing_speech_handle(spoken_response, VOICE)
+        if event_type == "action":
+            pending_speech = combine_spoken_parts(
+                pending_spoken_parts
+            )
+            if pending_speech:
+                speak_output(pending_speech, timing_metrics)
+                spoken_sections.append(pending_speech)
+                pending_spoken_parts.clear()
 
-    timing_metrics["output_audio"] = (
-        time.perf_counter() - speech_started_at
-    )
-    print_timing("Speech output", speech_started_at)
+            action_started_at = time.perf_counter()
+            if USING_ROBOT:
+                if robot_action_was_executed:
+                    time.sleep(DEFAULT_COOLDOWN_SECONDS)
+                simple_action_handle([event["name"]])
+                robot_action_was_executed = True
+            else:
+                print(
+                    f"[SIMULATED ACTION] {event['name']}",
+                    flush=True,
+                )
+            print_timing(
+                f"Action event {index}",
+                action_started_at,
+            )
 
-    simple_action = response_output["simple_action"]
-    if simple_action["requested"]:
-        action_started_at = time.perf_counter()
-        simple_action_handle(simple_action["actions"])
-        print_timing("Simple actions", action_started_at)
+    pending_speech = combine_spoken_parts(pending_spoken_parts)
+    if pending_speech:
+        speak_output(pending_speech, timing_metrics)
+        spoken_sections.append(pending_speech)
 
     print_timing("Module execution total", execution_started_at)
-    return spoken_response
+    return combine_spoken_parts(spoken_sections)
 
 
 def main() -> None:
@@ -190,6 +253,12 @@ def main() -> None:
             return
 
     try:
+        if not USING_ROBOT:
+            print(
+                "[MODE] Terminal simulation: robot microphone, camera, "
+                "speech output, and gestures are disabled.",
+                flush=True,
+            )
         print(tts_configuration_summary(VOICE))
 
         if USING_ROBOT:
@@ -271,7 +340,8 @@ def main() -> None:
     except KeyboardInterrupt:
         print("\nBELT stopped.")
     finally:
-        close_cv()
+        if USING_ROBOT:
+            close_cv()
         stop_streamlit(dashboard_process)
 
 
