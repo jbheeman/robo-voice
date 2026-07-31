@@ -307,6 +307,7 @@ def main() -> None:
                     flush=True,
                 )
                 time.sleep(INPUT_COOLDOWN_SECONDS)
+                print("COOLDOWN ENDED", flush=True)
     except KeyboardInterrupt:
         print("\nBELT stopped.")
     finally:
