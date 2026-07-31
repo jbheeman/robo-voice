@@ -96,6 +96,7 @@ class BeltV3MainTests(unittest.TestCase):
 
     def setUp(self) -> None:
         self.main_module.DEBUG = False
+        self.main_module.START_HARNESS = True
         self.main_module.conversation.clear()
 
         for dependency in (
@@ -210,6 +211,19 @@ class BeltV3MainTests(unittest.TestCase):
             "Hello!",
             self.main_module.VOICE,
         )
+        self.simple_action_handle.assert_called_once_with(["harness"])
+
+    def test_robot_main_skips_startup_harness_when_disabled(self) -> None:
+        self.main_module.USING_ROBOT = True
+        self.main_module.START_HARNESS = False
+        self.get_input.side_effect = KeyboardInterrupt
+
+        self.main_module.main()
+
+        self.preload_qwen_model.assert_called_once_with(
+            self.main_module.VOICE,
+        )
+        self.simple_action_handle.assert_not_called()
 
     def test_execute_modules_runs_speech_actions_and_navigation(self) -> None:
         self.main_module.USING_ROBOT = True

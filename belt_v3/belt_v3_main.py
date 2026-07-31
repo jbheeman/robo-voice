@@ -47,6 +47,7 @@ from comp_vision.belt_v3_cv import close_cv, get_cv_state
 USING_ROBOT = True
 VOICE = "Vivian"
 BELT_WAKE_WORD = False
+START_HARNESS = True
 
 # Holds the latest 4 user inputs and BELT's complete spoken responses.
 conversation: list[ConversationMessage] = []
@@ -198,6 +199,15 @@ def main() -> None:
             PROGRAM_START_TIME,
             debug=DEBUG,
         )
+
+        if USING_ROBOT and START_HARNESS:
+            harness_started_at = time.perf_counter()
+            simple_action_handle(["harness"])
+            print_timing(
+                "Startup harness movement",
+                harness_started_at,
+                debug=DEBUG,
+            )
 
         while True:
             timing_metrics = {
