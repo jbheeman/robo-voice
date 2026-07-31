@@ -6,7 +6,7 @@ DEBUG = True
 os.environ["BELT_DEBUG"] = "1" if DEBUG else "0"
 
 # Choose which language-model backend BELT uses.
-USE_DEEPSEEK_API = True
+USE_DEEPSEEK_API = False
 
 if USE_DEEPSEEK_API:
     from belt_v3_api import (
