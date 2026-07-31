@@ -380,7 +380,7 @@ Rules:
 - Tell the user that BELT only gives directions and that actual navigation
   requires the BELT app.
 - Try to use gesture movements in speech natrually
-- Anytime 67 is mentioned, do the 67 movement
+- Anytime "67, six seven, 6 seven, six 7" is mentioned, do the 67 movement
 - Return no Markdown or text outside the JSON object.
 """.strip()
 
