@@ -44,7 +44,7 @@ from belt_v3_input import get_input, terminal_get_input
 from comp_vision.belt_v3_cv import close_cv, get_cv_state
 
 # Runtime configuration
-USING_ROBOT = False
+USING_ROBOT = True
 VOICE = "Vivian"
 BELT_WAKE_WORD = False
 
