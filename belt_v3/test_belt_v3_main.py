@@ -96,7 +96,7 @@ class BeltV3MainTests(unittest.TestCase):
 
     def setUp(self) -> None:
         self.main_module.DEBUG = False
-        self.main_module.START_HARNESS = True
+        self.main_module.START_HARNESS = 1.0
         self.main_module.conversation.clear()
 
         for dependency in (
@@ -204,7 +204,8 @@ class BeltV3MainTests(unittest.TestCase):
         self.get_cv_state.return_value = None
         self.compose_response.return_value = (response, [])
 
-        self.main_module.main()
+        with patch.object(self.main_module.time, "sleep") as sleep:
+            self.main_module.main()
 
         self.get_input.assert_any_call(require_wake_word=False)
         self.speech_handle.assert_called_once_with(
@@ -212,10 +213,13 @@ class BeltV3MainTests(unittest.TestCase):
             self.main_module.VOICE,
         )
         self.simple_action_handle.assert_called_once_with(["harness"])
+        sleep.assert_called_once_with(
+            self.main_module.INPUT_COOLDOWN_SECONDS
+        )
 
     def test_robot_main_skips_startup_harness_when_disabled(self) -> None:
         self.main_module.USING_ROBOT = True
-        self.main_module.START_HARNESS = False
+        self.main_module.START_HARNESS = 0.0
         self.get_input.side_effect = KeyboardInterrupt
 
         self.main_module.main()
@@ -224,6 +228,43 @@ class BeltV3MainTests(unittest.TestCase):
             self.main_module.VOICE,
         )
         self.simple_action_handle.assert_not_called()
+
+    def test_robot_main_runs_harness_below_probability(self) -> None:
+        self.main_module.USING_ROBOT = True
+        self.main_module.START_HARNESS = 0.5
+        self.get_input.side_effect = KeyboardInterrupt
+
+        with patch.object(
+            self.main_module.random,
+            "random",
+            return_value=0.49,
+        ):
+            self.main_module.main()
+
+        self.simple_action_handle.assert_called_once_with(["harness"])
+
+    def test_robot_main_skips_harness_at_probability_boundary(self) -> None:
+        self.main_module.USING_ROBOT = True
+        self.main_module.START_HARNESS = 0.5
+        self.get_input.side_effect = KeyboardInterrupt
+
+        with patch.object(
+            self.main_module.random,
+            "random",
+            return_value=0.5,
+        ):
+            self.main_module.main()
+
+        self.simple_action_handle.assert_not_called()
+
+    def test_robot_main_rejects_invalid_harness_probability(self) -> None:
+        self.main_module.START_HARNESS = 1.1
+
+        with self.assertRaisesRegex(
+            ValueError,
+            "START_HARNESS must be a number from 0.0 to 1.0",
+        ):
+            self.main_module.main()
 
     def test_execute_modules_runs_speech_actions_and_navigation(self) -> None:
         self.main_module.USING_ROBOT = True

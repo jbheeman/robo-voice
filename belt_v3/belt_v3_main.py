@@ -1,4 +1,5 @@
 import os
+import random
 import time
 
 PROGRAM_START_TIME = time.perf_counter()
@@ -47,7 +48,9 @@ from comp_vision.belt_v3_cv import close_cv, get_cv_state
 USING_ROBOT = True
 VOICE = "Vivian"
 BELT_WAKE_WORD = False
-START_HARNESS = True
+# Probability of performing harness after startup: 0.0=never, 1.0=always.
+START_HARNESS = 1.0
+INPUT_COOLDOWN_SECONDS = 20.0
 
 # Holds the latest 4 user inputs and BELT's complete spoken responses.
 conversation: list[ConversationMessage] = []
@@ -176,6 +179,13 @@ def execute_modules(
 
 
 def main() -> None:
+    if (
+        isinstance(START_HARNESS, bool)
+        or not isinstance(START_HARNESS, (int, float))
+        or not 0.0 <= START_HARNESS <= 1.0
+    ):
+        raise ValueError("START_HARNESS must be a number from 0.0 to 1.0")
+
     try:
         if not USING_ROBOT:
             print(
@@ -200,7 +210,11 @@ def main() -> None:
             debug=DEBUG,
         )
 
-        if USING_ROBOT and START_HARNESS:
+        if (
+            USING_ROBOT
+            and START_HARNESS > 0.0
+            and random.random() < START_HARNESS
+        ):
             harness_started_at = time.perf_counter()
             simple_action_handle(["harness"])
             print_timing(
@@ -285,6 +299,14 @@ def main() -> None:
                 time.perf_counter() - turn_started_at
             )
             print_timing_summary(timing_metrics, debug=DEBUG)
+
+            if USING_ROBOT:
+                print(
+                    f"[INPUT COOLDOWN] Waiting "
+                    f"{INPUT_COOLDOWN_SECONDS:g} seconds before listening.",
+                    flush=True,
+                )
+                time.sleep(INPUT_COOLDOWN_SECONDS)
     except KeyboardInterrupt:
         print("\nBELT stopped.")
     finally:
