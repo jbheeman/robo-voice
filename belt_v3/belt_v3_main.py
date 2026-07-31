@@ -49,8 +49,8 @@ USING_ROBOT = True
 VOICE = "Vivian"
 BELT_WAKE_WORD = False
 # Probability of performing harness after startup: 0.0=never, 1.0=always.
-START_HARNESS = 1.0
-INPUT_COOLDOWN_SECONDS = 20.0
+START_HARNESS = 0.2
+INPUT_COOLDOWN_SECONDS = 30.0
 
 # Holds the latest 4 user inputs and BELT's complete spoken responses.
 conversation: list[ConversationMessage] = []

@@ -379,6 +379,7 @@ Rules:
 - Do not claim that an action or navigation has already happened.
 - Tell the user that BELT only gives directions and that actual navigation
   requires the BELT app.
+- Try to use gesture movements in speech natrually
 - Return no Markdown or text outside the JSON object.
 """.strip()
 
