@@ -14,22 +14,28 @@ VALID_MOVEMENTS = {
     "reject": 13,
     "right kiss": 14,
     "two-hand kiss": 15,
+    "turn back wave": 16,
+    "box left hand win": 17,
+    "box right hand win": 18,
+    "box both hands win": 19,
+    "right hand on heart": 20,
+    "both hands up deviate right": 21,
+    "forward push": 22,
+    "scratch head": 101,
+    "throw money": 103,
+    "67": 104,
+    "yawn": 105,
+    "t pose": 106,
+    "gesture low left": 107,
+    "gesture low right": 108,
+    "think right": 109,
+    "think left": 110,
+    "harness": 111,
+    "hands on hips": 112,
+    "cross hands": 113,
+    "low gesture": 114,
 }
 
 CUSTOM_VALID_MOVEMENTS = {
-    "dance": [8, 7, 14, ]
-    
+    "dance": [8, 7, 14],
 }
-'''
-67
-yawn
-T pose
-gesture low left
-gesture low right
-think right
-think left
-harness
-hands on hip
-cross hands
-
-'''

@@ -94,6 +94,56 @@ class FakeRclpy:
 
 
 class SimpleActionHandleTests(unittest.TestCase):
+    def test_builds_sequence_for_added_robot_gestures(self) -> None:
+        requested_actions = [
+            "turn back wave",
+            "box left hand win",
+            "box right hand win",
+            "box both hands win",
+            "right hand on heart",
+            "both hands up deviate right",
+            "forward push",
+            "Scratch Head",
+            "throw money",
+            "67",
+            "yawn",
+            "T POSE",
+            "gesture low left",
+            "gesture low right",
+            "think right",
+            "think left",
+            "harness",
+            "hands on hips",
+            "cross hands",
+            "low gesture",
+        ]
+
+        self.assertEqual(
+            build_movement_id_sequence(requested_actions),
+            [
+                16,
+                17,
+                18,
+                19,
+                20,
+                21,
+                22,
+                101,
+                103,
+                104,
+                105,
+                106,
+                107,
+                108,
+                109,
+                110,
+                111,
+                112,
+                113,
+                114,
+            ],
+        )
+
     def test_build_sequence_filters_without_mutating_and_keeps_order(
         self,
     ) -> None:

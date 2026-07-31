@@ -17,22 +17,20 @@ import argparse
 import time
 from pathlib import Path
 
-from ultralytics import YOLO
-
 from camera_source import (
     DEFAULT_ROS_COLOR_TOPIC,
     FRAME_TIMEOUT,
     CameraSourceError,
     RosCameraSource,
 )
-from human_det import PERSON_CLASS_ID
-from staff_recognition import KNOWN_NAMES, detect_faces
 
 
 MODEL_PATH = Path(__file__).with_name("yolov8n.pt")
 DEFAULT_INTERVAL = 1.0
 DEFAULT_CONFIDENCE = 0.35
 DEFAULT_MAX_OBJECTS = 10
+DEFAULT_STARTUP_TIMEOUT = 5.0
+PERSON_CLASS_ID = 0
 PERSON_LABEL = "person"
 VISITOR_LABEL = "Visitor"
 
@@ -73,6 +71,15 @@ def parse_args():
             f"(default: {DEFAULT_MAX_OBJECTS})."
         ),
     )
+    parser.add_argument(
+        "--startup-timeout",
+        type=float,
+        default=DEFAULT_STARTUP_TIMEOUT,
+        help=(
+            "Seconds to wait for the first camera frame before exiting "
+            f"(default: {DEFAULT_STARTUP_TIMEOUT})."
+        ),
+    )
     return parser.parse_args()
 
 
@@ -83,6 +90,8 @@ def validate_args(args):
         raise ValueError("--confidence must be between 0.0 and 1.0.")
     if args.max_objects <= 0:
         raise ValueError("--max-objects must be greater than 0.")
+    if args.startup_timeout <= 0:
+        raise ValueError("--startup-timeout must be greater than 0 seconds.")
 
 
 def collect_detections(result, class_names, max_objects):
@@ -106,12 +115,12 @@ def collect_detections(result, class_names, max_objects):
     return detections[:max_objects]
 
 
-def identify_people(frame, person_count):
+def identify_people(frame, person_count, face_detector):
     """Return one enrolled name or ``Visitor`` for each detected person."""
     if person_count == 0:
         return []
 
-    faces = detect_faces(frame)
+    faces = face_detector(frame)
     identities = [
         str(face["name"]).strip()
         if face.get("name")
@@ -167,6 +176,14 @@ def format_report(detections, identities=None):
     return f"[{timestamp}] {people_report} | Other objects: {object_report}"
 
 
+def read_camera_frame(camera, timeout):
+    """Return one frame or fail after the requested timeout."""
+    ok, frame = camera.read(timeout=timeout)
+    if not ok:
+        raise CameraSourceError(camera.failure_hint())
+    return frame
+
+
 def main():
     args = parse_args()
     try:
@@ -180,15 +197,23 @@ def main():
         raise SystemExit(f"Camera error: {exc}") from exc
 
     try:
-        print(f"Waiting for robot camera: {args.topic}")
-        ok, frame = camera.read(timeout=15.0)
-        if not ok:
-            raise SystemExit(f"Camera error: {camera.failure_hint()}")
+        print(
+            f"Waiting up to {args.startup_timeout:g} seconds for robot "
+            f"camera: {args.topic}",
+            flush=True,
+        )
+        frame = read_camera_frame(camera, args.startup_timeout)
 
         print(
             f"Connected ({frame.shape[1]}x{frame.shape[0]}). "
             f"Reporting every {args.interval:g} second(s). Press Ctrl+C to stop."
         )
+
+        # Load the expensive vision dependencies only after a camera frame
+        # proves that the input stream is available.
+        from ultralytics import YOLO
+        from staff_recognition import KNOWN_NAMES, detect_faces
+
         model = YOLO(str(MODEL_PATH))
         if str(model.names[PERSON_CLASS_ID]).casefold() != PERSON_LABEL:
             raise SystemExit(
@@ -215,7 +240,11 @@ def main():
                 label.casefold() == PERSON_LABEL
                 for label, _ in detections
             )
-            identities = identify_people(frame, person_count)
+            identities = identify_people(
+                frame,
+                person_count,
+                detect_faces,
+            )
             print(
                 format_report(detections, identities),
                 flush=True,
@@ -224,15 +253,10 @@ def main():
             elapsed = time.monotonic() - report_started
             time.sleep(max(0.0, args.interval - elapsed))
 
-            ok, frame = camera.read(timeout=FRAME_TIMEOUT)
-            while not ok:
-                print(
-                    f"[{time.strftime('%H:%M:%S')}] "
-                    f"Camera frame timed out: {camera.failure_hint()}",
-                    flush=True,
-                )
-                ok, frame = camera.read(timeout=FRAME_TIMEOUT)
+            frame = read_camera_frame(camera, FRAME_TIMEOUT)
 
+    except CameraSourceError as exc:
+        raise SystemExit(f"Camera error: {exc}") from exc
     except KeyboardInterrupt:
         print("\nStopped robot-camera test.")
     finally:
