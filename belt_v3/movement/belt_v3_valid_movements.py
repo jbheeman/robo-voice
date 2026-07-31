@@ -31,5 +31,5 @@ think left
 harness
 hands on hip
 cross hands
-slay
+
 '''

@@ -152,6 +152,29 @@ class OrderedOutputValidationTests(unittest.TestCase):
             [],
         )
 
+    def test_combines_spoken_parts_and_normalizes_whitespace(self) -> None:
+        self.assertEqual(
+            helper.combine_spoken_parts(
+                [
+                    "Here are your directions.",
+                    "Turn right.\nGo forward.",
+                ]
+            ),
+            "Here are your directions. Turn right. Go forward.",
+        )
+
+    def test_optional_cv_failure_returns_none(self) -> None:
+        timing_metrics = {"cv": 0.0}
+        cv_state_getter = Mock(side_effect=RuntimeError("camera offline"))
+
+        cv_state = helper.get_optional_cv_state(
+            timing_metrics,
+            cv_state_getter,
+        )
+
+        self.assertIsNone(cv_state)
+        self.assertGreaterEqual(timing_metrics["cv"], 0.0)
+
 
 if __name__ == "__main__":
     unittest.main()

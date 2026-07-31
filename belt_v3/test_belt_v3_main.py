@@ -29,10 +29,16 @@ class BeltV3MainTests(unittest.TestCase):
         cls.prepare_vision_context_for_llm = Mock(return_value=None)
         cls.get_input = Mock()
         cls.terminal_get_input = Mock()
-        cls.start_streamlit = Mock()
-        cls.stop_streamlit = Mock()
         cls.close_cv = Mock()
         cls.get_cv_state = Mock()
+
+        rag_module = _stub_module(
+            "rag.belt_v3_rag",
+            rag_search=Mock(return_value=[]),
+        )
+        with patch.dict(sys.modules, {"rag.belt_v3_rag": rag_module}):
+            sys.modules.pop("belt_v3_helper", None)
+            helper_module = importlib.import_module("belt_v3_helper")
 
         stub_modules = {
             "movement.belt_v3_simple_action_handle": _stub_module(
@@ -62,20 +68,20 @@ class BeltV3MainTests(unittest.TestCase):
             ),
             "belt_v3_helper": _stub_module(
                 "belt_v3_helper",
+                combine_spoken_parts=helper_module.combine_spoken_parts,
                 compose_response=cls.compose_response,
+                get_optional_cv_state=helper_module.get_optional_cv_state,
                 prepare_vision_context_for_llm=(
                     cls.prepare_vision_context_for_llm
                 ),
+                print_timing=helper_module.print_timing,
+                print_timing_summary=helper_module.print_timing_summary,
+                speak_output=helper_module.speak_output,
             ),
             "belt_v3_input": _stub_module(
                 "belt_v3_input",
                 get_input=cls.get_input,
                 terminal_get_input=cls.terminal_get_input,
-            ),
-            "launch_streamlit": _stub_module(
-                "launch_streamlit",
-                start_streamlit=cls.start_streamlit,
-                stop_streamlit=cls.stop_streamlit,
             ),
             "comp_vision.belt_v3_cv": _stub_module(
                 "comp_vision.belt_v3_cv",
@@ -90,7 +96,6 @@ class BeltV3MainTests(unittest.TestCase):
 
     def setUp(self) -> None:
         self.main_module.DEBUG = False
-        self.main_module.LAUNCH_STREAMLIT = False
         self.main_module.conversation.clear()
 
         for dependency in (
@@ -105,8 +110,6 @@ class BeltV3MainTests(unittest.TestCase):
             self.prepare_vision_context_for_llm,
             self.get_input,
             self.terminal_get_input,
-            self.start_streamlit,
-            self.stop_streamlit,
             self.close_cv,
             self.get_cv_state,
         ):
@@ -180,7 +183,6 @@ class BeltV3MainTests(unittest.TestCase):
             "Hello! Here are your directions. "
             "To get to 2004, You have arrived!",
         )
-        self.stop_streamlit.assert_called_once_with(None)
         self.close_cv.assert_not_called()
 
     def test_robot_main_loop_passes_disabled_wake_word_setting(self) -> None:
@@ -317,7 +319,7 @@ class BeltV3MainTests(unittest.TestCase):
         }
         timings = {"output_audio": 0.0}
 
-        with patch("belt_v3_main.time.sleep") as sleep:
+        with patch.object(self.main_module.time, "sleep") as sleep:
             spoken_response = self.main_module.execute_modules(
                 response,
                 timings,
@@ -359,7 +361,7 @@ class BeltV3MainTests(unittest.TestCase):
         }
         timings = {"output_audio": 0.0}
 
-        with patch("belt_v3_main.time.sleep") as sleep:
+        with patch.object(self.main_module.time, "sleep") as sleep:
             spoken_response = self.main_module.execute_modules(
                 response,
                 timings,
@@ -398,6 +400,20 @@ class BeltV3MainTests(unittest.TestCase):
                 [],
                 f"{filename} contains an anonymous function",
             )
+
+    def test_main_defines_only_pipeline_functions(self) -> None:
+        main_path = Path(__file__).resolve().parent / "belt_v3_main.py"
+        syntax_tree = ast.parse(main_path.read_text(encoding="utf-8"))
+        function_names = [
+            node.name
+            for node in syntax_tree.body
+            if isinstance(node, ast.FunctionDef)
+        ]
+
+        self.assertEqual(
+            function_names,
+            ["generate_response", "execute_modules", "main"],
+        )
 
 
 if __name__ == "__main__":

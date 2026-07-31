@@ -15,9 +15,132 @@ RAG_MIN_SCORE = 0.30
 CV_LLM_MIN_CONFIDENCE = 0.70
 UNKNOWN_PERSON_NAME = "Visitor"
 LLMCaller = Callable[..., str | None]
+CVStateGetter = Callable[[], dict | None]
+SpeechHandler = Callable[[str, str], None]
 VALID_MOVEMENT_NAMES = frozenset(
     (*VALID_MOVEMENTS, *CUSTOM_VALID_MOVEMENTS)
 )
+
+
+def print_timing(
+    label: str,
+    started_at: float,
+    debug: bool = False,
+) -> None:
+    if debug:
+        elapsed = time.perf_counter() - started_at
+        print(f"[TIMING] {label}: {elapsed:.3f}s", flush=True)
+
+
+def print_timing_summary(
+    timings: Mapping[str, float],
+    debug: bool = False,
+) -> None:
+    if not debug:
+        return
+
+    measured_total = sum(
+        timings.get(name, 0.0)
+        for name in (
+            "input_handle",
+            "cv",
+            "rag",
+            "llm_response",
+            "output_audio",
+        )
+    )
+    print(
+        "[TIMING SUMMARY] "
+        f"input_handle={timings.get('input_handle', 0.0):.3f}s | "
+        f"cv={timings.get('cv', 0.0):.3f}s | "
+        f"rag={timings.get('rag', 0.0):.3f}s | "
+        f"llm_response={timings.get('llm_response', 0.0):.3f}s | "
+        f"output_audio={timings.get('output_audio', 0.0):.3f}s | "
+        f"measured_total={measured_total:.3f}s | "
+        f"turn_total={timings.get('turn_total', 0.0):.3f}s",
+        flush=True,
+    )
+
+
+def get_optional_cv_state(
+    timing_metrics: dict[str, float],
+    cv_state_getter: CVStateGetter,
+    debug: bool = False,
+) -> dict | None:
+    """Prevent any optional CV failure from stopping the conversation."""
+    cv_started_at = time.perf_counter()
+
+    try:
+        return cv_state_getter()
+    except KeyboardInterrupt:
+        raise
+    except BaseException as error:
+        print(f"[CV ERROR] {error}", flush=True)
+        print("CV state is not working, cv_state=None", flush=True)
+        return None
+    finally:
+        timing_metrics["cv"] = time.perf_counter() - cv_started_at
+        print_timing(
+            "CV request total",
+            cv_started_at,
+            debug=debug,
+        )
+
+
+def combine_spoken_response(
+    speech: str,
+    navigation_directions: str,
+) -> str:
+    """Join the planner response and directions into one natural utterance."""
+    speech = " ".join(speech.split())
+    navigation_directions = " ".join(
+        navigation_directions.split()
+    )
+
+    if not navigation_directions:
+        return speech
+    if not speech:
+        return navigation_directions
+
+    separator = " " if speech.endswith((".", "!", "?")) else ". "
+    return f"{speech}{separator}{navigation_directions}"
+
+
+def combine_spoken_parts(parts: Sequence[str]) -> str:
+    """Combine adjacent speech and navigation text into one utterance."""
+    combined = ""
+    for part in parts:
+        combined = combine_spoken_response(combined, part)
+    return combined
+
+
+def speak_output(
+    text: str,
+    timing_metrics: dict[str, float],
+    *,
+    using_robot: bool,
+    voice: str,
+    speech_handler: SpeechHandler,
+    testing_speech_handler: SpeechHandler,
+    debug: bool = False,
+) -> None:
+    """Speak one buffered section and accumulate its audio-output time."""
+    speech_started_at = time.perf_counter()
+    if using_robot:
+        speech_handler(text, voice)
+    else:
+        testing_speech_handler(text, voice)
+
+    timing_metrics["output_audio"] = (
+        timing_metrics.get("output_audio", 0.0)
+        + time.perf_counter()
+        - speech_started_at
+    )
+    print_timing(
+        "Speech output",
+        speech_started_at,
+        debug=debug,
+    )
 
 
 def _highest_object_confidence(item: Mapping[str, Any]) -> float:

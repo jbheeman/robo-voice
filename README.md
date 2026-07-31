@@ -33,3 +33,7 @@ cd belt_v3
 test Qwen Aiden on the robot:
 python -m speech.belt_v3_speech_handle \
   "This is BELT testing the Qwen Aiden voice."
+
+
+kill jobs
+kill -9 $(jobs -p)
